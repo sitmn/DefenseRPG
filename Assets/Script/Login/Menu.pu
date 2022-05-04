@@ -1,0 +1,51 @@
+@startuml Menu
+abstract MenuAbs{
+    +void JudgeButton(Button button)
+}
+
+interface IMenuProvider{
+    +void CreateButtonStream(List<Button> createButton)
+    +dispose buttonStream
+    +canvasGroup activeScreen
+    
+}
+
+class TeamController{
+    
+
+
+}
+
+IMenuProvider <|-- MenuController
+IMenuProvider <- TeamController
+MenuAbs <|-- TeamController
+MenuAbs <|-- MenuController
+
+
+IScreenChangeProvider <- MenuAbs
+
+'キャンバス移動
+class ScreenChange
+interface IScreenChangeProvider{
+    +void FadeOutScreen()
+    +void FadeInScreen(canvasGroup nextScreen)
+    +void WindowOpen(canvasGroup nextScreen)
+    +void WindowClose()
+}
+
+IScreenChangeProvider <|-- ScreenChange
+
+
+abstract ButtonBase{
+    +int buttonNo
+}
+
+class ScreenChangeButton{
+    +canvusGroup nextScreen
+}
+
+
+ButtonBase <|-- ScreenChangeButton
+
+
+@enduml

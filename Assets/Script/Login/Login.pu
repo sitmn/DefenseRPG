@@ -1,0 +1,15 @@
+@startuml UserLogin
+class LoginDisplay{
+    collation:bool
+    void Display()
+}
+
+class ConnectServer{
+    T ConnectServer(string call,T field, T parameter)
+}
+
+class SqliteTableSave{
+    void SaveSqlite(User user)
+}
+
+@enduml
