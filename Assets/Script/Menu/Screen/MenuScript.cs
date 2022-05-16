@@ -8,58 +8,107 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class MenuScript : MonoBehaviour
+public class MenuScript : MonoBehaviour,IMenuProvider
 {
-    //数が変動しないボタンストリーム：ホーム・戻るボタン
-    IDisposable disposableStaticButtonArr;
-    //数が変動するボタンストリーム：ミッション・編成・バトルスクリーンのボタン等
-    IDisposable disposableDynamicButtonArr;
-    //今有効な画面
-    [SerializeField]
-    private CanvasGroup activeScreen;
+    //スクリーン入れ替え用インターフェース
+    [SerializeReference]
+    private GameObject ScreenProviderObj;
+    private IScreenProvider screenProvider;
 
-    //ホームスクリーンのボタン配列
+    //数が変動しないボタンストリーム：ホーム・戻るボタン
+    public static IDisposable disposableStaticButtonArr;
+    //数が変動するボタンストリーム：ミッション・編成・バトルスクリーンのボタン等
+    public static IDisposable disposableDynamicButtonArr;
+    //今有効な画面、staticでの参照用
     [SerializeField]
-    private List<Button> staticButtonArr;
+    public CanvasGroup activeScreenRelay;
+    public static CanvasGroup activeScreen;
+
+    //スクリーン移動ボタン配列
+    [SerializeField]
+    private List<Button> screenChangeButtonArr;
+    /*****クエストスクリーン*****/
     //クエストスクリーンのボタン配列
     [SerializeField]
     private List<Button> questButtonArr;
+    /*************************/
+
+    /******対戦スクリーン*******/
     //対戦スクリーンのボタン配列
     [SerializeField]
     private List<Button> buttleButtonArr;
+    /*************************/
+    
+    /*******編成スクリーン*******/
     //編成スクリーンのボタン配列
-    [SerializeField]
     private List<Button> teamButtonArr;
+    [SerializeField]
+    private GameObject teamFrame;
+    [SerializeField]
+    private GameObject charFrame;
+    //所持キャラクター
+    public List<PossessionCharacterModel> possessionCharacterModelList;
+    /**************************/
+    
+    /*******強化スクリーン*******/
     //強化スクリーンのボタン配列
     [SerializeField]
     private List<Button> strengthenButtonArr;
+    /**************************/
+
+    /*******ガチャスクリーン******/
     //ガチャスクリーンのボタン配列
     [SerializeField]
     private List<Button> gachaButtonArr;
+    /**************************/
+
+    /*****ミッションスクリーン*****/
     //ミッションスクリーンのボタン配列
     [SerializeField]
     private List<Button> missionButtonArr;
+    /***************************/
+    
+    /*****プレゼントスクリーン*****/
     //プレゼントスクリーンのボタン配列
     [SerializeField]
     private List<Button> presentButtonArr;
-    //ボタンストリームのフラグ
-    [SerializeField]
-    private bool buttonStreamFlag = true;
+    /***************************/
 
-    //編成スクリプト
+
     [SerializeField]
-    private TeamScript teamScript;
+    private Button buttonPrefab;
+
+
+    //ボタンのストリームフラグ
+    public static bool buttonStreamFlag = true;
 
     private void Awake(){
+        SetStartParameter();
+    }
+
+    private void Start(){
+        CreateButtonStream(screenChangeButtonArr);
+    }
+
+    private async void SetStartParameter(){
+        string possessionCharacterInfo = await ConnectManager.GetConnectServer("possession_get","?playerId=" + UserParameter.userProfileParameter.id);
+        Debug.Log(possessionCharacterInfo+"AAA");
+        
+        possessionCharacterModelList = JsonHelper.FromJson<PossessionCharacterModel>(possessionCharacterInfo);
+        //possessionCharacterModelList = new List<PossessionCharacterModel>(pArray);
+        foreach(PossessionCharacterModel a in possessionCharacterModelList){
+            Debug.Log(a.id);
+        }
+        //interfaceをinspectorから参照できないためObjから参照
+        screenProvider = ScreenProviderObj.GetComponent<ScreenChange>();
+        teamButtonArr = new List<Button>();
+
+        activeScreen = activeScreenRelay;
         activeScreen.gameObject.SetActive(false);
         GUIDisplay.DisplayFadeIn(activeScreen.gameObject);
     }
 
-    private void Start(){
-        ButtonStreamCreate(staticButtonArr);
-    }
-
-    public void ButtonStreamCreate(List<Button> buttonArr){
+    public void CreateButtonStream(List<Button> buttonArr){
         IObservable<Button>[] buttonStreamArr = new IObservable<Button>[buttonArr.Count];
         for(int i = 0; i < buttonArr.Count ; i ++){
             int n = i;
@@ -70,7 +119,7 @@ public class MenuScript : MonoBehaviour
         }
         
         //動的・静的なボタン群のストリームを作成
-        if(buttonArr == staticButtonArr){
+        if(buttonArr == screenChangeButtonArr){
         disposableStaticButtonArr = Observable.Merge(buttonStreamArr)
             .Subscribe(x => {
                 JudgeButton(x);})
@@ -83,7 +132,6 @@ public class MenuScript : MonoBehaviour
         }
     }
 
-
     //ボタン配列の格納順からボタンの内容を判別
     /*
     0:スクリーン入れ替え
@@ -92,52 +140,98 @@ public class MenuScript : MonoBehaviour
     3:
     4:
     */
-    private void JudgeButton(Button button){
-        ButtonInfoScript buttonInfoScript = button.gameObject.GetComponent<ButtonInfoScript>();
-        if(buttonInfoScript.NextScreen != activeScreen) ButtonFlagSet(buttonInfoScript.ButtonDelayTime);
-        if(buttonInfoScript.ButtonNo == 0) ScreenChange(buttonInfoScript);
-        else if(buttonInfoScript.ButtonNo == 1) OpenWindow(buttonInfoScript);
-        else if(buttonInfoScript.ButtonNo == 2) CloseWindow(buttonInfoScript);
+    private async void JudgeButton(Button button){
+        ButtonBase buttonInfoScript = button.gameObject.GetComponent<ButtonBase>();
+        ButtonFlagSet(buttonInfoScript);
+        if(buttonInfoScript.ButtonNo == 0){
+            ScreenChangeButton screenChangeButton = buttonInfoScript as ScreenChangeButton;
+            
+            if(screenChangeButton.NextScreen.name == "TeamScreen"){
+                CreateButton(charFrame, teamButtonArr);
+            }
+
+            await screenProvider.FadeOutScreen(screenChangeButton);
+            await screenProvider.FadeInScreen(screenChangeButton);
+        } 
+        else if(buttonInfoScript.ButtonNo == 1){
+            ScreenWindowButton screenWindowButton = buttonInfoScript as ScreenWindowButton;
+            screenProvider.OpenWindow(screenWindowButton);
+        }
+        else if(buttonInfoScript.ButtonNo == 2){
+            ScreenWindowButton screenWindowButton = buttonInfoScript as ScreenWindowButton;
+            screenProvider.CloseWindow(screenWindowButton);
+        } 
+        else if(buttonInfoScript.ButtonNo == 3){
+
+        }
+
     }
 
-    //スクリーン入れ替え：フェードイン、アウト
-    private async void ScreenChange(ButtonInfoScript buttonInfoScript){
-        await activeScreen.DOFade(0.0f, buttonInfoScript.ButtonDelayTime/(1000f*2f));
-        activeScreen.gameObject.SetActive(false);
-        buttonInfoScript.NextScreen.gameObject.SetActive(true);
-        ScreenButtonSet(buttonInfoScript.NextScreen.gameObject);
-        await buttonInfoScript.NextScreen.DOFade(1.0f, buttonInfoScript.ButtonDelayTime/(1000f*2f));
-
-        activeScreen = buttonInfoScript.NextScreen;
-
-        return;
-    }
-
-    //ウィンドウを開く
-    private async void OpenWindow(ButtonInfoScript buttonInfoScript){
-        buttonInfoScript.NextScreen.gameObject.SetActive(true);
-        await buttonInfoScript.NextScreen.gameObject.GetComponent<Transform>().DOScale(new Vector3(1.0f,1.0f,1.0f),buttonInfoScript.ButtonDelayTime/1000f);
-        return;
-    }
-
-    //ウィンドウを閉じる
-    private async void CloseWindow(ButtonInfoScript buttonInfoScript){
-        await buttonInfoScript.NextScreen.gameObject.GetComponent<Transform>().DOScale(new Vector3(1.0f,0f,1.0f),buttonInfoScript.ButtonDelayTime/1000f);
-        buttonInfoScript.NextScreen.gameObject.SetActive(false);
-        return;
-    }
-
-    private async void ButtonFlagSet(float delayTime){
+    private async void ButtonFlagSet(ButtonBase buttonBase){
+        if(buttonBase.ButtonNo == 0){
+            ScreenChangeButton screenChangeButton = buttonBase as ScreenChangeButton;
+            if(screenChangeButton.NextScreen != activeScreen) return;
+        }
+        
         buttonStreamFlag = false;
-        await UniTask.Delay((int)delayTime);
+        await UniTask.Delay((int)buttonBase.DelayTime);
         buttonStreamFlag = true;
     }
 
     //スクリーン内ボタン生成
-    private async void ScreenButtonSet(GameObject screenGameObject){
-        //disposableDynamicButtonArr.Dispose();
-        if(screenGameObject.name == "TeamScreen"){
-            teamScript.InstantiateButton();
+    public async void CreateButton(GameObject buttonParent, List<Button> buttonList){
+        if(disposableDynamicButtonArr != null) disposableDynamicButtonArr.Dispose();
+        foreach(Button button in buttonList){
+            Destroy(button.gameObject);
         }
+        InstantiateButton(buttonParent,buttonList);
+        //CreateButtonStream(buttonList);
     }
+
+    private void InstantiateButton(GameObject buttonParent,List<Button> buttonList){
+        //キャラマスターテーブルからキャラを全出力
+        buttonList = new List<Button>();
+
+        for(int i = 0; i < possessionCharacterModelList.Count; i++){
+            Button button = Instantiate(buttonPrefab, buttonParent.transform.position + new Vector3(200 * (i % 5) - 450, -200 * ((i / 5) - 1),0),Quaternion.identity);
+            buttonList.Add(button);
+            button.gameObject.transform.parent = buttonParent.transform;
+            //ボタンにキャラ情報を表示させてFlagをオンにして、チームメンバに表示させるようなものを入れる
+        
+        }
+
+
+    }
+}
+
+[Serializable]
+public class PossessionCharacterModel{
+    public int id;
+    public int playerId;
+    public int characterId;
+    public int level;
+    public int team_flag;
+    public DateTime created_at;
+    public DateTime updated_at;
+}
+
+[Serializable]
+public class CharacterMasterModel{
+    public int id;
+    public string name;
+    public int base_HP;
+    public int base_attack;
+    public int base_defense;
+    public float base_speed;
+    public float attack_speed;
+    public float attack_range;
+    public int character_cost;
+    public int attack_type;
+    public float HP_magnification;
+    public float attack_magnification;
+    public float defense_magnification;
+    public float speed_magnification;
+    public float attack_speed_magnification;
+    public DateTime created_at;
+    public DateTime updated_at;
 }

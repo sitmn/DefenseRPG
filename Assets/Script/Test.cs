@@ -7,7 +7,7 @@ public class Test : MonoBehaviour
     //レコード取得ボタン：テスト
     public void OnClickSelect(){
         UserProfileModel userProfileModel = UserProfile.Get();
-        Debug.Log("ユーザ名：" + userProfileModel.user_name);
+        Debug.Log("ユーザ名：" + userProfileModel.name);
     }
 
     //リセットボタン：テスト

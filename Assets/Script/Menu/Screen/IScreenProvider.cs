@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
-public class IScreenProvider : MonoBehaviour
+interface IScreenProvider
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //スクリーンをフェードアウトで非表示
+    UniTask FadeOutScreen(ScreenChangeButton buttonInfoScript);
+    //スクリーンをフェードインで表示
+    UniTask FadeInScreen(ScreenChangeButton buttonInfoScript);
+    //スクリーンを開く
+    UniTask OpenWindow(ScreenWindowButton buttonInfoScript);
+    //スクリーンを閉じる
+    UniTask CloseWindow(ScreenWindowButton buttonInfoScript);
 }

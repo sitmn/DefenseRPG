@@ -1,28 +1,23 @@
 @startuml Menu
-abstract MenuAbs{
-    +void JudgeButton(Button button)
-}
-
 interface IMenuProvider{
     +void CreateButtonStream(List<Button> createButton)
     +dispose buttonStream
+    +void CreateButton()
+}
+
+class MenuController{
     +canvasGroup activeScreen
-    
+    +IDisposable disposableStaticButtonArr
+    +void JudgeButton(Button button)
 }
 
 class TeamController{
     
 
-
 }
 
 IMenuProvider <|-- MenuController
 IMenuProvider <- TeamController
-MenuAbs <|-- TeamController
-MenuAbs <|-- MenuController
-
-
-IScreenChangeProvider <- MenuAbs
 
 'キャンバス移動
 class ScreenChange
