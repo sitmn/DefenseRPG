@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 11663011}
   - component: {fileID: 11663012}
+  - component: {fileID: 11663013}
   m_Layer: 5
   m_Name: QuestScreen
   m_TagString: Untagged
@@ -309,6 +310,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &11663013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11663010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a80710aba10c4b2c90458d08dab0754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton: {fileID: 581701904}
+  questButtonArr: []
 --- !u!1 &26400317
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,8 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3ef70f58b394cf5805fd6d4fc9fbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 2
-  delayTime: 500
   nextScreen: {fileID: 1705902908}
 --- !u!1 &66090371
 GameObject:
@@ -979,8 +992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3ef70f58b394cf5805fd6d4fc9fbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 2
-  delayTime: 500
   nextScreen: {fileID: 1705902908}
 --- !u!1 &151173035
 GameObject:
@@ -1117,8 +1128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 1245964232}
 --- !u!1 &367276081
 GameObject:
@@ -1255,8 +1264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3ef70f58b394cf5805fd6d4fc9fbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 2
-  delayTime: 500
   nextScreen: {fileID: 1999216581}
 --- !u!1 &374159317
 GameObject:
@@ -1688,8 +1695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 602236065}
 --- !u!1 &428575856
 GameObject:
@@ -1937,6 +1942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 469386203}
   - component: {fileID: 469386204}
+  - component: {fileID: 469386205}
   m_Layer: 5
   m_Name: ButtleScreen
   m_TagString: Untagged
@@ -1978,6 +1984,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &469386205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469386202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f78afb9e6afb4085b2fd1ad2f3eb966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton: {fileID: 1030494629}
+  buttleButtonArr: []
 --- !u!1 &484479603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2821,8 +2841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 602236065}
 --- !u!1 &584859223
 GameObject:
@@ -2959,8 +2977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 1491286728}
 --- !u!1 &602236063
 GameObject:
@@ -3030,6 +3046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 622158607}
   - component: {fileID: 622158606}
+  - component: {fileID: 622158608}
   m_Layer: 5
   m_Name: StrengthenScreen
   m_TagString: Untagged
@@ -3071,6 +3088,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &622158608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622158605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a094c16ce4e947eabf1b0834582f372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton: {fileID: 418284442}
+  strengthenButtonArr: []
 --- !u!1 &628280188
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,8 +4071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3ef70f58b394cf5805fd6d4fc9fbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 2
-  delayTime: 500
   nextScreen: {fileID: 1999216581}
 --- !u!1 &860626417
 GameObject:
@@ -4517,8 +4546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 602236065}
 --- !u!1 &1054973497
 GameObject:
@@ -5116,6 +5143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1245964233}
   - component: {fileID: 1245964232}
+  - component: {fileID: 1245964234}
   m_Layer: 5
   m_Name: GachaScreen
   m_TagString: Untagged
@@ -5157,6 +5185,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1245964234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245964231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40f487d1bd144e5ba0666e1de82eeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton: {fileID: 1697328439}
+  gachaButtonArr: []
 --- !u!1 &1254147301
 GameObject:
   m_ObjectHideFlags: 0
@@ -5680,8 +5722,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 622158606}
 --- !u!1 &1403712896
 GameObject:
@@ -5978,8 +6018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 11663012}
 --- !u!1 &1457753593
 GameObject:
@@ -6116,8 +6154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 469386204}
 --- !u!1 &1459221402
 GameObject:
@@ -6266,6 +6302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230dd3551fdcc4cbbaa03da4cefeaf0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backButton: {fileID: 1867224411}
+  teamFrame: {fileID: 1626347173}
+  charFrame: {fileID: 803304313}
+  buttonPrefab: {fileID: 9005188351134175183, guid: 0b870e9a9422148378422584f06ea79c, type: 3}
 --- !u!1 &1516153894
 GameObject:
   m_ObjectHideFlags: 0
@@ -6612,8 +6652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3ef70f58b394cf5805fd6d4fc9fbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 1
-  delayTime: 500
   nextScreen: {fileID: 1705902908}
 --- !u!1 &1626347173
 GameObject:
@@ -7000,8 +7038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 602236065}
 --- !u!1 &1705902907
 GameObject:
@@ -7013,6 +7049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1705902909}
   - component: {fileID: 1705902908}
+  - component: {fileID: 1705902910}
   m_Layer: 5
   m_Name: MissionScreen
   m_TagString: Untagged
@@ -7061,6 +7098,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1705902910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705902907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4957ef1f2a521417baf2195c52274d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton:
+  - {fileID: 58308950}
+  - {fileID: 113522313}
+  missionButtonArr: []
 --- !u!1 &1804079348
 GameObject:
   m_ObjectHideFlags: 0
@@ -7360,8 +7413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3ef70f58b394cf5805fd6d4fc9fbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 1
-  delayTime: 500
   nextScreen: {fileID: 1999216581}
 --- !u!1 &1867224406
 GameObject:
@@ -7498,8 +7549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05b3a2ceb4bb46818ba78fb51976cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNo: 0
-  delayTime: 1000
   nextScreen: {fileID: 602236065}
 --- !u!1 &1885541091
 GameObject:
@@ -7747,6 +7796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1999216582}
   - component: {fileID: 1999216581}
+  - component: {fileID: 1999216583}
   m_Layer: 5
   m_Name: PresentScreen
   m_TagString: Untagged
@@ -7795,6 +7845,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1999216583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999216580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173f44bb37c9b44adaedbcb62a66e435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backButton:
+  - {fileID: 367276084}
+  - {fileID: 820952982}
+  presentButtonArr: []
 --- !u!1 &2008450869
 GameObject:
   m_ObjectHideFlags: 0
@@ -8213,35 +8279,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05c9137af1424891ac683d52ee4e05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScreenProviderObj: {fileID: 2060391950}
-  activeScreenRelay: {fileID: 602236065}
+  homeScreenRelay: {fileID: 602236065}
   screenChangeButtonArr:
   - {fileID: 1436589519}
   - {fileID: 1457753595}
   - {fileID: 584859225}
   - {fileID: 1397573375}
   - {fileID: 151173037}
+  openWindowButtonArr:
   - {fileID: 1581412491}
   - {fileID: 1825522905}
-  - {fileID: 581701904}
-  - {fileID: 1030494629}
-  - {fileID: 1867224411}
-  - {fileID: 418284442}
-  - {fileID: 1697328439}
-  - {fileID: 58308950}
-  - {fileID: 113522313}
-  - {fileID: 367276084}
-  - {fileID: 820952982}
-  questButtonArr: []
-  buttleButtonArr: []
-  teamFrame: {fileID: 1626347173}
-  charFrame: {fileID: 803304313}
-  possessionCharacterModelList: []
-  strengthenButtonArr: []
-  gachaButtonArr: []
-  missionButtonArr: []
-  presentButtonArr: []
-  buttonPrefab: {fileID: 9005188351134175183, guid: 0b870e9a9422148378422584f06ea79c, type: 3}
+  screenArr:
+  - {fileID: 11663012}
+  - {fileID: 469386204}
+  - {fileID: 1491286728}
+  - {fileID: 622158606}
+  - {fileID: 1245964232}
+  windowArr:
+  - {fileID: 1705902908}
+  - {fileID: 1999216581}
 --- !u!114 &2060391957
 MonoBehaviour:
   m_ObjectHideFlags: 0
