@@ -11,6 +11,11 @@ public class AStarMap : MonoBehaviour
     [SerializeField]
     private int max_pos_z = 20;
 
+    [SerializeField]
+    private int enemy_not_move_y = 10;
+    [SerializeField]
+    private int enemy_move_x = 5;
+
     void Awake(){
         //クラスの初期化
         astarMas = new AStarMas[max_pos_x, max_pos_z];
@@ -18,7 +23,11 @@ public class AStarMap : MonoBehaviour
         for(int i = 0;i < astarMas.GetLength(0); i++){
             for(int j = 0;j < astarMas.GetLength(1); j++){
                 astarMas[i,j] = new AStarMas();
-                astarMas[i,j].moveCost = 1;
+                if(i != enemy_move_x && j == enemy_not_move_y){
+                    astarMas[i,j].moveCost = 0;
+                }else{
+                    astarMas[i,j].moveCost = 1;
+                }
             }
         }
     }
@@ -30,7 +39,13 @@ public class AStarMap : MonoBehaviour
         return mapPos;
     }
 
-    /*/AStarMapの座標にオブジェクトを格納
+    //ランダムに位置を取得
+    public static Vector2Int GetRandomPos(){
+        Vector2Int randomPos = new Vector2Int(Random.Range(0,astarMas.GetLength(0)),Random.Range(0,astarMas.GetLength(1)));
+        return  randomPos;
+    }
+
+    /*AStarMapの座標にオブジェクトを格納
     public static void SetAStarMap(StageObject stageObject, Vector2Int setPos){
         astarMas[setPos.x,setPos.y].obj = stageObject;
     }*/
