@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AStarMap : MonoBehaviour
 {
+    //今の場所（判定用）
     public static Vector2Int _playerPos;
     public static AStarMas[,] astarMas;
     [SerializeField]
@@ -53,8 +54,8 @@ public class AStarMap : MonoBehaviour
 
 //AStar利用用構造体
 public class AStarMas{
-    //移動コスト
+    //移動コスト 0は行き止まり
     public int moveCost;
     //マスに何があるか（プレイヤー、エネミー、水晶）
-    public EnemyController obj;
+    public IStageObject obj;
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-interface StageObject
+public interface IStageObject
 {
     /*
     //プレイヤー：1ダメ死亡

@@ -31,10 +31,11 @@ public class EnemyListController : MonoBehaviour
 
     
     private void EnemiesActions(){
-        //エネミーを、それぞれの移動経路に従って移動
+        //エネミーをそれぞれの移動経路に従って移動
         for(int i = 0 ; i < _enemiesList.Count ; i ++){
-            Debug.Log(_enemiesList[i].TrackPos[0]);
+            //Debug.Log(_enemiesList[i].TrackPos[0]);
             //移動
+
             _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - _enemiesList[i].EnemyPos.Value);
         }
     }

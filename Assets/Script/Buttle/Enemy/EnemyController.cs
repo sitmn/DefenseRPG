@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class EnemyController : MonoBehaviour, IEnemyController
+public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
 {
     private Transform _enemyTr;
+    //移動判断用の位置、マスの中心に入ったら場所が変わる
     public IReactiveProperty<Vector2Int> EnemyPos => _enemyPos;
     private ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
+    //どのマスにいるかの判断用位置、マス内に入ったら場所が変わる
+    public IReactiveProperty<Vector2Int> JudgePos => _judgePos;
+    private ReactiveProperty<Vector2Int> _judgePos = new ReactiveProperty<Vector2Int>();
     //プレイヤー追跡用リスト
     public List<Vector2Int> TrackPos => _trackPos;
     private List<Vector2Int> _trackPos = new List<Vector2Int>();
@@ -15,7 +19,6 @@ public class EnemyController : MonoBehaviour, IEnemyController
     //private CharacterController _characterController;
     [SerializeField]
     private float _moveSpeed;
-
 
     [SerializeField]
     private float _searchDestination;
@@ -25,23 +28,34 @@ public class EnemyController : MonoBehaviour, IEnemyController
         _astar = this.gameObject.GetComponent<AStar>();
         _enemyTr = this.gameObject.GetComponent<Transform>();
         _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
+        _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
     }
 
     void Start(){
         TrackStreamSet();
+
     }
 
     void Update(){
     }
 
+    //経路探索用ストリーム
     private void TrackStreamSet(){
+        //１マス移動後、移動経路を再検索　　　☆今の状態だと、0.5pos毎に移動経路探索になっている
         _enemyPos.Subscribe((x) => {
-            //今のマップから削除
-            //次のマップへ格納
-            AStarMap.astarMas[_enemyPos.Value.x,_enemyPos.Value.y].obj = this;
             //経路探索
             EnemyTrackSet(x);
         }).AddTo(this);
+    }
+    //判定座標用ストリーム
+    private void JudgeStreamSet(){
+        _judgePos.Pairwise()
+        .Subscribe((x) => {
+            //前のマップから格納
+            AStarMap.astarMas[x.Previous.x,x.Previous.y].obj = this;
+            //今のマップへ削除
+            AStarMap.astarMas[x.Current.x,x.Current.y].obj = null;
+        });
     }
  
     //追跡先をセット
@@ -59,10 +73,13 @@ public class EnemyController : MonoBehaviour, IEnemyController
     public void Move(Vector2Int _moveDir){
         //移動
         _enemyTr.position += new Vector3((float)_moveDir.x,0, (float)_moveDir.y) * Time.deltaTime * _moveSpeed;
-        _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
+
+        //AStarのマス中心を通過したら座標を変更（移動用）
+        if(Mathf.Abs(_enemyTr.position.x - _trackPos[0].x + _enemyTr.position.z - _trackPos[0].y)  < Time.deltaTime * _moveSpeed + 0.01f){
+            _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
+            _enemyTr.position = new Vector3(_enemyPos.Value.x , 0.5f , _enemyPos.Value.y);
+        }
+        //AStarのマス内に踏み入れたら座標を変更（当たり判定用）
+        _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
     }
-
-
-
-
 }
