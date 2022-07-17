@@ -16,14 +16,14 @@ public class CrystalController : MonoBehaviour, ICrystalController, IStageObject
     void Start(){
         Vector2Int pos = AStarMap.CastMapPos(_crystalTr.position);
         AStarMap.astarMas[pos.x,pos.y].moveCost = 0;
-        AStarMap.astarMas[pos.x,pos.y].obj = this;
+        AStarMap.astarMas[pos.x,pos.y].obj.Add(this);
     }
     //配置時、マップに移動不可情報とクラスを入れる
     void OnEnable(){
         if(AStarMap.astarMas != null){
             Vector2Int pos = AStarMap.CastMapPos(_crystalTr.position);
             AStarMap.astarMas[pos.x,pos.y].moveCost = 0;
-            AStarMap.astarMas[pos.x,pos.y].obj = this;
+            AStarMap.astarMas[pos.x,pos.y].obj.Add(this);
         }
     }
     
@@ -31,6 +31,6 @@ public class CrystalController : MonoBehaviour, ICrystalController, IStageObject
     void OnDisable(){
         Vector2Int pos = AStarMap.CastMapPos(_crystalTr.position);
         AStarMap.astarMas[pos.x,pos.y].moveCost = 1;
-        AStarMap.astarMas[pos.x,pos.y].obj = null;
+        AStarMap.astarMas[pos.x,pos.y].obj.Remove(this);
     }
 }

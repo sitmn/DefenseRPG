@@ -12,11 +12,6 @@ public class AStarMap : MonoBehaviour
     [SerializeField]
     private int max_pos_z = 20;
 
-    [SerializeField]
-    private int enemy_not_move_y = 10;
-    [SerializeField]
-    private int enemy_move_x = 5;
-
     void Awake(){
         //クラスの初期化
         astarMas = new AStarMas[max_pos_x, max_pos_z];
@@ -24,11 +19,8 @@ public class AStarMap : MonoBehaviour
         for(int i = 0;i < astarMas.GetLength(0); i++){
             for(int j = 0;j < astarMas.GetLength(1); j++){
                 astarMas[i,j] = new AStarMas();
-                if(i != enemy_move_x && j == enemy_not_move_y){
-                    astarMas[i,j].moveCost = 0;
-                }else{
-                    astarMas[i,j].moveCost = 1;
-                }
+                astarMas[i,j].obj = new List<IStageObject>();
+                astarMas[i,j].moveCost = 1;
             }
         }
     }
@@ -57,5 +49,5 @@ public class AStarMas{
     //移動コスト 0は行き止まり
     public int moveCost;
     //マスに何があるか（プレイヤー、エネミー、水晶）
-    public IStageObject obj;
+    public List<IStageObject> obj;
 }

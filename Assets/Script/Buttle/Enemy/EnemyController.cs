@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
 
     void Start(){
         TrackStreamSet();
-
+        JudgeStreamSet();
     }
 
     void Update(){
@@ -51,10 +51,10 @@ public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
     private void JudgeStreamSet(){
         _judgePos.Pairwise()
         .Subscribe((x) => {
-            //前のマップから格納
-            AStarMap.astarMas[x.Previous.x,x.Previous.y].obj = this;
-            //今のマップへ削除
-            AStarMap.astarMas[x.Current.x,x.Current.y].obj = null;
+            //今のマップへ格納
+            AStarMap.astarMas[x.Current.x,x.Current.y].obj.Add(this);
+            //前のマップから削除
+            AStarMap.astarMas[x.Previous.x,x.Previous.y].obj.Remove(this);
         });
     }
  
