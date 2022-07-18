@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : MonoBehaviour, IPlayerMove
 {
     //private CharacterController _characterController;
 
@@ -88,7 +88,7 @@ public class PlayerMove : MonoBehaviour
         return AStarMap.astarMas[AStarMap._playerPos.x + (int)_moveDir.x, AStarMap._playerPos.y + (int)_moveDir.y].obj.Count == 0;//this.pos + _moveDir のAStarMap.Objが存在しないか
     }
 
-    void Update(){
+    public void Move(){
         //次の場所まで移動
         if(_nextPlayerPos != _playerPos){
             MovePlayer();
@@ -127,7 +127,6 @@ public class PlayerMove : MonoBehaviour
     }
     //移動解除コールバック用
     private void MoveStop(InputAction.CallbackContext context){
-        Debug.Log("AAA");
         _playerMotion.MoveMotionCancel();
         _moveDir = Vector2Int.zero;
         _movePreviousDir = Vector2Int.zero;

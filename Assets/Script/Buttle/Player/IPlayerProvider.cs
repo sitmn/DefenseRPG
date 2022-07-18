@@ -8,8 +8,8 @@ interface IPlayerProvider
 {
     //スティック移動
     IReadOnlyReactiveProperty<Vector2> MoveDir{get;}
-    //攻撃ボタン
-    IReadOnlyReactiveProperty<bool> Fire {get;}
+    //クリスタル起動ボタン
+    IReadOnlyReactiveProperty<float> Launch {get;}
     
     //スキル1ボタン
     //スキル2ボタン

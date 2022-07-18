@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fire",
+                    "name": "Launch",
                     "type": "Button",
                     "id": "b095c378-3601-4e6a-9a8e-921105da62d0",
                     "expectedControlType": "Button",
@@ -93,23 +93,34 @@
                 },
                 {
                     "name": "",
-                    "id": "079ed92e-fb07-433b-8d83-6acc01dfb465",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
+                    "id": "19443d8e-6037-4de9-807d-b25c12e8e577",
+                    "path": "<Keyboard>/1",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "Scale",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "Launch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "19443d8e-6037-4de9-807d-b25c12e8e577",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
+                    "id": "fab31d72-7438-46cd-8500-f56ba8d51065",
+                    "path": "<Keyboard>/2",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "Scale(factor=2)",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "Launch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0e804ea-3b9c-4966-be87-ca3ebd9f5404",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "Launch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

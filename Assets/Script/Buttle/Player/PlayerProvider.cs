@@ -9,10 +9,10 @@ public class PlayerProvider : MonoBehaviour, IPlayerProvider
     private PlayerInput _playerInput;
 
     public IReadOnlyReactiveProperty<Vector2> MoveDir => _moveDir;
-    public IReadOnlyReactiveProperty<bool> Fire => _fire;
+    public IReadOnlyReactiveProperty<float>  Launch => _launch;
 
     private ReactiveProperty<Vector2> _moveDir = new ReactiveProperty<Vector2>(Vector2.zero);
-    private readonly ReactiveProperty<bool> _fire = new ReactiveProperty<bool>(false);
+    private readonly ReactiveProperty<float> _launch = new ReactiveProperty<float>(0);
 
     // Start is called before the first frame update
     void Start()
