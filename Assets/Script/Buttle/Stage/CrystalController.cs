@@ -6,7 +6,7 @@ using UnityEngine;
 public class CrystalController : MonoBehaviour, ICrystalController, IStageObject
 {
     private Transform _crystalTr;
-
+    private ICrystalStatus _crystalStatus;
 
     void Awake(){
         _crystalTr = this.gameObject.GetComponent<Transform>();

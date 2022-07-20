@@ -8,5 +8,11 @@ interface IUserCrystal
     void LaunchEnable();
     //クリスタル起動無効化
     void LaunchDisable();
+    //クリスタル起動有効無効状態
+    bool LaunchActiveFlag{get;}
+    //クリスタル起動アクション状態
+    bool LaunchActionFlag{get;}
+    //正面にクリスタルがあるか判定
+    bool CrystalCheck();
 
 }

@@ -60,11 +60,9 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     }
 
     //隣のマス中心まで移動
-    private void MovePlayer(){
-        //if(MoveCheck(_moveDir)){
+    public void Move(){
             Vector3 player_move = new Vector3(_nextPlayerPos.x - _playerPos.x, 0, _nextPlayerPos.y - _playerPos.y);
 
-            //_characterController.Move(player_move * _moveSpeed * Time.deltaTime);
             _playerTr.position += player_move * _moveSpeed * Time.deltaTime;
             //マス中心まで移動した時、位置確定
             if(Mathf.Abs(_playerTr.position.x - _nextPlayerPos.x + _playerTr.position.z - _nextPlayerPos.y) < _moveSpeed * Time.deltaTime + 0.1f){
@@ -88,20 +86,27 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         return AStarMap.astarMas[AStarMap._playerPos.x + (int)_moveDir.x, AStarMap._playerPos.y + (int)_moveDir.y].obj.Count == 0;//this.pos + _moveDir のAStarMap.Objが存在しないか
     }
 
-    public void Move(){
+    /*public void Move(){
         //次の場所まで移動
-        if(_nextPlayerPos != _playerPos){
+        if(MoveFlag()){
             MovePlayer();
         }//次の場所を格納
         else{
             NextMovePos(_moveDir);
         }
     }
-
+*/
     //次の目的地を設定（移動用）
-    private void NextMovePos(Vector2Int _moveDir){
+    public void NextMovePos(){
         if(MoveCheck(_moveDir)) _nextPlayerPos = _playerPos + _moveDir;
+        if(_moveDir != Vector2Int.zero)RotatePlayer(_moveDir);
     }
+
+    //移動中か判定（移動中は他の行動不可）
+    public bool MoveFlag(){
+        return _nextPlayerPos != _playerPos;
+    }
+
 
 
     //移動コールバック用
@@ -122,7 +127,6 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
                 _moveDir -= _movePreviousDir;
             }
         }
-        RotatePlayer(_moveDir);
         _movePreviousDir = _moveDir;
     }
     //移動解除コールバック用
