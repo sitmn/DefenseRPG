@@ -164,4 +164,7 @@ public class AStar: MonoBehaviour,IAStar
         trackRoute.RemoveAt(0);
         return trackRoute;
     }
+
+
+    
 }

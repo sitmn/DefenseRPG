@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
+public class EnemyController : IStageObject
 {
     private Transform _enemyTr;
     //移動判断用の位置、マスの中心に入ったら場所が変わる
@@ -19,10 +19,22 @@ public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
     //private CharacterController _characterController;
     [SerializeField]
     private float _moveSpeed;
+    public float MoveSpeed
+    {
+        get{
+            return _moveSpeed;
+    }
+        set{
+            value = (value < 0)? 0 : value;
+            _moveSpeed = value;
+        }
+    }
 
     [SerializeField]
     private float _searchDestination;
 
+    [SerializeField]
+    private int _hpMax;
 
     void Awake(){
         _astar = this.gameObject.GetComponent<AStar>();
@@ -34,9 +46,21 @@ public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
     void Start(){
         TrackStreamSet();
         JudgeStreamSet();
+        SetHPStream();
     }
 
-    void Update(){
+    private void SetHPStream(){
+        _hp.Value = _hpMax;
+        _hp.Subscribe((x) => {
+            Debug.Log(x);
+            if(x <= 0) EnemyDeath();
+        }).AddTo(this);
+    }
+    //エネミーを削除
+    private void EnemyDeath(){
+        EnemyListController.DeleteEnemyInList(this);
+        AStarMap.astarMas[_judgePos.Value.x, _judgePos.Value.y].obj.Remove(this);
+        Destroy(this.gameObject);
     }
 
     //経路探索用ストリーム
@@ -55,7 +79,7 @@ public class EnemyController : MonoBehaviour, IEnemyController, IStageObject
             AStarMap.astarMas[x.Current.x,x.Current.y].obj.Add(this);
             //前のマップから削除
             AStarMap.astarMas[x.Previous.x,x.Previous.y].obj.Remove(this);
-        });
+        }).AddTo(this);
     }
  
     //追跡先をセット

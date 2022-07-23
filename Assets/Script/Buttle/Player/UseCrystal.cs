@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class UseCrystal : MonoBehaviour, IUserCrystal
 {
+    private PlayerStatus _playerStatus;
     private PlayerInput _playerInput;
     private Transform _playerTr;
     //水晶起動アクションの有効無効状態
@@ -15,14 +16,19 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     private bool _launchActionFlag;
 
     //起動水晶色変え用マテリアル
-    [SerializeField]
-    private ICrystalStatus[] _crystalStatus;
+    private ICrystalStatus[] _setCrystalStatus = new ICrystalStatus[3];
 
     void Awake(){
+        _playerStatus = this.gameObject.GetComponent<PlayerStatus>();
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _launchActiveFlag = false;
         _launchActionFlag = false;
+    }
+
+    //テスト用
+    void Start(){
+        SetCrystalStatusDeck();
     }
 
     public void LaunchEnable(){
@@ -39,6 +45,14 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         _playerInput.actions["Launch"].performed -= OnLaunchComplete;
         _playerInput.actions["Launch"].canceled -= OnLaunchEnd;
         _launchActiveFlag = false;
+    }
+
+    //プレイヤーが装備しているクリスタルのステータスをセット
+    public void SetCrystalStatusDeck(){
+        _setCrystalStatus[0] = _playerStatus._crystalStatus[0];
+        _setCrystalStatus[0]._material = _playerStatus._material[0];
+        _setCrystalStatus[1] = _playerStatus._crystalStatus[1];
+        _setCrystalStatus[1]._material = _playerStatus._material[1];
     }
 
     //前方にクリスタルがあるかを確認
@@ -66,10 +80,12 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     //クリスタル起動完了(長押し)
     private void OnLaunchComplete(InputAction.CallbackContext context){
         Debug.Log("BBB");
-        int _colorNo = context.ReadValue<int>();
+        float _colorNo = context.ReadValue<float>();
+
+        ICrystalController _crystalController = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as ICrystalController;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色ごとのクリスタルステータスを格納し、オブジェクトの色をMaterialで変える
-        //AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0]._crystalStatus = _setCrystalStatus[_colorNo - 1];
+        _crystalController.SetCrystalType(_setCrystalStatus[(int)_colorNo - 1]);
         //正面クリスタルの色変え
 
         //起動時間UI非表示
