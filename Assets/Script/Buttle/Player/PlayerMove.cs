@@ -27,7 +27,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     //次の移動場所（移動用）
     private Vector2Int _nextPlayerPos;
     //スピードバフ用非同期トークン
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     //スピードバフエフェクト
     private GameObject _speedBuff;
 

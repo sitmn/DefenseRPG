@@ -1648,6 +1648,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51a9d54412354a29937999532b8e67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1107247488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1107247490}
+  - component: {fileID: 1107247489}
+  m_Layer: 0
+  m_Name: TestGreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1107247489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107247488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3974ff174e8d34233838b0d11b3f93f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectMaxCount: 10
+  _attack: 0
+  _attackRange: 4
+  _speedUpRate: 0.6
+  _effectTime: 3
+--- !u!4 &1107247490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107247488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1169178274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2512,7 +2561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a6f196d17404cf290155c1af2c89ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _moveSpeedOrigin: 5
 --- !u!114 &1656506522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,9 +2673,11 @@ MonoBehaviour:
   _crystalStatus:
   - {fileID: 1771897980}
   - {fileID: 828801805}
+  - {fileID: 1107247489}
   _material:
   - {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
   - {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
+  - {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
 --- !u!1001 &1674388612
 PrefabInstance:
   m_ObjectHideFlags: 0

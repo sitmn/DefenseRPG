@@ -53,6 +53,8 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         _setCrystalStatus[0]._material = _playerStatus._material[0];
         _setCrystalStatus[1] = _playerStatus._crystalStatus[1];
         _setCrystalStatus[1]._material = _playerStatus._material[1];
+        _setCrystalStatus[2] = _playerStatus._crystalStatus[2];
+        _setCrystalStatus[2]._material = _playerStatus._material[2];
     }
 
     //前方にクリスタルがあるかを確認
