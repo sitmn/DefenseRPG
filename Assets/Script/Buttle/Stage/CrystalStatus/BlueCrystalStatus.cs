@@ -8,6 +8,10 @@ public class BlueCrystalStatus : ICrystalStatus
     private int _attack = 1;
     [SerializeField]
     private int _attackRange = 5;
+    [SerializeField]
+    private float _speedDecreaseRate = 0.5f;
+    [SerializeField]
+    private int _effectTime = 3;
 
     void Start(){
         _effectMaxCount = 50;
@@ -25,6 +29,12 @@ public class BlueCrystalStatus : ICrystalStatus
         List<IStageObject> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
         for(int i = 0; i < _enemyList.Count ; i++){
             _enemyList[i]._hp.Value -= _attack;
+            SpeedDecrease(_enemyList[i]);
         }
+    }
+
+    //移動速度減少効果
+    private void SpeedDecrease(IStageObject _enemyController){
+        _enemyController.SpeedDown(_speedDecreaseRate, _effectTime);
     }
 }

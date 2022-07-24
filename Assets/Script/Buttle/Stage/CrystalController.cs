@@ -15,13 +15,16 @@ public class CrystalController : IStageObject,ICrystalController
 
     //配置時、マップに移動不可情報とクラスを入れる
     void Start(){
-        _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 0;
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
+        if(AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Count == 0){
+            _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
+            AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 0;
+            AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
+        }
+        
     }
     //配置時、マップに移動不可情報とクラスを入れる
     void OnEnable(){
-        if(AStarMap.astarMas != null){
+        if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Count == 0){
             _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 0;
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
@@ -44,9 +47,12 @@ public class CrystalController : IStageObject,ICrystalController
     //クリスタルの効果発動
     public void SetEffect(){
         if(_crystalStatus != null){
-            Debug.Log("TTT");
             _crystalStatus.SetEffect(_crystalPos);
         }
+    }
+
+    public override void SpeedDown(float _decreaseRate, int _decreaseTime){
+
     }
         //CrystalControllerListで、全クリスタルが常に能力を発動
         //攻撃りょく、攻撃速度、攻撃範囲、効果はCrystalStatusが保持

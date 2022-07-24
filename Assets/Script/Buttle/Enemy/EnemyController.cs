@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class EnemyController : IStageObject
 {
@@ -18,17 +21,20 @@ public class EnemyController : IStageObject
     private IAStar _astar;
     //private CharacterController _characterController;
     [SerializeField]
+    private float _moveSpeedOrigin;
     private float _moveSpeed;
     public float MoveSpeed
     {
         get{
             return _moveSpeed;
-    }
+        }
         set{
             value = (value < 0)? 0 : value;
             _moveSpeed = value;
         }
     }
+    //スピード減少回復用非同期トークン
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
     [SerializeField]
     private float _searchDestination;
@@ -46,11 +52,17 @@ public class EnemyController : IStageObject
     void Start(){
         TrackStreamSet();
         JudgeStreamSet();
+        SetParam();
         SetHPStream();
     }
 
-    private void SetHPStream(){
+    //値の初期化
+    private void SetParam(){
         _hp.Value = _hpMax;
+        _moveSpeed = _moveSpeedOrigin;
+    }
+
+    private void SetHPStream(){
         _hp.Subscribe((x) => {
             Debug.Log(x);
             if(x <= 0) EnemyDeath();
@@ -93,6 +105,23 @@ public class EnemyController : IStageObject
         }
     }
 
+    //スピードを減少させる
+    public override void SpeedDown(float _decreaseRate, int _decreaseTime){
+        _moveSpeed = _moveSpeedOrigin * _decreaseRate;
+
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        UndoSpeed(_decreaseTime, _cancellationTokenSource.Token);
+    }
+
+    //スピードの減少を元に戻す
+    private async UniTask UndoSpeed(int _decreaseTime, CancellationToken cancellationToken = default(CancellationToken)){
+        
+        Debug.Log("AAA");
+        await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSource.Token);
+        Debug.Log("BBB");
+        _moveSpeed = _moveSpeedOrigin;
+    }
 
     public void Move(Vector2Int _moveDir){
         //移動

@@ -6,4 +6,5 @@ using UniRx;
 public abstract class IStageObject:MonoBehaviour
 {
     public ReactiveProperty<int> _hp;
+    public abstract void SpeedDown(float _decreaseRate, int _decreaseTime);
 }
