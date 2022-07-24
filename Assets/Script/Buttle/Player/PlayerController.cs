@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private IPlayerMove _playerMove;
+    public IPlayerMove _playerMove;
     public ICrystalStatus[] EqueipmentCrystal{get;set;}
     [SerializeField]
     private ICrystalStatus[] _equipmentCrystal = new ICrystalStatus[3];
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     void Awake(){
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
         _useCrystal = this.gameObject.GetComponent<UseCrystal>();
+        AStarMap._playerController = this;
     }
 
     // Update is called once per frame

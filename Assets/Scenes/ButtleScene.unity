@@ -899,6 +899,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1616837828}
     m_Modifications:
+    - target: {fileID: 6501060204909765031, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7166492535159129458, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
       propertyPath: _hpMax
       value: 1
@@ -1158,63 +1162,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5396741963456149889, guid: 256d14eb617004e0493c170182c73a1c, type: 3}
   m_PrefabInstance: {fileID: 700026199}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &731866931
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4348287714345384541, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_Name
-      value: SpeedDebuff
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 11.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924807425550668596, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d32196d2afbe14571a4a52926149ba09, type: 3}
 --- !u!1001 &744238242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2274,6 +2221,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1616837828}
     m_Modifications:
+    - target: {fileID: 6501060204909765031, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7166492535159129458, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
       propertyPath: _hpMax
       value: 1
@@ -2975,6 +2926,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1616837828}
     m_Modifications:
+    - target: {fileID: 6501060204909765031, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7166492535159129458, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
       propertyPath: _hpMax
       value: 1

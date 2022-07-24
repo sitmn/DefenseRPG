@@ -59,7 +59,7 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     public bool CrystalCheck(){
         bool _checkCrystal = false;
         if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count == 1){
-            _checkCrystal = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0].GetType().Name == "CrystalController";
+            _checkCrystal = (AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0].GetType().Name == "CrystalController");
         }
         
         return _checkCrystal;

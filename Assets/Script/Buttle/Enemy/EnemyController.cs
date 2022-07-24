@@ -35,6 +35,8 @@ public class EnemyController : IStageObject
     }
     //スピード減少回復用非同期トークン
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    //スピードデバフエフェクト
+    private GameObject _speedDebuff;
 
     [SerializeField]
     private float _searchDestination;
@@ -47,6 +49,7 @@ public class EnemyController : IStageObject
         _enemyTr = this.gameObject.GetComponent<Transform>();
         _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
         _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
+        _speedDebuff = transform.GetChild(0).gameObject;
     }
 
     void Start(){
@@ -108,6 +111,7 @@ public class EnemyController : IStageObject
     //スピードを減少させる
     public override void SpeedDown(float _decreaseRate, int _decreaseTime){
         _moveSpeed = _moveSpeedOrigin * _decreaseRate;
+        _speedDebuff.SetActive(true);
 
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource = new CancellationTokenSource();
@@ -116,11 +120,9 @@ public class EnemyController : IStageObject
 
     //スピードの減少を元に戻す
     private async UniTask UndoSpeed(int _decreaseTime, CancellationToken cancellationToken = default(CancellationToken)){
-        
-        Debug.Log("AAA");
         await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSource.Token);
-        Debug.Log("BBB");
         _moveSpeed = _moveSpeedOrigin;
+        _speedDebuff.SetActive(false);
     }
 
     public void Move(Vector2Int _moveDir){

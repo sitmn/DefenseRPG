@@ -6,6 +6,7 @@ public class AStarMap : MonoBehaviour
 {
     //今の場所（判定用）
     public static Vector2Int _playerPos;
+    public static PlayerController _playerController;
     public static AStarMas[,] astarMas;
     [SerializeField]
     private int max_pos_x = 15;

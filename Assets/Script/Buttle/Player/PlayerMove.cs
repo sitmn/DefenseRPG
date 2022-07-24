@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.InputSystem;
+using Cysharp.Threading.Tasks;
+using System.Threading;
+using System;
 
 public class PlayerMove : MonoBehaviour, IPlayerMove
 {
@@ -13,7 +16,8 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     private PlayerInput _playerInput;
 
     [SerializeField]
-    private float _moveSpeed = 5;
+    private float _moveSpeedOrigin = 5;
+    public static float _moveSpeed;
     //移動方向（移動用）
     private Vector2Int _moveDir;
     //直前の移動方向（移動用）
@@ -22,7 +26,10 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     private Vector2Int _playerPos;
     //次の移動場所（移動用）
     private Vector2Int _nextPlayerPos;
-    
+    //スピードバフ用非同期トークン
+    private CancellationTokenSource _cancellationTokenSource;
+    //スピードバフエフェクト
+    private GameObject _speedBuff;
 
     // Start is called before the first frame update
     void Awake()
@@ -42,6 +49,10 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         _playerPos = AStarMap._playerPos;
         //次の移動場所（移動用）
         _nextPlayerPos = _playerPos;
+
+        _moveSpeed = _moveSpeedOrigin;
+
+        _speedBuff = transform.GetChild(0).gameObject;
 
         
     }
@@ -86,16 +97,23 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         return AStarMap.astarMas[AStarMap._playerPos.x + (int)_moveDir.x, AStarMap._playerPos.y + (int)_moveDir.y].obj.Count == 0;//this.pos + _moveDir のAStarMap.Objが存在しないか
     }
 
-    /*public void Move(){
-        //次の場所まで移動
-        if(MoveFlag()){
-            MovePlayer();
-        }//次の場所を格納
-        else{
-            NextMovePos(_moveDir);
-        }
+    //スピードを上昇させる
+    public void SpeedUp(float _upRate, int _upTime){
+        _moveSpeed = _moveSpeedOrigin * (1 + _upRate);
+        _speedBuff.SetActive(true);
+
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        UndoSpeed(_upTime, _cancellationTokenSource.Token);
     }
-*/
+
+    //スピードの上昇を元に戻す
+    private async UniTask UndoSpeed(int _upTime, CancellationToken cancellationToken = default(CancellationToken)){
+        await UniTask.Delay(TimeSpan.FromSeconds(_upTime), cancellationToken: _cancellationTokenSource.Token);
+        _moveSpeed = _moveSpeedOrigin;
+        _speedBuff.SetActive(false);
+    }
+
     //次の目的地を設定（移動用）
     public void NextMovePos(){
         if(MoveCheck(_moveDir)) _nextPlayerPos = _playerPos + _moveDir;
