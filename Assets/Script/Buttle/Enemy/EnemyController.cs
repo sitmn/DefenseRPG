@@ -37,6 +37,8 @@ public class EnemyController : IStageObject
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     //スピードデバフエフェクト
     private GameObject _speedDebuff;
+    //スピードバフエフェクト
+    private GameObject _speedBuff;
 
     [SerializeField]
     private float _searchDestination;
@@ -50,6 +52,7 @@ public class EnemyController : IStageObject
         _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
         _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
         _speedDebuff = transform.GetChild(0).gameObject;
+        _speedBuff = transform.GetChild(1).gameObject;
     }
 
     void Start(){
@@ -67,7 +70,6 @@ public class EnemyController : IStageObject
 
     private void SetHPStream(){
         _hp.Subscribe((x) => {
-            Debug.Log(x);
             if(x <= 0) EnemyDeath();
         }).AddTo(this);
     }
@@ -108,6 +110,16 @@ public class EnemyController : IStageObject
         }
     }
 
+    //スピードを上昇させる
+    public override void SpeedUp(float _upRate, int _upTime){
+        _moveSpeed = _moveSpeedOrigin * (1 + _upRate);
+        _speedBuff.SetActive(true);
+
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        UndoSpeed(_upTime, _speedBuff, _cancellationTokenSource.Token);
+    }
+
     //スピードを減少させる
     public override void SpeedDown(float _decreaseRate, int _decreaseTime){
         _moveSpeed = _moveSpeedOrigin * _decreaseRate;
@@ -115,14 +127,14 @@ public class EnemyController : IStageObject
 
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource = new CancellationTokenSource();
-        UndoSpeed(_decreaseTime, _cancellationTokenSource.Token);
+        UndoSpeed(_decreaseTime, _speedDebuff, _cancellationTokenSource.Token);
     }
 
-    //スピードの減少を元に戻す
-    private async UniTask UndoSpeed(int _decreaseTime, CancellationToken cancellationToken = default(CancellationToken)){
+    //スピードを元に戻す
+    private async UniTask UndoSpeed(int _decreaseTime, GameObject _buffObj, CancellationToken cancellationToken = default(CancellationToken)){
         await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSource.Token);
         _moveSpeed = _moveSpeedOrigin;
-        _speedDebuff.SetActive(false);
+        _buffObj.SetActive(false);
     }
 
     public void Move(Vector2Int _moveDir){
@@ -136,5 +148,9 @@ public class EnemyController : IStageObject
         }
         //AStarのマス内に踏み入れたら座標を変更（当たり判定用）
         _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
+    }
+
+    void OnDestroy(){
+        _cancellationTokenSource.Cancel();
     }
 }

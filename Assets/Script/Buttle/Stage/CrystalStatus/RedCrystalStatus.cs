@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedCrystalStatus : ICrystalStatus
+public class RedCrystalStatus : ACrystalStatus
 {
     [SerializeField]
     private int _attack = 1;
     [SerializeField]
     private int _attackRange = 3;
 
-    void Start(){
+    public RedCrystalStatus(){
         _effectMaxCount = 100;
     }
 

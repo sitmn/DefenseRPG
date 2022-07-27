@@ -6,7 +6,7 @@ public class PlayerStatus : MonoBehaviour
 {
     //プレイヤーが装備しているクリスタル
     [SerializeField]
-    public ICrystalStatus[] _crystalStatus;
+    public ACrystalStatus[] _crystalStatus;
 
     //プレイヤーが装備しているクリスタルのマテリアル
     [SerializeField]

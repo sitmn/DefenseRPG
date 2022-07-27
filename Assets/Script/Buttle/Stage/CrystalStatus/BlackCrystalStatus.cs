@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueCrystalStatus : ACrystalStatus
+public class BlackCrystalStatus : ACrystalStatus
 {
     [SerializeField]
-    private int _attack = 1;
+    private int _attack = 0;
     [SerializeField]
-    private int _attackRange = 5;
+    private int _attackRange = 3;
     [SerializeField]
-    private float _speedDecreaseRate = 0.5f;
+    private float _speedUpRate = 0.1f;
     [SerializeField]
     private int _effectTime = 3;
 
-    public BlueCrystalStatus(){
+    public BlackCrystalStatus(){
         _effectMaxCount = 50;
     }
 
@@ -21,20 +21,19 @@ public class BlueCrystalStatus : ACrystalStatus
     public override void SetEffect(Vector2Int pos){
         if(!SetEffectCount()) return;
 
-        Attack(pos);
+        Strength(pos);
     }
 
-    //周囲に攻撃
-    private void Attack(Vector2Int pos){
+    //周囲エネミーにバフ
+    private void Strength(Vector2Int pos){
         List<IStageObject> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
         for(int i = 0; i < _enemyList.Count ; i++){
-            _enemyList[i]._hp.Value -= _attack;
-            SpeedDecrease(_enemyList[i]);
+            SpeedUp(_enemyList[i]);
         }
     }
 
     //移動速度減少効果
-    private void SpeedDecrease(IStageObject _enemyController){
-        _enemyController.SpeedDown(_speedDecreaseRate, _effectTime);
+    private void SpeedUp(IStageObject _enemyController){
+        _enemyController.SpeedUp(_speedUpRate, _effectTime);
     }
 }

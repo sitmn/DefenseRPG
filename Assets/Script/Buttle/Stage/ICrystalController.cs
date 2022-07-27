@@ -5,5 +5,5 @@ using UnityEngine;
 interface ICrystalController
 {
     //水晶ステータスを設定
-    void SetCrystalType(ICrystalStatus _crystalStatus);
+    void SetCrystalType(ACrystalStatus _crystalStatus, Material _material);
 }

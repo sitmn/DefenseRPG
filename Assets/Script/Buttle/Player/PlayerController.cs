@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public IPlayerMove _playerMove;
-    public ICrystalStatus[] EqueipmentCrystal{get;set;}
+    public ACrystalStatus[] EqueipmentCrystal{get;set;}
     [SerializeField]
-    private ICrystalStatus[] _equipmentCrystal = new ICrystalStatus[3];
+    private ACrystalStatus[] _equipmentCrystal = new ACrystalStatus[3];
 
     private IUserCrystal _useCrystal;
     

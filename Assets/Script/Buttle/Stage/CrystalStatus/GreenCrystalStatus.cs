@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenCrystalStatus : ICrystalStatus
+public class GreenCrystalStatus : ACrystalStatus
 {
     [SerializeField]
     private int _attack = 0;
@@ -13,14 +13,14 @@ public class GreenCrystalStatus : ICrystalStatus
     [SerializeField]
     private int _effectTime = 3;
 
-    void Start(){
+    public GreenCrystalStatus(){
         _effectMaxCount = 10;
     }
+
 
     //配置時のクリスタル効果
     public override void SetEffect(Vector2Int pos){
         if(!SetEffectCount()) return;
-
         Attack(pos);
     }
 

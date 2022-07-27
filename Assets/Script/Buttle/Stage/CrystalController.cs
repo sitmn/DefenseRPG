@@ -7,10 +7,11 @@ public class CrystalController : IStageObject,ICrystalController
 {
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
-    private ICrystalStatus _crystalStatus;
+    private ACrystalStatus _crystalStatus;
 
     void Awake(){
         _crystalTr = this.gameObject.GetComponent<Transform>();
+        _crystalStatus = new BlackCrystalStatus();
     }
 
     //配置時、マップに移動不可情報とクラスを入れる
@@ -20,8 +21,8 @@ public class CrystalController : IStageObject,ICrystalController
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 0;
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
         }
-        
     }
+
     //配置時、マップに移動不可情報とクラスを入れる
     void OnEnable(){
         if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Count == 0){
@@ -39,19 +40,20 @@ public class CrystalController : IStageObject,ICrystalController
     }
 
     //クリスタル起動時のクリスタルステータスをセット
-    public void SetCrystalType(ICrystalStatus _crystalStatus){
+    public void SetCrystalType(ACrystalStatus _crystalStatus, Material _material){
         this._crystalStatus = _crystalStatus;
-        this.gameObject.GetComponent<Renderer>().material = _crystalStatus._material;
+        this.gameObject.GetComponent<Renderer>().material = _material;
     }
 
     //クリスタルの効果発動
     public void SetEffect(){
-        if(_crystalStatus != null){
             _crystalStatus.SetEffect(_crystalPos);
-        }
     }
 
     public override void SpeedDown(float _decreaseRate, int _decreaseTime){
+
+    }
+    public override void SpeedUp(float _upRate, int _upTime){
 
     }
         //CrystalControllerListで、全クリスタルが常に能力を発動
