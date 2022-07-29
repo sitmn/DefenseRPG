@@ -7,7 +7,7 @@ public class CrystalController : IStageObject,ICrystalController
 {
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
-    private ACrystalStatus _crystalStatus;
+    public ACrystalStatus _crystalStatus{get;set;}
 
     void Awake(){
         _crystalTr = this.gameObject.GetComponent<Transform>();
@@ -23,17 +23,25 @@ public class CrystalController : IStageObject,ICrystalController
         }
     }
 
-    //配置時、マップに移動不可情報とクラスを入れる
     void OnEnable(){
+        SetOnAStarMap();
+    }
+    
+    
+    void OnDisable(){
+        SetOffAStarMap();
+    }
+
+    //配置時、マップに移動不可情報とクラスを入れる
+    public void SetOnAStarMap(){
         if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Count == 0){
             _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 0;
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
         }
     }
-    
     //破壊または持ち上げ時、移動不可解除
-    void OnDisable(){
+    public void SetOffAStarMap(){
         _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
         AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 1;
         AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Remove(this);
@@ -45,9 +53,13 @@ public class CrystalController : IStageObject,ICrystalController
         this.gameObject.GetComponent<Renderer>().material = _material;
     }
 
-    //クリスタルの効果発動
+    //セット中クリスタルの効果発動
     public void SetEffect(){
-            _crystalStatus.SetEffect(_crystalPos);
+        _crystalStatus.SetEffect(_crystalPos);
+    }
+    //リフト中クリスタルの効果発動
+    public void LiftEffect(){
+
     }
 
     public override void SpeedDown(float _decreaseRate, int _decreaseTime){

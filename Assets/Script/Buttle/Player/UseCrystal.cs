@@ -32,10 +32,6 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         _launchActionFlag = false;
     }
 
-    //テスト用
-    void Start(){
-        SetCrystalStatusDeck();
-    }
 
     public void LaunchEnable(){
         //InputSystemのコールバックをセット
@@ -53,16 +49,6 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         _launchActiveFlag = false;
     }
 
-    //プレイヤーが装備しているクリスタルのステータスをセット
-    public void SetCrystalStatusDeck(){
-        /*_setCrystalStatus[0] = _playerStatus._crystalStatus[0];
-        _setCrystalStatus[0]._material = _playerStatus._material[0];
-        _setCrystalStatus[1] = _playerStatus._crystalStatus[1];
-        _setCrystalStatus[1]._material = _playerStatus._material[1];
-        _setCrystalStatus[2] = _playerStatus._crystalStatus[2];
-        _setCrystalStatus[2]._material = _playerStatus._material[2];*/
-    }
-
     //前方にクリスタルがあるかを確認
     public bool CrystalCheck(){
         bool _checkCrystal = false;
@@ -71,6 +57,16 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         }
         
         return _checkCrystal;
+    }
+
+    //前方に黒クリスタルがあるかを確認
+    public bool BlackCrystalCheck(){
+        bool _checkBlackCrystal = false;
+        if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count == 1){
+            _checkBlackCrystal = (AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
+        }
+
+        return _checkBlackCrystal;
     }
 
     //InputSystem 正面に黒クリスタルがある時のみ実行

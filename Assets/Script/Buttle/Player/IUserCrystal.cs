@@ -14,5 +14,6 @@ interface IUserCrystal
     bool LaunchActionFlag{get;}
     //正面にクリスタルがあるか判定
     bool CrystalCheck();
-
+    //正面が黒クリスタルか判定
+    bool BlackCrystalCheck();
 }
