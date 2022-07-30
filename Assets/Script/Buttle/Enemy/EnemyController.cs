@@ -8,20 +8,19 @@ using System.Threading;
 
 public class EnemyController : IStageObject
 {
-    private Transform _enemyTr;
-    //移動判断用の位置、マスの中心に入ったら場所が変わる
-    public IReactiveProperty<Vector2Int> EnemyPos => _enemyPos;
-    private ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
-    //どのマスにいるかの判断用位置、マス内に入ったら場所が変わる
-    public IReactiveProperty<Vector2Int> JudgePos => _judgePos;
-    private ReactiveProperty<Vector2Int> _judgePos = new ReactiveProperty<Vector2Int>();
-    //プレイヤー追跡用リスト
-    public List<Vector2Int> TrackPos => _trackPos;
-    private List<Vector2Int> _trackPos = new List<Vector2Int>();
-    private IAStar _astar;
-    //private CharacterController _characterController;
-    [SerializeField]
+    /***ステータス***/
+    //攻撃間隔用カウント
+    private int _attackMaxCount;
+    private int _attackCount;
+    //攻撃力
+    private int _attack;
+    //索敵範囲
+    private float _searchDestination;
+    //最大Hp
+    private int _hpMax;
+    //移動速度
     private float _moveSpeedOrigin;
+    //ステータス変動用
     private float _moveSpeed;
     public float MoveSpeed
     {
@@ -33,14 +32,21 @@ public class EnemyController : IStageObject
             _moveSpeed = value;
         }
     }
-    //攻撃間隔用カウント
-    [SerializeField]
-    private int _attackMaxCount;
-    private int _attackCount;
-    //攻撃力
-    [SerializeField]
-    private int _attack;
+    private EnemyParamAsset _enemyParamData;
+    
 
+    private Transform _enemyTr;
+    //移動判断用の位置、マスの中心に入ったら場所が変わる
+    public IReactiveProperty<Vector2Int> EnemyPos => _enemyPos;
+    private ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
+    //どのマスにいるかの判断用位置、マス内に入ったら場所が変わる
+    public IReactiveProperty<Vector2Int> JudgePos => _judgePos;
+    private ReactiveProperty<Vector2Int> _judgePos = new ReactiveProperty<Vector2Int>();
+    //プレイヤー追跡用リスト
+    public List<Vector2Int> TrackPos => _trackPos;
+    private List<Vector2Int> _trackPos = new List<Vector2Int>();
+    private IAStar _astar;
+    
     //スピード上昇回復用非同期トークン
     private CancellationTokenSource _cancellationTokenSourceBuff = new CancellationTokenSource();
     //スピード減少回復用非同期トークン
@@ -50,13 +56,9 @@ public class EnemyController : IStageObject
     //スピードバフエフェクト
     private GameObject _speedBuff;
 
-    [SerializeField]
-    private float _searchDestination;
-
-    [SerializeField]
-    private int _hpMax;
-
     void Awake(){
+        _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
+
         _astar = this.gameObject.GetComponent<AStar>();
         _enemyTr = this.gameObject.GetComponent<Transform>();
         _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
@@ -74,6 +76,12 @@ public class EnemyController : IStageObject
 
     //値の初期化
     private void SetParam(){
+        _attackMaxCount = _enemyParamData.EnemyParamList[0]._attackMaxCount;
+        _attack = _enemyParamData.EnemyParamList[0]._attack;
+        _searchDestination = _enemyParamData.EnemyParamList[0]._searchDestination;
+        _hpMax = _enemyParamData.EnemyParamList[0]._maxHp;
+        _moveSpeedOrigin = _enemyParamData.EnemyParamList[0]._moveSpeed;
+
         _hp.Value = _hpMax;
         _moveSpeed = _moveSpeedOrigin;
     }
