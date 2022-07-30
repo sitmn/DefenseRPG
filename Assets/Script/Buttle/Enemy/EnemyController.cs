@@ -33,6 +33,14 @@ public class EnemyController : IStageObject
             _moveSpeed = value;
         }
     }
+    //攻撃間隔用カウント
+    [SerializeField]
+    private int _attackMaxCount;
+    private int _attackCount;
+    //攻撃力
+    [SerializeField]
+    private int _attack;
+
     //スピード上昇回復用非同期トークン
     private CancellationTokenSource _cancellationTokenSourceBuff = new CancellationTokenSource();
     //スピード減少回復用非同期トークン
@@ -156,6 +164,28 @@ public class EnemyController : IStageObject
         }
         //AStarのマス内に踏み入れたら座標を変更（当たり判定用）
         _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
+    }
+
+    //敵が水晶を攻撃
+    public void Attack(Vector2Int _attackPos){
+        if(AttackCount()) AStarMap.astarMas[_attackPos.x, _attackPos.y].obj[0]._hp.Value -= _attack;
+    }
+
+    //攻撃間隔用のカウント
+    private bool AttackCount(){
+        bool _attackFlag = false;
+        _attackCount ++;
+
+        //_attackMaxCount分経過したら攻撃
+        if(_attackCount >= _attackMaxCount){
+            _attackCount = 0;
+            _attackFlag = true;
+
+            //攻撃時、経路探索し直し
+            EnemyTrackSet(_enemyPos.Value);
+        }
+
+        return _attackFlag;
     }
 
     void OnDestroy(){

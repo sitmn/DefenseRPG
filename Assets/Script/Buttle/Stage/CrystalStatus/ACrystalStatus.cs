@@ -7,8 +7,6 @@ public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
 {
     //効果間隔用のカウント
     private int _effectCount;
-    //効果間隔時間、水晶によって異なる
-    public int _effectMaxCount;
     //クリスタルのタイプ（装備1~3,0は黒クリスタル）
     public int CrystalNo{get;}
     //配置時クリスタル効果
@@ -22,10 +20,10 @@ public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
         _effectCount = 0;
     }
 
-    public abstract void SetEffect(Vector2Int _crystalPos);
+    public abstract void SetEffect(Vector2Int pos, int _effectMaxCount);
 
     //効果カウントのカウントと初期化
-    public bool SetEffectCount(){
+    public bool SetEffectCount(int _effectMaxCount){
         _effectCount++;
         bool _effectLaunch = false;
         if(_effectCount >= _effectMaxCount){
@@ -37,7 +35,7 @@ public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
     }
 
 
-    //リフト時クリスタル効果
+    //リフト時クリスタル効果 ⇨ 一旦効果なしで
     /*赤：進行方向に遠距離範囲攻撃
     **青：周囲の敵に強デバフ攻撃
     **緑：プレイヤーに速度バフ付与

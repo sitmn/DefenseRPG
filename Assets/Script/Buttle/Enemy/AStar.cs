@@ -72,7 +72,7 @@ public class AStar: MonoBehaviour,IAStar
 
     //目的地までの推定コスト計算
     private int AStarEstimateCostCalculate(Vector2Int pos, Vector2Int destination){
-        int cost = Mathf.Abs(pos.x - (int)destination.x) + Mathf.Abs(pos.y - destination.y);
+        int cost = Mathf.Abs(pos.x - (int)destination.x) + Mathf.Abs(pos.y - destination.y) + AStarMap.astarMas[pos.x,pos.y].moveCost - 1;
         
         return cost;
     }
@@ -141,6 +141,7 @@ public class AStar: MonoBehaviour,IAStar
         //実コストが0になるまで隣接するマスを格納していく
         AStarCost trackPos = lastPos;
 
+        int count = 0;
         //☆目的地に辿り着けない場合、フリーズする
         while(trackPos.pos != currentPos){
             for(int i = trackPos.pos.x - 1; i < trackPos.pos.x + 2; i++){
@@ -148,7 +149,7 @@ public class AStar: MonoBehaviour,IAStar
                 for(int j = trackPos.pos.y - 1; j < trackPos.pos.y + 2; j++){
                     if(i >= 0 && j >= 0 && ((i == trackPos.pos.x && j != trackPos.pos.y)||(i != trackPos.pos.x && j == trackPos.pos.y))
                     && (i < AStarMap.astarMas.GetLength(0) && j < AStarMap.astarMas.GetLength(1))){
-                        if(costMap[i,j].realCost + AStarMap.astarMas[i,j].moveCost == trackPos.realCost){
+                        if(costMap[i,j].realCost + AStarMap.astarMas[trackPos.pos.x,trackPos.pos.y].moveCost == trackPos.realCost){
                             trackPos = costMap[i,j];
                             trackRoute.Insert(0,trackPos.pos);
                             breakFlag = true;
@@ -160,6 +161,14 @@ public class AStar: MonoBehaviour,IAStar
 
                 if(breakFlag == true) break;
             }
+            count ++;
+            if(count > 1000){
+                Debug.Log(AStarMap.astarMas[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].moveCost + "YYYY");
+                Debug.Log(costMap[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].status + "Status");
+                Debug.Log(trackPos.pos + "&" + currentPos + "AAAA");
+                break;
+            }
+            
         }
         trackRoute.RemoveAt(0);
         return trackRoute;

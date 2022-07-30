@@ -13,13 +13,9 @@ public class BlackCrystalStatus : ACrystalStatus
     [SerializeField]
     private int _effectTime = 3;
 
-    public BlackCrystalStatus(){
-        _effectMaxCount = 50;
-    }
-
     //配置時のクリスタル効果
-    public override void SetEffect(Vector2Int pos){
-        if(!SetEffectCount()) return;
+    public override void SetEffect(Vector2Int pos, int _effectMaxCount){
+        if(!SetEffectCount(_effectMaxCount)) return;
 
         Strength(pos);
     }

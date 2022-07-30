@@ -54,7 +54,7 @@ public class AStarMap : MonoBehaviour
     public static List<IStageObject> AroundSearch(Vector2Int _centerPos, int _range){
         List<IStageObject> _enemyControllerList = new List<IStageObject>();
 
-        for(int i = 1;i < _range; i++){
+        for(int i = 1;i < _range + 1; i++){
             //中心座標からi離れた座標を１次関数的に調べる
             for(int j = 0; j < i; j++){
                 if(_centerPos.x - j >= 0 && _centerPos.x - j < max_pos_x_static && _centerPos.y + i - j >= 0 && _centerPos.y + i - j < max_pos_z_static){

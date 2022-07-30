@@ -83,9 +83,13 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         _liftDownActiveFlag = false;
     }
 
-    //前方に敵またはクリスタルがあるかを確認
+    //前方に敵またはクリスタルがあるか、かつ、前方隣1マスに敵がいるかを確認
     public bool StageObjCheck(){
-        bool _checkCrystal = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count > 0;
+        bool _checkCrystal = false;
+        if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count > 0 ||
+        AStarMap.AroundSearch(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z), 1).Count > 0){
+            _checkCrystal = true;
+        }
         
         return _checkCrystal;
     }
@@ -165,6 +169,8 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         //リフト中情報をnullに
         _crystalTr = null;
         _crystalController = null;
+
+        Debug.Log(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z].moveCost);
         //格納したマスが移動先になっているエネミーがいれば再度経路探索
 
         //起動時間UI非表示

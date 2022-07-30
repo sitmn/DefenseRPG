@@ -32,11 +32,11 @@ public class CrystalListController : MonoBehaviour
     }
 
     //クリスタルコントローラをリストに追加（クリスタルを機能させる）
-    public static void AddCrystalList(CrystalController _crystalController){
+    public static void AddCrystalInList(CrystalController _crystalController){
         _crystalList.Add(_crystalController);
     }
     //クリスタルコントローラをリストから削除
-    public static void RemoveCrystalList(CrystalController _crystalController){
+    public static void RemoveCrystalInList(CrystalController _crystalController){
         _crystalList.Remove(_crystalController);
     }
 }

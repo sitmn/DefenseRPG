@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         if((_liftCrystal.LiftUpActiveFlag && !_useCrystal.CrystalCheck())){
             _liftCrystal.LiftUpDisable();
         }
-        //リフト中でない、または、正面にオブジェクトが存在すれば、水晶リフトダウンアクション無効化
+        //リフト中でない、または、水晶と敵が正面または、その隣のマスに敵がいる時、水晶リフトダウンアクション無効化
         if(_liftCrystal.LiftDownActiveFlag && (_liftCrystal.CrystalTr == null || _liftCrystal.StageObjCheck())){
             _liftCrystal.LiftDownDisable();
         }
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
                 }if(!_liftCrystal.LiftUpActiveFlag && !_useCrystal.BlackCrystalCheck() && _liftCrystal.CrystalTr == null){//黒水晶ではなく、水晶修理及び持ち上げが無効、かつ、リフト中でなければ有効化
                     _liftCrystal.LiftUpEnable();
                 }
-            }else if(!_liftCrystal.LiftDownActiveFlag && _liftCrystal.CrystalTr != null && !_liftCrystal.StageObjCheck()){//水晶と敵が正面にない時、水晶リフト中であればリフトダウンを有効化
+            }else if(!_liftCrystal.LiftDownActiveFlag && _liftCrystal.CrystalTr != null && !_liftCrystal.StageObjCheck()){//水晶と敵が正面または、その隣のマスに敵がいない時、水晶リフト中であればリフトダウンを有効化
                 _liftCrystal.LiftDownEnable();
             }
             _playerMove.NextMovePos();
