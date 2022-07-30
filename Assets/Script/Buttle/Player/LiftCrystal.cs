@@ -164,6 +164,7 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         _crystalController.SetOnAStarMap();
         //リフト中情報をnullに
         _crystalTr = null;
+        _crystalController = null;
         //格納したマスが移動先になっているエネミーがいれば再度経路探索
 
         //起動時間UI非表示

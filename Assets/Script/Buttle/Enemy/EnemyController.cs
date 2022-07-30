@@ -84,7 +84,7 @@ public class EnemyController : IStageObject
 
     //経路探索用ストリーム
     private void TrackStreamSet(){
-        //１マス移動後、移動経路を再検索　　　☆今の状態だと、0.5pos毎に移動経路探索になっている
+        //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
             //経路探索
             EnemyTrackSet(x);
@@ -150,7 +150,7 @@ public class EnemyController : IStageObject
         _enemyTr.position += new Vector3((float)_moveDir.x,0, (float)_moveDir.y) * Time.deltaTime * _moveSpeed;
 
         //AStarのマス中心を通過したら座標を変更（移動用）
-        if(Mathf.Abs(_enemyTr.position.x - _trackPos[0].x + _enemyTr.position.z - _trackPos[0].y)  < Time.deltaTime * _moveSpeed + 0.01f){
+        if(Mathf.Abs(_enemyTr.position.x - _trackPos[0].x + _enemyTr.position.z - _trackPos[0].y) < Time.deltaTime * _moveSpeed + 0.01f){
             _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
             _enemyTr.position = new Vector3(_enemyPos.Value.x , 0.5f , _enemyPos.Value.y);
         }

@@ -82,7 +82,6 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
             }
 
             AStarMap._playerPos = AStarMap.CastMapPos(_playerTr.position);
-        //}
         return;
     }
 

@@ -62,6 +62,16 @@ public class PlayerController : MonoBehaviour
                 _liftCrystal.LiftDownEnable();
             }
             _playerMove.NextMovePos();
+            //移動先を確定させた場合、アクションを無効化
+            if(_playerMove.MoveFlag()){
+                if(_useCrystal.LaunchActiveFlag){
+                    _useCrystal.LaunchDisable();
+                }else if(_liftCrystal.LiftUpActiveFlag){
+                    _liftCrystal.LiftUpDisable();
+                }else if(_liftCrystal.LiftDownActiveFlag){
+                    _liftCrystal.LiftDownDisable();
+                }
+            }
         }
         
     }

@@ -38,7 +38,7 @@
                     "id": "f3e14016-83a0-4324-9eca-c27e41b400d1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold(duration=0.05,pressPoint=0.05)",
                     "initialStateCheck": false
                 }
             ],
@@ -156,7 +156,7 @@
                 {
                     "name": "",
                     "id": "cb55cd42-0676-4d3a-910b-7170c172a377",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
