@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class BlackCrystalStatus : ACrystalStatus
 {
-    [SerializeField]
-    private int _attack = 0;
-    [SerializeField]
-    private int _attackRange = 3;
-    [SerializeField]
-    private float _speedUpRate = 0.1f;
-    [SerializeField]
-    private int _effectTime = 3;
+    //初期ステータス
+    public BlackCrystalStatus(){
+        _maxHp = 999;
+        _effectMaxCount = 50;
+        _attackRange = 2;
+        _effectRate = 0.1f;
+        _effectTime = 2;
+        _moveCost = 0;
+    }
 
     //配置時のクリスタル効果
-    public override void SetEffect(Vector2Int pos, int _effectMaxCount){
-        if(!SetEffectCount(_effectMaxCount)) return;
+    public override void SetEffect(Vector2Int pos){
+        if(!SetEffectCount()) return;
 
         Strength(pos);
     }
@@ -30,6 +31,6 @@ public class BlackCrystalStatus : ACrystalStatus
 
     //移動速度減少効果
     private void SpeedUp(IStageObject _enemyController){
-        _enemyController.SpeedUp(_speedUpRate, _effectTime);
+        _enemyController.SpeedUp(_effectRate, _effectTime);
     }
 }

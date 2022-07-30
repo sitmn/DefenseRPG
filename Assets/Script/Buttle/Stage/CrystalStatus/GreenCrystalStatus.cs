@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class GreenCrystalStatus : ACrystalStatus
 {
-    [SerializeField]
-    private int _attack = 0;
-    [SerializeField]
-    private int _attackRange = 4;
-    [SerializeField]
-    private float _speedUpRate = 0.3f;
-    [SerializeField]
-    private int _effectTime = 3;
-
-
     //配置時のクリスタル効果
-    public override void SetEffect(Vector2Int pos, int _effectMaxCount){
-        if(!SetEffectCount(_effectMaxCount)) return;
+    public override void SetEffect(Vector2Int pos){
+        if(!SetEffectCount()) return;
         Attack(pos);
     }
 
@@ -29,6 +19,6 @@ public class GreenCrystalStatus : ACrystalStatus
 
     //移動速度減少効果
     private void SpeedUp(){
-        AStarMap._playerController._playerMove.SpeedUp(_speedUpRate, _effectTime);
+        AStarMap._playerController._playerMove.SpeedUp(_effectRate, _effectTime);
     }
 }

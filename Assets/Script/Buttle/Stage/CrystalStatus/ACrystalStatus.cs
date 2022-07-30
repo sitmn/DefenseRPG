@@ -5,8 +5,23 @@ using UniRx;
 
 public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
 {
+    //水晶の最大HP
+    public int _maxHp;
+    //水晶の攻撃間隔
+    public int _effectMaxCount;
     //効果間隔用のカウント
-    private int _effectCount;
+    public int _effectCount;
+    //攻撃力
+    public int _attack;
+    //攻撃範囲
+    public int _attackRange;
+    //特殊効果倍率
+    public float _effectRate;
+    //特殊効果時間
+    public int _effectTime;
+    //水晶の移動コスト(エネミーの移動経路探索用)
+    public int _moveCost;
+
     //クリスタルのタイプ（装備1~3,0は黒クリスタル）
     public int CrystalNo{get;}
     //配置時クリスタル効果
@@ -20,10 +35,10 @@ public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
         _effectCount = 0;
     }
 
-    public abstract void SetEffect(Vector2Int pos, int _effectMaxCount);
+    public abstract void SetEffect(Vector2Int pos);
 
     //効果カウントのカウントと初期化
-    public bool SetEffectCount(int _effectMaxCount){
+    public bool SetEffectCount(){
         _effectCount++;
         bool _effectLaunch = false;
         if(_effectCount >= _effectMaxCount){

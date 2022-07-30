@@ -90,7 +90,11 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色ごとのクリスタルステータスを格納し、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
         Type classObj = Type.GetType(_crystalParamData.CrystalParamList[(int)_colorNo - 1]._crystalControllerName);
-        _crystalController.SetCrystalType((ACrystalStatus)Activator.CreateInstance(classObj), _crystalParamData.CrystalParamList[(int)_colorNo - 1]._material,_crystalParamData.CrystalParamList[(int)_colorNo - 1]._maxHp,_crystalParamData.CrystalParamList[(int)_colorNo - 1]._effectMaxCount, _crystalParamData.CrystalParamList[(int)_colorNo - 1]._moveCost);
+        _crystalController.SetCrystalType((ACrystalStatus)Activator.CreateInstance(classObj), _crystalParamData.CrystalParamList[(int)_colorNo - 1]._material,
+                                            _crystalParamData.CrystalParamList[(int)_colorNo - 1]._maxHp,_crystalParamData.CrystalParamList[(int)_colorNo - 1]._effectMaxCount,
+                                            _crystalParamData.CrystalParamList[(int)_colorNo - 1]._attack,_crystalParamData.CrystalParamList[(int)_colorNo - 1]._attackRange,
+                                            _crystalParamData.CrystalParamList[(int)_colorNo - 1]._effectRate,_crystalParamData.CrystalParamList[(int)_colorNo - 1]._effectTime,
+                                            _crystalParamData.CrystalParamList[(int)_colorNo - 1]._moveCost);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し

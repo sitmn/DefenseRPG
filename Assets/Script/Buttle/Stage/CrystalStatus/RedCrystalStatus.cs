@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class RedCrystalStatus : ACrystalStatus
 {
-    [SerializeField]
-    private int _attack = 1;
-    [SerializeField]
-    private int _attackRange = 3;
-    public int MaxHp => _maxHp;
-    [SerializeField]
-    private int _maxHp = 3;
-
     //配置時のクリスタル効果
-    public override void SetEffect(Vector2Int pos, int _effectMaxCount){
-        if(!SetEffectCount(_effectMaxCount)) return;
+    public override void SetEffect(Vector2Int pos){
+        if(!SetEffectCount()) return;
 
         Attack(pos);
     }

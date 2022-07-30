@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class BlueCrystalStatus : ACrystalStatus
 {
-    [SerializeField]
-    private int _attack = 1;
-    [SerializeField]
-    private int _attackRange = 5;
-    [SerializeField]
-    private float _speedDecreaseRate = 0.5f;
-    [SerializeField]
-    private int _effectTime = 3;
-
     //配置時のクリスタル効果
-    public override void SetEffect(Vector2Int pos, int _effectMaxCount){
-        if(!SetEffectCount(_effectMaxCount)) return;
+    public override void SetEffect(Vector2Int pos){
+        if(!SetEffectCount()) return;
 
         Attack(pos);
     }
@@ -31,6 +22,6 @@ public class BlueCrystalStatus : ACrystalStatus
 
     //移動速度減少効果
     private void SpeedDecrease(IStageObject _enemyController){
-        _enemyController.SpeedDown(_speedDecreaseRate, _effectTime);
+        _enemyController.SpeedDown(_effectRate, _effectTime);
     }
 }
