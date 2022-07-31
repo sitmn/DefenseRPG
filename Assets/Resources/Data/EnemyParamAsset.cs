@@ -9,7 +9,7 @@ public class EnemyParamAsset : ScriptableObject{
 
 [System.Serializable]
 public class EnemyParam{
-    //ICrystalStatuクラスを継承したクラス名
+    //敵キャラ名
     [SerializeField]
     public string _enemyName;
     //最大HP

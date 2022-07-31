@@ -113,14 +113,10 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
 
         //起動時間UI表示
         
-        Debug.Log("AAA2");
     }
 
     //クリスタルリフトアップ完了(長押し)
     private void OnLiftUpComplete(InputAction.CallbackContext context){
-        Debug.Log("BBB2");
-
-        
         //Lift中Objを格納
         _crystalTr = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0].gameObject.GetComponent<Transform>();
         _crystalController = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as CrystalController;
@@ -136,7 +132,6 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
 
     //クリスタルリフトアップキャンセル
     private void OnLiftUpEnd(InputAction.CallbackContext context){
-        Debug.Log("CCC");
         //リフトアップモーション終了、リフトアップ中フラグ取り消し
         _liftUpActionFlag = false;
 
@@ -154,13 +149,10 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
 
         //起動時間UI表示
         
-        Debug.Log("AAA2");
     }
 
     //クリスタルリフトダウン完了(長押し)
     private void OnLiftDownComplete(InputAction.CallbackContext context){
-        Debug.Log("BBB2");
-
         //オブジェクトをマスへ配置
         _crystalTr.position = new Vector3(AStarMap._playerPos.x + (int)_playerTr.forward.x, 0.5f, AStarMap._playerPos.y + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
@@ -170,7 +162,6 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         _crystalTr = null;
         _crystalController = null;
 
-        Debug.Log(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z].moveCost);
         //格納したマスが移動先になっているエネミーがいれば再度経路探索
 
         //起動時間UI非表示
@@ -181,7 +172,6 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
 
     //クリスタルリフトダウンキャンセル
     private void OnLiftDownEnd(InputAction.CallbackContext context){
-        Debug.Log("CCC");
         //リフトダウンモーション終了、リフトダウン中フラグ取り消し
         _liftDownActionFlag = false;
 

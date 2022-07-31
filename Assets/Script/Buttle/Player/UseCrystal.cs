@@ -78,12 +78,10 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
 
         //起動時間UI表示
         
-        Debug.Log("AAA");
     }
 
     //クリスタル起動完了(長押し)
     private void OnLaunchComplete(InputAction.CallbackContext context){
-        Debug.Log("BBB");
         float _colorNo = context.ReadValue<float>();
 
         ICrystalController _crystalController = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as ICrystalController;
@@ -103,7 +101,6 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
 
     //クリスタル起動キャンセル
     private void OnLaunchEnd(InputAction.CallbackContext context){
-        Debug.Log("CCC");
         //起動モーション終了、起動中フラグ取り消し
         _launchActionFlag = false;
 
