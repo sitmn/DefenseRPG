@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
             _useCrystal.LaunchDisable();
         }
         //正面に水晶がない、または、水晶リフト中であれば、水晶リフトアップアクション無効化
-        if((_liftCrystal.LiftUpActiveFlag && !_useCrystal.CrystalCheck())){
+        if(_liftCrystal.LiftUpActiveFlag && (!_useCrystal.CrystalCheck() || _useCrystal.BlackCrystalCheck())){
             _liftCrystal.LiftUpDisable();
         }
         //リフト中でない、または、水晶と敵が正面または、その隣のマスに敵がいる時、水晶リフトダウンアクション無効化
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
             _liftCrystal.LiftDownDisable();
         }
         //水晶が正面にない時、水晶修理アクション無効化
-        if(_repairCrystal.RepairActiveFlag && !_useCrystal.CrystalCheck()){
+        if(_repairCrystal.RepairActiveFlag && (!_useCrystal.CrystalCheck() || _useCrystal.BlackCrystalCheck())){
             _repairCrystal.RepairDisable();
         }
         //水晶起動、修理、持ち上げアクション中か？

@@ -9,6 +9,7 @@ using System.Threading;
 public class EnemyController : IStageObject
 {
     /***ステータス***/
+    //Hpと最大HpはIStageObjectが保持
     //攻撃間隔用カウント
     private int _attackMaxCount;
     private int _attackCount;
@@ -16,8 +17,6 @@ public class EnemyController : IStageObject
     private int _attack;
     //索敵範囲
     private float _searchDestination;
-    //最大Hp
-    private int _hpMax;
     //移動速度
     private float _moveSpeedOrigin;
     //ステータス変動用
@@ -79,10 +78,10 @@ public class EnemyController : IStageObject
         _attackMaxCount = _enemyParamData.EnemyParamList[0]._attackMaxCount;
         _attack = _enemyParamData.EnemyParamList[0]._attack;
         _searchDestination = _enemyParamData.EnemyParamList[0]._searchDestination;
-        _hpMax = _enemyParamData.EnemyParamList[0]._maxHp;
+        _maxHp = _enemyParamData.EnemyParamList[0]._maxHp;
         _moveSpeedOrigin = _enemyParamData.EnemyParamList[0]._moveSpeed;
 
-        _hp.Value = _hpMax;
+        Hp = _maxHp;
         _moveSpeed = _moveSpeedOrigin;
     }
 
@@ -176,7 +175,7 @@ public class EnemyController : IStageObject
 
     //敵が水晶を攻撃
     public void Attack(Vector2Int _attackPos){
-        if(AttackCount()) AStarMap.astarMas[_attackPos.x, _attackPos.y].obj[0]._hp.Value -= _attack;
+        if(AttackCount()) AStarMap.astarMas[_attackPos.x, _attackPos.y].obj[0].Hp -= _attack;
     }
 
     //攻撃間隔用のカウント

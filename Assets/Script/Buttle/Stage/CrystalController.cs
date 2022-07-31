@@ -6,6 +6,8 @@ using UniRx;
 //水晶の動作クラス
 public class CrystalController : IStageObject,ICrystalController
 {
+    //HP、最大HPはIStage Objectが保持
+
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
     public ACrystalStatus _crystalStatus{get;set;}
@@ -14,7 +16,8 @@ public class CrystalController : IStageObject,ICrystalController
         _crystalTr = this.gameObject.GetComponent<Transform>();
         _crystalStatus = new BlackCrystalStatus();
         //黒水晶のHPをセット
-        _hp.Value = _crystalStatus._maxHp;
+        _maxHp = 999;
+        Hp = _maxHp;
     }
 
     //配置時、マップに移動不可情報とクラスを入れる
@@ -69,8 +72,8 @@ public class CrystalController : IStageObject,ICrystalController
         this._crystalStatus = _crystalStatus;
         this.gameObject.GetComponent<Renderer>().material = _material;
         //HPの最大値と現在のHPをセット
-        _crystalStatus._maxHp = _maxHp;
-        _hp.Value = _maxHp;
+        this._maxHp = _maxHp;
+        this.Hp = this._maxHp;
         //攻撃間隔のステータスをセット
         _crystalStatus._effectMaxCount = _effectMaxCount;
         //攻撃力と攻撃範囲のステータスをセット

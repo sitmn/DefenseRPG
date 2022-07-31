@@ -15,7 +15,7 @@ public class BlueCrystalStatus : ACrystalStatus
     private void Attack(Vector2Int pos){
         List<IStageObject> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
         for(int i = 0; i < _enemyList.Count ; i++){
-            _enemyList[i]._hp.Value -= _attack;
+            _enemyList[i].Hp -= _attack;
             SpeedDecrease(_enemyList[i]);
         }
     }

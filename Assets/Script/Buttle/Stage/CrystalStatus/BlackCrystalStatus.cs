@@ -6,7 +6,7 @@ public class BlackCrystalStatus : ACrystalStatus
 {
     //初期ステータス
     public BlackCrystalStatus(){
-        _maxHp = 999;
+        //maxHPはCrystalControllerが保持
         _effectMaxCount = 50;
         _attackRange = 2;
         _effectRate = 0.1f;

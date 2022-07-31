@@ -5,8 +5,8 @@ using UniRx;
 
 public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
 {
-    //水晶の最大HP
-    public int _maxHp;
+    // //水晶の最大HP
+    // public int _maxHp;
     //水晶の攻撃間隔
     public int _effectMaxCount;
     //効果間隔用のカウント
