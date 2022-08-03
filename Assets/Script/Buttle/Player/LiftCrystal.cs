@@ -98,8 +98,9 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     //前方に黒クリスタルがあるかを確認
     public bool BlackCrystalCheck(){
         bool _checkBlackCrystal = false;
-        if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count == 1){
-            _checkBlackCrystal = (AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
+        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1)){
+            _checkBlackCrystal = (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
         }
 
         return _checkBlackCrystal;
@@ -119,8 +120,9 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     //クリスタルリフトアップ完了(長押し)
     private void OnLiftUpComplete(InputAction.CallbackContext context){
         //Lift中Objを格納
-        _crystalTr = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0].gameObject.GetComponent<Transform>();
-        _crystalController = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as CrystalController;
+        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
+        _crystalTr = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].gameObject.GetComponent<Transform>();
+        _crystalController = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0] as CrystalController;
         //マップ情報から水晶を削除
         _crystalController.SetOffAStarMap();
         //オブジェクトを頭上へ移動

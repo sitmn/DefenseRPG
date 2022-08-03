@@ -32,7 +32,7 @@ MonoBehaviour:
     _moveCost: 6
     _material: {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
   - _crystalControllerName: GreenCrystalStatus
-    _maxHp: 10
+    _maxHp: 100
     _effectMaxCount: 10
     _attack: 0
     _attackRange: 3

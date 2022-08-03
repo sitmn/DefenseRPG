@@ -28,10 +28,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("1" + _useCrystal.LaunchActionFlag);
-        Debug.Log("2" + _repairCrystal.RepairActionFlag);
-        Debug.Log("3" + _liftCrystal.LiftUpActionFlag);
-        Debug.Log("4" + _liftCrystal.LiftDownActionFlag);
         //正面に黒水晶がなければ、水晶起動アクション無効化
         if(_useCrystal.LaunchActiveFlag && (!_useCrystal.CrystalCheck() || !_useCrystal.BlackCrystalCheck())){
             _useCrystal.LaunchDisable();
@@ -43,7 +39,6 @@ public class PlayerController : MonoBehaviour
         //リフト中でない、または、水晶と敵が正面または、その隣のマスに敵がいるまたは、範囲外へのリフトダウンになる時、水晶リフトダウンアクション無効化
         if(_liftCrystal.LiftDownActiveFlag && (_liftCrystal.CrystalTr == null || _liftCrystal.StageObjCheck() || AStarMap.OutOfReferenceCheck(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z)))){
             _liftCrystal.LiftDownDisable();
-            Debug.Log("EEE");
         }
         //水晶が正面にない時、水晶修理アクション無効化
         if(_repairCrystal.RepairActiveFlag && (!_useCrystal.CrystalCheck() || _useCrystal.BlackCrystalCheck())){
@@ -93,8 +88,5 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
     }
-
-    
 }

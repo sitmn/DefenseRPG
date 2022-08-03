@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyParamList:
   - _enemyName: Enemy1
-    _maxHp: 40
+    _maxHp: 1
     _attackMaxCount: 30
     _attack: 1
     _moveSpeed: 2

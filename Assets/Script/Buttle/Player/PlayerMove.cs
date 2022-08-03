@@ -101,6 +101,8 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         && AStarMap.astarMas[StageMove.UndoElementStageMove(_movePos.x), _movePos.y].obj.Count == 0 //this.pos + _moveDir のAStarMap.Objが存在しないか
         ){
             _moveCheckFlag = true;
+        }else{
+            //Debug.Log(AStarMap.astarMas[StageMove.UndoElementStageMove(_movePos.x), _movePos.y].obj[0].GetType().Name);
         }
 
         return _moveCheckFlag; 

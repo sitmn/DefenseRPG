@@ -59,10 +59,59 @@ public class StageMove : MonoBehaviour
 
         return _stageMoveCountFlag;
     }
+    
+    //ステージ移動を実行
+    private void StageMoveExecute(){
+        //☆前Updateメソッドの一番最初か最後に持ってきたい
+
+        //プレイヤーがステージ最後列にいる場合、ゲームオーバー 
+        
+        //削除直前にはプレイヤーは要素0へ移動場所にできないようにする。（ただし、削除予定エリアから削除予定エリアには移動できる（そうしないと時間ギリギリで動けなくなってしまうため））
+        //フラグがTrueの時は、nextPosに0を入れられないようにする
+
+        //ステージ最後列にあるオブジェクトを全て削除
+        StageRowDestroy();
+        //列の情報を全て1つ隣に移動させる（要素をマイナス1する）
+        // 　・エネミーのTrackPos
+        // 　・判定座標
+        // 　　・敵
+        // 　　・水晶
+        // 　　・プレイヤー
+        // 　・移動用座標
+        // 　　・敵
+        // 　　・プレイヤー
+        // 　・リスト内座標（コスト用）
+
+        //ステージ列移動前の水晶情報を全て消す
+        CrystalInfomationInMapDelete();
+        
+        //最後列の床オブジェクト削除
+        //最前列のリスト生成
+        //最前列の床オブジェクト生成
+        StageRowCreateAndDelete();
+        //元々のリストが何列スライドしているか変数に格納（ワールド座標をリストの要素に変換するために使用）
+        _moveRowCount ++;
+        //ステージ列移動後の水晶情報を全て入れる
+        CrystalInfomationInMapCreate();
+        //最前列に新規でエネミーと黒水晶を生成
+
+        //TrackPosにマイナスになったものがあれば、再度移動経路探索する
+
+        
+        
+    }
+
+    //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除
+    private void StageRowDestroy(){
+        for(int i = 0; i < AStarMap.max_pos_z_static ; i++){
+            for(int j = 0; j < AStarMap.astarMas[0, i].obj.Count ; j++){
+                Destroy(AStarMap.astarMas[0, i].obj[j].gameObject);
+            }
+        }
+    }
 
     //ステージ最後列削除し、ステージ最前列生成
     private void StageRowCreateAndDelete(){
-        Debug.Log(_stageRowObjList.Count);
         //ステージ最後列オブジェクトを削除
         Destroy(_stageRowObjList[0]);
         //リストの参照先を１列分スライド
@@ -77,39 +126,20 @@ public class StageMove : MonoBehaviour
         _stageRowObjList[_stageRowObjList.Count - 1] = obj;
     }
 
-    //ステージ移動を実行
-    private void StageMoveExecute(){
-        //☆前Updateメソッドの一番最初か最後に持ってきたい
+    //水晶情報をMapから全て削除
+    private void CrystalInfomationInMapDelete(){
+        for(int i = 0; i < CrystalListController._crystalList.Count ; i++){
+            //リフト中の水晶は対象外
+            if(CrystalListController._crystalList[i] != LiftCrystal._crystalController) CrystalListController._crystalList[i].SetOffAStarMap();
+        }
+    }
 
-        //プレイヤーがステージ最後列にいる場合、ゲームオーバー 
-        
-        //削除直前にはプレイヤーは要素0へ移動場所にできないようにする。（ただし、削除予定エリアから削除予定エリアには移動できる（そうしないと時間ギリギリで動けなくなってしまうため））
-        //フラグがTrueの時は、nextPosに0を入れられないようにする
-
-        //ステージ最後列にあるオブジェクトを全て削除
-
-        //列の情報を全て1つ隣に移動させる（要素をマイナス1する）
-        // 　・エネミーのTrackPos
-        // 　・判定座標
-        // 　　・敵
-        // 　　・水晶
-        // 　　・プレイヤー
-        // 　・移動用座標
-        // 　　・敵
-        // 　　・プレイヤー
-        // 　・リスト内座標（コスト用）
-
-        //最後列の床オブジェクト削除
-        //最前列のリスト生成
-        //最前列の床オブジェクト生成
-        StageRowCreateAndDelete();
-        //最前列に新規でエネミーと黒水晶を生成
-
-        //TrackPosにマイナスになったものがあれば、再度移動経路探索する
-
-        //元々のリストが何列スライドしているか変数に格納（ワールド座標をリストの要素に変換するために使用）
-
-        _moveRowCount ++;
+    //水晶情報をMapに全て生成
+    private void CrystalInfomationInMapCreate(){
+        for(int i = 0; i < CrystalListController._crystalList.Count ; i++){
+            //リフト中の水晶は対象外
+            if(CrystalListController._crystalList[i] != LiftCrystal._crystalController) CrystalListController._crystalList[i].SetOnAStarMap();
+        }
     }
 
     //ワールド座標でステージを見た際の列順を返す（一番左が0で一番右がリスト最大値）

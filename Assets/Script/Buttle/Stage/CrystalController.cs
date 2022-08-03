@@ -59,6 +59,7 @@ public class CrystalController : AStageObject,ICrystalController
             AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _crystalStatus._moveCost;
             AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
         }
+        
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
