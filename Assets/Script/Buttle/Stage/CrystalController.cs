@@ -54,17 +54,17 @@ public class CrystalController : AStageObject,ICrystalController
 
     //配置時、マップに移動不可情報とクラスを入れる
     public void SetOnAStarMap(){
-        if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Count == 0){
+        if(AStarMap.astarMas != null && AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
             _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
-            AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = _crystalStatus._moveCost;
-            AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
+            AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _crystalStatus._moveCost;
+            AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
         }
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
         _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 1;
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Remove(this);
+        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 1;
+        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Remove(this);
     }
 
     //クリスタル起動時のクリスタルステータスをセット

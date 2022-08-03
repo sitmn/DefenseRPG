@@ -112,9 +112,14 @@ public class StageMove : MonoBehaviour
         _moveRowCount ++;
     }
 
-    //ワールド座標でステージを見た際の座標順を返す（一番左が0で一番右がリスト最大値）
-    public static int UndoListElement(int _elementNo){
-        int _undoElementNo;
-        return _undoElementNo = (_elementNo - _moveRowCount >= 0)? _elementNo - _moveRowCount : _elementNo - _moveRowCount + AStarMap.max_pos_x_static;
+    //ワールド座標でステージを見た際の列順を返す（一番左が0で一番右がリスト最大値）
+    //例：ワールド座標でx軸が17でステージ移動回数が4の時、リスト要素では13になる
+    public static int UndoElementStageMove(int _judgePos_x){
+        int _undoElement_x = -1;
+        while(_undoElement_x < 0){
+            _undoElement_x = (_judgePos_x - _moveRowCount >= 0)? _judgePos_x - _moveRowCount : _judgePos_x - _moveRowCount + AStarMap.max_pos_x_static;
+        }
+
+        return _undoElement_x;
     }
 }

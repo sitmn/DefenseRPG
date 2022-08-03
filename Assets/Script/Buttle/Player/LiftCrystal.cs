@@ -86,8 +86,9 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     //前方に敵またはクリスタルがあるか、かつ、前方隣1マスに敵がいるかを確認
     public bool StageObjCheck(){
         bool _checkCrystal = false;
-        if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count > 0 ||
-        AStarMap.AroundSearch(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z), 1).Count > 0){
+        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count > 0 ||
+        AStarMap.AroundSearch(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z), 1).Count > 0)){
             _checkCrystal = true;
         }
         

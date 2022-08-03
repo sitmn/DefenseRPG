@@ -55,32 +55,46 @@ public class AStarMap : MonoBehaviour
         List<AStageObject> _enemyControllerList = new List<AStageObject>();
 
         for(int i = 1;i < _range + 1; i++){
+            //判定座標
+            Vector2Int _judgePos;
             //中心座標からi離れた座標を１次関数的に調べる
             for(int j = 0; j < i; j++){
-                if(_centerPos.x - j >= 0 && _centerPos.x - j < max_pos_x_static && _centerPos.y + i - j >= 0 && _centerPos.y + i - j < max_pos_z_static){
-                    if(AStarMap.astarMas[_centerPos.x - j, _centerPos.y + i - j].obj.Count > 0 && AStarMap.astarMas[_centerPos.x - j, _centerPos.y + i - j].obj[0].GetType().Name == "EnemyController"){
-                        _enemyControllerList = AStarMap.astarMas[_centerPos.x - j, _centerPos.y + i - j].obj;
+                _judgePos = new Vector2Int(_centerPos.x - j, _centerPos.y + i - j);
+                //ステージリストの範囲外ではないか
+                if(!AStarMap.OutOfReferenceCheck(_judgePos)){
+                    //判定座標にエネミーがいるか
+                    if(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj.Count > 0 && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"){
+                        _enemyControllerList = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj;
                     }
                 }
             }
             for(int j = 0; j < i; j++){
-                if(_centerPos.x - i + j >= 0 && _centerPos.x - i + j < max_pos_x_static && _centerPos.y - j >= 0 && _centerPos.y - j < max_pos_z_static){
-                    if(AStarMap.astarMas[_centerPos.x - i + j, _centerPos.y - j].obj.Count > 0 && AStarMap.astarMas[_centerPos.x - i + j, _centerPos.y - j].obj[0].GetType().Name == "EnemyController"){
-                        _enemyControllerList = AStarMap.astarMas[_centerPos.x - i + j, _centerPos.y - j].obj;
+                _judgePos = new Vector2Int(_centerPos.x - i + j, _centerPos.x - i + j);
+                //ステージリストの範囲外ではないか
+                if(!AStarMap.OutOfReferenceCheck(_judgePos)){
+                    //判定座標にエネミーがいるか
+                    if(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj.Count > 0 && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"){
+                        _enemyControllerList = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj;
                     }
                 }
             }
             for(int j = 0; j < i; j++){
-                if(_centerPos.x + j >= 0 && _centerPos.x + j < max_pos_x_static && _centerPos.y - i + j >= 0 && _centerPos.y - i + j < max_pos_z_static){
-                    if(AStarMap.astarMas[_centerPos.x + j, _centerPos.y - i + j].obj.Count > 0 && AStarMap.astarMas[_centerPos.x + j, _centerPos.y - i + j].obj[0].GetType().Name == "EnemyController"){
-                        _enemyControllerList = AStarMap.astarMas[_centerPos.x + j, _centerPos.y - i + j].obj;
+                _judgePos = new Vector2Int(_centerPos.x + j, _centerPos.x + j);
+                //ステージリストの範囲外ではないか
+                if(!AStarMap.OutOfReferenceCheck(_judgePos)){
+                    //判定座標にエネミーがいるか
+                    if(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj.Count > 0 && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"){
+                        _enemyControllerList = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj;
                     }
                 }
             }
             for(int j = 0; j < i; j++){
-                if(_centerPos.x + i - j >= 0 && _centerPos.x + i - j < max_pos_x_static && _centerPos.y + j >= 0 && _centerPos.y + j < max_pos_z_static){
-                    if(AStarMap.astarMas[_centerPos.x + i - j, _centerPos.y + j].obj.Count > 0 && AStarMap.astarMas[_centerPos.x + i - j, _centerPos.y + j].obj[0].GetType().Name == "EnemyController"){
-                        _enemyControllerList = AStarMap.astarMas[_centerPos.x + i - j, _centerPos.y + j].obj;
+                _judgePos = new Vector2Int(_centerPos.x + i - j, _centerPos.x + i - j);
+                //ステージリストの範囲外ではないか
+                if(!AStarMap.OutOfReferenceCheck(_judgePos)){
+                    //判定座標にエネミーがいるか
+                    if(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj.Count > 0 && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"){
+                        _enemyControllerList = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj;
                     }
                 }
             }
@@ -90,21 +104,31 @@ public class AStarMap : MonoBehaviour
         return _enemyControllerList;
     }
 
-    //周囲のエネミー全員の探索
+    //周囲のエネミー全員の探索(複数ヒットかつ四角範囲)
     public static List<AStageObject> AroundSearchAll(Vector2Int _centerPos, int _range){
         List<AStageObject> _enemyControllerList = new List<AStageObject>();
 
         for(int i = _centerPos.x -_range + 1;i < _centerPos.x + _range - 1; i++){
             for(int j = _centerPos.y -_range + 1;j < _centerPos.y + _range - 1; j++){
-                if(i >= 0 && i < max_pos_x_static && j >= 0 &&  j < max_pos_z_static){
-                    if(AStarMap.astarMas[i, j].obj.Count > 0 && AStarMap.astarMas[i,j].obj[0].GetType().Name == "EnemyController"){
-                        _enemyControllerList.AddRange(AStarMap.astarMas[i, j].obj);
+                if(!AStarMap.OutOfReferenceCheck(new Vector2Int(i, j))){
+                    if(AStarMap.astarMas[StageMove.UndoElementStageMove(i), j].obj.Count > 0 && AStarMap.astarMas[StageMove.UndoElementStageMove(i),j].obj[0].GetType().Name == "EnemyController"){
+                        _enemyControllerList.AddRange(AStarMap.astarMas[StageMove.UndoElementStageMove(i), j].obj);
                     }
                 }
             }
         }
 
         return _enemyControllerList;
+    }
+
+    //ステージ範囲外でないかの判定
+    public static bool OutOfReferenceCheck(Vector2Int _judgePos){
+        //x軸方向の判定（ステージの移動も加味）
+        bool _judgeFlag_x = _judgePos.x < StageMove._moveRowCount || _judgePos.x >= AStarMap.max_pos_x_static + StageMove._moveRowCount;
+        //z軸方向の判定
+        bool _judgeFlag_z = _judgePos.y < 0 || _judgePos.y >= AStarMap.max_pos_z_static;
+
+        return _judgeFlag_x || _judgeFlag_z;
     }
 }
 

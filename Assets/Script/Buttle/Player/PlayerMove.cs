@@ -93,7 +93,17 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
 
     //移動可能か：敵、水晶、エリア外が移動方向に存在しないか
     private bool MoveCheck(Vector2Int _moveDir){
-        return AStarMap.astarMas[AStarMap._playerPos.x + (int)_moveDir.x, AStarMap._playerPos.y + (int)_moveDir.y].obj.Count == 0;//this.pos + _moveDir のAStarMap.Objが存在しないか
+        bool _moveCheckFlag = false;
+
+        //移動後のワールド座標
+        Vector2Int _movePos = AStarMap._playerPos + _moveDir;
+        if(!AStarMap.OutOfReferenceCheck(_movePos)//ステージ範囲外判定
+        && AStarMap.astarMas[StageMove.UndoElementStageMove(_movePos.x), _movePos.y].obj.Count == 0 //this.pos + _moveDir のAStarMap.Objが存在しないか
+        ){
+            _moveCheckFlag = true;
+        }
+
+        return _moveCheckFlag; 
     }
 
     //スピードを上昇させる

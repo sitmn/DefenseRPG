@@ -52,8 +52,11 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     //前方にクリスタルがあるかを確認
     public bool CrystalCheck(){
         bool _checkCrystal = false;
-        if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count == 1){
-            _checkCrystal = (AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0].GetType().Name == "CrystalController");
+        //判定座標
+        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
+        //判定座標がステージリスト範囲外ではないか、正面にクリスタルがあるか
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1){
+            _checkCrystal = (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].GetType().Name == "CrystalController");
         }
         
         return _checkCrystal;
@@ -62,8 +65,9 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     //前方に黒クリスタルがあるかを確認
     public bool BlackCrystalCheck(){
         bool _checkBlackCrystal = false;
-        if(AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj.Count == 1){
-            _checkBlackCrystal = (AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
+        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1){
+            _checkBlackCrystal = (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
         }
 
         return _checkBlackCrystal;
