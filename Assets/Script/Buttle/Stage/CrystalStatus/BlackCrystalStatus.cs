@@ -23,14 +23,14 @@ public class BlackCrystalStatus : ACrystalStatus
 
     //周囲エネミーにバフ
     private void Strength(Vector2Int pos){
-        List<IStageObject> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
+        List<AStageObject> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
         for(int i = 0; i < _enemyList.Count ; i++){
             SpeedUp(_enemyList[i]);
         }
     }
 
     //移動速度減少効果
-    private void SpeedUp(IStageObject _enemyController){
+    private void SpeedUp(AStageObject _enemyController){
         _enemyController.SpeedUp(_effectRate, _effectTime);
     }
 }

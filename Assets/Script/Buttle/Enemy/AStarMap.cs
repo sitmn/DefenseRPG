@@ -25,7 +25,7 @@ public class AStarMap : MonoBehaviour
         for(int i = 0;i < astarMas.GetLength(0); i++){
             for(int j = 0;j < astarMas.GetLength(1); j++){
                 astarMas[i,j] = new AStarMas();
-                astarMas[i,j].obj = new List<IStageObject>();
+                astarMas[i,j].obj = new List<AStageObject>();
                 astarMas[i,j].moveCost = 1;
             }
         }
@@ -51,8 +51,8 @@ public class AStarMap : MonoBehaviour
     }
 
     //周囲で近いエネミーの探索
-    public static List<IStageObject> AroundSearch(Vector2Int _centerPos, int _range){
-        List<IStageObject> _enemyControllerList = new List<IStageObject>();
+    public static List<AStageObject> AroundSearch(Vector2Int _centerPos, int _range){
+        List<AStageObject> _enemyControllerList = new List<AStageObject>();
 
         for(int i = 1;i < _range + 1; i++){
             //中心座標からi離れた座標を１次関数的に調べる
@@ -91,8 +91,8 @@ public class AStarMap : MonoBehaviour
     }
 
     //周囲のエネミー全員の探索
-    public static List<IStageObject> AroundSearchAll(Vector2Int _centerPos, int _range){
-        List<IStageObject> _enemyControllerList = new List<IStageObject>();
+    public static List<AStageObject> AroundSearchAll(Vector2Int _centerPos, int _range){
+        List<AStageObject> _enemyControllerList = new List<AStageObject>();
 
         for(int i = _centerPos.x -_range + 1;i < _centerPos.x + _range - 1; i++){
             for(int j = _centerPos.y -_range + 1;j < _centerPos.y + _range - 1; j++){
@@ -113,5 +113,5 @@ public class AStarMas{
     //移動コスト 0は行き止まり
     public int moveCost;
     //マスに何があるか（エネミー、水晶）
-    public List<IStageObject> obj;
+    public List<AStageObject> obj;
 }

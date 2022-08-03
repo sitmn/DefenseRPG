@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 
 //水晶の動作クラス
-public class CrystalController : IStageObject,ICrystalController
+public class CrystalController : AStageObject,ICrystalController
 {
     //HP、最大HPはIStage Objectが保持
 

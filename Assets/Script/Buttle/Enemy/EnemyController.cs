@@ -6,7 +6,7 @@ using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public class EnemyController : IStageObject
+public class EnemyController : AStageObject
 {
     /***ステータス***/
     //Hpと最大HpはIStageObjectが保持

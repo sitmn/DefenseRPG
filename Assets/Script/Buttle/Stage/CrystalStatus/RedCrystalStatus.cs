@@ -13,7 +13,7 @@ public class RedCrystalStatus : ACrystalStatus
 
     //周囲に攻撃
     private void Attack(Vector2Int pos){
-        List<IStageObject> _enemyList = AStarMap.AroundSearch(pos, _attackRange);
+        List<AStageObject> _enemyList = AStarMap.AroundSearch(pos, _attackRange);
         for(int i = 0; i < _enemyList.Count ; i++){
             _enemyList[i].Hp -= _attack;
         }

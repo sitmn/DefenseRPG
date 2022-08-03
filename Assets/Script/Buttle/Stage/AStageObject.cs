@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public abstract class IStageObject:MonoBehaviour
+public abstract class AStageObject:MonoBehaviour
 {
     public ReactiveProperty<int> _hp;
     public int Hp{
