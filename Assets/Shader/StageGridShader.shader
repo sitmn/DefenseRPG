@@ -52,7 +52,7 @@ Shader "Unlit/StageGridShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float2 n = float2(16,21);
+                float2 n = float2(1,21);
                 float2 st = frac(i.uv * n);
                 return box(st, 0.9);
             }
