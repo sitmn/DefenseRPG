@@ -40,7 +40,7 @@ public class StageMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateManager()
     {
         //時間経過でステージを移動
         if(!StageMoveCount()) return;
@@ -152,11 +152,10 @@ public class StageMove : MonoBehaviour
         }
     }
 
-    //敵情報をMapに全て生成
+    //敵情報をMapに全て生成、または移動経路をステージ移動に合わせてずらす
     private void EnemyInfomationInMapCreate(){
         for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
             EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
-            //EnemyListController._enemiesList[i].EnemyTrackSet(EnemyListController._enemiesList[i].EnemyPos.Value);
             EnemyListController._enemiesList[i].TrackPos[0] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[0].x - 1, EnemyListController._enemiesList[i].TrackPos[0].y);
         }
     }

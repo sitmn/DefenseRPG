@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateManager()
     {
         //正面に黒水晶がなければ、水晶起動アクション無効化
         if(_useCrystal.LaunchActiveFlag && (!_useCrystal.CrystalCheck() || !_useCrystal.BlackCrystalCheck())){

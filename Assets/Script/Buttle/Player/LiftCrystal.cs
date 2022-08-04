@@ -45,7 +45,7 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         _liftDownActionFlag = false;
     }
 
-    void Update(){
+    public void UpdateManager(){
         if(_crystalTr == null) return;
         _crystalTr.position = _playerTr.position + new Vector3(0, 2, 0);
     }

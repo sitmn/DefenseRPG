@@ -20,7 +20,7 @@ public class EnemyListController : MonoBehaviour
         }
     }
 
-    void Update(){
+    public void UpdateManager(){
         //全エネミーに行動指示を出す
         EnemiesActions();
     }

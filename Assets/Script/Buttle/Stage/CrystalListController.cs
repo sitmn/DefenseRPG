@@ -20,7 +20,7 @@ public class CrystalListController : MonoBehaviour
         }
     }
 
-    void Update(){
+    public void UpdateManager(){
         //リフト中のクリスタルとセット中のクリスタルの効果
         for(int i = 0; i < _crystalList.Count; i++){
             if(_crystalList[i] == LiftCrystal._crystalController){

@@ -73,6 +73,7 @@ public class EnemyController : AStageObject
         SetHPStream();
     }
 
+
     //値の初期化
     private void SetParam(){
         _attackMaxCount = _enemyParamData.EnemyParamList[0]._attackMaxCount;
@@ -87,7 +88,7 @@ public class EnemyController : AStageObject
 
     private void SetHPStream(){
         _hp.Subscribe((x) => {
-            if(x <= 0) EnemyDeath();
+            if(x <= 0) Destroy(this.gameObject);
         }).AddTo(this);
     }
 
@@ -102,7 +103,6 @@ public class EnemyController : AStageObject
     private void EnemyDeath(){
         EnemyListController.DeleteEnemyInList(this);
         AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.Value.x), _judgePos.Value.y].obj.Remove(this);
-        Destroy(this.gameObject);
     }
 
     //経路探索用ストリーム
@@ -209,5 +209,7 @@ public class EnemyController : AStageObject
     void OnDestroy(){
         _cancellationTokenSourceBuff.Cancel();
         _cancellationTokenSourceDebuff.Cancel();
+        //エネミー情報を他クラスやリストから削除
+        EnemyDeath();
     }
 }

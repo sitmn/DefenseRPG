@@ -54,7 +54,7 @@ public class RepairCrystal : MonoBehaviour, IRepairCrystal
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateManager()
     {
         if(!_repairActionFlag) return;
 
