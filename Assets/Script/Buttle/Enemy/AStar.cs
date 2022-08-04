@@ -37,6 +37,8 @@ public class AStar: MonoBehaviour,IAStar
     }*/
 
     //Astarメイン処理,現在位置と目的地から移動経路を算出
+    //currentPos及びdestinationはステージ移動を考慮した座標を引数にすること
+    //returnはリスト要素を基準とした移動経路
     public List<Vector2Int> AstarMain(Vector2Int currentPos, Vector2Int destination){
 
         //AStarコスト格納配列

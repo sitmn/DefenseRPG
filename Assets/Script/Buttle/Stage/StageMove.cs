@@ -84,7 +84,8 @@ public class StageMove : MonoBehaviour
 
         //ステージ列移動前の水晶情報を全て消す
         CrystalInfomationInMapDelete();
-        
+        //ステージ列移動前の敵情報を全て消す
+        EnemyInfomationInMapDelete();
         //最後列の床オブジェクト削除
         //最前列のリスト生成
         //最前列の床オブジェクト生成
@@ -93,6 +94,8 @@ public class StageMove : MonoBehaviour
         _moveRowCount ++;
         //ステージ列移動後の水晶情報を全て入れる
         CrystalInfomationInMapCreate();
+        //ステージ列移動後の敵情報を全て入れる
+        EnemyInfomationInMapCreate();
         //最前列に新規でエネミーと黒水晶を生成
 
         //TrackPosにマイナスになったものがあれば、再度移動経路探索する
@@ -139,6 +142,22 @@ public class StageMove : MonoBehaviour
         for(int i = 0; i < CrystalListController._crystalList.Count ; i++){
             //リフト中の水晶は対象外
             if(CrystalListController._crystalList[i] != LiftCrystal._crystalController) CrystalListController._crystalList[i].SetOnAStarMap();
+        }
+    }
+
+    //敵情報をMapから全て削除
+    private void EnemyInfomationInMapDelete(){
+        for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
+            EnemyListController._enemiesList[i].SetOffAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
+        }
+    }
+
+    //敵情報をMapに全て生成
+    private void EnemyInfomationInMapCreate(){
+        for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
+            EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
+            //EnemyListController._enemiesList[i].EnemyTrackSet(EnemyListController._enemiesList[i].EnemyPos.Value);
+            EnemyListController._enemiesList[i].TrackPos[0] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[0].x - 1, EnemyListController._enemiesList[i].TrackPos[0].y);
         }
     }
 
