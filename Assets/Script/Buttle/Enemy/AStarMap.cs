@@ -57,7 +57,7 @@ public class AStarMap : MonoBehaviour
     //周囲で近いエネミーの探索
     public static List<AStageObject> AroundSearch(Vector2Int _centerPos, int _range){
         List<AStageObject> _enemyControllerList = new List<AStageObject>();
-        Debug.Log(_centerPos + "center");
+        
         for(int i = 1;i < _range + 1; i++){
             //判定座標
             Vector2Int _judgePos;

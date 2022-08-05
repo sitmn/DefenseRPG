@@ -40,34 +40,42 @@ public class AStar: MonoBehaviour,IAStar
     //currentPos及びdestinationはステージ移動を考慮した座標を引数にすること
     //returnはリスト要素を基準とした移動経路
     public List<Vector2Int> AstarMain(Vector2Int currentPos, Vector2Int destination){
-        //AStarコスト格納配列
-        costMap = new AStarCost[AStarMap.astarMas.GetLength(0),AStarMap.astarMas.GetLength(1)];
+        List<Vector2Int> trackRoute = new List<Vector2Int>();
+        //目的地に着いている場合、ランダムな隣のマスを移動経路にする
+        if(currentPos == destination){
+            trackRoute.Add(ArriveDestination(destination));
+        }else{
 
-        for(int i = 0 ; i < costMap.GetLength(0) ; i++){
-            for(int j = 0 ; j < costMap.GetLength(1); j++){
-                if(AStarMap.astarMas[i,j].moveCost != 0) 
-                costMap[i,j] = new AStarCost();
-                costMap[i,j].estimateCost = AStarEstimateCostCalculate(new Vector2Int(i,j),destination);
-                costMap[i,j].pos = new Vector2Int(i,j);
-                costMap[i,j].status = "none";
-                costMap[i,j].realCost = 999;
+            //AStarコスト格納配列
+            costMap = new AStarCost[AStarMap.astarMas.GetLength(0),AStarMap.astarMas.GetLength(1)];
+
+            for(int i = 0 ; i < costMap.GetLength(0) ; i++){
+                for(int j = 0 ; j < costMap.GetLength(1); j++){
+                    if(AStarMap.astarMas[i,j].moveCost != 0) 
+                    costMap[i,j] = new AStarCost();
+                    costMap[i,j].estimateCost = AStarEstimateCostCalculate(new Vector2Int(i,j),destination);
+                    costMap[i,j].pos = new Vector2Int(i,j);
+                    costMap[i,j].status = "none";
+                    costMap[i,j].realCost = 999;
+                }
             }
+
+            //初期地点実コスト
+            costMap[currentPos.x, currentPos.y].realCost = 0;
+
+            AStarCost astarCostMin = costMap[currentPos.x, currentPos.y];
+            for(int i = 0; i < AStarMap.astarMas.GetLength(0) * AStarMap.astarMas.GetLength(1); i++){
+
+                //次のOpen先を導出
+                AStarRealCostCalculate(astarCostMin.pos, astarCostMin.realCost);
+                astarCostMin = MinSumCost();
+                //目的地の隣までOpenしたらループを抜ける
+                if(astarCostMin.pos == destination) break;
+            }
+            //経路の座標を格納
+            trackRoute = TrackRoute(astarCostMin,currentPos);
         }
 
-        //初期地点実コスト
-        costMap[currentPos.x, currentPos.y].realCost = 0;
-
-        AStarCost astarCostMin = costMap[currentPos.x, currentPos.y];
-        for(int i = 0; i < AStarMap.astarMas.GetLength(0) * AStarMap.astarMas.GetLength(1); i++){
-
-            //次のOpen先を導出
-            AStarRealCostCalculate(astarCostMin.pos, astarCostMin.realCost);
-            astarCostMin = MinSumCost();
-            //目的地の隣までOpenしたらループを抜ける
-            if(Mathf.Abs(astarCostMin.pos.x - destination.x) + Mathf.Abs(astarCostMin.pos.y - destination.y) == 1) break;
-        }
-        //経路の座標を格納
-        List<Vector2Int> trackRoute = TrackRoute(astarCostMin,currentPos);
         return trackRoute;
     } 
 
@@ -177,5 +185,14 @@ public class AStar: MonoBehaviour,IAStar
     }
 
 
-    
+    //プレイヤーの位置についたとき、ランダムに近くの１マスへ移動
+    private Vector2Int ArriveDestination(Vector2Int _destination){
+        List<Vector2Int> _trackPosList = new List<Vector2Int>();
+        if(_destination.x != 0) _trackPosList.Add(new Vector2Int(_destination.x - 1, _destination.y));
+        if(_destination.x != AStarMap.max_pos_x_static - 1) _trackPosList.Add(new Vector2Int(_destination.x + 1, _destination.y));
+        if(_destination.y != 0) _trackPosList.Add(new Vector2Int(_destination.x, _destination.y - 1));
+        if(_destination.y != AStarMap.max_pos_z_static - 1) _trackPosList.Add(new Vector2Int(_destination.x, _destination.y + 1));
+
+        return _trackPosList[UnityEngine.Random.Range(0, _trackPosList.Count - 1)];
+    }
 }

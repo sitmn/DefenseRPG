@@ -142,6 +142,8 @@ public class EnemyController : AStageObject
             _trackPos = _astar.AstarMain(_enemyPos, AStarMap.GetRandomPos(_enemyPos));
         }
 
+        
+
         //フラグクリア
         _trackChangeFlag = false;
     }
@@ -187,8 +189,6 @@ public class EnemyController : AStageObject
         if(Mathf.Abs(_enemyTr.position.x - StageMove._moveRowCount - _trackPos[0].x + _enemyTr.position.z - _trackPos[0].y) < Time.deltaTime * _moveSpeed + 0.01f){
             _trackPos.RemoveAt(0);
             _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
-            if(_trackChangeFlag) Debug.Log(_enemyTr.position + "Tr");
-            if(_trackChangeFlag) Debug.Log(_enemyPos.Value + "Pos");
             _enemyTr.position = new Vector3(_enemyPos.Value.x , 0.5f , _enemyPos.Value.y);
         }
         //AStarのマス内に踏み入れたら座標を変更（当たり判定用）
