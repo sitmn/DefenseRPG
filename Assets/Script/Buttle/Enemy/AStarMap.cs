@@ -57,13 +57,14 @@ public class AStarMap : MonoBehaviour
     //周囲で近いエネミーの探索
     public static List<AStageObject> AroundSearch(Vector2Int _centerPos, int _range){
         List<AStageObject> _enemyControllerList = new List<AStageObject>();
-
+        Debug.Log(_centerPos + "center");
         for(int i = 1;i < _range + 1; i++){
             //判定座標
             Vector2Int _judgePos;
             //中心座標からi離れた座標を１次関数的に調べる
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x - j, _centerPos.y + i - j);
+                
                 //ステージリストの範囲外ではないか
                 if(!AStarMap.OutOfReferenceCheck(_judgePos)){
                     //判定座標にエネミーがいるか
@@ -73,7 +74,8 @@ public class AStarMap : MonoBehaviour
                 }
             }
             for(int j = 0; j < i; j++){
-                _judgePos = new Vector2Int(_centerPos.x - i + j, _centerPos.x - i + j);
+                _judgePos = new Vector2Int(_centerPos.x - i + j, _centerPos.y - j);
+                
                 //ステージリストの範囲外ではないか
                 if(!AStarMap.OutOfReferenceCheck(_judgePos)){
                     //判定座標にエネミーがいるか
@@ -83,7 +85,8 @@ public class AStarMap : MonoBehaviour
                 }
             }
             for(int j = 0; j < i; j++){
-                _judgePos = new Vector2Int(_centerPos.x + j, _centerPos.x + j);
+                _judgePos = new Vector2Int(_centerPos.x + j, _centerPos.y - i + j);
+                
                 //ステージリストの範囲外ではないか
                 if(!AStarMap.OutOfReferenceCheck(_judgePos)){
                     //判定座標にエネミーがいるか
@@ -93,7 +96,8 @@ public class AStarMap : MonoBehaviour
                 }
             }
             for(int j = 0; j < i; j++){
-                _judgePos = new Vector2Int(_centerPos.x + i - j, _centerPos.x + i - j);
+                _judgePos = new Vector2Int(_centerPos.x + i - j, _centerPos.y + j);
+                
                 //ステージリストの範囲外ではないか
                 if(!AStarMap.OutOfReferenceCheck(_judgePos)){
                     //判定座標にエネミーがいるか

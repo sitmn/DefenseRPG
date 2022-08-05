@@ -20,6 +20,22 @@ public class StageMove : MonoBehaviour
     //ステージ列オブジェクト
     private List<GameObject> _stageRowObjList;
 
+    //敵、水晶の自動生成用プレハブ
+    [SerializeField]
+    private GameObject _crystalPrefab;
+    [SerializeField]
+    private GameObject _enemyPrefab;
+    //生成先親オブジェクト
+    [SerializeField]
+    private GameObject _crystalParent;
+    [SerializeField]
+    private GameObject _enemyParent;
+    //ステージ拡張時の生成数
+    [SerializeField]
+    private int _enemyInstantiateAmount;
+    [SerializeField]
+    private int _crystalInstantiateAmount;
+
     void Awake(){
         _stageParentTr = this.gameObject.GetComponent<Transform>();
 
@@ -97,11 +113,7 @@ public class StageMove : MonoBehaviour
         //ステージ列移動後の敵情報を全て入れる
         EnemyInfomationInMapCreate();
         //最前列に新規でエネミーと黒水晶を生成
-
-        //TrackPosにマイナスになったものがあれば、再度移動経路探索する
-
-        
-        
+        InstantiateStageObj(_crystalInstantiateAmount,_enemyInstantiateAmount);
     }
 
     //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
@@ -175,7 +187,7 @@ public class StageMove : MonoBehaviour
             EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
 
             //現在位置のスライド
-            EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
+            //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
 
             if(EnemyListController._enemiesList[i].TrackPos.Count == 1){
                 EnemyListController._enemiesList[i]._trackChangeFlag = true;
@@ -191,6 +203,47 @@ public class StageMove : MonoBehaviour
                     EnemyListController._enemiesList[i].TrackPos[j] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[j].x - 1, EnemyListController._enemiesList[i].TrackPos[j].y);
                 }
             }
+        }
+    }
+
+    private void InstantiateStageObj(int _crystalAmount, int _enemyAmount){
+        //黒水晶を最前列に配置
+        List<int> _listNumberList = new List<int>();
+        //配置位置決定用の整数リスト
+        for(int i = 0; i < AStarMap.max_pos_z_static; i++){
+            _listNumberList.Add(i);
+        }
+
+        //ランダムな数字を水晶生成数分取得(生成に位置の重複がないよう使用したリストは削除)
+        List<int> _randomNumberList = new List<int>();
+        for(int i = 0;i < _crystalAmount; i++){
+            int _randomNumber = Random.Range(0,_listNumberList.Count - 1);
+            _randomNumberList.Add(_randomNumber);
+            
+            _listNumberList.RemoveAt(_randomNumber);
+        }
+
+        //最前列に水晶を生成
+        for(int i = 0 ; i < _randomNumberList.Count; i++){
+            GameObject _crystal = Instantiate(_crystalPrefab, new Vector3(StageMove._moveRowCount + AStarMap.max_pos_x_static - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
+            _crystal.transform.parent = _crystalParent.transform;
+            CrystalListController.AddCrystalInList(_crystal.GetComponent<CrystalController>());
+        }
+        
+        //ランダムな数字を敵生成数分取得(生成に位置の重複がないよう使用したリストは削除)
+        _randomNumberList = new List<int>();
+        for(int i = 0;i < _enemyAmount; i++){
+            int _randomNumber = Random.Range(0,_listNumberList.Count - 1);
+            _randomNumberList.Add(_randomNumber);
+            
+            _listNumberList.RemoveAt(_randomNumber);
+        }
+
+        //最前列に水晶を生成
+        for(int i = 0 ; i < _randomNumberList.Count; i++){
+            GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + AStarMap.max_pos_x_static - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
+            _enemy.transform.parent = _enemyParent.transform;
+            EnemyListController.SetEnemyController(_enemy.GetComponent<EnemyController>());
         }
     }
 

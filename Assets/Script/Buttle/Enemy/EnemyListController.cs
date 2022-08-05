@@ -31,7 +31,7 @@ public class EnemyListController : MonoBehaviour
     }
 
     //新規エネミーをリストへ格納
-    private void SetEnemyController(EnemyController enemyController){
+    public static void SetEnemyController(EnemyController enemyController){
         _enemiesList.Add(enemyController);
     }
 
@@ -50,14 +50,13 @@ public class EnemyListController : MonoBehaviour
             if(_attackFlag){
                 _enemiesList[i].Attack(_enemiesList[i].TrackPos[0]);
             }else{
-            //移動
-            //ステージ最後列削除時、元最後列と今の最後列で移動中のエネミーの移動（UndoElementStageMoveすると、最前列への移動になってしまうため）
-            if(_enemiesList[i].TrackPos[0].x == 0 && _enemiesList[i]._trackChangeFlag){
-                _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - new Vector2Int(_enemiesList[i].TrackPos[0].x - 1,_enemiesList[i].TrackPos[0].y));
-            }else{
-                _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - new Vector2Int(StageMove.UndoElementStageMove(_enemiesList[i].EnemyPos.Value.x),_enemiesList[i].EnemyPos.Value.y));
-            }
-            //Debug.Log("next:"+_enemiesList[i].TrackPos[0]+":Intpos:"+_enemiesList[i].EnemyPos.Value + ":floatpos:" + _enemiesList[i].gameObject.GetComponent<Transform>().position);
+                //移動
+                //ステージ最後列削除時、元最後列と今の最後列で移動中のエネミーの移動（UndoElementStageMoveすると、最前列への移動になってしまうため）
+                if(_enemiesList[i].TrackPos[0].x == 0 && _enemiesList[i]._trackChangeFlag){
+                    _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - new Vector2Int(_enemiesList[i].TrackPos[0].x - 1,_enemiesList[i].TrackPos[0].y));
+                }else{
+                    _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - new Vector2Int(StageMove.UndoElementStageMove(_enemiesList[i].EnemyPos.Value.x),_enemiesList[i].EnemyPos.Value.y));
+                }
             }
         }
     }

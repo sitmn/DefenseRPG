@@ -22,10 +22,11 @@ public class CrystalController : AStageObject,ICrystalController
 
     //配置時、マップに移動不可情報とクラスを入れる
     void Start(){
-        if(AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Count == 0){
-            _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
-            AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = 0;
-            AStarMap.astarMas[_crystalPos.x,_crystalPos.y].obj.Add(this);
+        if(AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
+            // _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
+            // AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 0;
+            // AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
+            SetOnAStarMap();
         }
         SetHPStream();
     }
@@ -83,7 +84,7 @@ public class CrystalController : AStageObject,ICrystalController
         //移動コスト
         _crystalStatus._moveCost = _moveCost;
         //既に設定してあるマスの移動コストのみ変更
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y].moveCost = _moveCost;
+        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _moveCost;
     }
 
     //セット中クリスタルの効果発動
