@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private EnemyListController _enemyListController;
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         _playerController.UpdateManager();
         _liftCrystal.UpdateManager();
@@ -26,5 +26,6 @@ public class GameManager : MonoBehaviour
         _crystalListController.UpdateManager();
         _enemyListController.UpdateManager();
         _stageMove.UpdateManager();
+
     }
 }

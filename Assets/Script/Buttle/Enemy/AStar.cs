@@ -40,7 +40,6 @@ public class AStar: MonoBehaviour,IAStar
     //currentPos及びdestinationはステージ移動を考慮した座標を引数にすること
     //returnはリスト要素を基準とした移動経路
     public List<Vector2Int> AstarMain(Vector2Int currentPos, Vector2Int destination){
-
         //AStarコスト格納配列
         costMap = new AStarCost[AStarMap.astarMas.GetLength(0),AStarMap.astarMas.GetLength(1)];
 
@@ -65,7 +64,7 @@ public class AStar: MonoBehaviour,IAStar
             AStarRealCostCalculate(astarCostMin.pos, astarCostMin.realCost);
             astarCostMin = MinSumCost();
             //目的地の隣までOpenしたらループを抜ける
-            if(astarCostMin.estimateCost == 1) break;
+            if(Mathf.Abs(astarCostMin.pos.x - destination.x) + Mathf.Abs(astarCostMin.pos.y - destination.y) == 1) break;
         }
         //経路の座標を格納
         List<Vector2Int> trackRoute = TrackRoute(astarCostMin,currentPos);
@@ -142,32 +141,33 @@ public class AStar: MonoBehaviour,IAStar
         trackRoute.Add(lastPos.pos);
         //実コストが0になるまで隣接するマスを格納していく
         AStarCost trackPos = lastPos;
+        List<AStarCost> _keepTrackPosList;
 
         int count = 0;
         //☆目的地に辿り着けない場合、フリーズする
         while(trackPos.pos != currentPos){
+            _keepTrackPosList = new List<AStarCost>();
             for(int i = trackPos.pos.x - 1; i < trackPos.pos.x + 2; i++){
-                bool breakFlag = false;
                 for(int j = trackPos.pos.y - 1; j < trackPos.pos.y + 2; j++){
                     if(i >= 0 && j >= 0 && ((i == trackPos.pos.x && j != trackPos.pos.y)||(i != trackPos.pos.x && j == trackPos.pos.y))
                     && (i < AStarMap.astarMas.GetLength(0) && j < AStarMap.astarMas.GetLength(1))){
+                        //移動経路実コストと移動コストが一致するもの（openしてきた経路）を移動経路候補として格納
                         if(costMap[i,j].realCost + AStarMap.astarMas[trackPos.pos.x,trackPos.pos.y].moveCost == trackPos.realCost){
-                            trackPos = costMap[i,j];
-                            trackRoute.Insert(0,trackPos.pos);
-                            breakFlag = true;
-
-                            break;
+                            _keepTrackPosList.Add(costMap[i,j]);
                         }
                     }
                 }
-
-                if(breakFlag == true) break;
             }
+
+            //移動経路の候補からランダムで移動経路を入れる
+            trackPos = _keepTrackPosList[UnityEngine.Random.Range(0, _keepTrackPosList.Count - 1)];
+            trackRoute.Insert(0,trackPos.pos);
+
             count ++;
             if(count > 1000){
-                Debug.Log(AStarMap.astarMas[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].moveCost + "YYYY");
-                Debug.Log(costMap[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].status + "Status");
-                Debug.Log(trackPos.pos + "&" + currentPos + "AAAA");
+                //Debug.Log(AStarMap.astarMas[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].moveCost + "YYYY");
+                //Debug.Log(costMap[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].status + "Status");
+                //Debug.Log(trackPos.pos + "&" + currentPos + "AAAA");
                 break;
             }
             

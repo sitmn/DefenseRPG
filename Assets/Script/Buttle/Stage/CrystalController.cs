@@ -32,7 +32,7 @@ public class CrystalController : AStageObject,ICrystalController
 
     private void SetHPStream(){
         _hp.Subscribe((x) => {
-            if(x <= 0) CrystalDestroy();
+            if(x <= 0) ObjectDestroy();
         }).AddTo(this);
     }
 
@@ -42,13 +42,11 @@ public class CrystalController : AStageObject,ICrystalController
     void OnDisable(){
         SetOffAStarMap();
     }
-    void OnDestroy(){
-        SetOffAStarMap();
-    }
 
-    private void CrystalDestroy(){
+    public override void ObjectDestroy(){
         //水晶行動指示用リストから削除
         CrystalListController.RemoveCrystalInList(this);
+        SetOffAStarMap();
         Destroy(this.gameObject);
     }
 
@@ -63,7 +61,6 @@ public class CrystalController : AStageObject,ICrystalController
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
-        _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 1;
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Remove(this);
     }

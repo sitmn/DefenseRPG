@@ -45,8 +45,12 @@ public class AStarMap : MonoBehaviour
     }
 
     //ランダムに位置を取得 ステージ最後列（x軸方向）は目的地には含まない（AStarで移動経路にはなる）
-    public static Vector2Int GetRandomPos(){
-        Vector2Int randomPos = new Vector2Int(Random.Range(1,astarMas.GetLength(0)),Random.Range(0,astarMas.GetLength(1)));
+    public static Vector2Int GetRandomPos(Vector2Int _pos){
+        Vector2Int randomPos = _pos;
+        while(randomPos == _pos){
+            randomPos = new Vector2Int(Random.Range(1,astarMas.GetLength(0)),Random.Range(0,astarMas.GetLength(1)));
+        }
+        
         return  randomPos;
     }
 

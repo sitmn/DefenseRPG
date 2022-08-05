@@ -41,9 +41,11 @@ public class EnemyController : AStageObject
     //どのマスにいるかの判断用位置、マス内に入ったら場所が変わる
     public IReactiveProperty<Vector2Int> JudgePos => _judgePos;
     private ReactiveProperty<Vector2Int> _judgePos = new ReactiveProperty<Vector2Int>();
-    //プレイヤー追跡用リスト
+    //移動経路用リスト
     public List<Vector2Int> TrackPos => _trackPos;
     private List<Vector2Int> _trackPos = new List<Vector2Int>();
+    //移動経路探索リスト（ステージ移動後すぐに移動）
+    public bool _trackChangeFlag;
     private IAStar _astar;
     
     //スピード上昇回復用非同期トークン
@@ -84,11 +86,13 @@ public class EnemyController : AStageObject
 
         Hp = _maxHp;
         _moveSpeed = _moveSpeedOrigin;
+
+        _trackChangeFlag = false;
     }
 
     private void SetHPStream(){
         _hp.Subscribe((x) => {
-            if(x <= 0) Destroy(this.gameObject);
+            if(x <= 0) ObjectDestroy();
         }).AddTo(this);
     }
 
@@ -100,17 +104,18 @@ public class EnemyController : AStageObject
     }
 
     //エネミーを削除
-    private void EnemyDeath(){
+    public override void ObjectDestroy(){
+        SetOffAStarMap(_judgePos.Value);
         EnemyListController.DeleteEnemyInList(this);
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.Value.x), _judgePos.Value.y].obj.Remove(this);
+        Destroy(this.gameObject);
     }
 
     //経路探索用ストリーム
     private void TrackStreamSet(){
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
-            //経路探索
-            EnemyTrackSet(x);
+            //目的地に着いたら,またはステージ移動時,またはプレイヤー発見時に経路探索
+            if(_trackPos.Count == 0 || _trackChangeFlag || EnemySearch.Search(_enemyPos.Value, _searchDestination)) EnemyTrackSet(x);
         }).AddTo(this);
     }
     //判定座標用ストリーム
@@ -134,8 +139,11 @@ public class EnemyController : AStageObject
             _trackPos = _astar.AstarMain(_enemyPos, _playerPos);
         }else{
             //適当な位置を指定 ⇨ 軽量化するには、　　既に指定している場合、次の配列要素へ（経路探索はキャッシュを使用）
-            _trackPos = _astar.AstarMain(_enemyPos, AStarMap.GetRandomPos());
+            _trackPos = _astar.AstarMain(_enemyPos, AStarMap.GetRandomPos(_enemyPos));
         }
+
+        //フラグクリア
+        _trackChangeFlag = false;
     }
 
     //スピードを上昇させる
@@ -177,7 +185,10 @@ public class EnemyController : AStageObject
 
         //AStarのマス中心を通過したら座標を変更（移動用） _enemyTr.position.xにはステージ列移動が考慮されていないのでStageMoveのUndoElementStageMoveが必要（型が異なるため、__moveRowCountを直接引く）
         if(Mathf.Abs(_enemyTr.position.x - StageMove._moveRowCount - _trackPos[0].x + _enemyTr.position.z - _trackPos[0].y) < Time.deltaTime * _moveSpeed + 0.01f){
+            _trackPos.RemoveAt(0);
             _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
+            if(_trackChangeFlag) Debug.Log(_enemyTr.position + "Tr");
+            if(_trackChangeFlag) Debug.Log(_enemyPos.Value + "Pos");
             _enemyTr.position = new Vector3(_enemyPos.Value.x , 0.5f , _enemyPos.Value.y);
         }
         //AStarのマス内に踏み入れたら座標を変更（当たり判定用）
@@ -209,7 +220,5 @@ public class EnemyController : AStageObject
     void OnDestroy(){
         _cancellationTokenSourceBuff.Cancel();
         _cancellationTokenSourceDebuff.Cancel();
-        //エネミー情報を他クラスやリストから削除
-        EnemyDeath();
     }
 }

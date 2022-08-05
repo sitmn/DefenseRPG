@@ -104,12 +104,29 @@ public class StageMove : MonoBehaviour
         
     }
 
-    //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除
+    //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
     private void StageRowDestroy(){
+        List<AStageObject> _aStageObjList = new List<AStageObject>();
+        List<EnemyController> _enemyControllerList = new List<EnemyController>();
+
+        //削除前に別のリストに入れる（削除時、リストをRemoveするため）
         for(int i = 0; i < AStarMap.max_pos_z_static ; i++){
             for(int j = 0; j < AStarMap.astarMas[0, i].obj.Count ; j++){
-                Destroy(AStarMap.astarMas[0, i].obj[j].gameObject);
+                _aStageObjList.Add(AStarMap.astarMas[0, i].obj[j]);
             }
+        }
+        for(int i = 0;i < EnemyListController._enemiesList.Count ; i++){
+            if(EnemyListController._enemiesList[i].TrackPos[0].x == 0){
+                _enemyControllerList.Add(EnemyListController._enemiesList[i]);
+            }
+        }
+
+        //ステージ外になるオブジェクトを全て削除
+        foreach(AStageObject _astageObj in _aStageObjList){
+            _astageObj.ObjectDestroy();
+        }
+        foreach(EnemyController _enemyController in _enemyControllerList){
+            _enemyController.ObjectDestroy();
         }
     }
 
@@ -152,11 +169,28 @@ public class StageMove : MonoBehaviour
         }
     }
 
-    //敵情報をMapに全て生成、または移動経路をステージ移動に合わせてずらす
+    //敵情報をMapに全て生成し、移動経路と今の位置情報をステージ移動に合わせてずらす（ステージ外が移動経路にあれば、再度移動経路を探索する）
     private void EnemyInfomationInMapCreate(){
         for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
             EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
-            EnemyListController._enemiesList[i].TrackPos[0] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[0].x - 1, EnemyListController._enemiesList[i].TrackPos[0].y);
+
+            //現在位置のスライド
+            EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
+
+            if(EnemyListController._enemiesList[i].TrackPos.Count == 1){
+                EnemyListController._enemiesList[i]._trackChangeFlag = true;
+            }else{
+                //ステージ外が移動経路になっていれば、次のマスへの移動後、移動経路を変更
+                for(int j = 0; j < EnemyListController._enemiesList[i].TrackPos.Count ; j++){
+                    if(EnemyListController._enemiesList[i].TrackPos[j].x == 0){
+                        EnemyListController._enemiesList[i]._trackChangeFlag = true;
+
+                        break;
+                    }
+                    //ステージ外が移動経路になっていなければ、ステージ移動に合わせて移動経路をスライド
+                    EnemyListController._enemiesList[i].TrackPos[j] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[j].x - 1, EnemyListController._enemiesList[i].TrackPos[j].y);
+                }
+            }
         }
     }
 
