@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void UpdateManager()
     {
+        if(GameManager._gameOverFlag) return;
+
         //正面に黒水晶がなければ、水晶起動アクション無効化
         if(_useCrystal.LaunchActiveFlag && (!_useCrystal.CrystalCheck() || !_useCrystal.BlackCrystalCheck())){
             _useCrystal.LaunchDisable();
@@ -77,16 +79,16 @@ public class PlayerController : MonoBehaviour
             _playerMove.NextMovePos();
             //移動先を確定させた場合、アクションを無効化
             if(_playerMove.MoveFlag()){
-                if(_useCrystal.LaunchActiveFlag){
-                    _useCrystal.LaunchDisable();
-                }else if(_liftCrystal.LiftUpActiveFlag){
-                    _liftCrystal.LiftUpDisable();
-                }else if(_liftCrystal.LiftDownActiveFlag){
-                    _liftCrystal.LiftDownDisable();
-                }else if(_repairCrystal.RepairActiveFlag){
-                    _repairCrystal.RepairDisable();
-                }
+                InputInvalid();
             }
         }
+    }
+
+    //アクションを無効化
+    public void InputInvalid(){
+        if(_useCrystal.LaunchActiveFlag) _useCrystal.LaunchDisable();
+        if(_liftCrystal.LiftUpActiveFlag) _liftCrystal.LiftUpDisable();
+        if(_liftCrystal.LiftDownActiveFlag) _liftCrystal.LiftDownDisable();
+        if(_repairCrystal.RepairActiveFlag) _repairCrystal.RepairDisable();
     }
 }

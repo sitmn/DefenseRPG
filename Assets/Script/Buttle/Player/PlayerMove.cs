@@ -72,16 +72,16 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
 
     //隣のマス中心まで移動
     public void Move(){
-            Vector3 player_move = new Vector3(_nextPlayerPos.x - _playerPos.x, 0, _nextPlayerPos.y - _playerPos.y);
+        Vector3 player_move = new Vector3(_nextPlayerPos.x - _playerPos.x, 0, _nextPlayerPos.y - _playerPos.y);
 
-            _playerTr.position += player_move * _moveSpeed * Time.deltaTime;
-            //マス中心まで移動した時、位置確定
-            if(Mathf.Abs(_playerTr.position.x - _nextPlayerPos.x + _playerTr.position.z - _nextPlayerPos.y) < _moveSpeed * Time.deltaTime + 0.1f){
-                _playerTr.position = new Vector3(_nextPlayerPos.x, 0 , _nextPlayerPos.y);
-                _playerPos = AStarMap.CastMapPos(_playerTr.position);
-            }
+        _playerTr.position += player_move * _moveSpeed * Time.deltaTime;
+        //マス中心まで移動した時、位置確定
+        if(Mathf.Abs(_playerTr.position.x - _nextPlayerPos.x + _playerTr.position.z - _nextPlayerPos.y) < _moveSpeed * Time.deltaTime + 0.1f){
+            _playerTr.position = new Vector3(_nextPlayerPos.x, 0 , _nextPlayerPos.y);
+            _playerPos = AStarMap.CastMapPos(_playerTr.position);
+        }
 
-            AStarMap._playerPos = AStarMap.CastMapPos(_playerTr.position);
+        AStarMap._playerPos = AStarMap.CastMapPos(_playerTr.position);
         return;
     }
 
@@ -99,6 +99,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         Vector2Int _movePos = AStarMap._playerPos + _moveDir;
         if(!AStarMap.OutOfReferenceCheck(_movePos)//ステージ範囲外判定
         && AStarMap.astarMas[StageMove.UndoElementStageMove(_movePos.x), _movePos.y].obj.Count == 0 //this.pos + _moveDir のAStarMap.Objが存在しないか
+        && !(AStarMap._playerPos.x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCountStatic * 9 / 10) //ステージ移動直前に最後列へ移動していないか
         ){
             _moveCheckFlag = true;
         }else{

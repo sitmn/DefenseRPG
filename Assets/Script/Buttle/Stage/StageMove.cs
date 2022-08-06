@@ -5,10 +5,11 @@ using UnityEngine;
 public class StageMove : MonoBehaviour
 {
     //ステージ移動カウント用
-    private int _stageMoveCount;
+    public static int _stageMoveCount;
     //ステージ移動時間間隔
+    public static int _stageMoveMaxCountStatic;
     [SerializeField]
-    public int _stageMoveMaxCount = 100;
+    public int _stageMoveMaxCount;
     //ステージ列のスライド量
     public static int _moveRowCount;
 
@@ -41,6 +42,8 @@ public class StageMove : MonoBehaviour
 
         //カウントの初期化
         _moveRowCount = 0;
+
+        _stageMoveMaxCountStatic = _stageMoveMaxCount;
     }
 
     void Start(){
@@ -78,25 +81,20 @@ public class StageMove : MonoBehaviour
     
     //ステージ移動を実行
     private void StageMoveExecute(){
-        //☆前Updateメソッドの一番最初か最後に持ってきたい
-
-        //プレイヤーがステージ最後列にいる場合、ゲームオーバー 
-        
-        //削除直前にはプレイヤーは要素0へ移動場所にできないようにする。（ただし、削除予定エリアから削除予定エリアには移動できる（そうしないと時間ギリギリで動けなくなってしまうため））
-        //フラグがTrueの時は、nextPosに0を入れられないようにする
+        //プレイヤーがステージ最後列にいる場合、ゲームオーバー表示し、全ての入力を無効に
+        if(StageMove.UndoElementStageMove(AStarMap._playerPos.x) == 0) GameManager.GameOver();
 
         //ステージ最後列にあるオブジェクトを全て削除
         StageRowDestroy();
         //列の情報を全て1つ隣に移動させる（要素をマイナス1する）
         // 　・エネミーのTrackPos
-        // 　・判定座標
+        // 　・判定座標:AStarMap利用時にStageMove.UndoElementで変換するので移動不要
         // 　　・敵
         // 　　・水晶
         // 　　・プレイヤー
-        // 　・移動用座標
+        // 　・移動用座標:AStarMap利用時にStageMove.UndoElementで変換するので移動不要
         // 　　・敵
         // 　　・プレイヤー
-        // 　・リスト内座標（コスト用）
 
         //ステージ列移動前の水晶情報を全て消す
         CrystalInfomationInMapDelete();
@@ -206,6 +204,13 @@ public class StageMove : MonoBehaviour
                 }
             }
         }
+    }
+
+    //ゲームオーバー表示とプレイヤー入力を無効化
+    private void GameOver(){
+        Debug.Log("がめおべら");
+        
+        
     }
 
     private void InstantiateStageObj(int _crystalAmount, int _enemyAmount){

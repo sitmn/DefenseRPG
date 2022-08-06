@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private StageMove _stageMove;
     [SerializeField]
     private PlayerController _playerController;
+    public static PlayerController _playerControllerStatic;
     [SerializeField]
     private LiftCrystal _liftCrystal;
     [SerializeField]
@@ -16,10 +17,19 @@ public class GameManager : MonoBehaviour
     private CrystalListController _crystalListController;
     [SerializeField]
     private EnemyListController _enemyListController;
+
+    public static bool _gameOverFlag;
+
+    void Awake(){
+        _playerControllerStatic = _playerController;
+        _gameOverFlag = false;
+    }
     
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(_gameOverFlag) return;
+
         _playerController.UpdateManager();
         _liftCrystal.UpdateManager();
         _repairCrystal.UpdateManager();
@@ -27,5 +37,16 @@ public class GameManager : MonoBehaviour
         _enemyListController.UpdateManager();
         _stageMove.UpdateManager();
 
+    }
+
+    //ゲームオーバー
+    public static void GameOver(){
+        //ゲーム内の動きを停止
+        _gameOverFlag = true;
+
+        //プレイヤー操作を無効化
+        _playerControllerStatic.InputInvalid();
+
+        Debug.Log("がめおべら");
     }
 }
