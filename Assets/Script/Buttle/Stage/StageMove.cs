@@ -112,6 +112,7 @@ public class StageMove : MonoBehaviour
         CrystalInfomationInMapCreate();
         //ステージ列移動後の敵情報を全て入れる
         EnemyInfomationInMapCreate();
+
         //最前列に新規でエネミーと黒水晶を生成
         InstantiateStageObj(_crystalInstantiateAmount,_enemyInstantiateAmount);
     }
@@ -189,14 +190,15 @@ public class StageMove : MonoBehaviour
             //現在位置のスライド
             //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
 
+            //TrackPosが１つのものはEnemyPosが0の時、StageMoveのUndoElementすると最前列になってしまうため、_trackChangeFlagをTrueにしてEnemyListControllerのMove処理を変える
             if(EnemyListController._enemiesList[i].TrackPos.Count == 1){
+                EnemyListController._enemiesList[i].TrackPos[0] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[0].x - 1, EnemyListController._enemiesList[i].TrackPos[0].y);
                 EnemyListController._enemiesList[i]._trackChangeFlag = true;
             }else{
                 //ステージ外が移動経路になっていれば、次のマスへの移動後、移動経路を変更
                 for(int j = 0; j < EnemyListController._enemiesList[i].TrackPos.Count ; j++){
                     if(EnemyListController._enemiesList[i].TrackPos[j].x == 0){
                         EnemyListController._enemiesList[i]._trackChangeFlag = true;
-
                         break;
                     }
                     //ステージ外が移動経路になっていなければ、ステージ移動に合わせて移動経路をスライド
@@ -218,7 +220,7 @@ public class StageMove : MonoBehaviour
         List<int> _randomNumberList = new List<int>();
         for(int i = 0;i < _crystalAmount; i++){
             int _randomNumber = Random.Range(0,_listNumberList.Count - 1);
-            _randomNumberList.Add(_randomNumber);
+            _randomNumberList.Add(_listNumberList[_randomNumber]);
             
             _listNumberList.RemoveAt(_randomNumber);
         }
@@ -234,7 +236,7 @@ public class StageMove : MonoBehaviour
         _randomNumberList = new List<int>();
         for(int i = 0;i < _enemyAmount; i++){
             int _randomNumber = Random.Range(0,_listNumberList.Count - 1);
-            _randomNumberList.Add(_randomNumber);
+            _randomNumberList.Add(_listNumberList[_randomNumber]);
             
             _listNumberList.RemoveAt(_randomNumber);
         }

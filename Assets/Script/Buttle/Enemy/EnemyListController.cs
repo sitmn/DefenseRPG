@@ -40,6 +40,7 @@ public class EnemyListController : MonoBehaviour
         //エネミーをそれぞれの移動経路に従って移動
         for(int i = 0 ; i < _enemiesList.Count ; i ++){
             bool _attackFlag = false;
+            
             //移動経路に水晶がある時、水晶を攻撃(黒水晶は移動経路にならないため、黒水晶は攻撃しない)　TrackPosは既にステージ移動が考慮された座標のためStageMove.UndoElementStageMoveは不要
             if(AStarMap.astarMas[_enemiesList[i].TrackPos[0].x,_enemiesList[i].TrackPos[0].y].obj.Count == 1){
                 if(AStarMap.astarMas[_enemiesList[i].TrackPos[0].x,_enemiesList[i].TrackPos[0].y].obj[0].GetType().Name == "CrystalController"){

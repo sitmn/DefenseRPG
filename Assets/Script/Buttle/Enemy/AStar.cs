@@ -145,7 +145,7 @@ public class AStar: MonoBehaviour,IAStar
     private List<Vector2Int> TrackRoute(AStarCost lastPos, Vector2Int currentPos){
         var trackRoute = new List<Vector2Int>();
 
-        //目的地の隣接マスを格納
+        //目的地を格納
         trackRoute.Add(lastPos.pos);
         //実コストが0になるまで隣接するマスを格納していく
         AStarCost trackPos = lastPos;
@@ -170,7 +170,7 @@ public class AStar: MonoBehaviour,IAStar
             //移動経路の候補からランダムで移動経路を入れる
             trackPos = _keepTrackPosList[UnityEngine.Random.Range(0, _keepTrackPosList.Count - 1)];
             trackRoute.Insert(0,trackPos.pos);
-
+            
             count ++;
             if(count > 1000){
                 //Debug.Log(AStarMap.astarMas[AStarMap._playerPos.x + 1,AStarMap._playerPos.y].moveCost + "YYYY");

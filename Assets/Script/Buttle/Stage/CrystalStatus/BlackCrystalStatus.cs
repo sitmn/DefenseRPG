@@ -11,7 +11,7 @@ public class BlackCrystalStatus : ACrystalStatus
         _attackRange = 2;
         _effectRate = 0.1f;
         _effectTime = 2;
-        _moveCost = 0;
+        _moveCost = 100;
     }
 
     //配置時のクリスタル効果
