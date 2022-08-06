@@ -614,6 +614,7 @@ GameObject:
   - component: {fileID: 247864398}
   - component: {fileID: 247864397}
   - component: {fileID: 247864396}
+  - component: {fileID: 247864399}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -688,6 +689,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &247864399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247864395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6f6e5bef03d4fff850295a1adb3140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &271071798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5589774808116242864, guid: 62fc106677641464694830e90232996e, type: 3}
@@ -1830,6 +1843,7 @@ MonoBehaviour:
   _repairCrystal: {fileID: 1656506536}
   _crystalListController: {fileID: 1753639823}
   _enemyListController: {fileID: 1596255240}
+  _cameraController: {fileID: 247864399}
 --- !u!4 &991447408
 Transform:
   m_ObjectHideFlags: 0

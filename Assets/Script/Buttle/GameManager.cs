@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private CrystalListController _crystalListController;
     [SerializeField]
     private EnemyListController _enemyListController;
+    [SerializeField]
+    private CameraController _cameraController;
 
     public static bool _gameOverFlag;
 
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
         _crystalListController.UpdateManager();
         _enemyListController.UpdateManager();
         _stageMove.UpdateManager();
-
+        _cameraController.UpdateManager();
     }
 
     //ゲームオーバー
