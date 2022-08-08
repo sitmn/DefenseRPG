@@ -22,6 +22,7 @@ public class CrystalController : AStageObject,ICrystalController
 
     //配置時、マップに移動不可情報とクラスを入れる
     void Start(){
+        _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
         if(AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
             // _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
             // AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 0;
@@ -37,13 +38,6 @@ public class CrystalController : AStageObject,ICrystalController
         }).AddTo(this);
     }
 
-    void OnEnable(){
-        SetOnAStarMap();
-    }
-    void OnDisable(){
-        SetOffAStarMap();
-    }
-
     public override void ObjectDestroy(){
         //水晶行動指示用リストから削除
         CrystalListController.RemoveCrystalInList(this);
@@ -53,8 +47,8 @@ public class CrystalController : AStageObject,ICrystalController
 
     //配置時、マップに移動不可情報とクラスを入れる
     public void SetOnAStarMap(){
+        _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
         if(AStarMap.astarMas != null && AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
-            _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
             AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _crystalStatus._moveCost;
             AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
         }
@@ -62,6 +56,8 @@ public class CrystalController : AStageObject,ICrystalController
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
+        Debug.Log(StageMove.UndoElementStageMove(_crystalPos.x) + "_" +_crystalPos.y + "Undo");
+Debug.Log(_crystalPos.x + "_" +_crystalPos.y);
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 1;
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Remove(this);
     }
