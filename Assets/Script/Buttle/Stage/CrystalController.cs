@@ -56,8 +56,6 @@ public class CrystalController : AStageObject,ICrystalController
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
-        Debug.Log(StageMove.UndoElementStageMove(_crystalPos.x) + "_" +_crystalPos.y + "Undo");
-Debug.Log(_crystalPos.x + "_" +_crystalPos.y);
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 1;
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Remove(this);
     }

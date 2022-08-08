@@ -19,7 +19,7 @@ public class CrystalRankUp : MonoBehaviour
     public void UpdateManager(){
         if(!RankUpCount()) return;
 
-        RankUp();
+        //RankUp();
     }
 
     //◎ランクアップまでのカウント
@@ -27,7 +27,7 @@ public class CrystalRankUp : MonoBehaviour
         bool _rankUpFlag = false;
         _rankUpCount ++;
 
-        if(_rankUpFlag >= _rankUpMaxCount){
+        if(_rankUpCount >= _rankUpMaxCount){
             _rankUpCount = 0;
             
             _rankUpFlag = true;
@@ -38,7 +38,7 @@ public class CrystalRankUp : MonoBehaviour
 
     //水晶の
     private int RankUp(int _nowRank){
-        _now
+        return 1;
     }
 
 }

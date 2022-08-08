@@ -56,6 +56,9 @@ public class EnemyListController : MonoBehaviour
                 if(_enemiesList[i].TrackPos[0].x == 0 && _enemiesList[i]._trackChangeFlag){
                     _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - new Vector2Int(_enemiesList[i].TrackPos[0].x - 1,_enemiesList[i].TrackPos[0].y));
                 }else{
+                    if(StageMove.UndoElementStageMove(_enemiesList[i].EnemyPos.Value.x) < 0 || Mathf.Abs(_enemiesList[i].TrackPos[0].x - StageMove.UndoElementStageMove(_enemiesList[i].EnemyPos.Value.x)) > 1){
+                        Debug.Log("TrackPos:"+_enemiesList[i].TrackPos[0].x+" Undo:"+StageMove.UndoElementStageMove(_enemiesList[i].EnemyPos.Value.x)+" EnemyPos:"+_enemiesList[i].EnemyPos.Value.x+" StageCount:"+StageMove._moveRowCount);
+                    }
                     _enemiesList[i].Move(_enemiesList[i].TrackPos[0] - new Vector2Int(StageMove.UndoElementStageMove(_enemiesList[i].EnemyPos.Value.x),_enemiesList[i].EnemyPos.Value.y));
                 }
             }

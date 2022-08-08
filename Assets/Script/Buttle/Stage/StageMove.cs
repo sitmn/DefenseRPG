@@ -64,7 +64,6 @@ public class StageMove : MonoBehaviour
         //時間経過でステージを移動
         if(!StageMoveCount()) return;
         StageMoveExecute();
-        Debug.Log("FFF");
     }
 
     //ステージ移動タイマー用カウント
@@ -82,10 +81,9 @@ public class StageMove : MonoBehaviour
     
     //ステージ移動を実行
     private void StageMoveExecute(){
-        Debug.Log("A");
         //プレイヤーがステージ最後列にいる場合、ゲームオーバー表示し、全ての入力を無効に
         if(StageMove.UndoElementStageMove(AStarMap._playerPos.x) == 0) GameManager.GameOver();
-Debug.Log("B");
+
         //ステージ最後列にあるオブジェクトを全て削除
         StageRowDestroy();
         //列の情報を全て1つ隣に移動させる（要素をマイナス1する）
@@ -97,27 +95,26 @@ Debug.Log("B");
         // 　・移動用座標:AStarMap利用時にStageMove.UndoElementで変換するので移動不要
         // 　　・敵
         // 　　・プレイヤー
-Debug.Log("C");
+
         //ステージ列移動前の水晶情報を全て消す
         CrystalInfomationInMapDelete();
         //ステージ列移動前の敵情報を全て消す
         EnemyInfomationInMapDelete();
-        Debug.Log("D");
+
         //最後列の床オブジェクト削除
         //最前列のリスト生成
         //最前列の床オブジェクト生成
         StageRowCreateAndDelete();
         //元々のリストが何列スライドしているか変数に格納（ワールド座標をリストの要素に変換するために使用）
         _moveRowCount ++;
-        Debug.Log("E");
+
         //ステージ列移動後の水晶情報を全て入れる
         CrystalInfomationInMapCreate();
         //ステージ列移動後の敵情報を全て入れる
         EnemyInfomationInMapCreate();
-Debug.Log("F");
+
         //最前列に新規でエネミーと黒水晶を生成
         InstantiateStageObj(_crystalInstantiateAmount,_enemyInstantiateAmount);
-        Debug.Log("G");
     }
 
     //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
@@ -265,7 +262,7 @@ Debug.Log("F");
         _judgePos_x -= _moveRowCount;
         if(_judgePos_x < 0){
             _judgePos_x += AStarMap.max_pos_x_static;
-            Debug.Log("_judgePos_x"+_judgePos_x+"max_pos_x_static"+AStarMap.max_pos_x_static+"_moveRowCount"+_moveRowCount);
+            //Debug.Log("_judgePos_x"+_judgePos_x+"max_pos_x_static"+AStarMap.max_pos_x_static+"_moveRowCount"+_moveRowCount);
         }
 
         return _judgePos_x;
