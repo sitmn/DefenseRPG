@@ -61,24 +61,24 @@ public class CrystalController : AStageObject,ICrystalController
     }
 
     //クリスタル起動時のクリスタルステータスをセット
-    public void SetCrystalType(ACrystalStatus _crystalStatus, Material _material, int _maxHp, int _effectMaxCount,int _attack,int _attackRange, float _effectRate, int _effectTime, int _moveCost){
+    public void SetCrystalStatus(ACrystalStatus _crystalStatus, CrystalParam _crystalParam){
         this._crystalStatus = _crystalStatus;
-        this.gameObject.GetComponent<Renderer>().material = _material;
+        this.gameObject.GetComponent<Renderer>().material = _crystalParam._material;
         //HPの最大値と現在のHPをセット
-        this._maxHp = _maxHp;
+        this._maxHp = _crystalParam._maxHp;
         this.Hp = this._maxHp;
         //攻撃間隔のステータスをセット
-        _crystalStatus._effectMaxCount = _effectMaxCount;
+        _crystalStatus._effectMaxCount = _crystalParam._effectMaxCount;
         //攻撃力と攻撃範囲のステータスをセット
-        _crystalStatus._attack = _attack;
-        _crystalStatus._attackRange = _attackRange;
+        _crystalStatus._attack = _crystalParam._attack;
+        _crystalStatus._attackRange = _crystalParam._attackRange;
         //特殊効果倍率と持続時間のステータスをセット
-        _crystalStatus._effectRate = _effectRate;
-        _crystalStatus._effectTime = _effectTime;
+        _crystalStatus._effectRate = _crystalParam._effectRate;
+        _crystalStatus._effectTime = _crystalParam._effectTime;
         //移動コスト
-        _crystalStatus._moveCost = _moveCost;
+        _crystalStatus._moveCost = _crystalParam._moveCost;
         //既に設定してあるマスの移動コストのみ変更
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _moveCost;
+        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _crystalParam._moveCost;
     }
 
     //セット中クリスタルの効果発動
