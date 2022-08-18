@@ -16,7 +16,7 @@ public class EnemyController : AStageObject
     //攻撃力
     private int _attack;
     //索敵範囲
-    private float _searchDestination;
+    private int _searchDestination;
     //移動速度
     private float _moveSpeedOrigin;
     //ステータス変動用
@@ -32,21 +32,24 @@ public class EnemyController : AStageObject
         }
     }
     private EnemyParamAsset _enemyParamData;
-    
+    public EnemyMove _enemyMove;
 
     private Transform _enemyTr;
     //移動判断用の位置、マスの中心に入ったら場所が変わる
-    public IReactiveProperty<Vector2Int> EnemyPos => _enemyPos;
-    private ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
+    //public IReactiveProperty<Vector2Int> EnemyPos => _enemyPos;
+    //private ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
     //どのマスにいるかの判断用位置、マス内に入ったら場所が変わる
     public IReactiveProperty<Vector2Int> JudgePos => _judgePos;
     private ReactiveProperty<Vector2Int> _judgePos = new ReactiveProperty<Vector2Int>();
+    //移動判断用の位置、マスの中心に入ったら場所が変わる
+    public IReactiveProperty<Vector2Int> EnemyPos => _enemyPos;
+    private ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
     //移動経路用リスト
-    public List<Vector2Int> TrackPos => _trackPos;
-    private List<Vector2Int> _trackPos = new List<Vector2Int>();
+    //public List<Vector2Int> TrackPos => _trackPos;
+    //private List<Vector2Int> _trackPos = new List<Vector2Int>();
     //移動経路探索リスト（ステージ移動後すぐに移動）
-    public bool _trackChangeFlag;
-    private IAStar _astar;
+    //public bool _trackChangeFlag;
+    //private IAStar _astar;
     
     //スピード上昇回復用非同期トークン
     private CancellationTokenSource _cancellationTokenSourceBuff = new CancellationTokenSource();
@@ -58,21 +61,29 @@ public class EnemyController : AStageObject
     private GameObject _speedBuff;
 
     void Awake(){
+        InitializeComponent();
+    }
+
+    private void InitializeComponent(){
+        //_astar = this.gameObject.GetComponent<AStar>();
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
 
-        _astar = this.gameObject.GetComponent<AStar>();
         _enemyTr = this.gameObject.GetComponent<Transform>();
-        _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
-        _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
+        _enemyPos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
+        _enemyMove = this.gameObject.GetComponent<EnemyMove>();
+        //_enemyPos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).y));
+        _judgePos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
         _speedDebuff = transform.GetChild(0).gameObject;
         _speedBuff = transform.GetChild(1).gameObject;
+        
     }
 
     void Start(){
-        TrackStreamSet();
-        JudgeStreamSet();
+        //TrackStreamSet();
         SetParam();
-        SetHPStream();
+        CreateJudgePosStream();
+        CreateEnemyPosStream();
+        CreateHPStream();
     }
 
 
@@ -87,20 +98,20 @@ public class EnemyController : AStageObject
         Hp = _maxHp;
         _moveSpeed = _moveSpeedOrigin;
 
-        _trackChangeFlag = false;
+        //_trackChangeFlag = false;
     }
 
-    private void SetHPStream(){
+    private void CreateHPStream(){
         _hp.Subscribe((x) => {
             if(x <= 0) ObjectDestroy();
         }).AddTo(this);
     }
 
     public void SetOnAStarMap(Vector2Int _pos){
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_pos.x),_pos.y].obj.Add(this);
+        AStarMap.astarMas[_pos.x,_pos.y].obj.Add(this);
     }
     public void SetOffAStarMap(Vector2Int _pos){
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_pos.x), _pos.y].obj.Remove(this);
+        AStarMap.astarMas[_pos.x, _pos.y].obj.Remove(this);
     }
 
     //エネミーを削除
@@ -110,16 +121,16 @@ public class EnemyController : AStageObject
         Destroy(this.gameObject);
     }
 
-    //経路探索用ストリーム
-    private void TrackStreamSet(){
-        //１マス移動後、移動経路を再検索
-        _enemyPos.Subscribe((x) => {
-            //目的地に着いたら,またはステージ移動時,またはプレイヤー発見時に経路探索
-            if(_trackPos.Count == 0 || _trackChangeFlag || EnemySearch.Search(_enemyPos.Value, _searchDestination)) EnemyTrackSet(x);
-        }).AddTo(this);
-    }
-    //判定座標用ストリーム
-    private void JudgeStreamSet(){
+    // //経路探索用ストリーム
+    // private void TrackStreamSet(){
+    //     //１マス移動後、移動経路を再検索
+    //     _enemyPos.Subscribe((x) => {
+    //         //目的地に着いたら,またはステージ移動時,またはプレイヤー発見時に経路探索
+    //         if(_trackPos.Count == 0 || _trackChangeFlag || EnemySearch.Search(_enemyPos.Value, _searchDestination)) EnemyTrackSet(x);
+    //     }).AddTo(this);
+    // }
+    //判定座標用ストリーム生成
+    private void CreateJudgePosStream(){
         _judgePos.Pairwise()
         .Subscribe((x) => {
             //今のマップへ格納
@@ -128,25 +139,36 @@ public class EnemyController : AStageObject
             SetOffAStarMap(x.Previous);
         }).AddTo(this);
     }
+
+    //移動経路更新用ストリーム生成
+    private void CreateEnemyPosStream(){
+        //１マス移動後、移動経路を再検索
+        _enemyPos.Subscribe((x) => {
+        //移動経路の更新
+        _enemyMove.SetTrackPos(x, _searchDestination);
+         
+        }).AddTo(this);
+    }
  
     //追跡先をセット
-    public void EnemyTrackSet(Vector2Int _enemyPos){
-        //ステージ移動を考慮した座標を導出
-        _enemyPos = new Vector2Int(StageMove.UndoElementStageMove(_enemyPos.x), _enemyPos.y);
-        Vector2Int _playerPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap._playerPos.x),AStarMap._playerPos.y);
-        //索敵範囲にプレイヤーがいれば経路探索
-        if(EnemySearch.Search(_enemyPos, _searchDestination)){
-            _trackPos = _astar.AstarMain(_enemyPos, _playerPos);
-        }else{
-            //適当な位置を指定 ⇨ 軽量化するには、　　既に指定している場合、次の配列要素へ（経路探索はキャッシュを使用）
-            _trackPos = _astar.AstarMain(_enemyPos, AStarMap.GetRandomPos(_enemyPos));
-        }
+    // public void EnemyTrackSet(Vector2Int _enemyPos){
+    //     //ステージ移動を考慮した座標を導出
+    //     _enemyPos = new Vector2Int(StageMove.UndoElementStageMove(_enemyPos.x), _enemyPos.y);
+    //     Vector2Int _playerPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap._playerPos.x),AStarMap._playerPos.y);
+    //     //索敵範囲にプレイヤーがいれば経路探索
+    //     if(EnemySearch.Search(_enemyPos, _searchDestination)){
+    //         _trackPos = _astar.AstarMain(_enemyPos, _playerPos);
+    //     }else{
+    //         //適当な位置を指定 ⇨ 軽量化するには、　　既に指定している場合、次の配列要素へ（経路探索はキャッシュを使用）
+    //         _trackPos = _astar.AstarMain(_enemyPos, AStarMap.GetRandomPos(_enemyPos));
+    //     }
 
         
 
-        //フラグクリア
-        _trackChangeFlag = false;
-    }
+    //     //フラグクリア
+    //     _trackChangeFlag = false;
+    // }
+    
 
     //スピードを上昇させる
     public override void SpeedUp(float _upRate, int _upTime){
@@ -181,19 +203,44 @@ public class EnemyController : AStageObject
         _buffObj.SetActive(false);
     }
 
-    public void Move(Vector2Int _moveDir){
-        //移動
-        _enemyTr.position += new Vector3((float)_moveDir.x,0, (float)_moveDir.y) * Time.deltaTime * _moveSpeed;
-
-        //AStarのマス中心を通過したら座標を変更（移動用） _enemyTr.position.xにはステージ列移動が考慮されていないのでStageMoveのUndoElementStageMoveが必要（型が異なるため、__moveRowCountを直接引く）
-        if(Mathf.Abs(_enemyTr.position.x - StageMove._moveRowCount - _trackPos[0].x + _enemyTr.position.z - _trackPos[0].y) < Time.deltaTime * _moveSpeed + 0.01f){
-            _trackPos.RemoveAt(0);
-            _enemyPos.Value = AStarMap.CastMapPos(_enemyTr.position);
-            _enemyTr.position = new Vector3(_enemyPos.Value.x , 0.5f , _enemyPos.Value.y);
+    //エネミーの行動
+    public void EnemyAction(){
+        bool _isAttack = false;
+        // //移動経路に水晶がある時、水晶を攻撃(黒水晶は移動経路にならないため、黒水晶は攻撃しない)　TrackPosは既にステージ移動が考慮された座標のためStageMove.UndoElementStageMoveは不要
+        // if(AStarMap.astarMas[_enemyMove.TrackPos[0].x,_enemyMove.TrackPos[0].y].obj.Count == 1){
+        //     if(AStarMap.astarMas[_enemyMove.TrackPos[0].x,_enemyMove.TrackPos[0].y].obj[0].GetType().Name == "CrystalController"){
+        //         _isAttack = true;
+        //     }
+        // }
+        // //攻撃
+        // if(_isAttack){
+        //     Attack(_enemyMove.TrackPos[0]);
+        // }else{
+        //エネミーの移動
+        _enemyMove.Move(_enemyPos.Value, _moveSpeed);
+            
+        //マス中心を通過したら移動用の座標を変更
+        if(_enemyMove.IsPassPosition(_moveSpeed)){
+            //位置更新（移動用位置と移動経路）
+            _enemyMove.UpdatePosition();
+            //移動用位置取得
+            SetEnemyPos();
+        }else{
+            //判定用位置取得
+            SetJudgePos();
         }
-        //AStarのマス内に踏み入れたら座標を変更（当たり判定用）
-        _judgePos.Value = AStarMap.CastMapPos(_enemyTr.position);
+    // }
     }
+
+    //移動用座標をセット
+    public void SetEnemyPos(){
+        _enemyPos.Value = _enemyMove.GetCurrentPosition();
+    }
+    //判定用座標をセット
+    public void SetJudgePos(){
+        _judgePos.Value = _enemyMove.GetCurrentPosition();
+    }
+
 
     //敵が水晶を攻撃,_attackPosは既にステージ列移動が考慮された座標のためStageMove.UndoElementStageMoveは不要
     public void Attack(Vector2Int _attackPos){
@@ -211,7 +258,7 @@ public class EnemyController : AStageObject
             _attackFlag = true;
 
             //攻撃時、経路探索し直し
-            EnemyTrackSet(_enemyPos.Value);
+            _enemyMove.SetTrackPos(_enemyPos.Value, _searchDestination);;
         }
 
         return _attackFlag;

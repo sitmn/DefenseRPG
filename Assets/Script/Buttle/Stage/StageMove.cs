@@ -129,7 +129,7 @@ public class StageMove : MonoBehaviour
             }
         }
         for(int i = 0;i < EnemyListController._enemiesList.Count ; i++){
-            if(EnemyListController._enemiesList[i].TrackPos[0].x == 0){
+            if(EnemyListController._enemiesList[i]._enemyMove.TrackPos[0].x == 0){
                 _enemyControllerList.Add(EnemyListController._enemiesList[i]);
             }
         }
@@ -185,8 +185,6 @@ public class StageMove : MonoBehaviour
     //敵情報をMapに全て生成し、移動経路と今の位置情報をステージ移動に合わせてずらす（ステージ外が移動経路にあれば、再度移動経路を探索する）
     private void EnemyInfomationInMapCreate(){
         for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
-            EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
-
             //現在位置のスライド
             //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
 
@@ -195,21 +193,30 @@ public class StageMove : MonoBehaviour
             //     EnemyListController._enemiesList[i].TrackPos[0] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[0].x - 1, EnemyListController._enemiesList[i].TrackPos[0].y);
             //     EnemyListController._enemiesList[i]._trackChangeFlag = true;
             // }else{
-                //ステージ外が移動経路になっていれば、次のマスへの移動後、移動経路を変更
-            for(int j = 0; j < EnemyListController._enemiesList[i].TrackPos.Count ; j++){
-                if(EnemyListController._enemiesList[i].TrackPos[j].x == 0){
-                    EnemyListController._enemiesList[i]._trackChangeFlag = true;
-                    break;
-                }
+            //ステージ移動分、座標をスライド
+            for(int j = 0; j < EnemyListController._enemiesList[i]._enemyMove.TrackPos.Count ; j++){
+                // if(EnemyListController._enemiesList[i].TrackPos[j].x == 0){
+                //     EnemyListController._enemiesList[i]._trackChangeFlag = true;
+
+                //     //☆ここでTrackPosする？
+                //     break;
+                // }
                 //ステージ外が移動経路になっていなければ、ステージ移動に合わせて移動経路をスライド
-                EnemyListController._enemiesList[i].TrackPos[j] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[j].x - 1, EnemyListController._enemiesList[i].TrackPos[j].y);
+                EnemyListController._enemiesList[i]._enemyMove.TrackPos[j] = new Vector2Int(EnemyListController._enemiesList[i]._enemyMove.TrackPos[j].x - 1, EnemyListController._enemiesList[i]._enemyMove.TrackPos[j].y);
+                
             }
+            EnemyListController._enemiesList[i].SetEnemyPos();
+            EnemyListController._enemiesList[i].SetJudgePos();
+
+            EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
+
+            Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos);
         }
     }
 
     //ゲームオーバー表示とプレイヤー入力を無効化
     private void GameOver(){
-        Debug.Log("がめおべら");
+        Debug.Log("がめおべら"); //☆プレイヤーのHPを0にする
         
         
     }

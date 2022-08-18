@@ -49,14 +49,14 @@ public class CrystalController : AStageObject,ICrystalController
     public void SetOnAStarMap(){
         _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
         if(AStarMap.astarMas != null && AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
-            AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _crystalStatus._moveCost;
+            AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = _crystalStatus._moveCost;
             AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
         }
         
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 1;
+        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = 1;
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Remove(this);
     }
 
@@ -78,7 +78,7 @@ public class CrystalController : AStageObject,ICrystalController
         //移動コスト
         _crystalStatus._moveCost = _crystalParam._moveCost;
         //既に設定してあるマスの移動コストのみ変更
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = _crystalParam._moveCost;
+        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = _crystalParam._moveCost;
     }
 
     //セット中クリスタルの効果発動

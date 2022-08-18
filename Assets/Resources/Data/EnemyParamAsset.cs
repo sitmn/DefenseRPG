@@ -26,5 +26,5 @@ public class EnemyParam{
     public float _moveSpeed;
     //索敵範囲
     [SerializeField]
-    public float _searchDestination;
+    public int _searchDestination;
 }

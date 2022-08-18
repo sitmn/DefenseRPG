@@ -26,7 +26,7 @@ public class AStarMap : MonoBehaviour
             for(int j = 0;j < astarMas.GetLength(1); j++){
                 astarMas[i,j] = new AStarMas();
                 astarMas[i,j].obj = new List<AStageObject>();
-                astarMas[i,j].moveCost = 1;
+                astarMas[i,j]._moveCost = 1;
             }
         }
     }
@@ -143,7 +143,7 @@ public class AStarMap : MonoBehaviour
 //AStar利用用構造体
 public class AStarMas{
     //移動コスト 0は行き止まり
-    public int moveCost;
+    public int _moveCost;
     //マスに何があるか（エネミー、水晶）
     public List<AStageObject> obj;
 }
