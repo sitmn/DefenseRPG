@@ -110,8 +110,8 @@ public class StageMove : MonoBehaviour
 
         //ステージ列移動後の水晶情報を全て入れる
         CrystalInfomationInMapCreate();
-        //ステージ列移動後の敵情報を全て入れる
-        EnemyInfomationInMapCreate();
+        //ステージ列移動後の敵位置を全て更新。情報も全て入れる
+        SlideAllPos();
 
         //最前列に新規でエネミーと黒水晶を生成
         InstantiateStageObj(_crystalInstantiateAmount,_enemyInstantiateAmount);
@@ -182,8 +182,9 @@ public class StageMove : MonoBehaviour
         }
     }
 
-    //敵情報をMapに全て生成し、移動経路と今の位置情報をステージ移動に合わせてずらす（ステージ外が移動経路にあれば、再度移動経路を探索する）
-    private void EnemyInfomationInMapCreate(){
+    //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
+    private void SlideAllPos(){
+        Debug.Log(EnemyListController._enemiesList.Count + "FFFF");
         for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
             //現在位置のスライド
             //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
@@ -205,14 +206,16 @@ public class StageMove : MonoBehaviour
                 EnemyListController._enemiesList[i]._enemyMove.TrackPos[j] = new Vector2Int(EnemyListController._enemiesList[i]._enemyMove.TrackPos[j].x - 1, EnemyListController._enemiesList[i]._enemyMove.TrackPos[j].y);
                 
             }
-            EnemyListController._enemiesList[i].SetEnemyPos();
-            EnemyListController._enemiesList[i].SetJudgePos();
-
+            EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x - 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
+            //EnemyListController._enemiesList[i].SetJudgePos();
+            EnemyListController._enemiesList[i].JudgePos.Value = new Vector2Int(EnemyListController._enemiesList[i].JudgePos.Value.x - 1, EnemyListController._enemiesList[i].JudgePos.Value.y);
+            
             EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
-
-            Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos);
+            
+            Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos + "AAA");
         }
     }
+
 
     //ゲームオーバー表示とプレイヤー入力を無効化
     private void GameOver(){

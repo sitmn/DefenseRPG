@@ -133,6 +133,7 @@ public class EnemyController : AStageObject
     private void CreateJudgePosStream(){
         _judgePos.Pairwise()
         .Subscribe((x) => {
+            Debug.Log("AAAAA");
             //今のマップへ格納
             SetOnAStarMap(x.Current);
             //前のマップから削除
