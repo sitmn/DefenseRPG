@@ -82,7 +82,7 @@ public class StageMove : MonoBehaviour
     //ステージ移動を実行
     private void StageMoveExecute(){
         //プレイヤーがステージ最後列にいる場合、ゲームオーバー表示し、全ての入力を無効に
-        if(StageMove.UndoElementStageMove(AStarMap._playerPos.x) == 0) GameManager.GameOver();
+        if(AStarMap._playerPos.x == 0) GameManager.GameOver();
 
         //ステージ最後列にあるオブジェクトを全て削除
         StageRowDestroy();
@@ -119,27 +119,30 @@ public class StageMove : MonoBehaviour
 
     //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
     private void StageRowDestroy(){
-        List<AStageObject> _aStageObjList = new List<AStageObject>();
-        List<EnemyController> _enemyControllerList = new List<EnemyController>();
+        List<ACrystalCore> _crystalCoreList = new List<ACrystalCore>();
+        List<AEnemyCore> _enemyCoreList = new List<AEnemyCore>();
 
         //削除前に別のリストに入れる（削除時、リストをRemoveするため）
+        //最後列のエネミーとクリスタルをリストへ追加
         for(int i = 0; i < AStarMap.max_pos_z_static ; i++){
-            for(int j = 0; j < AStarMap.astarMas[0, i].obj.Count ; j++){
-                _aStageObjList.Add(AStarMap.astarMas[0, i].obj[j]);
+            if(AStarMap.astarMas[0, i]._crystalCore != null) _crystalCoreList.Add(AStarMap.astarMas[0, i]._crystalCore);
+            for(int j = 0; j < AStarMap.astarMas[0, i]._enemyCoreList.Count ; j++){
+                _enemyCoreList.Add(AStarMap.astarMas[0, i]._enemyCoreList[j]);
             }
         }
+        //最後列へ移動しようとしているエネミーをリストへ追加
         for(int i = 0;i < EnemyListController._enemiesList.Count ; i++){
             if(EnemyListController._enemiesList[i]._enemyMove.TrackPos[0].x == 0){
-                _enemyControllerList.Add(EnemyListController._enemiesList[i]);
+                _enemyCoreList.Add(EnemyListController._enemiesList[i]);
             }
         }
 
         //ステージ外になるオブジェクトを全て削除
-        foreach(AStageObject _astageObj in _aStageObjList){
-            _astageObj.ObjectDestroy();
+        foreach(ACrystalCore __crystalCoreObj in _crystalCoreList){
+            __crystalCoreObj.ObjectDestroy();
         }
-        foreach(EnemyController _enemyController in _enemyControllerList){
-            _enemyController.ObjectDestroy();
+        foreach(AEnemyCore _enemyCoreObj in _enemyCoreList){
+            _enemyCoreObj.ObjectDestroy();
         }
     }
 
@@ -184,7 +187,6 @@ public class StageMove : MonoBehaviour
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
     private void SlideAllPos(){
-        Debug.Log(EnemyListController._enemiesList.Count + "FFFF");
         for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
             //現在位置のスライド
             //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
@@ -212,7 +214,9 @@ public class StageMove : MonoBehaviour
             
             EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
             
-            Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos + "AAA");
+            AStarMap._playerPos.x -= 1;
+            AStarMap._playerPos = new Vector2Int(AStarMap._playerPos.x, AStarMap._playerPos.y);
+            //Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos + "AAA");
         }
     }
 

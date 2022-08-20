@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
+public abstract class ACrystalStatus : MonoBehaviour
 {
     // //水晶の最大HP
     // public int _maxHp;
@@ -35,10 +35,8 @@ public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
         _effectCount = 0;
     }
 
-    public abstract void SetEffect(Vector2Int pos);
-
     //効果カウントのカウントと初期化
-    public bool SetEffectCount(){
+    public bool CountAttack(){
         _effectCount++;
         bool _effectLaunch = false;
         if(_effectCount >= _effectMaxCount){
@@ -49,16 +47,7 @@ public abstract class ACrystalStatus : MonoBehaviour, ICrystalStatus
         return _effectLaunch;        
     }
 
-
-    //リフト時クリスタル効果 ⇨ 一旦効果なしで
-    /*赤：進行方向に遠距離範囲攻撃
-    **青：周囲の敵に強デバフ攻撃
-    **緑：プレイヤーに速度バフ付与
-    **黒：持ち上げ不可
-    */
-    void LiftEffect(){
-
-    }
-
     public Material _material{get;set;}
+
+    
 }

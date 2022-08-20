@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         _repairCrystal.UpdateManager();
         _crystalListController.UpdateManager();
         _enemyListController.UpdateManager();
-        _stageMove.UpdateManager();
+        //_stageMove.UpdateManager(); 
         _cameraController.UpdateManager();
     }
 

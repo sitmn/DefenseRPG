@@ -89,11 +89,9 @@ public class RepairCrystal : MonoBehaviour, IRepairCrystal
         //判定座標
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
         //正面に黒以外の水晶があれば回復
-        if(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1){
-            if(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].GetType().Name == "CrystalController"){
-                AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].Hp += _repairPoint;
-                Debug.Log(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].Hp + "HHH");
-            }
+        if(AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
+            AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore.Hp += _repairPoint;
+            Debug.Log(AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y]._crystalCore.Hp + "HHH");
         }
     }
 

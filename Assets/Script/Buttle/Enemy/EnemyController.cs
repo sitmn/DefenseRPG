@@ -6,7 +6,7 @@ using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public class EnemyController : AStageObject
+public class EnemyController : AEnemyCore
 {
     /***ステータス***/
     //Hpと最大HpはIStageObjectが保持
@@ -108,10 +108,10 @@ public class EnemyController : AStageObject
     }
 
     public void SetOnAStarMap(Vector2Int _pos){
-        AStarMap.astarMas[_pos.x,_pos.y].obj.Add(this);
+        AStarMap.astarMas[_pos.x,_pos.y]._enemyCoreList.Add(this);
     }
     public void SetOffAStarMap(Vector2Int _pos){
-        AStarMap.astarMas[_pos.x, _pos.y].obj.Remove(this);
+        AStarMap.astarMas[_pos.x, _pos.y]._enemyCoreList.Remove(this);
     }
 
     //エネミーを削除
@@ -133,7 +133,6 @@ public class EnemyController : AStageObject
     private void CreateJudgePosStream(){
         _judgePos.Pairwise()
         .Subscribe((x) => {
-            Debug.Log("AAAAA");
             //今のマップへ格納
             SetOnAStarMap(x.Current);
             //前のマップから削除
@@ -245,7 +244,7 @@ public class EnemyController : AStageObject
 
     //敵が水晶を攻撃,_attackPosは既にステージ列移動が考慮された座標のためStageMove.UndoElementStageMoveは不要
     public void Attack(Vector2Int _attackPos){
-        if(AttackCount()) AStarMap.astarMas[_attackPos.x, _attackPos.y].obj[0].Hp -= _attack;
+        if(AttackCount()) AStarMap.astarMas[_attackPos.x, _attackPos.y]._crystalCore.Hp -= _attack;
     }
 
     //攻撃間隔用のカウント

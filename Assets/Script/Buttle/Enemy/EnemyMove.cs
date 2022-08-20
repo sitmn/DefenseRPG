@@ -54,7 +54,6 @@ public class EnemyMove : MonoBehaviour
 
     //オブジェクトの移動
     public void DoMove(Vector2Int _moveDir, float _moveSpeed){
-        Debug.Log(_moveDir + "EEE");
         //位置の移動
         _enemyTr.position += new Vector3((float)_moveDir.x,0, (float)_moveDir.y) * Time.deltaTime * _moveSpeed;
     }

@@ -72,6 +72,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
 
     //隣のマス中心まで移動
     public void Move(){
+        
         Vector3 player_move = new Vector3(_nextPlayerPos.x - _playerPos.x, 0, _nextPlayerPos.y - _playerPos.y);
 
         _playerTr.position += player_move * _moveSpeed * Time.deltaTime;
@@ -81,7 +82,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
             _playerPos = AStarMap.CastMapPos(_playerTr.position);
         }
 
-        AStarMap._playerPos = AStarMap.CastMapPos(_playerTr.position);
+        AStarMap._playerPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_playerTr.position).x),AStarMap.CastMapPos(_playerTr.position).y);
         return;
     }
 
@@ -98,12 +99,13 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         //移動後のワールド座標
         Vector2Int _movePos = AStarMap._playerPos + _moveDir;
         if(!AStarMap.OutOfReferenceCheck(_movePos)//ステージ範囲外判定
-        && AStarMap.astarMas[StageMove.UndoElementStageMove(_movePos.x), _movePos.y].obj.Count == 0 //this.pos + _moveDir のAStarMap.Objが存在しないか
+        && AStarMap.astarMas[_movePos.x, _movePos.y]._enemyCoreList.Count == 0 //this.pos + _moveDir のAStarMap.Objが存在しないか
+        && AStarMap.astarMas[_movePos.x, _movePos.y]._crystalCore == null
         && !(AStarMap._playerPos.x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCountStatic * 9 / 10) //ステージ移動直前に最後列へ移動していないか
         ){
             _moveCheckFlag = true;
         }else{
-            //Debug.Log(AStarMap.astarMas[StageMove.UndoElementStageMove(_movePos.x), _movePos.y].obj[0].GetType().Name);
+            Debug.Log(AStarMap._playerPos + "GGG");
         }
 
         return _moveCheckFlag; 

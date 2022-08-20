@@ -83,12 +83,12 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         _liftDownActiveFlag = false;
     }
 
-    //前方に敵またはクリスタルがあるか、かつ、前方隣1マスに敵がいるかを確認
+    //☆前方に敵またはクリスタルがあるか、かつ、前方隣1マスに敵がいるかを確認
     public bool StageObjCheck(){
         bool _checkCrystal = false;
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
-        if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count > 0 ||
-        AStarMap.AroundSearch(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z), 1).Count > 0)){
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[_judgePos.x, _judgePos.y]._enemyCoreList.Count > 0 || AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null ||
+        AStarMap.GetAroundCore<AEnemyCore>(AStarMap._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1).Count > 0) ){
             _checkCrystal = true;
         }
         
@@ -99,8 +99,8 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     public bool BlackCrystalCheck(){
         bool _checkBlackCrystal = false;
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
-        if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1)){
-            _checkBlackCrystal = (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null)){
+            _checkBlackCrystal = (AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore._crystalStatus.GetType().Name == "BlackCrystalStatus");
         }
 
         return _checkBlackCrystal;
@@ -109,6 +109,7 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行
     //クリスタルリフトアップ開始
     private void OnLiftUpStart(InputAction.CallbackContext context){
+        Debug.Log("QQQ");
         //リフトアップ中フラグ（移動不可）
         _liftUpActionFlag = true;
         //リフトアップモーション開始
@@ -119,10 +120,11 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
 
     //クリスタルリフトアップ完了(長押し)
     private void OnLiftUpComplete(InputAction.CallbackContext context){
+        Debug.Log("WWW");
         //Lift中Objを格納
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
-        _crystalTr = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].gameObject.GetComponent<Transform>();
-        _crystalController = AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0] as CrystalController;
+        _crystalTr = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore.gameObject.GetComponent<Transform>();
+        _crystalController = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalController;
         //マップ情報から水晶を削除
         _crystalController.SetOffAStarMap();
         //オブジェクトを頭上へ移動
@@ -157,7 +159,7 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     //クリスタルリフトダウン完了(長押し)
     private void OnLiftDownComplete(InputAction.CallbackContext context){
         //オブジェクトをマスへ配置
-        _crystalTr.position = new Vector3(AStarMap._playerPos.x + (int)_playerTr.forward.x, 0.5f, AStarMap._playerPos.y + (int)_playerTr.forward.z);
+        _crystalTr.position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0.5f, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
         //マップ情報に水晶を追加
         _crystalController.SetOnAStarMap();

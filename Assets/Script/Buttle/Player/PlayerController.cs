@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     //アクションを無効化
     public void InputInvalid(){
         if(_useCrystal.LaunchActiveFlag) _useCrystal.LaunchDisable();

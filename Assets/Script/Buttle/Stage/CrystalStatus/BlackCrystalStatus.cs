@@ -14,23 +14,23 @@ public class BlackCrystalStatus : ACrystalStatus
         _moveCost = 100;
     }
 
-    //配置時のクリスタル効果
-    public override void SetEffect(Vector2Int pos){
-        if(!SetEffectCount()) return;
+    // //配置時のクリスタル効果
+    // public override void SetEffect(Vector2Int pos){
+    //     if(!SetEffectCount()) return;
 
-        Strength(pos);
-    }
+    //     Strength(pos);
+    // }
 
-    //周囲エネミーにバフ
-    private void Strength(Vector2Int pos){
-        List<AStageObject> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
-        for(int i = 0; i < _enemyList.Count ; i++){
-            SpeedUp(_enemyList[i]);
-        }
-    }
+    // //周囲エネミーにバフ
+    // private void Strength(Vector2Int pos){
+    //     List<AEnemyCore> _enemyList = AStarMap.AroundSearchAll(pos, _attackRange);
+    //     for(int i = 0; i < _enemyList.Count ; i++){
+    //         SpeedUp(_enemyList[i]);
+    //     }
+    // }
 
-    //移動速度減少効果
-    private void SpeedUp(AStageObject _enemyController){
-        _enemyController.SpeedUp(_effectRate, _effectTime);
-    }
+    // //移動速度減少効果
+    // private void SpeedUp(AEnemyCore _enemyController){
+    //     _enemyController.SpeedUp(_effectRate, _effectTime);
+    // }
 }

@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+
 //水晶の動作クラス
-public class CrystalController : AStageObject,ICrystalController
+public class CrystalController : ACrystalCore,ICrystalController
 {
     //HP、最大HPはIStage Objectが保持
 
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
     public ACrystalStatus _crystalStatus{get;set;}
+    public IAttack _attack{get;set;}
 
     void Awake(){
         _crystalTr = this.gameObject.GetComponent<Transform>();
@@ -18,12 +21,13 @@ public class CrystalController : AStageObject,ICrystalController
         //黒水晶のHPをセット
         _maxHp = 999;
         Hp = _maxHp;
+        _attack = new BlackCrystalAttack();
     }
 
     //配置時、マップに移動不可情報とクラスを入れる
     void Start(){
-        _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
-        if(AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
+        _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_crystalTr.position).x), AStarMap.CastMapPos(_crystalTr.position).y);
+        if(AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore == null){
             // _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
             // AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].moveCost = 0;
             // AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
@@ -47,17 +51,17 @@ public class CrystalController : AStageObject,ICrystalController
 
     //配置時、マップに移動不可情報とクラスを入れる
     public void SetOnAStarMap(){
-        _crystalPos = AStarMap.CastMapPos(_crystalTr.position);
-        if(AStarMap.astarMas != null && AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Count == 0){
-            AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = _crystalStatus._moveCost;
-            AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Add(this);
+        _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_crystalTr.position).x), AStarMap.CastMapPos(_crystalTr.position).y);
+        if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore == null){
+            AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._moveCost = _crystalStatus._moveCost;
+            AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = this;
         }
         
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = 1;
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y].obj.Remove(this);
+        AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._moveCost = 1;
+        AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = null;
     }
 
     //クリスタル起動時のクリスタルステータスをセット
@@ -79,17 +83,31 @@ public class CrystalController : AStageObject,ICrystalController
         _crystalStatus._moveCost = _crystalParam._moveCost;
         //既に設定してあるマスの移動コストのみ変更
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = _crystalParam._moveCost;
+        //攻撃方法をセット
+        Type classObj = Type.GetType(_crystalParam._crystalAttackName);
+        _attack = (IAttack)Activator.CreateInstance(classObj);
+        
     }
 
-    //セット中クリスタルの効果発動
-    public void SetEffect(){
-        _crystalStatus.SetEffect(_crystalPos);
-    }
-    //リフト中クリスタルの効果発動
-    public void LiftEffect(){
+    //攻撃や効果を発動
+    public void Attack(){
+        //リフト中のクリスタルは攻撃なし
+        if(this == LiftCrystal._crystalController){
 
-    }
+        }else{
+            //攻撃カウントになったときに攻撃を実行
+            if(_crystalStatus.CountAttack()) _attack.DoAttack(_crystalPos, new Vector2Int((int)_crystalTr.forward.x, (int)_crystalTr.forward.z), _crystalStatus);
+        }
+    // }
+    // //セット中クリスタルの効果発動
+    // public void SetEffect(){
+        
+    // }
+    // //リフト中クリスタルの効果発動
+    // public void LiftEffect(){
 
+    // }
+    }
     public override void SpeedDown(float _decreaseRate, int _decreaseTime){
 
     }

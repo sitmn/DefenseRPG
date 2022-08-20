@@ -9,9 +9,12 @@ public class CrystalParamAsset : ScriptableObject{
 
 [System.Serializable]
 public class CrystalParam{
-    //ICrystalStatuクラスを継承したクラス名
+    //ACrystalStatuクラスを継承したクラス名
     [SerializeField]
-    public string _crystalControllerName;
+    public string _crystalCoreName;
+    //攻撃用クラス名
+    [SerializeField]
+    public string _crystalAttackName;
     //最大HP
     [SerializeField]
     public int _maxHp;

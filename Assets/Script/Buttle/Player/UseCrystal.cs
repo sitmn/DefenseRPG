@@ -55,8 +55,8 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         //判定座標
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
         //判定座標がステージリスト範囲外ではないか、正面にクリスタルがあるか
-        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1){
-            _checkCrystal = (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0].GetType().Name == "CrystalController");
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
+            _checkCrystal = true;
         }
         
         return _checkCrystal;
@@ -66,8 +66,8 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     public bool BlackCrystalCheck(){
         bool _checkBlackCrystal = false;
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
-        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj.Count == 1){
-            _checkBlackCrystal = (AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x), _judgePos.y].obj[0] as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
+        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
+            _checkBlackCrystal = (AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
         }
 
         return _checkBlackCrystal;
@@ -88,11 +88,11 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     private void OnLaunchComplete(InputAction.CallbackContext context){
         float _colorNo = context.ReadValue<float>();
 
-        ICrystalController _crystalController = AStarMap.astarMas[StageMove.UndoElementStageMove(AStarMap._playerPos.x + (int)_playerTr.forward.x), AStarMap._playerPos.y + (int)_playerTr.forward.z].obj[0] as ICrystalController;
+        ICrystalController _crystalCore = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z]._crystalCore as ICrystalController;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色ごとのクリスタルステータスを格納し、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
-        Type classObj = Type.GetType(_crystalParamData.CrystalParamList[(int)_colorNo - 1]._crystalControllerName);
-        _crystalController.SetCrystalStatus((ACrystalStatus)Activator.CreateInstance(classObj), _crystalParamData.CrystalParamList[(int)_colorNo - 1]);
+        Type classObj = Type.GetType(_crystalParamData.CrystalParamList[(int)_colorNo - 1]._crystalCoreName);
+        _crystalCore.SetCrystalStatus((ACrystalStatus)Activator.CreateInstance(classObj), _crystalParamData.CrystalParamList[(int)_colorNo - 1]);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し
