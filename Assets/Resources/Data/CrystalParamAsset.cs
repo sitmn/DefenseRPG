@@ -20,7 +20,7 @@ public class CrystalParam{
     public int _maxHp;
     //攻撃間隔
     [SerializeField]
-    public int _effectMaxCount;
+    public int _attackMaxCount;
     //攻撃力
     [SerializeField]
     public int _attack;

@@ -24,7 +24,7 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     private bool _liftDownActionFlag;
 
     //リフト中の水晶オブジェクト
-    public static CrystalController _crystalController;
+    public static CrystalCore _crystalCore;
     public Transform CrystalTr => _crystalTr;
     private Transform _crystalTr;
     
@@ -109,7 +109,6 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行
     //クリスタルリフトアップ開始
     private void OnLiftUpStart(InputAction.CallbackContext context){
-        Debug.Log("QQQ");
         //リフトアップ中フラグ（移動不可）
         _liftUpActionFlag = true;
         //リフトアップモーション開始
@@ -120,13 +119,12 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
 
     //クリスタルリフトアップ完了(長押し)
     private void OnLiftUpComplete(InputAction.CallbackContext context){
-        Debug.Log("WWW");
         //Lift中Objを格納
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
         _crystalTr = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore.gameObject.GetComponent<Transform>();
-        _crystalController = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalController;
+        _crystalCore = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalCore;
         //マップ情報から水晶を削除
-        _crystalController.SetOffAStarMap();
+        _crystalCore.SetOffAStarMap();
         //オブジェクトを頭上へ移動
         _crystalTr.position = _playerTr.position + new Vector3(0, 2, 0);
         //起動時間UI非表示
@@ -162,10 +160,10 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         _crystalTr.position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0.5f, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
         //マップ情報に水晶を追加
-        _crystalController.SetOnAStarMap();
+        _crystalCore.SetOnAStarMap();
         //リフト中情報をnullに
         _crystalTr = null;
-        _crystalController = null;
+        _crystalCore = null;
 
         //格納したマスが移動先になっているエネミーがいれば再度経路探索
 

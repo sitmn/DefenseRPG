@@ -36,8 +36,13 @@ public class StageMove : MonoBehaviour
     private int _enemyInstantiateAmount;
     [SerializeField]
     private int _crystalInstantiateAmount;
+    private EnemyParamAsset _enemyParamData;
+    private CrystalParamAsset _crystalParamData;
 
     void Awake(){
+        _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
+        _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
+
         _stageParentTr = this.gameObject.GetComponent<Transform>();
 
         //カウントの初期化
@@ -131,9 +136,9 @@ public class StageMove : MonoBehaviour
             }
         }
         //最後列へ移動しようとしているエネミーをリストへ追加
-        for(int i = 0;i < EnemyListController._enemiesList.Count ; i++){
-            if(EnemyListController._enemiesList[i]._enemyMove.TrackPos[0].x == 0){
-                _enemyCoreList.Add(EnemyListController._enemiesList[i]);
+        for(int i = 0;i < EnemyListCore._enemiesList.Count ; i++){
+            if(EnemyListCore._enemiesList[i]._enemyMove.TrackPos[0].x == 0){
+                _enemyCoreList.Add(EnemyListCore._enemiesList[i]);
             }
         }
 
@@ -164,30 +169,30 @@ public class StageMove : MonoBehaviour
 
     //水晶情報をMapから全て削除
     private void CrystalInfomationInMapDelete(){
-        for(int i = 0; i < CrystalListController._crystalList.Count ; i++){
+        for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
             //リフト中の水晶は対象外
-            if(CrystalListController._crystalList[i] != LiftCrystal._crystalController) CrystalListController._crystalList[i].SetOffAStarMap();
+            if(CrystalListCore._crystalList[i] != LiftCrystal._crystalCore) CrystalListCore._crystalList[i].SetOffAStarMap();
         }
     }
 
     //水晶情報をMapに全て生成
     private void CrystalInfomationInMapCreate(){
-        for(int i = 0; i < CrystalListController._crystalList.Count ; i++){
+        for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
             //リフト中の水晶は対象外
-            if(CrystalListController._crystalList[i] != LiftCrystal._crystalController) CrystalListController._crystalList[i].SetOnAStarMap();
+            if(CrystalListCore._crystalList[i] != LiftCrystal._crystalCore) CrystalListCore._crystalList[i].SetOnAStarMap();
         }
     }
 
     //敵情報をMapから全て削除
     private void EnemyInfomationInMapDelete(){
-        for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
-            EnemyListController._enemiesList[i].SetOffAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
+        for(int i = 0; i < EnemyListCore._enemiesList.Count ; i++){
+            EnemyListCore._enemiesList[i].SetOffAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
         }
     }
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
     private void SlideAllPos(){
-        for(int i = 0; i < EnemyListController._enemiesList.Count ; i++){
+        for(int i = 0; i < EnemyListCore._enemiesList.Count ; i++){
             //現在位置のスライド
             //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
 
@@ -197,7 +202,7 @@ public class StageMove : MonoBehaviour
             //     EnemyListController._enemiesList[i]._trackChangeFlag = true;
             // }else{
             //ステージ移動分、座標をスライド
-            for(int j = 0; j < EnemyListController._enemiesList[i]._enemyMove.TrackPos.Count ; j++){
+            for(int j = 0; j < EnemyListCore._enemiesList[i]._enemyMove.TrackPos.Count ; j++){
                 // if(EnemyListController._enemiesList[i].TrackPos[j].x == 0){
                 //     EnemyListController._enemiesList[i]._trackChangeFlag = true;
 
@@ -205,14 +210,14 @@ public class StageMove : MonoBehaviour
                 //     break;
                 // }
                 //ステージ外が移動経路になっていなければ、ステージ移動に合わせて移動経路をスライド
-                EnemyListController._enemiesList[i]._enemyMove.TrackPos[j] = new Vector2Int(EnemyListController._enemiesList[i]._enemyMove.TrackPos[j].x - 1, EnemyListController._enemiesList[i]._enemyMove.TrackPos[j].y);
+                EnemyListCore._enemiesList[i]._enemyMove.TrackPos[j] = new Vector2Int(EnemyListCore._enemiesList[i]._enemyMove.TrackPos[j].x - 1, EnemyListCore._enemiesList[i]._enemyMove.TrackPos[j].y);
                 
             }
-            EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x - 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
+            EnemyListCore._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListCore._enemiesList[i].EnemyPos.Value.x - 1, EnemyListCore._enemiesList[i].EnemyPos.Value.y);
             //EnemyListController._enemiesList[i].SetJudgePos();
-            EnemyListController._enemiesList[i].JudgePos.Value = new Vector2Int(EnemyListController._enemiesList[i].JudgePos.Value.x - 1, EnemyListController._enemiesList[i].JudgePos.Value.y);
+            EnemyListCore._enemiesList[i].JudgePos.Value = new Vector2Int(EnemyListCore._enemiesList[i].JudgePos.Value.x - 1, EnemyListCore._enemiesList[i].JudgePos.Value.y);
             
-            EnemyListController._enemiesList[i].SetOnAStarMap(EnemyListController._enemiesList[i].JudgePos.Value);
+            EnemyListCore._enemiesList[i].SetOnAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
             
             AStarMap._playerPos.x -= 1;
             AStarMap._playerPos = new Vector2Int(AStarMap._playerPos.x, AStarMap._playerPos.y);
@@ -249,7 +254,8 @@ public class StageMove : MonoBehaviour
         for(int i = 0 ; i < _randomNumberList.Count; i++){
             GameObject _crystal = Instantiate(_crystalPrefab, new Vector3(StageMove._moveRowCount + AStarMap.max_pos_x_static - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
             _crystal.transform.parent = _crystalParent.transform;
-            CrystalListController.AddCrystalInList(_crystal.GetComponent<CrystalController>());
+            //生成したクリスタルを管理しているリストにセット
+            CrystalListCore.SetCrystalCoreInList(_crystal.GetComponent<CrystalCore>(), _crystalParamData.CrystalParamList[0]);
         }
         
         //ランダムな数字を敵生成数分取得(生成に位置の重複がないよう使用したリストは削除)
@@ -265,17 +271,13 @@ public class StageMove : MonoBehaviour
         for(int i = 0 ; i < _randomNumberList.Count; i++){
             GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + AStarMap.max_pos_x_static - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
             _enemy.transform.parent = _enemyParent.transform;
-            EnemyListController.SetEnemyController(_enemy.GetComponent<EnemyController>());
+            EnemyListCore.SetEnemyCoreInList(_enemy.GetComponent<EnemyCore>(), _enemyParamData.EnemyParamList[0]);
         }
     }
 
     //ワールド座標でステージを見た際の列順を返す（一番左が0で一番右がリスト最大値）
     public static int UndoElementStageMove(int _judgePos_x){
         _judgePos_x -= _moveRowCount;
-        /*if(_judgePos_x < 0){
-            _judgePos_x += AStarMap.max_pos_x_static;
-            //Debug.Log("_judgePos_x"+_judgePos_x+"max_pos_x_static"+AStarMap.max_pos_x_static+"_moveRowCount"+_moveRowCount);
-        }*/
 
         return _judgePos_x;
     }

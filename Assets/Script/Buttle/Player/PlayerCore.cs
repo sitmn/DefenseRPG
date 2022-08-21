@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerCore : MonoBehaviour
 {
     public IPlayerMove _playerMove;
-    public ACrystalStatus[] EqueipmentCrystal{get;set;}
+    public CrystalStatus[] EqueipmentCrystal{get;set;}
     [SerializeField]
-    private ACrystalStatus[] _equipmentCrystal = new ACrystalStatus[3];
+    private CrystalStatus[] _equipmentCrystal = new CrystalStatus[3];
 
     private IUserCrystal _useCrystal;
     private ILiftCrystal _liftCrystal;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         _repairCrystal = this.gameObject.GetComponent<RepairCrystal>();
 
         _playerTr = this. gameObject.GetComponent<Transform>();
-        AStarMap._playerController = this;
+        AStarMap._playerCore = this;
     }
 
     // Update is called once per frame

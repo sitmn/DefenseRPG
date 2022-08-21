@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlueCrystalAttack : IAttack
 {
     //攻撃対象を決めて、攻撃と効果を反映
-    public void DoAttack(Vector2Int _centerPos, Vector2Int _fowardDir, ACrystalStatus _crystalStatus /*int _attackRange, int _attack, int _effectTime*/){
+    public void DoAttack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _crystalStatus /*int _attackRange, int _attack, int _effectTime*/){
         //攻撃対象を決める
         List<AEnemyCore> _attackTargetList = DecideAttackTarget<AEnemyCore>(_centerPos, _fowardDir, _crystalStatus._attackRange);
         int _damage = CalculateDamage(_crystalStatus._attack);
@@ -33,7 +33,7 @@ public class BlueCrystalAttack : IAttack
         if(typeof(T) == typeof(ACrystalCore)) ((ACrystalCore)(object)_applyCore).Hp -= _damage;
     }
     //効果適用
-    public void ApplyEffect<T>(T _applyCore, ACrystalStatus _crystalStatus){
+    public void ApplyEffect<T>(T _applyCore, AttackStatus _crystalStatus){
         if(typeof(T) == typeof(AEnemyCore)) ((AEnemyCore)(object)_applyCore).SpeedDown(_crystalStatus._effectRate, _crystalStatus._effectTime);
     }
 }

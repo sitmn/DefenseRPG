@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private EnemyParamAsset _enemyParamData;
+    private CrystalParamAsset _crystalParamData;
+    [SerializeField]
+    private AStarMap _starMap;
     [SerializeField]
     private StageMove _stageMove;
     [SerializeField]
-    private PlayerController _playerController;
-    public static PlayerController _playerControllerStatic;
+    private PlayerCore _playerCore;
+    public static PlayerCore _playerCoreStatic;
     [SerializeField]
     private LiftCrystal _liftCrystal;
     [SerializeField]
     private RepairCrystal _repairCrystal;
     [SerializeField]
-    private CrystalListController _crystalListController;
+    private CrystalListCore _crystalListCore;
     [SerializeField]
-    private EnemyListController _enemyListController;
+    private EnemyListCore _enemyListCore;
     [SerializeField]
     private CameraController _cameraController;
 
     public static bool _gameOverFlag;
 
     void Awake(){
-        _playerControllerStatic = _playerController;
+        _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
+        _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
+        _playerCoreStatic = _playerCore;
         _gameOverFlag = false;
+
+        _starMap.AwakeManager();
+        _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
+        _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
     }
     
     // Update is called once per frame
@@ -32,11 +42,11 @@ public class GameManager : MonoBehaviour
     {
         if(_gameOverFlag) return;
 
-        _playerController.UpdateManager();
+        _playerCore.UpdateManager();
         _liftCrystal.UpdateManager();
         _repairCrystal.UpdateManager();
-        _crystalListController.UpdateManager();
-        _enemyListController.UpdateManager();
+        _crystalListCore.UpdateManager();
+        _enemyListCore.UpdateManager();
         //_stageMove.UpdateManager(); 
         _cameraController.UpdateManager();
     }
@@ -47,7 +57,7 @@ public class GameManager : MonoBehaviour
         _gameOverFlag = true;
 
         //プレイヤー操作を無効化
-        _playerControllerStatic.InputInvalid();
+        _playerCoreStatic.InputInvalid();
 
         Debug.Log("がめおべら");
     }

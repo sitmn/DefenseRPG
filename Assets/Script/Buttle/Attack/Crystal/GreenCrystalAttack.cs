@@ -5,13 +5,13 @@ using UnityEngine;
 public class GreenCrystalAttack : IAttack
 {
     //攻撃対象を決めて、攻撃と効果を反映
-    public void DoAttack(Vector2Int _centerPos, Vector2Int _fowardDir, ACrystalStatus _crystalStatus /*int _attackRange, int _attack, int _effectTime*/){
+    public void DoAttack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _crystalStatus /*int _attackRange, int _attack, int _effectTime*/){
         //攻撃対象を決める
-        List<PlayerController> _attackTargetList = DecideAttackTarget<PlayerController>(_centerPos, _fowardDir, _crystalStatus._attackRange);
+        List<PlayerCore> _attackTargetList = DecideAttackTarget<PlayerCore>(_centerPos, _fowardDir, _crystalStatus._attackRange);
         
         //攻撃と効果を反映
         foreach(var _attackTarget in _attackTargetList){
-            ApplyEffect<PlayerController>(_attackTarget, _crystalStatus);
+            ApplyEffect<PlayerCore>(_attackTarget, _crystalStatus);
         }
     }
 
@@ -31,7 +31,7 @@ public class GreenCrystalAttack : IAttack
 
     }
     //効果適用
-    public void ApplyEffect<T>(T _applyCore, ACrystalStatus _crystalStatus){
-        if(typeof(T) == typeof(PlayerController)) ((PlayerController)(object)_applyCore)._playerMove.SpeedUp(_crystalStatus._effectRate, _crystalStatus._effectTime);
+    public void ApplyEffect<T>(T _applyCore, AttackStatus _crystalStatus){
+        if(typeof(T) == typeof(PlayerCore)) ((PlayerCore)(object)_applyCore)._playerMove.SpeedUp(_crystalStatus._effectRate, _crystalStatus._effectTime);
     }
 }

@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyListController : MonoBehaviour
+public class EnemyListCore : MonoBehaviour
 {
     //敵のリスト
-    public static List<EnemyController> _enemiesList;
+    public static List<EnemyCore> _enemiesList;
 
     [SerializeField]
     private Transform _enemyListTr;
 
-
-    void Awake(){
+    public void AwakeManager(EnemyParam _enemyParam){
         //全てのエネミーを取得
-        _enemiesList = new List<EnemyController>();
+        _enemiesList = new List<EnemyCore>();
         
         for(int i = 0 ; i < _enemyListTr.childCount ; i++){
-            _enemiesList.Add(_enemyListTr.GetChild(i).gameObject.GetComponent<EnemyController>());
+            SetEnemyCoreInList(_enemyListTr.GetChild(i).gameObject.GetComponent<EnemyCore>(), _enemyParam);
         }
     }
 
@@ -26,13 +25,14 @@ public class EnemyListController : MonoBehaviour
     }
 
     //エネミーリストから削除
-    public static void DeleteEnemyInList(EnemyController _enemyController){
-        _enemiesList.Remove(_enemyController);
+    public static void RemoveEnemyCoreInList(EnemyCore _enemyCore){
+        _enemiesList.Remove(_enemyCore);
     }
 
     //新規エネミーをリストへ格納
-    public static void SetEnemyController(EnemyController enemyController){
-        _enemiesList.Add(enemyController);
+    public static void SetEnemyCoreInList(EnemyCore _enemyCore, EnemyParam _enemyParam){
+        _enemiesList.Add(_enemyCore);
+        _enemyCore.InitializeCore(_enemyParam);
     }
 
     

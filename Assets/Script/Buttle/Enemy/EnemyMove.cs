@@ -41,6 +41,11 @@ public class EnemyMove : MonoBehaviour
         _trackPos = _enemyMoveRoute.GetTrackPos(_currentPos, _searchDestination);
     }
 
+    //エネミーの回転
+    public void DoRotate(){
+        _enemyTr.LookAt(new Vector3(TrackPos[0].x, 0.5f, TrackPos[0].y));
+    }
+
     //エネミーの移動
     public void Move(Vector2Int _currentPos, float _moveSpeed){
         //移動

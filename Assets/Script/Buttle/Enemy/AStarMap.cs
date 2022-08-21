@@ -6,7 +6,7 @@ public class AStarMap : MonoBehaviour
 {
     //今の場所（判定用）
     public static Vector2Int _playerPos;
-    public static PlayerController _playerController;
+    public static PlayerCore _playerCore;
     public static AStarMas[,] astarMas;
     [SerializeField]
     private int max_pos_x = 15;
@@ -16,7 +16,7 @@ public class AStarMap : MonoBehaviour
     public static int max_pos_x_static;
     public static int max_pos_z_static;
 
-    void Awake(){
+    public void AwakeManager(){
         //ステージの最大座標をセット
         SetMaxPos();
         //クラスの初期化
@@ -54,7 +54,7 @@ public class AStarMap : MonoBehaviour
         return  randomPos;
     }
 
-    //周囲で近いエネミーの探索
+    //周囲で近いCoreの探索（単体ヒット）
     public static List<T> GetAroundCore<T>(Vector2Int _centerPos, Vector2Int _forwardDir, int _range){
         List<T> _coreList = new List<T>();
         
@@ -84,18 +84,18 @@ public class AStarMap : MonoBehaviour
             }
             if(_coreList.Count > 0) break;
         }
+
         return _coreList;
     }
 
-    //周囲のエネミー全員の探索(複数ヒットかつ四角範囲)
+    //周囲のCoreの探索(複数ヒットかつ四角範囲)
     public static List<T> GetAroundCoreAll<T>(Vector2Int _centerPos, Vector2Int _forwardDir, int _range){
         List<T> _coreList = new List<T>();
         Vector2Int _judgePos;
-        Debug.Log("A");
+
         for(int i = _centerPos.x -_range;i <= _centerPos.x + _range; i++){
             for(int j = _centerPos.y -_range;j <= _centerPos.y + _range; j++){
                 _judgePos = new Vector2Int(i, j);
-                Debug.Log(_judgePos);
                 //ステージリストの範囲外でないなら、Coreを取得
                 if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
@@ -120,7 +120,7 @@ public class AStarMap : MonoBehaviour
     //対象マスのCoreを取得
     private static List<T> GetCore<T>(Vector2Int _judgePos){
         List<T> _coreList = new List<T>();
-        
+
         //対象がエネミーの場合,エネミーを取得
         if(typeof(T) == typeof(AEnemyCore)){
             if(AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList.Count > 0/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
@@ -136,10 +136,10 @@ public class AStarMap : MonoBehaviour
                 _coreList.Add(_crystalCore);
             }
         }//対象がプレイヤーの場合,プレイヤーを取得
-        else if(typeof(T) == typeof(PlayerController)){
+        else if(typeof(T) == typeof(PlayerCore)){
             if(AStarMap._playerPos == _judgePos/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
-                var _playerCore = (T)(object)_playerController;
-                _coreList.Add(_playerCore);
+                var _playerCoreVar = (T)(object)_playerCore;
+                _coreList.Add(_playerCoreVar);
             }
         }
 

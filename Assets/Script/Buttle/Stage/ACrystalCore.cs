@@ -5,7 +5,7 @@ using UniRx;
 
 public abstract class ACrystalCore:MonoBehaviour
 {
-    public ACrystalStatus _crystalStatus;
+    public CrystalStatus _crystalStatus;
     public ReactiveProperty<int> _hp;
     public int Hp{
         get{
@@ -21,6 +21,7 @@ public abstract class ACrystalCore:MonoBehaviour
     }
 
     public int _maxHp;
+    public abstract void SetCrystalStatus(CrystalParam _crystalParam);
     public abstract void SpeedDown(float _decreaseRate, int _decreaseTime);
     public abstract void SpeedUp(float _decreaseRate, int _decreaseTime);
     public abstract void ObjectDestroy();

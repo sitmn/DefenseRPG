@@ -105,7 +105,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         ){
             _moveCheckFlag = true;
         }else{
-            Debug.Log(AStarMap._playerPos + "GGG");
+            
         }
 
         return _moveCheckFlag; 

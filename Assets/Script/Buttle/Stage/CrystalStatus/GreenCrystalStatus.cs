@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenCrystalStatus : ACrystalStatus
+public class GreenCrystalStatus
 {
     // //配置時のクリスタル効果
     // public override void SetEffect(Vector2Int pos){

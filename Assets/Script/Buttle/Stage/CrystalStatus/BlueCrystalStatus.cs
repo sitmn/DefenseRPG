@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueCrystalStatus : ACrystalStatus
+public class BlueCrystalStatus
 {
     // //配置時のクリスタル効果
     // public override void SetEffect(Vector2Int pos){
@@ -22,6 +22,6 @@ public class BlueCrystalStatus : ACrystalStatus
 
     //移動速度減少効果
     private void SpeedDecrease(AEnemyCore _enemyController){
-        _enemyController.SpeedDown(_effectRate, _effectTime);
+        _enemyController.SpeedDown(1, 1);
     }
 }

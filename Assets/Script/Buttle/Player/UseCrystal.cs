@@ -18,7 +18,7 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
 
     
     //起動水晶色変え用マテリアル
-    private ACrystalStatus[] _setCrystalStatus = new ACrystalStatus[3];
+    private CrystalStatus[] _setCrystalStatus = new CrystalStatus[3];
     private CrystalParamAsset _crystalParamData;
 
 
@@ -67,7 +67,8 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         bool _checkBlackCrystal = false;
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
         if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
-            _checkBlackCrystal = (AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalController)._crystalStatus.GetType().Name == "BlackCrystalStatus";
+            //黒水晶のみ移動コストが100
+            _checkBlackCrystal = (AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalCore)._crystalStatus._moveCost == 100;
         }
 
         return _checkBlackCrystal;
@@ -88,11 +89,10 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     private void OnLaunchComplete(InputAction.CallbackContext context){
         float _colorNo = context.ReadValue<float>();
 
-        ICrystalController _crystalCore = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z]._crystalCore as ICrystalController;
+        ACrystalCore _crystalCore = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z]._crystalCore as ACrystalCore;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
-        //☆正面のクリスタルに、色ごとのクリスタルステータスを格納し、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
-        Type classObj = Type.GetType(_crystalParamData.CrystalParamList[(int)_colorNo - 1]._crystalCoreName);
-        _crystalCore.SetCrystalStatus((ACrystalStatus)Activator.CreateInstance(classObj), _crystalParamData.CrystalParamList[(int)_colorNo - 1]);
+        //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
+        _crystalCore.SetCrystalStatus(_crystalParamData.CrystalParamList[(int)_colorNo]);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し
