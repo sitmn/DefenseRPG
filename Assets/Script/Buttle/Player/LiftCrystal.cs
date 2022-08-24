@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 public class LiftCrystal : MonoBehaviour, ILiftCrystal
 {
-    private PlayerStatus _playerStatus;
     private PlayerInput _playerInput;
     private Transform _playerTr;
     //水晶リフトアップアクションの有効無効状態
@@ -36,7 +35,6 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
     void Awake(){
         //_crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
 
-        _playerStatus = this.gameObject.GetComponent<PlayerStatus>();
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _liftUpActiveFlag = false;
@@ -88,7 +86,7 @@ public class LiftCrystal : MonoBehaviour, ILiftCrystal
         bool _checkCrystal = false;
         Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z);
         if(!AStarMap.OutOfReferenceCheck(_judgePos) && (AStarMap.astarMas[_judgePos.x, _judgePos.y]._enemyCoreList.Count > 0 || AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null ||
-        AStarMap.GetAroundCore<AEnemyCore>(AStarMap._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1).Count > 0) ){
+        TargetCore.GetAroundCore<AEnemyCore>(AStarMap._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1).Count > 0) ){
             _checkCrystal = true;
         }
         

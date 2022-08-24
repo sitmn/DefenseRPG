@@ -20,8 +20,4 @@ public class BlueCrystalStatus
     //     }
     // }
 
-    //移動速度減少効果
-    private void SpeedDecrease(AEnemyCore _enemyController){
-        _enemyController.SpeedDown(1, 1);
-    }
 }

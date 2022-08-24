@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 public class UseCrystal : MonoBehaviour, IUserCrystal
 {
-    private PlayerStatus _playerStatus;
     private PlayerInput _playerInput;
     private Transform _playerTr;
     //水晶起動アクションの有効無効状態
@@ -25,7 +24,6 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     void Awake(){
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
 
-        _playerStatus = this.gameObject.GetComponent<PlayerStatus>();
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _launchActiveFlag = false;

@@ -8,7 +8,6 @@ using System.Threading;
 
 public class EnemyCore : AEnemyCore
 {
-    public EnemyStatus _enemyStatus;
     public EnemyMove _enemyMove;
     private Transform _enemyTr;
     //移動判断用の位置、マスの中心に入ったら場所が変わる
@@ -27,16 +26,12 @@ public class EnemyCore : AEnemyCore
     //public bool _trackChangeFlag;
     //private IAStar _astar;
     
-    //スピード上昇回復用非同期トークン
-    private CancellationTokenSource _cancellationTokenSourceBuff = new CancellationTokenSource();
-    //スピード減少回復用非同期トークン
-    private CancellationTokenSource _cancellationTokenSourceDebuff = new CancellationTokenSource();
-    //スピードデバフエフェクト
-    private GameObject _speedDebuff;
-    //スピードバフエフェクト
-    private GameObject _speedBuff;
+    // //スピード上昇回復用非同期トークン
+    // private CancellationTokenSource _cancellationTokenSourceBuff = new CancellationTokenSource();
+    // //スピード減少回復用非同期トークン
+    // private CancellationTokenSource _cancellationTokenSourceDebuff = new CancellationTokenSource();
     //攻撃用インターフェース
-    private IAttack _attack;
+    private AttackBase _attack;
 
     public void InitializeCore(EnemyParam _enemyParamData){
         SetComponent();
@@ -51,7 +46,6 @@ public class EnemyCore : AEnemyCore
         _enemyPos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
         _enemyMove = this.gameObject.GetComponent<EnemyMove>();
         _judgePos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
-        Debug.Log(_enemyMove + "AAA");
     }
 
     //値の初期化
@@ -111,43 +105,42 @@ public class EnemyCore : AEnemyCore
         }).AddTo(this);
     }
     
-    //スピードを上昇させる
-    public override void SpeedUp(float _upRate, int _upTime){
-        _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin * (1 + _upRate);
-        _speedBuff.SetActive(true);
+    // //スピードを上昇させる
+    // public override void SpeedUp(float _upRate, int _upTime){
+    //     _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin * (1 + _upRate);
+    //     _speedBuff.SetActive(true);
 
-        _cancellationTokenSourceBuff.Cancel();
-        _cancellationTokenSourceBuff = new CancellationTokenSource();
-        UndoBuffSpeed(_upTime, _speedBuff, _cancellationTokenSourceBuff.Token);
-    }
+    //     _cancellationTokenSourceBuff.Cancel();
+    //     _cancellationTokenSourceBuff = new CancellationTokenSource();
+    //     UndoBuffSpeed(_upTime, _speedBuff, _cancellationTokenSourceBuff.Token);
+    // }
 
-    //スピードを減少させる
-    public override void SpeedDown(float _decreaseRate, int _decreaseTime){
-        _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin * _decreaseRate;
-        _speedDebuff.SetActive(true);
+    // //スピードを減少させる
+    // public override void SpeedDown(float _decreaseRate, int _decreaseTime){
+    //     _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin * _decreaseRate;
+    //     _speedDebuff.SetActive(true);
 
-        _cancellationTokenSourceDebuff.Cancel();
-        _cancellationTokenSourceDebuff = new CancellationTokenSource();
-        UndoDebuffSpeed(_decreaseTime, _speedDebuff, _cancellationTokenSourceDebuff.Token);
-    }
+    //     _cancellationTokenSourceDebuff.Cancel();
+    //     _cancellationTokenSourceDebuff = new CancellationTokenSource();
+    //     UndoDebuffSpeed(_decreaseTime, _speedDebuff, _cancellationTokenSourceDebuff.Token);
+    // }
 
-    //スピードを元に戻す
-    private async UniTask UndoBuffSpeed(int _decreaseTime, GameObject _buffObj, CancellationToken cancellationToken = default(CancellationToken)){
-        await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSourceBuff.Token);
-        _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin;
-        _buffObj.SetActive(false);
-    }
-    //スピードを元に戻す
-    private async UniTask UndoDebuffSpeed(int _decreaseTime, GameObject _buffObj, CancellationToken cancellationToken = default(CancellationToken)){
-        await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSourceDebuff.Token);
-        _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin;
-        _buffObj.SetActive(false);
-    }
+    // //スピードを元に戻す
+    // private async UniTask UndoBuffSpeed(int _decreaseTime, GameObject _buffObj, CancellationToken cancellationToken = default(CancellationToken)){
+    //     await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSourceBuff.Token);
+    //     _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin;
+    //     _buffObj.SetActive(false);
+    // }
+    // //スピードを元に戻す
+    // private async UniTask UndoDebuffSpeed(int _decreaseTime, GameObject _buffObj, CancellationToken cancellationToken = default(CancellationToken)){
+    //     await UniTask.Delay(TimeSpan.FromSeconds(_decreaseTime), cancellationToken: _cancellationTokenSourceDebuff.Token);
+    //     _enemyStatus._moveSpeed = _enemyStatus._moveSpeedOrigin;
+    //     _buffObj.SetActive(false);
+    // }
 
     //エネミーの行動
     public void EnemyAction(){
         //エネミーの回転
-        Debug.Log(_enemyMove + "BBB");
         _enemyMove.DoRotate();
         
         if(CanAttack()){ //移動先にクリスタルがある場合攻撃
@@ -156,10 +149,10 @@ public class EnemyCore : AEnemyCore
             if(_enemyStatus._attackCount == 0) _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._searchDestination);
         }else{
             //移動先にクリスタルがない場合。エネミーの移動
-            _enemyMove.Move(_enemyPos.Value, _enemyStatus._moveSpeed);
+            _enemyMove.Move(_enemyPos.Value, _enemyStatus.GetMoveSpeed);
         }
         //マス中心を通過したら移動用の座標を変更
-        if(_enemyMove.IsPassPosition(_enemyStatus._moveSpeed)){
+        if(_enemyMove.IsPassPosition(_enemyStatus.GetMoveSpeed)){
             //位置更新（移動用位置と移動経路）
             _enemyMove.UpdatePosition();
             //移動用位置取得
@@ -176,9 +169,9 @@ public class EnemyCore : AEnemyCore
         return AStarMap.astarMas[_enemyMove.TrackPos[0].x,_enemyMove.TrackPos[0].y]._crystalCore != null;
     }
 
-    //敵が水晶を攻撃,_attackPosは既にステージ列移動が考慮された座標のためStageMove.UndoElementStageMoveは不要
+    //敵が水晶を攻撃
     private void Attack(){
-        if(_enemyStatus.CountAttack()) _attack.DoAttack(_enemyPos.Value, new Vector2Int((int)_enemyTr.forward.x, (int)_enemyTr.forward.z), _enemyStatus._attackStatus);
+        if(_enemyStatus.CountAttack()) _attack.DoAttack<ACrystalCore>(_enemyPos.Value, new Vector2Int((int)_enemyTr.forward.x, (int)_enemyTr.forward.z), _enemyStatus._attackStatus);
     }
 
     //移動用座標をセット
@@ -191,7 +184,7 @@ public class EnemyCore : AEnemyCore
     }
 
     void OnDestroy(){
-        _cancellationTokenSourceBuff.Cancel();
-        _cancellationTokenSourceDebuff.Cancel();
+        _enemyStatus._cancelSpeedBuffToken.Cancel();
+        _enemyStatus._cancelSpeedDebuffToken.Cancel();
     }
 }

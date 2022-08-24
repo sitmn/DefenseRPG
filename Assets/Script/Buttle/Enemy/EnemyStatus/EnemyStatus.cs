@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System.Threading;
 
 public class EnemyStatus : MonoBehaviour
 {
@@ -25,17 +26,20 @@ public class EnemyStatus : MonoBehaviour
     //移動速度
     public float _moveSpeedOrigin;
     //ステータス変動用
-    public float _moveSpeed;
-    public float MoveSpeed
+    private float _moveSpeed;
+    public float GetMoveSpeed
     {
         get{
-            return _moveSpeed;
-        }
-        set{
-            value = (value < 0)? 0 : value;
-            _moveSpeed = value;
+            Debug.Log(_moveSpeedDown);
+            return _moveSpeed * (1 + _moveSpeedUp - _moveSpeedDown);
         }
     }
+    //バフ用変数
+    public float _moveSpeedUp;
+    //デバフ用変数
+    public float _moveSpeedDown;
+    public CancellationTokenSource _cancelSpeedBuffToken = new CancellationTokenSource();
+    public CancellationTokenSource _cancelSpeedDebuffToken = new CancellationTokenSource();
 
     public EnemyStatus(EnemyParam _enemyParam){
         /***ステータス***/

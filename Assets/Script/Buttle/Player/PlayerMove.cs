@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     //スピードバフ用非同期トークン
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     //スピードバフエフェクト
-    private GameObject _speedBuff;
+    public GameObject _speedBuff;
 
     // Start is called before the first frame update
     void Awake()
@@ -71,7 +71,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     }
 
     //隣のマス中心まで移動
-    public void Move(){
+    public void Move(float _moveSpeed){
         
         Vector3 player_move = new Vector3(_nextPlayerPos.x - _playerPos.x, 0, _nextPlayerPos.y - _playerPos.y);
 

@@ -8,13 +8,11 @@ using UniRx;
 //水晶の動作クラス
 public class CrystalCore : ACrystalCore
 {
-    //HP、最大HPはIStage Objectが保持
-
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
-    public CrystalStatus _crystalStatus{get;set;}
-    public IAttack _attack{get;set;}
+    public AttackBase _attack;
 
+    //Statusやストリームのセット
     public void InitializeCore(CrystalParam _crystalParam){
         _crystalTr = this.gameObject.GetComponent<Transform>();
         
@@ -84,7 +82,7 @@ public class CrystalCore : ACrystalCore
         AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = _crystalParam._moveCost;
         //攻撃方法をセット
         Type classObj = Type.GetType(_crystalParam._crystalAttackName);
-        _attack = (IAttack)Activator.CreateInstance(classObj);
+        _attack = (AttackBase)Activator.CreateInstance(classObj);
     }
 
     //攻撃や効果を発動
@@ -93,10 +91,8 @@ public class CrystalCore : ACrystalCore
         if(this == LiftCrystal._crystalCore){
 
         }else{
-            //攻撃カウントになったときに攻撃を実行
-            Debug.Log(_crystalStatus);
-            Debug.Log(_attack + "A");
-            if(_crystalStatus.CountAttack()) _attack.DoAttack(_crystalPos, new Vector2Int((int)_crystalTr.forward.x, (int)_crystalTr.forward.z), _crystalStatus._attackStatus);
+            //攻撃カウントになったときにエネミーに攻撃
+            if(_crystalStatus.CountAttack()) _attack.DoAttack<AEnemyCore>(_crystalPos, new Vector2Int((int)_crystalTr.forward.x, (int)_crystalTr.forward.z), _crystalStatus._attackStatus);
         }
     // }
     // //セット中クリスタルの効果発動

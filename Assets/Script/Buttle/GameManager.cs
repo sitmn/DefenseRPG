@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private PlayerParamAsset _playerParamData;
     private EnemyParamAsset _enemyParamData;
     private CrystalParamAsset _crystalParamData;
     [SerializeField]
@@ -27,12 +28,24 @@ public class GameManager : MonoBehaviour
     public static bool _gameOverFlag;
 
     void Awake(){
-        _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
-        _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
+        //CoreクラスのParamをセット
+        SetParamData();
+
         _playerCoreStatic = _playerCore;
         _gameOverFlag = false;
+        
+        //各クラスのAwakeManagerを実行
+        DoAwakeManager();
+    }
 
+    private void SetParamData(){
+        _playerParamData = Resources.Load("Data/PlayerParamData") as PlayerParamAsset;
+        _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
+        _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
+    }
+    private void DoAwakeManager(){
         _starMap.AwakeManager();
+        _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
     }

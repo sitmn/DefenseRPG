@@ -20,7 +20,12 @@ public abstract class AEnemyCore:MonoBehaviour
     }
 
     public int _maxHp;
-    public abstract void SpeedDown(float _decreaseRate, int _decreaseTime);
-    public abstract void SpeedUp(float _decreaseRate, int _decreaseTime);
+    public EnemyStatus _enemyStatus;
+    //スピードデバフエフェクト
+    public GameObject _speedDebuff;
+    //スピードバフエフェクト
+    public GameObject _speedBuff;
+    // public abstract void SpeedDown(float _decreaseRate, int _decreaseTime);
+    // public abstract void SpeedUp(float _decreaseRate, int _decreaseTime);
     public abstract void ObjectDestroy();
 }

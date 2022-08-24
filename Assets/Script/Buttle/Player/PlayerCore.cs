@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCore : MonoBehaviour
 {
     public IPlayerMove _playerMove;
+    public PlayerStatus _playerStatus;
     public CrystalStatus[] EqueipmentCrystal{get;set;}
     [SerializeField]
     private CrystalStatus[] _equipmentCrystal = new CrystalStatus[3];
@@ -14,15 +15,21 @@ public class PlayerCore : MonoBehaviour
     private IRepairCrystal _repairCrystal;
 
     private Transform _playerTr;
+    public GameObject _speedBuff;
+    public GameObject _speedDebuff;
     
-    void Awake(){
+    public void AwakeManager(PlayerParam _playerParam){
+        InitializeComponent();
+        _playerStatus = new PlayerStatus(_playerParam);
+        AStarMap._playerCore = this;
+    }
+
+    private void InitializeComponent(){
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
         _useCrystal = this.gameObject.GetComponent<UseCrystal>();
         _liftCrystal = this.gameObject.GetComponent<LiftCrystal>();
         _repairCrystal = this.gameObject.GetComponent<RepairCrystal>();
-
         _playerTr = this. gameObject.GetComponent<Transform>();
-        AStarMap._playerCore = this;
     }
 
     // Update is called once per frame
@@ -49,7 +56,7 @@ public class PlayerCore : MonoBehaviour
         //水晶起動、修理、持ち上げアクション中か？
         //移動中か？
         if(_playerMove.MoveFlag()){
-            _playerMove.Move();
+            _playerMove.Move(_playerStatus.GetMoveSpeed);
             return;
         }else if(_useCrystal.LaunchActionFlag){//水晶起動中か？
             //水晶起動処理
