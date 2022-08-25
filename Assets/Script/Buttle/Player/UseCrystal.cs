@@ -87,7 +87,7 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     private void OnLaunchComplete(InputAction.CallbackContext context){
         float _colorNo = context.ReadValue<float>();
 
-        ACrystalCore _crystalCore = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z]._crystalCore as ACrystalCore;
+        CrystalCore _crystalCore = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z]._crystalCore as CrystalCore;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
         _crystalCore.SetCrystalStatus(_crystalParamData.CrystalParamList[(int)_colorNo]);

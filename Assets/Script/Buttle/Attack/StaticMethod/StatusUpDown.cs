@@ -18,8 +18,8 @@ public class StatusUpDown
             _playerCore._playerStatus._cancelSpeedBuffToken = new CancellationTokenSource();
             UndoBuffSpeed(_applyCore, _status._effectTime, _playerCore._speedBuff, _playerCore._playerStatus._cancelSpeedBuffToken, _playerCore._playerStatus._cancelSpeedBuffToken.Token);
         }
-        if(typeof(T) == typeof(AEnemyCore)){
-            AEnemyCore _enemyCore = (AEnemyCore)(object)_applyCore;
+        if(typeof(T) == typeof(EnemyCoreBase)){
+            EnemyCoreBase _enemyCore = (EnemyCoreBase)(object)_applyCore;
             _enemyCore._enemyStatus._moveSpeedUp = _status._effectRate;
             _enemyCore._speedBuff.SetActive(true);
             _enemyCore._enemyStatus._cancelSpeedBuffToken.Cancel();
@@ -38,8 +38,8 @@ public class StatusUpDown
             _playerCore._playerStatus._cancelSpeedDebuffToken = new CancellationTokenSource();
             UndoDebuffSpeed(_applyCore, _status._effectTime, _playerCore._speedDebuff, _playerCore._playerStatus._cancelSpeedDebuffToken, _playerCore._playerStatus._cancelSpeedDebuffToken.Token);
         }
-        if(typeof(T) == typeof(AEnemyCore)){
-            AEnemyCore _enemyCore = (AEnemyCore)(object)_applyCore;
+        if(typeof(T) == typeof(EnemyCoreBase)){
+            EnemyCoreBase _enemyCore = (EnemyCoreBase)(object)_applyCore;
             _enemyCore._enemyStatus._moveSpeedDown = _status._effectRate;
             _enemyCore._speedDebuff.SetActive(true);
             _enemyCore._enemyStatus._cancelSpeedDebuffToken.Cancel();
@@ -52,7 +52,7 @@ public class StatusUpDown
     public static async UniTask UndoBuffSpeed<T>(T _applyCore, int _effectTime, GameObject _buffObj, CancellationTokenSource _cancelSpeedBuffToken, CancellationToken cancellationToken = default(CancellationToken)){
         await UniTask.Delay(TimeSpan.FromSeconds(_effectTime), cancellationToken: _cancelSpeedBuffToken.Token);
         if(typeof(T) == typeof(PlayerCore)) ((PlayerCore)(object)_applyCore)._playerStatus._moveSpeedUp = 0;
-        if(typeof(T) == typeof(AEnemyCore)) ((AEnemyCore)(object)_applyCore)._enemyStatus._moveSpeedUp = 0;
+        if(typeof(T) == typeof(EnemyCoreBase)) ((EnemyCoreBase)(object)_applyCore)._enemyStatus._moveSpeedUp = 0;
         _buffObj.SetActive(false);
     }
     //スピード減少を元に戻す
@@ -60,7 +60,7 @@ public class StatusUpDown
         
         await UniTask.Delay(TimeSpan.FromSeconds(_effectTime), cancellationToken: _cancelSpeedDebuffToken.Token);
         if(typeof(T) == typeof(PlayerCore)) ((PlayerCore)(object)_applyCore)._playerStatus._moveSpeedDown = 0;
-        if(typeof(T) == typeof(AEnemyCore)) ((AEnemyCore)(object)_applyCore)._enemyStatus._moveSpeedDown = 0;
+        if(typeof(T) == typeof(EnemyCoreBase)) ((EnemyCoreBase)(object)_applyCore)._enemyStatus._moveSpeedDown = 0;
         _buffObj.SetActive(false);
     }
 }

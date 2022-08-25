@@ -73,7 +73,7 @@ public class TargetCore : MonoBehaviour
         List<T> _coreList = new List<T>();
 
         //対象がエネミーの場合,エネミーを取得
-        if(typeof(T) == typeof(AEnemyCore)){
+        if(typeof(T) == typeof(EnemyCoreBase)){
             if(AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList.Count > 0/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
                 for(int k = 0 ; k < AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList.Count ; k++){
                     var _enemyCore = (T)(object)AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList[k];
@@ -81,7 +81,7 @@ public class TargetCore : MonoBehaviour
                 }
             }
         }//対象がクリスタルの場合,クリスタルを取得
-        else if(typeof(T) == typeof(ACrystalCore)){
+        else if(typeof(T) == typeof(CrystalCore)){
             if(AStarMap.astarMas[_judgePos.x , _judgePos.y]._crystalCore != null/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
                 var _crystalCore = (T)(object)AStarMap.astarMas[_judgePos.x , _judgePos.y]._crystalCore;
                 _coreList.Add(_crystalCore);

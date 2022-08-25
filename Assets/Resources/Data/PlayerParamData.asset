@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d67d802a35694db586da15d5f5d276e, type: 3}
   m_Name: PlayerParamData
   m_EditorClassIdentifier: 
-  PlayerParamList: []
+  PlayerParamList:
+  - _maxHp: 0
+    _healMaxCount: 5
+    _moveSpeed: 5

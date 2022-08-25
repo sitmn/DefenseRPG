@@ -15,7 +15,9 @@ public class PlayerCore : MonoBehaviour
     private IRepairCrystal _repairCrystal;
 
     private Transform _playerTr;
+    [System.NonSerialized]
     public GameObject _speedBuff;
+    [System.NonSerialized]
     public GameObject _speedDebuff;
     
     public void AwakeManager(PlayerParam _playerParam){
@@ -25,6 +27,10 @@ public class PlayerCore : MonoBehaviour
     }
 
     private void InitializeComponent(){
+        //バフオブジェクトの取得
+        _speedBuff = transform.GetChild(0).gameObject;
+        _speedDebuff = transform.GetChild(1).gameObject;
+
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
         _useCrystal = this.gameObject.GetComponent<UseCrystal>();
         _liftCrystal = this.gameObject.GetComponent<LiftCrystal>();
@@ -90,7 +96,6 @@ public class PlayerCore : MonoBehaviour
             }
         }
     }
-
 
     //アクションを無効化
     public void InputInvalid(){

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GreenCrystalAttack : AttackBase
 {
+    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus)
+    {
+        DoAttack<PlayerCore>(_centerPos, _fowardDir, _attackStatus);
+    }
     // 攻撃対象をreturn
     protected override List<PlayerCore> DecideAttackTarget<PlayerCore>(Vector2Int _centerPos, Vector2Int _forwardDir, int _attackRange){
         List<PlayerCore> _applyCoreList = new List<PlayerCore>();

@@ -30,7 +30,6 @@ public class EnemyStatus : MonoBehaviour
     public float GetMoveSpeed
     {
         get{
-            Debug.Log(_moveSpeedDown);
             return _moveSpeed * (1 + _moveSpeedUp - _moveSpeedDown);
         }
     }

@@ -16,7 +16,7 @@ MonoBehaviour:
   - _crystalCoreName: BlackCrystalStatus
     _crystalAttackName: BlackCrystalAttack
     _maxHp: 999
-    _effectMaxCount: 50
+    _attackMaxCount: 0
     _attack: 0
     _attackRange: 2
     _effectRate: 0.1
@@ -26,7 +26,7 @@ MonoBehaviour:
   - _crystalCoreName: RedCrystalStatus
     _crystalAttackName: RedCrystalAttack
     _maxHp: 5
-    _effectMaxCount: 100
+    _attackMaxCount: 0
     _attack: 5
     _attackRange: 4
     _effectRate: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
   - _crystalCoreName: BlueCrystalStatus
     _crystalAttackName: BlueCrystalAttack
     _maxHp: 3
-    _effectMaxCount: 70
+    _attackMaxCount: 40
     _attack: 1
     _attackRange: 5
     _effectRate: 0.5
@@ -46,7 +46,7 @@ MonoBehaviour:
   - _crystalCoreName: GreenCrystalStatus
     _crystalAttackName: GreenCrystalAttack
     _maxHp: 10
-    _effectMaxCount: 10
+    _attackMaxCount: 0
     _attack: 0
     _attackRange: 3
     _effectRate: 0.6

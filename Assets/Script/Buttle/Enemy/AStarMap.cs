@@ -25,7 +25,7 @@ public class AStarMap : MonoBehaviour
         for(int i = 0;i < astarMas.GetLength(0); i++){
             for(int j = 0;j < astarMas.GetLength(1); j++){
                 astarMas[i,j] = new AStarMas();
-                astarMas[i,j]._enemyCoreList = new List<AEnemyCore>();
+                astarMas[i,j]._enemyCoreList = new List<EnemyCoreBase>();
                 astarMas[i,j]._moveCost = 1;
             }
         }
@@ -70,6 +70,6 @@ public class AStarMas{
     //移動コスト 0は行き止まり
     public int _moveCost;
     //マスに何があるか（エネミー、水晶）
-    public List<AEnemyCore> _enemyCoreList;
-    public ACrystalCore _crystalCore;
+    public List<EnemyCoreBase> _enemyCoreList;
+    public CrystalCore _crystalCore;
 }

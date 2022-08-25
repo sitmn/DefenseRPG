@@ -4,8 +4,11 @@ using UnityEngine;
 
 public abstract class AttackBase
 {
+    //DoAttackを実行する（Tはこのメソッドで指定する）
+    public abstract void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus);
+
     //攻撃を実行 TはEnemyCoreBaseかCrystalCoreBase
-    public void DoAttack<T>(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus){
+    protected void DoAttack<T>(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus){
         //攻撃対象を決める
         List<T> _attackTargetList = DecideAttackTarget<T>(_centerPos, _fowardDir, _attackStatus._attackRange);
         int _damage = CalculateDamage(_attackStatus._attack);

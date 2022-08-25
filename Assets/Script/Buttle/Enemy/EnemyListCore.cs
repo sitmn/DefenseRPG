@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyListCore : MonoBehaviour
 {
     //敵のリスト
-    public static List<EnemyCore> _enemiesList;
+    public static List<EnemyCoreBase> _enemiesList;
 
     [SerializeField]
     private Transform _enemyListTr;
 
     public void AwakeManager(EnemyParam _enemyParam){
         //全てのエネミーを取得
-        _enemiesList = new List<EnemyCore>();
+        _enemiesList = new List<EnemyCoreBase>();
         
         for(int i = 0 ; i < _enemyListTr.childCount ; i++){
             SetEnemyCoreInList(_enemyListTr.GetChild(i).gameObject.GetComponent<EnemyCore>(), _enemyParam);
@@ -25,7 +25,7 @@ public class EnemyListCore : MonoBehaviour
     }
 
     //エネミーリストから削除
-    public static void RemoveEnemyCoreInList(EnemyCore _enemyCore){
+    public static void RemoveEnemyCoreInList(EnemyCoreBase _enemyCore){
         _enemiesList.Remove(_enemyCore);
     }
 

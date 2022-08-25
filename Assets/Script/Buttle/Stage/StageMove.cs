@@ -124,8 +124,8 @@ public class StageMove : MonoBehaviour
 
     //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
     private void StageRowDestroy(){
-        List<ACrystalCore> _crystalCoreList = new List<ACrystalCore>();
-        List<AEnemyCore> _enemyCoreList = new List<AEnemyCore>();
+        List<CrystalCore> _crystalCoreList = new List<CrystalCore>();
+        List<EnemyCoreBase> _enemyCoreList = new List<EnemyCoreBase>();
 
         //削除前に別のリストに入れる（削除時、リストをRemoveするため）
         //最後列のエネミーとクリスタルをリストへ追加
@@ -143,10 +143,10 @@ public class StageMove : MonoBehaviour
         }
 
         //ステージ外になるオブジェクトを全て削除
-        foreach(ACrystalCore __crystalCoreObj in _crystalCoreList){
+        foreach(CrystalCore __crystalCoreObj in _crystalCoreList){
             __crystalCoreObj.ObjectDestroy();
         }
-        foreach(AEnemyCore _enemyCoreObj in _enemyCoreList){
+        foreach(EnemyCoreBase _enemyCoreObj in _enemyCoreList){
             _enemyCoreObj.ObjectDestroy();
         }
     }
