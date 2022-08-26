@@ -60,7 +60,7 @@ public class PlayerCore : MonoBehaviour
     //Update処理
     public void UpdateManager()
     {
-        if(GameManager._gameOverFlag) return;
+        if(GameManager.GetIsGameOver()) return;
         //有効になっているプレイヤーアクションが実行できない状態の場合、無効化
         foreach(var _playerAction in _playerActionArr){
             if(_playerAction.ActiveFlag && !_playerAction.CanAction()){

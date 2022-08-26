@@ -16,22 +16,22 @@ public class TargetCore : MonoBehaviour
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x - j, _centerPos.y + i - j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x - i + j, _centerPos.y - j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x + j, _centerPos.y - i + j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x + i - j, _centerPos.y + j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             if(_coreList.Count > 0) break;
         }
@@ -48,7 +48,7 @@ public class TargetCore : MonoBehaviour
             for(int j = _centerPos.y -_range;j <= _centerPos.y + _range; j++){
                 _judgePos = new Vector2Int(i, j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
         }
 
@@ -62,7 +62,7 @@ public class TargetCore : MonoBehaviour
         for(int i = 1;i < _range + 1; i++){
             Vector2Int _judgePos = new Vector2Int(_centerPos.x + i * _forwardDir.x, _centerPos.y + i * _forwardDir.y);
             //ステージリストの範囲外でないなら、Coreを取得
-            if(!AStarMap.OutOfReferenceCheck(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+            if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
         }
 
         return _coreList;

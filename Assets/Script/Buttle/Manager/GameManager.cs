@@ -22,14 +22,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraController _cameraController;
 
-    public static bool _gameOverFlag;
+    public static bool _isGameOver;
+    public static bool GetIsGameOver(){
+        return _isGameOver;
+    }
 
     void Awake(){
         //CoreクラスのParamをセット
         SetParamData();
 
         _playerCoreStatic = _playerCore;
-        _gameOverFlag = false;
+        _isGameOver = false;
         
         //コンポーネントを取得
         InitializeComponent();
@@ -49,6 +52,8 @@ public class GameManager : MonoBehaviour
         _playerActionList.Add(_playerCore.GetComponent<LiftDownCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<RepairCrystal>());
     }
+
+    //各クラスのAwakeをコール
     private void DoAwakeManager(){
         _starMap.AwakeManager();
         _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
@@ -61,10 +66,10 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    // Update is called once per frame
+    //各クラスのUpdateをコール
     void FixedUpdate()
     {
-        if(_gameOverFlag) return;
+        if(_isGameOver) return;
 
         _playerCore.UpdateManager();
         foreach(var _playerAction in _playerActionList){
@@ -72,14 +77,14 @@ public class GameManager : MonoBehaviour
         }
         _crystalListCore.UpdateManager();
         _enemyListCore.UpdateManager();
-        //_stageMove.UpdateManager(); 
+        _stageMove.UpdateManager(); 
         _cameraController.UpdateManager();
     }
 
     //ゲームオーバー
     public static void GameOver(){
         //ゲーム内の動きを停止
-        _gameOverFlag = true;
+        _isGameOver = true;
 
         //プレイヤー操作を無効化
         _playerCoreStatic.InputInvalid();
