@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     private void DoAwakeManager(){
         _starMap.AwakeManager();
         _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
+        _playerCore._playerMove.AwakeManager();
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
 

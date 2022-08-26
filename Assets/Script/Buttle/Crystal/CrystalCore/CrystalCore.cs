@@ -56,7 +56,6 @@ public class CrystalCore:MonoBehaviour
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._moveCost = _crystalStatus._moveCost;
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = this;
         }
-        
     }
     //破壊または持ち上げ時、移動不可解除
     public void SetOffAStarMap(){
@@ -86,7 +85,7 @@ public class CrystalCore:MonoBehaviour
     //攻撃や効果を発動
     public void Attack(){
         //リフト中のクリスタルは攻撃なし
-        if(this == PlayerCore._liftCrystalTr){
+        if(this == PlayerCore.GetLiftCrystalCore()){
 
         }else{
             //攻撃カウントになったときにエネミーに攻撃

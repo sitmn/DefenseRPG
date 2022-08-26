@@ -6,7 +6,11 @@ public class AStarMap : MonoBehaviour
 {
     //今の場所（判定用）
     public static Vector2Int _playerPos;
+    public static Vector2Int GetPlayerPos(){ return _playerPos;}
+    public static void SetPlayerPos(Vector2Int _pos){  _playerPos = _pos;}
     public static PlayerCore _playerCore;
+    public static PlayerCore GetPlayerCore(){ return _playerCore;}
+    public static void SetPlayerCore(PlayerCore _core){ _playerCore = _core;}
     public static AStarMas[,] astarMas;
     [SerializeField]
     private int max_pos_x = 15;
@@ -54,8 +58,8 @@ public class AStarMap : MonoBehaviour
         return  randomPos;
     }
 
-    //ステージ範囲外でないかの判定
-    public static bool OutOfReferenceCheck(Vector2Int _judgePos){
+    //ステージ範囲外かの判定
+    public static bool IsOutOfReference(Vector2Int _judgePos){
         //x軸方向の判定（ステージの移動も加味）
         bool _judgeFlag_x = _judgePos.x < 0 || _judgePos.x >= AStarMap.max_pos_x_static;
         //z軸方向の判定

@@ -63,7 +63,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //アクションが実行可能な状態か
     public bool CanAction(){
         //リフト中のクリスタルがなく、正面に黒以外のクリスタルがあるか
-        return PlayerCore._liftCrystalTr == null && ExistCrystal() && !ExistBlackCrystal();
+        return PlayerCore.GetLiftCrystalTr() == null && ExistCrystal() && !ExistBlackCrystal();
     }
 
     //正面にクリスタルがあるか

@@ -66,7 +66,7 @@ public class EnemyMoveRoute: MonoBehaviour
         List<Vector2Int> _trackPos;
         //索敵範囲にプレイヤーがいれば経路探索
         if(IsSearchPlayer(_currentPos, _searchDestination)){
-            _trackPos = GenerateTrackRoute(_currentPos, AStarMap._playerPos);
+            _trackPos = GenerateTrackRoute(_currentPos, AStarMap.GetPlayerPos());
         }else{
             //適当な位置を指定 ⇨ 軽量化するには、　　既に指定している場合、次の配列要素へ（経路探索はキャッシュを使用）
             _trackPos = GenerateTrackRoute(_currentPos, AStarMap.GetRandomPos(_currentPos));
@@ -226,7 +226,7 @@ public class EnemyMoveRoute: MonoBehaviour
     public bool IsSearchPlayer(Vector2Int _currentPos, int _searchDestination){
         bool _isSearch = false;
 
-        Vector2Int _destination = _currentPos - new Vector2Int(StageMove.UndoElementStageMove(AStarMap._playerPos.x), AStarMap._playerPos.y);
+        Vector2Int _destination = _currentPos - new Vector2Int(StageMove.UndoElementStageMove(AStarMap.GetPlayerPos().x), AStarMap.GetPlayerPos().y);
         if((Mathf.Abs(_destination.x) + Mathf.Abs(_destination.y)) < _searchDestination){
             _isSearch = true;
         }

@@ -87,7 +87,7 @@ public class StageMove : MonoBehaviour
     //ステージ移動を実行
     private void StageMoveExecute(){
         //プレイヤーがステージ最後列にいる場合、ゲームオーバー表示し、全ての入力を無効に
-        if(AStarMap._playerPos.x == 0) GameManager.GameOver();
+        if(AStarMap.GetPlayerPos().x == 0) GameManager.GameOver();
 
         //ステージ最後列にあるオブジェクトを全て削除
         StageRowDestroy();
@@ -171,7 +171,7 @@ public class StageMove : MonoBehaviour
     private void CrystalInfomationInMapDelete(){
         for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
             //リフト中の水晶は対象外
-            if(CrystalListCore._crystalList[i] != PlayerCore._liftCrystalCore) CrystalListCore._crystalList[i].SetOffAStarMap();
+            if(CrystalListCore._crystalList[i] != PlayerCore.GetLiftCrystalCore()) CrystalListCore._crystalList[i].SetOffAStarMap();
         }
     }
 
@@ -179,7 +179,7 @@ public class StageMove : MonoBehaviour
     private void CrystalInfomationInMapCreate(){
         for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
             //リフト中の水晶は対象外
-            if(CrystalListCore._crystalList[i] != PlayerCore._liftCrystalCore) CrystalListCore._crystalList[i].SetOnAStarMap();
+            if(CrystalListCore._crystalList[i] != PlayerCore.GetLiftCrystalCore()) CrystalListCore._crystalList[i].SetOnAStarMap();
         }
     }
 
@@ -219,8 +219,7 @@ public class StageMove : MonoBehaviour
             
             EnemyListCore._enemiesList[i].SetOnAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
             
-            AStarMap._playerPos.x -= 1;
-            AStarMap._playerPos = new Vector2Int(AStarMap._playerPos.x, AStarMap._playerPos.y);
+            AStarMap.SetPlayerPos(new Vector2Int(AStarMap.GetPlayerPos().x - 1, AStarMap.GetPlayerPos().y));
             //Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos + "AAA");
         }
     }

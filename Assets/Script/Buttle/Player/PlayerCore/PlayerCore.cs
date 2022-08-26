@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCore : MonoBehaviour
 {
-    public IPlayerMove _playerMove;
+    public PlayerMove _playerMove;
     public PlayerStatus _playerStatus;
     public CrystalStatus[] EqueipmentCrystal{get;set;}
     [SerializeField]
@@ -16,15 +16,31 @@ public class PlayerCore : MonoBehaviour
     public GameObject _speedBuff;
     [System.NonSerialized]
     public GameObject _speedDebuff;
-    //リフト中の水晶オブジェクト
+    //リフト中のクリスタルオブジェクト
     public static CrystalCore _liftCrystalCore;
+    public static CrystalCore GetLiftCrystalCore(){
+        return _liftCrystalCore;
+    }
+    
     public static Transform _liftCrystalTr;
+    public static Transform GetLiftCrystalTr(){
+        return _liftCrystalTr;
+    }
+    //リフト中のクリスタル情報をセット
+    public static void SetLiftCrystal(CrystalCore _crystalCore, Transform _crystalTr){
+        _liftCrystalCore = _crystalCore;
+        _liftCrystalTr = _crystalTr;
+    }
+    public static void SetOffLiftCrystal(){
+        _liftCrystalCore = null;
+        _liftCrystalTr = null;
+    }
     
     //クラスの初期化
     public void AwakeManager(PlayerParam _playerParam){
         InitializeComponent();
         _playerStatus = new PlayerStatus(_playerParam);
-        AStarMap._playerCore = this;
+        AStarMap.SetPlayerCore(this);
     }
 
     //コンポーネントの初期化
@@ -41,7 +57,7 @@ public class PlayerCore : MonoBehaviour
         _playerTr = this. gameObject.GetComponent<Transform>();
     }
 
-    // Update is called once per frame
+    //Update処理
     public void UpdateManager()
     {
         if(GameManager._gameOverFlag) return;
@@ -53,7 +69,7 @@ public class PlayerCore : MonoBehaviour
         }
         //水晶起動、修理、持ち上げアクション中か？
         //移動中か？
-        if(_playerMove.MoveFlag()){
+        if(_playerMove.IsMove()){
             _playerMove.Move(_playerStatus.GetMoveSpeed);
             return;
         }else{
@@ -68,28 +84,20 @@ public class PlayerCore : MonoBehaviour
                 }
             }
             //移動場所を設定
-            _playerMove.NextMovePos();
+            _playerMove.SetNextMovePos();
+            //プレイヤーの向き変更
+            _playerMove.RotatePlayer();
             //移動先を確定させた場合、アクションを無効化
-            if(_playerMove.MoveFlag()){
+            if(_playerMove.IsMove()){
                 InputInvalid();
             }
         }
     }
 
-    //アクションを無効化
+    //プレイヤーアクションを無効化
     public void InputInvalid(){
         foreach(var _playerAction in _playerActionArr){
             if(_playerAction.ActiveFlag) _playerAction.InputDisable();
         }
-    }
-
-    //リフト中のクリスタル情報をセット
-    public static void SetLiftCrystal(CrystalCore _crystalCore, Transform _crystalTr){
-        _liftCrystalCore = _crystalCore;
-        _liftCrystalTr = _crystalTr;
-    }
-    public static void SetOffLiftCrystal(){
-        _liftCrystalCore = null;
-        _liftCrystalTr = null;
     }
 }

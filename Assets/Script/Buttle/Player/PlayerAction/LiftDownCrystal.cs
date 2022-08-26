@@ -26,8 +26,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
 
     //リフトアップ中のクリスタルをプレイヤー移動に合わせて移動
     public void UpdateManager(){
-        if(PlayerCore._liftCrystalTr == null) return;
-        PlayerCore._liftCrystalTr.position = _playerTr.position + new Vector3(0, 2, 0);
+        if(PlayerCore.GetLiftCrystalTr() == null) return;
+        PlayerCore.GetLiftCrystalTr().position = _playerTr.position + new Vector3(0, 2, 0);
     }
 
     //リフトアップアクション入力の有効化
@@ -51,20 +51,20 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //アクションが実行可能な状態か
     public bool CanAction(){
         ////リフト中のクリスタルがある、かつ、正面にクリスタルがない、かつ、周囲に敵がいないとき
-        return PlayerCore._liftCrystalTr != null && !ExistCrystal() && !ExistAroundEnemy();
+        return PlayerCore.GetLiftCrystalTr() != null && !ExistCrystal() && !ExistAroundEnemy();
     }
 
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap._playerPos, _fowardDir, 1);
-        return AStarMap.OutOfReferenceCheck(AStarMap._playerPos + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
+        return AStarMap.IsOutOfReference(AStarMap.GetPlayerPos() + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null);
     }
 
     //正面のマスの周囲に敵がいるか
     private bool ExistAroundEnemy(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<EnemyCoreBase> _crystalCoreList = TargetCore.GetAroundCore<EnemyCoreBase>(AStarMap._playerPos + _fowardDir, _fowardDir, 1);
+        List<EnemyCoreBase> _crystalCoreList = TargetCore.GetAroundCore<EnemyCoreBase>(AStarMap.GetPlayerPos() + _fowardDir, _fowardDir, 1);
         return _crystalCoreList.Count != 0;
     }
 
@@ -82,10 +82,10 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトダウン完了(長押し)
     private void OnInputComplete(InputAction.CallbackContext context){
         //オブジェクトをマスへ配置
-        PlayerCore._liftCrystalTr.position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0.5f, _playerTr.position.z + (int)_playerTr.forward.z);
+        PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0.5f, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
         //マップ情報に水晶を追加
-        PlayerCore._liftCrystalCore.SetOnAStarMap();
+        PlayerCore.GetLiftCrystalCore().SetOnAStarMap();
         //リフト中情報をnullに
         PlayerCore.SetOffLiftCrystal();
 

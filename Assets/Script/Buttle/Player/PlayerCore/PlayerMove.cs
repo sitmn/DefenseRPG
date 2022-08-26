@@ -7,17 +7,13 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using System;
 
-public class PlayerMove : MonoBehaviour, IPlayerMove
+public class PlayerMove : MonoBehaviour
 {
     //private CharacterController _characterController;
 
     private Transform _playerTr;
     private IPlayerMotion _playerMotion;
     private PlayerInput _playerInput;
-
-    [SerializeField]
-    private float _moveSpeedOrigin = 5;
-    public static float _moveSpeed;
     //移動方向（移動用）
     private Vector2Int _moveDir;
     //直前の移動方向（移動用）
@@ -26,55 +22,45 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
     private Vector2Int _playerPos;
     //次の移動場所（移動用）
     private Vector2Int _nextPlayerPos;
-    //スピードバフ用非同期トークン
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-    //スピードバフエフェクト
-    public GameObject _speedBuff;
 
-    // Start is called before the first frame update
-    void Awake()
+    //クラスの初期化
+    public void AwakeManager()
     {
         SetComponent();
     }
 
+    //コンポーネントのセット
     private void SetComponent(){
         _playerMotion = this.gameObject.GetComponent<IPlayerMotion>();
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
-        //_characterController = this.gameObject.GetComponent<CharacterController>();
         _playerTr = this.gameObject.GetComponent<Transform>();
 
         //AStarMapの自キャラポジション格納（判定用）
-        AStarMap._playerPos = AStarMap.CastMapPos(_playerTr.position);
+        AStarMap.SetPlayerPos(AStarMap.CastMapPos(_playerTr.position));
         //自キャラポジション格納（移動用）
-        _playerPos = AStarMap._playerPos;
+        _playerPos = AStarMap.GetPlayerPos();
         //次の移動場所（移動用）
         _nextPlayerPos = _playerPos;
-
-        _moveSpeed = _moveSpeedOrigin;
-
-        _speedBuff = transform.GetChild(0).gameObject;
-
-        
     }
 
     //InputSystemのアクションにコールバックをセット
     void OnEnable(){
-        _playerInput.actions["Move"].started += MoveStart;
-        _playerInput.actions["Move"].performed += OnMove;
-        _playerInput.actions["Move"].canceled += MoveStop;
+        _playerInput.actions["Move"].started += OnMoveStart;
+        _playerInput.actions["Move"].performed += OnMoveComplete;
+        _playerInput.actions["Move"].canceled += OnMoveStop;
     }
 
     void OnDisable(){
-        _playerInput.actions["Move"].started -= MoveStart;
-        _playerInput.actions["Move"].performed -= OnMove;
-        _playerInput.actions["Move"].canceled -= MoveStop;
+        _playerInput.actions["Move"].started -= OnMoveStart;
+        _playerInput.actions["Move"].performed -= OnMoveComplete;
+        _playerInput.actions["Move"].canceled -= OnMoveStop;
     }
 
     //隣のマス中心まで移動
     public void Move(float _moveSpeed){
-        
+        //移動場所と現在地から移動方向を決定
         Vector3 player_move = new Vector3(_nextPlayerPos.x - _playerPos.x, 0, _nextPlayerPos.y - _playerPos.y);
-
+        //位置変更
         _playerTr.position += player_move * _moveSpeed * Time.deltaTime;
         //マス中心まで移動した時、位置確定
         if(Mathf.Abs(_playerTr.position.x - _nextPlayerPos.x + _playerTr.position.z - _nextPlayerPos.y) < _moveSpeed * Time.deltaTime + 0.1f){
@@ -82,72 +68,53 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
             _playerPos = AStarMap.CastMapPos(_playerTr.position);
         }
 
-        AStarMap._playerPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_playerTr.position).x),AStarMap.CastMapPos(_playerTr.position).y);
+        AStarMap.SetPlayerPos(new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_playerTr.position).x),AStarMap.CastMapPos(_playerTr.position).y));
         return;
     }
 
     //プレイヤー向き変更
-    private void RotatePlayer(Vector2Int _moveDir){
+    public void RotatePlayer(){
+        if(_moveDir == Vector2Int.zero) return;
         Quaternion _rotateDir = Quaternion.LookRotation(new Vector3(_moveDir.x, 0, _moveDir.y));
         _playerTr.rotation = _rotateDir;
     }
 
-    //移動可能か：敵、水晶、エリア外が移動方向に存在しないか
-    private bool MoveCheck(Vector2Int _moveDir){
-        bool _moveCheckFlag = false;
-
+    //移動可能か
+    private bool CanMove(Vector2Int _moveDir){
+        bool _isMoveCheck = false;
+        /*以下の条件を一つでも満たさなければ移動不可*/
         //移動後のワールド座標
-        Vector2Int _movePos = AStarMap._playerPos + _moveDir;
-        if(!AStarMap.OutOfReferenceCheck(_movePos)//ステージ範囲外判定
-        && AStarMap.astarMas[_movePos.x, _movePos.y]._enemyCoreList.Count == 0 //this.pos + _moveDir のAStarMap.Objが存在しないか
-        && AStarMap.astarMas[_movePos.x, _movePos.y]._crystalCore == null
-        && !(AStarMap._playerPos.x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCountStatic * 9 / 10) //ステージ移動直前に最後列へ移動していないか
-        ){
-            _moveCheckFlag = true;
-        }else{
-            
-        }
-
-        return _moveCheckFlag; 
-    }
-
-    //スピードを上昇させる
-    public void SpeedUp(float _upRate, int _upTime){
-        _moveSpeed = _moveSpeedOrigin * (1 + _upRate);
-        _speedBuff.SetActive(true);
-
-        _cancellationTokenSource.Cancel();
-        _cancellationTokenSource = new CancellationTokenSource();
-        UndoSpeed(_upTime, _cancellationTokenSource.Token);
-    }
-
-    //スピードの上昇を元に戻す
-    private async UniTask UndoSpeed(int _upTime, CancellationToken cancellationToken = default(CancellationToken)){
-        await UniTask.Delay(TimeSpan.FromSeconds(_upTime), cancellationToken: _cancellationTokenSource.Token);
-        _moveSpeed = _moveSpeedOrigin;
-        _speedBuff.SetActive(false);
+        Vector2Int _movePos = AStarMap.GetPlayerPos() + _moveDir;
+        //ステージ範囲外判定
+        if(AStarMap.IsOutOfReference(_movePos)) return _isMoveCheck;
+        //移動先にエネミーが存在しないか
+        if(!(AStarMap.astarMas[_movePos.x, _movePos.y]._enemyCoreList.Count == 0)) return _isMoveCheck;
+        //移動先にクリスタルが存在しないか
+        if(!(AStarMap.astarMas[_movePos.x, _movePos.y]._crystalCore == null)) return _isMoveCheck;
+        //ステージ移動直前に最後列に移動していないか
+        if((AStarMap.GetPlayerPos().x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCountStatic * 9 / 10)) return _isMoveCheck;
+        
+        _isMoveCheck = true;
+        return _isMoveCheck; 
     }
 
     //次の目的地を設定（移動用）
-    public void NextMovePos(){
-        if(MoveCheck(_moveDir)) _nextPlayerPos = _playerPos + _moveDir;
-        if(_moveDir != Vector2Int.zero)RotatePlayer(_moveDir);
+    public void SetNextMovePos(){
+        if(CanMove(_moveDir)) _nextPlayerPos = _playerPos + _moveDir;
     }
 
     //移動中か判定（移動中は他の行動不可）
-    public bool MoveFlag(){
+    public bool IsMove(){
         return _nextPlayerPos != _playerPos;
     }
 
-
-
     //移動コールバック用
-    private void MoveStart(InputAction.CallbackContext context){
+    private void OnMoveStart(InputAction.CallbackContext context){
         _playerMotion.MoveMotion();
     }
 
     //移動コールバック用
-    private void OnMove(InputAction.CallbackContext context){
+    private void OnMoveComplete(InputAction.CallbackContext context){
 
         _moveDir = new Vector2Int ((int)context.ReadValue<Vector2>().x, (int)context.ReadValue<Vector2>().y);
         
@@ -162,7 +129,7 @@ public class PlayerMove : MonoBehaviour, IPlayerMove
         _movePreviousDir = _moveDir;
     }
     //移動解除コールバック用
-    private void MoveStop(InputAction.CallbackContext context){
+    private void OnMoveStop(InputAction.CallbackContext context){
         _playerMotion.MoveMotionCancel();
         _moveDir = Vector2Int.zero;
         _movePreviousDir = Vector2Int.zero;

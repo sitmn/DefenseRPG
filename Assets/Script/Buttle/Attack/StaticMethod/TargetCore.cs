@@ -88,8 +88,8 @@ public class TargetCore : MonoBehaviour
             }
         }//対象がプレイヤーの場合,プレイヤーを取得
         else if(typeof(T) == typeof(PlayerCore)){
-            if(AStarMap._playerPos == _judgePos/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
-                var _playerCoreVar = (T)(object)AStarMap._playerCore;
+            if(AStarMap.GetPlayerPos() == _judgePos/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
+                var _playerCoreVar = (T)(object)AStarMap.GetPlayerCore();
                 _coreList.Add(_playerCoreVar);
             }
         }
