@@ -93,7 +93,7 @@ public class PlayerMove : MonoBehaviour
         if(!(AStarMap.astarMas[_movePos.x, _movePos.y]._crystalCore == null)) return _isMoveCheck;
         //ステージ移動直前に最後列に移動していないか
         if((AStarMap.GetPlayerPos().x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCountStatic * 9 / 10)) return _isMoveCheck;
-        
+
         _isMoveCheck = true;
         return _isMoveCheck; 
     }

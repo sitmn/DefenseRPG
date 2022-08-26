@@ -64,7 +64,7 @@ public class PlayerCore : MonoBehaviour
         //有効になっているプレイヤーアクションが実行できない状態の場合、無効化
         foreach(var _playerAction in _playerActionArr){
             if(_playerAction.ActiveFlag && !_playerAction.CanAction()){
-            _playerAction.InputDisable();
+                _playerAction.InputDisable();
             }
         }
         //水晶起動、修理、持ち上げアクション中か？
@@ -75,7 +75,8 @@ public class PlayerCore : MonoBehaviour
         }else{
             //アクション中なら以降の処理をスキップ
             foreach(var _playerAction in _playerActionArr){
-            if(_playerAction.ActionFlag) return;
+                Debug.Log(_playerAction.ActionFlag + _playerAction.GetType().Name);
+                if(_playerAction.ActionFlag) return;
             }
             //行動していないとき、アクション可能であれば入力を有効化
             foreach(var _playerAction in _playerActionArr){

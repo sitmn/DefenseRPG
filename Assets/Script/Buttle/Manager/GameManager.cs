@@ -70,8 +70,10 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         if(_isGameOver) return;
-
+        // if(StageMove._stageMoveCount == StageMove._stageMoveMaxCount-1) Debug.Log(AStarMap.astarMas[CrystalListCore._crystalList[0]._crystalPos.x, CrystalListCore._crystalList[0]._crystalPos.y]._crystalCore + "RRR");
+        // if(StageMove._stageMoveCount == 0) Debug.Log(AStarMap.astarMas[CrystalListCore._crystalList[0]._crystalPos.x, CrystalListCore._crystalList[0]._crystalPos.y]._crystalCore + "TTT");
         _playerCore.UpdateManager();
+        
         foreach(var _playerAction in _playerActionList){
             _playerAction.UpdateManager();
         }

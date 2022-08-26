@@ -9,7 +9,7 @@ using UniRx;
 public class CrystalCore:MonoBehaviour
 {
     private Transform _crystalTr;
-    private Vector2Int _crystalPos;
+    public Vector2Int _crystalPos;
     public AttackBase _attack;
     public CrystalStatus _crystalStatus;
     public ReactiveProperty<int> _hp;
@@ -75,8 +75,6 @@ public class CrystalCore:MonoBehaviour
         //移動コスト
         _crystalStatus._moveCost = _crystalParam._moveCost;
         
-        //既に設定してあるマスの移動コストのみ変更
-        AStarMap.astarMas[StageMove.UndoElementStageMove(_crystalPos.x),_crystalPos.y]._moveCost = _crystalParam._moveCost;
         //攻撃方法をセット
         Type classObj = Type.GetType(_crystalParam._crystalAttackName);
         _attack = (AttackBase)Activator.CreateInstance(classObj);

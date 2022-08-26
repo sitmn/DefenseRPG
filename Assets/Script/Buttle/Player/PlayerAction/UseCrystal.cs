@@ -82,6 +82,9 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
         _crystalCore.SetCrystalStatus(_crystalParamData.CrystalParamList[(int)_colorNo]);
+        //マップ状況の更新
+        _crystalCore.SetOffAStarMap();
+        _crystalCore.SetOnAStarMap();
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し

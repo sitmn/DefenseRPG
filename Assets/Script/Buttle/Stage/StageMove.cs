@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class StageMove : MonoBehaviour
 {
+    
     //ステージ移動カウント用
     public static int _stageMoveCount;
     //ステージ移動時間間隔
     public static int _stageMoveMaxCountStatic;
     [SerializeField]
-    public int _stageMoveMaxCount;
+    private int _stageMoveMaxCount;
     //ステージ列のスライド量
     public static int _moveRowCount;
 
@@ -192,6 +193,7 @@ public class StageMove : MonoBehaviour
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
     private void SlideAllPos(){
+        //エネミー位置のスライド
         for(int i = 0; i < EnemyListCore._enemiesList.Count ; i++){
             //現在位置のスライド
             //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
@@ -218,10 +220,10 @@ public class StageMove : MonoBehaviour
             EnemyListCore._enemiesList[i].JudgePos.Value = new Vector2Int(EnemyListCore._enemiesList[i].JudgePos.Value.x - 1, EnemyListCore._enemiesList[i].JudgePos.Value.y);
             
             EnemyListCore._enemiesList[i].SetOnAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
-            
-            AStarMap.SetPlayerPos(new Vector2Int(AStarMap.GetPlayerPos().x - 1, AStarMap.GetPlayerPos().y));
             //Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos + "AAA");
         }
+        //プレイヤー位置のスライド
+        AStarMap.SetPlayerPos(new Vector2Int(AStarMap.GetPlayerPos().x - 1, AStarMap.GetPlayerPos().y));
     }
 
 
