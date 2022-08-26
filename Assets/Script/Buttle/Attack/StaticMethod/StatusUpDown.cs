@@ -34,7 +34,7 @@ public class StatusUpDown
             PlayerCore _playerCore = (PlayerCore)(object)_applyCore;
             _playerCore._playerStatus._moveSpeedDown = _status._effectRate;
             _playerCore._speedDebuff.SetActive(true);
-            _playerCore._playerStatus._cancelSpeedBuffToken.Cancel();
+            _playerCore._playerStatus._cancelSpeedDebuffToken.Cancel();
             _playerCore._playerStatus._cancelSpeedDebuffToken = new CancellationTokenSource();
             UndoDebuffSpeed(_applyCore, _status._effectTime, _playerCore._speedDebuff, _playerCore._playerStatus._cancelSpeedDebuffToken, _playerCore._playerStatus._cancelSpeedDebuffToken.Token);
         }

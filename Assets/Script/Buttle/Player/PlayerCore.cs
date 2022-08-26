@@ -10,31 +10,34 @@ public class PlayerCore : MonoBehaviour
     [SerializeField]
     private CrystalStatus[] _equipmentCrystal = new CrystalStatus[3];
 
-    private IUserCrystal _useCrystal;
-    private ILiftCrystal _liftCrystal;
-    private IRepairCrystal _repairCrystal;
-
+    private IPlayerAction[] _playerActionArr = new IPlayerAction[4];
     private Transform _playerTr;
     [System.NonSerialized]
     public GameObject _speedBuff;
     [System.NonSerialized]
     public GameObject _speedDebuff;
+    //リフト中の水晶オブジェクト
+    public static CrystalCore _liftCrystalCore;
+    public static Transform _liftCrystalTr;
     
+    //クラスの初期化
     public void AwakeManager(PlayerParam _playerParam){
         InitializeComponent();
         _playerStatus = new PlayerStatus(_playerParam);
         AStarMap._playerCore = this;
     }
 
+    //コンポーネントの初期化
     private void InitializeComponent(){
         //バフオブジェクトの取得
         _speedBuff = transform.GetChild(0).gameObject;
         _speedDebuff = transform.GetChild(1).gameObject;
 
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
-        _useCrystal = this.gameObject.GetComponent<UseCrystal>();
-        _liftCrystal = this.gameObject.GetComponent<LiftCrystal>();
-        _repairCrystal = this.gameObject.GetComponent<RepairCrystal>();
+        _playerActionArr[0] = this.gameObject.GetComponent<UseCrystal>();
+        _playerActionArr[1] = this.gameObject.GetComponent<LiftUpCrystal>();
+        _playerActionArr[2] = this.gameObject.GetComponent<LiftDownCrystal>();
+        _playerActionArr[3] = this.gameObject.GetComponent<RepairCrystal>();
         _playerTr = this. gameObject.GetComponent<Transform>();
     }
 
@@ -42,51 +45,27 @@ public class PlayerCore : MonoBehaviour
     public void UpdateManager()
     {
         if(GameManager._gameOverFlag) return;
-
-        //正面に黒水晶がなければ、水晶起動アクション無効化
-        if(_useCrystal.LaunchActiveFlag && (!_useCrystal.CrystalCheck() || !_useCrystal.BlackCrystalCheck())){
-            _useCrystal.LaunchDisable();
-        }
-        //正面に水晶がない、または、水晶リフト中であれば、水晶リフトアップアクション無効化
-        if(_liftCrystal.LiftUpActiveFlag && (!_useCrystal.CrystalCheck() || _useCrystal.BlackCrystalCheck())){
-            _liftCrystal.LiftUpDisable();
-        }
-        //リフト中でない、または、水晶と敵が正面または、その隣のマスに敵がいるまたは、範囲外へのリフトダウンになる時、水晶リフトダウンアクション無効化
-        if(_liftCrystal.LiftDownActiveFlag && (_liftCrystal.CrystalTr == null || _liftCrystal.StageObjCheck() || AStarMap.OutOfReferenceCheck(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z)))){
-            _liftCrystal.LiftDownDisable();
-        }
-        //水晶が正面にない時、水晶修理アクション無効化
-        if(_repairCrystal.RepairActiveFlag && (!_useCrystal.CrystalCheck() || _useCrystal.BlackCrystalCheck())){
-            _repairCrystal.RepairDisable();
+        //有効になっているプレイヤーアクションが実行できない状態の場合、無効化
+        foreach(var _playerAction in _playerActionArr){
+            if(_playerAction.ActiveFlag && !_playerAction.CanAction()){
+            _playerAction.InputDisable();
+            }
         }
         //水晶起動、修理、持ち上げアクション中か？
         //移動中か？
         if(_playerMove.MoveFlag()){
             _playerMove.Move(_playerStatus.GetMoveSpeed);
             return;
-        }else if(_useCrystal.LaunchActionFlag){//水晶起動中か？
-            //水晶起動処理
-            return;
-        }else if(_repairCrystal.RepairActionFlag){//水晶修理中か？
-            //水晶修理処理
-            return;
-        }else if(_liftCrystal.LiftUpActionFlag){//水晶リフトアップ中か？
-            //水晶持ち上げ処理
-            return;
-        }else if(_liftCrystal.LiftDownActionFlag){//水晶リフトダウン中か？
-            //水晶持ち上げ処理
-            return;
-        }else{//行動なし、入力待機中
-            if(_useCrystal.CrystalCheck()){//水晶アクションが可能か？水晶が正面にあるか？
-                if(!_useCrystal.LaunchActiveFlag && _useCrystal.BlackCrystalCheck()){//黒水晶かつ水晶起動が無効であれば有効化
-                    _useCrystal.LaunchEnable();
-                }if(!_liftCrystal.LiftUpActiveFlag && !_useCrystal.BlackCrystalCheck() && _liftCrystal.CrystalTr == null){//黒水晶ではなく、水晶修理及び持ち上げが無効、かつ、リフト中でなければ有効化
-                    _liftCrystal.LiftUpEnable();
-                }if(!_repairCrystal.RepairActiveFlag && !_useCrystal.BlackCrystalCheck() && _liftCrystal.CrystalTr == null){//黒水晶ではなく、水晶修理及び持ち上げが無効、かつ、リフト中でなければ有効化
-                    _repairCrystal.RepairEnable();
+        }else{
+            //アクション中なら以降の処理をスキップ
+            foreach(var _playerAction in _playerActionArr){
+            if(_playerAction.ActionFlag) return;
+            }
+            //行動していないとき、アクション可能であれば入力を有効化
+            foreach(var _playerAction in _playerActionArr){
+                if(!_playerAction.ActiveFlag && _playerAction.CanAction()){
+                    _playerAction.InputEnable();
                 }
-            }else if(!_liftCrystal.LiftDownActiveFlag && _liftCrystal.CrystalTr != null && !_liftCrystal.StageObjCheck() && !AStarMap.OutOfReferenceCheck(new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z))){//水晶と敵が正面にないかつ、その隣のマスに敵がいない、かつステージの範囲外へのリフトダウンでない時、水晶リフト中であればリフトダウンを有効化
-                _liftCrystal.LiftDownEnable();
             }
             //移動場所を設定
             _playerMove.NextMovePos();
@@ -99,9 +78,18 @@ public class PlayerCore : MonoBehaviour
 
     //アクションを無効化
     public void InputInvalid(){
-        if(_useCrystal.LaunchActiveFlag) _useCrystal.LaunchDisable();
-        if(_liftCrystal.LiftUpActiveFlag) _liftCrystal.LiftUpDisable();
-        if(_liftCrystal.LiftDownActiveFlag) _liftCrystal.LiftDownDisable();
-        if(_repairCrystal.RepairActiveFlag) _repairCrystal.RepairDisable();
+        foreach(var _playerAction in _playerActionArr){
+            if(_playerAction.ActiveFlag) _playerAction.InputDisable();
+        }
+    }
+
+    //リフト中のクリスタル情報をセット
+    public static void SetLiftCrystal(CrystalCore _crystalCore, Transform _crystalTr){
+        _liftCrystalCore = _crystalCore;
+        _liftCrystalTr = _crystalTr;
+    }
+    public static void SetOffLiftCrystal(){
+        _liftCrystalCore = null;
+        _liftCrystalTr = null;
     }
 }

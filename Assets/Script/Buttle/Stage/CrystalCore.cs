@@ -86,7 +86,7 @@ public class CrystalCore:MonoBehaviour
     //攻撃や効果を発動
     public void Attack(){
         //リフト中のクリスタルは攻撃なし
-        if(this == LiftCrystal._crystalCore){
+        if(this == PlayerCore._liftCrystalTr){
 
         }else{
             //攻撃カウントになったときにエネミーに攻撃

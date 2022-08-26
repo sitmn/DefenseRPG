@@ -171,7 +171,7 @@ public class StageMove : MonoBehaviour
     private void CrystalInfomationInMapDelete(){
         for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
             //リフト中の水晶は対象外
-            if(CrystalListCore._crystalList[i] != LiftCrystal._crystalCore) CrystalListCore._crystalList[i].SetOffAStarMap();
+            if(CrystalListCore._crystalList[i] != PlayerCore._liftCrystalCore) CrystalListCore._crystalList[i].SetOffAStarMap();
         }
     }
 
@@ -179,7 +179,7 @@ public class StageMove : MonoBehaviour
     private void CrystalInfomationInMapCreate(){
         for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
             //リフト中の水晶は対象外
-            if(CrystalListCore._crystalList[i] != LiftCrystal._crystalCore) CrystalListCore._crystalList[i].SetOnAStarMap();
+            if(CrystalListCore._crystalList[i] != PlayerCore._liftCrystalCore) CrystalListCore._crystalList[i].SetOnAStarMap();
         }
     }
 

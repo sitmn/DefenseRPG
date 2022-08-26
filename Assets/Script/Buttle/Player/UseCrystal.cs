@@ -4,79 +4,70 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class UseCrystal : MonoBehaviour, IUserCrystal
+public class UseCrystal : MonoBehaviour, IPlayerAction
 {
     private PlayerInput _playerInput;
     private Transform _playerTr;
     //水晶起動アクションの有効無効状態
-    public bool LaunchActiveFlag => _launchActiveFlag;
-    private bool _launchActiveFlag;
+    public bool ActiveFlag => _activeFlag;
+    private bool _activeFlag;
     //水晶起動中フラグ
-    public bool LaunchActionFlag => _launchActionFlag;
-    private bool _launchActionFlag;
-
-    
+    public bool ActionFlag => _actionFlag;
+    private bool _actionFlag;
     //起動水晶色変え用マテリアル
     private CrystalStatus[] _setCrystalStatus = new CrystalStatus[3];
     private CrystalParamAsset _crystalParamData;
 
-
-    void Awake(){
+    //クラスの初期化
+    public void AwakeManager(){
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
 
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
-        _launchActiveFlag = false;
-        _launchActionFlag = false;
+        _activeFlag = false;
+        _actionFlag = false;
     }
 
+    //本クラスはUpdate処理なし
+    public void UpdateManager(){
 
-    public void LaunchEnable(){
+    }
+
+    //アクションの入力を有効に切り替え
+    public void InputEnable(){
         //InputSystemのコールバックをセット
-        _playerInput.actions["Launch"].started += OnLaunchStart;
-        _playerInput.actions["Launch"].performed += OnLaunchComplete;
-        _playerInput.actions["Launch"].canceled += OnLaunchEnd;
-        _launchActiveFlag = true;
+        _playerInput.actions["Launch"].started += OnInputStart;
+        _playerInput.actions["Launch"].performed += OnInputComplete;
+        _playerInput.actions["Launch"].canceled += OnInputEnd;
+        _activeFlag = true;
     }
 
-    public void LaunchDisable(){
+    //アクションの入力を無効に切り替え
+    public void InputDisable(){
         //InputSystemのコールバックをセット
-        _playerInput.actions["Launch"].started -= OnLaunchStart;
-        _playerInput.actions["Launch"].performed -= OnLaunchComplete;
-        _playerInput.actions["Launch"].canceled -= OnLaunchEnd;
-        _launchActiveFlag = false;
+        _playerInput.actions["Launch"].started -= OnInputStart;
+        _playerInput.actions["Launch"].performed -= OnInputComplete;
+        _playerInput.actions["Launch"].canceled -= OnInputEnd;
+        _activeFlag = false;
     }
 
-    //前方にクリスタルがあるかを確認
-    public bool CrystalCheck(){
-        bool _checkCrystal = false;
-        //判定座標
-        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
-        //判定座標がステージリスト範囲外ではないか、正面にクリスタルがあるか
-        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
-            _checkCrystal = true;
-        }
-        
-        return _checkCrystal;
+    //アクションが実行可能な状態か
+    public bool CanAction(){
+        //正面に黒クリスタルがあるか
+        return BlackCrystalCheck();
     }
 
-    //前方に黒クリスタルがあるかを確認
-    public bool BlackCrystalCheck(){
-        bool _checkBlackCrystal = false;
-        Vector2Int _judgePos = new Vector2Int(AStarMap._playerPos.x + (int)_playerTr.forward.x,AStarMap._playerPos.y + (int)_playerTr.forward.z);
-        if(!AStarMap.OutOfReferenceCheck(_judgePos) && AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
-            //黒水晶のみ移動コストが100
-            _checkBlackCrystal = (AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalCore)._crystalStatus._moveCost == 100;
-        }
-
-        return _checkBlackCrystal;
+    //正面に黒クリスタルがあるか
+    private bool BlackCrystalCheck(){
+        Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap._playerPos, _fowardDir, 1);
+        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._moveCost == 100;
     }
 
-    //InputSystem 正面に黒クリスタルがある時のみ実行
     //クリスタル起動開始
-    private void OnLaunchStart(InputAction.CallbackContext context){
+    private void OnInputStart(InputAction.CallbackContext context){
         //起動中フラグ（移動不可）
-        _launchActionFlag = true;
+        _actionFlag = true;
         //起動モーション開始
 
         //起動時間UI表示
@@ -84,7 +75,7 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
     }
 
     //クリスタル起動完了(長押し)
-    private void OnLaunchComplete(InputAction.CallbackContext context){
+    private void OnInputComplete(InputAction.CallbackContext context){
         float _colorNo = context.ReadValue<float>();
 
         CrystalCore _crystalCore = AStarMap.astarMas[AStarMap._playerPos.x + (int)_playerTr.forward.x, AStarMap._playerPos.y + (int)_playerTr.forward.z]._crystalCore as CrystalCore;
@@ -94,13 +85,13 @@ public class UseCrystal : MonoBehaviour, IUserCrystal
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し
-        _launchActionFlag = false;
+        _actionFlag = false;
     }
 
     //クリスタル起動キャンセル
-    private void OnLaunchEnd(InputAction.CallbackContext context){
+    private void OnInputEnd(InputAction.CallbackContext context){
         //起動モーション終了、起動中フラグ取り消し
-        _launchActionFlag = false;
+        _actionFlag = false;
 
         //起動時間UI非表示
     }

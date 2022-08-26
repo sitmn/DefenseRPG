@@ -14,10 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PlayerCore _playerCore;
     public static PlayerCore _playerCoreStatic;
-    [SerializeField]
-    private LiftCrystal _liftCrystal;
-    [SerializeField]
-    private RepairCrystal _repairCrystal;
+    private List<IPlayerAction> _playerActionList;
     [SerializeField]
     private CrystalListCore _crystalListCore;
     [SerializeField]
@@ -34,6 +31,8 @@ public class GameManager : MonoBehaviour
         _playerCoreStatic = _playerCore;
         _gameOverFlag = false;
         
+        //コンポーネントを取得
+        InitializeComponent();
         //各クラスのAwakeManagerを実行
         DoAwakeManager();
     }
@@ -43,11 +42,22 @@ public class GameManager : MonoBehaviour
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
     }
+    private void InitializeComponent(){
+        _playerActionList = new List<IPlayerAction>();
+        _playerActionList.Add(_playerCore.GetComponent<UseCrystal>());
+        _playerActionList.Add(_playerCore.GetComponent<LiftUpCrystal>());
+        _playerActionList.Add(_playerCore.GetComponent<LiftDownCrystal>());
+        _playerActionList.Add(_playerCore.GetComponent<RepairCrystal>());
+    }
     private void DoAwakeManager(){
         _starMap.AwakeManager();
         _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
+
+        foreach(var _playerAction in _playerActionList){
+            _playerAction.AwakeManager();
+        }
     }
     
     // Update is called once per frame
@@ -56,8 +66,9 @@ public class GameManager : MonoBehaviour
         if(_gameOverFlag) return;
 
         _playerCore.UpdateManager();
-        _liftCrystal.UpdateManager();
-        _repairCrystal.UpdateManager();
+        foreach(var _playerAction in _playerActionList){
+            _playerAction.UpdateManager();
+        }
         _crystalListCore.UpdateManager();
         _enemyListCore.UpdateManager();
         //_stageMove.UpdateManager(); 
