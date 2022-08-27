@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
 using System.Threading;
 
-public class EnemyStatus : MonoBehaviour
+public class EnemyStatus
 {
     //攻撃用ステータス
     public AttackStatus _attackStatus;
@@ -61,10 +58,7 @@ public class EnemyStatus : MonoBehaviour
         this._moveSpeed = _enemyParam._moveSpeed;
         //攻撃用ステータス
         this._attackStatus = new AttackStatus(_enemyParam._attack, _enemyParam._attackRange, _enemyParam._effectRate, _enemyParam._effectTime);
-    }
-
-    void Awake(){
-        _attackCount = 0;
+        this._attackCount = 0;
     }
 
     //効果カウントのカウントと初期化

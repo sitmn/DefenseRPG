@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
 using UnityEngine.InputSystem;
-using Cysharp.Threading.Tasks;
-using System.Threading;
-using System;
 
 public class PlayerMove : MonoBehaviour
 {

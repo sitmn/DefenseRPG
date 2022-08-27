@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //対象決めクラス
-public class TargetCore : MonoBehaviour
+public class TargetCore
 {
     //周囲で近いCoreの探索（単体ヒット）
     public static List<T> GetAroundCore<T>(Vector2Int _centerPos, Vector2Int _forwardDir, int _range){

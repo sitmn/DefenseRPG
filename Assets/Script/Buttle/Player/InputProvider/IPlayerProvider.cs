@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
 //プレイヤー操作用インターフェース
-interface IPlayerProvider
+public interface IPlayerProvider
 {
     //スティック移動
     IReadOnlyReactiveProperty<Vector2> MoveDir{get;}

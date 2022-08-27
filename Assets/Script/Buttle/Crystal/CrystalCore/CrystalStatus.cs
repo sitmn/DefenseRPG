@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UniRx;
-
 public class CrystalStatus
 {
     public CrystalStatus(CrystalParam _crystalParam){
@@ -22,6 +17,7 @@ public class CrystalStatus
         this._effectTime = _crystalParam._effectTime;
         //水晶の移動コスト(エネミーの移動経路探索用)
         this._moveCost = _crystalParam._moveCost;
+        this._attackCount = 0;
     }
 
     //攻撃用ステータス
@@ -42,10 +38,6 @@ public class CrystalStatus
     public int _effectTime;
     //水晶の移動コスト(エネミーの移動経路探索用)
     public int _moveCost;
-
-    void Awake(){
-        _attackCount = 0;
-    }
 
     //効果カウントのカウントと初期化
     public bool CountAttack(){
