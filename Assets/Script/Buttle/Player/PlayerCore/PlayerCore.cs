@@ -75,7 +75,6 @@ public class PlayerCore : MonoBehaviour
         }else{
             //アクション中なら以降の処理をスキップ
             foreach(var _playerAction in _playerActionArr){
-                Debug.Log(_playerAction.ActionFlag + _playerAction.GetType().Name);
                 if(_playerAction.ActionFlag) return;
             }
             //行動していないとき、アクション可能であれば入力を有効化

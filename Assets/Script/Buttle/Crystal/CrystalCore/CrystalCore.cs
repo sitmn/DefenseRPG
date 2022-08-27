@@ -9,7 +9,7 @@ using UniRx;
 public class CrystalCore:MonoBehaviour
 {
     private Transform _crystalTr;
-    public Vector2Int _crystalPos;
+    private Vector2Int _crystalPos;
     public AttackBase _attack;
     public CrystalStatus _crystalStatus;
     public ReactiveProperty<int> _hp;

@@ -226,7 +226,7 @@ public class EnemyMoveRoute: MonoBehaviour
     public bool IsSearchPlayer(Vector2Int _currentPos, int _searchDestination){
         bool _isSearch = false;
 
-        Vector2Int _destination = _currentPos - new Vector2Int(StageMove.UndoElementStageMove(AStarMap.GetPlayerPos().x), AStarMap.GetPlayerPos().y);
+        Vector2Int _destination = _currentPos - AStarMap.GetPlayerPos();
         if((Mathf.Abs(_destination.x) + Mathf.Abs(_destination.y)) < _searchDestination){
             _isSearch = true;
         }

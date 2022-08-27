@@ -22,15 +22,8 @@ public class EnemyMove : MonoBehaviour
     //移動経路探索クラス
     public EnemyMoveRoute _enemyMoveRoute;
 
-    void Awake(){
-        // _moveSpeed;
-        // _searchDestination;
-        InitializeComponent();
-        //SetTrackPos();
-    }
-
     //コンポーネントの初期取得
-    private void InitializeComponent(){
+    public void InitializeComponent(){
         _enemyTr = this.gameObject.GetComponent<Transform>();
         _enemyMoveRoute = this.gameObject.GetComponent<EnemyMoveRoute>();
     }
@@ -50,11 +43,11 @@ public class EnemyMove : MonoBehaviour
     public void Move(Vector2Int _currentPos, float _moveSpeed){
         //移動
         //ステージ最後列削除時、元最後列と今の最後列で移動中のエネミーの移動時、移動用の位置がステージ外になってしまうための例外処理
-        if(_currentPos.x < 0){
-            DoMove(TrackPos[0] - new Vector2Int(TrackPos[0].x - 1,TrackPos[0].y), _moveSpeed);
-        }else{
+        // if(_currentPos.x < 0){
+        //     DoMove(TrackPos[0] - new Vector2Int(TrackPos[0].x - 1,TrackPos[0].y), _moveSpeed);
+        // }else{
             DoMove(TrackPos[0] - _currentPos, _moveSpeed);
-        }
+        //}
     }
 
     //オブジェクトの移動
@@ -73,6 +66,7 @@ public class EnemyMove : MonoBehaviour
 
     //判定座標取得
     public Vector2Int GetCurrentPosition(){
+        if(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x) < 0) Debug.Log(_enemyTr.position + "CCC" + StageMove._moveRowCount);
         return new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
     }
     // //移動座標取得

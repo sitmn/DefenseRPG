@@ -38,11 +38,18 @@ public abstract class EnemyCoreBase:MonoBehaviour
 
     //クラスの初期化
     public void InitializeCore(EnemyParam _enemyParamData){
+        //コンポーネントの初期化
         SetComponent();
+        //初期パラメータセット
         SetParam(_enemyParamData);
+        //enemyMoveクラスのコンポーネントの初期化
+        _enemyMove.InitializeComponent();
+        //ストリーム作成
         CreateJudgePosStream();
         CreateEnemyPosStream();
         CreateHPStream();
+        //移動経路をセット
+        _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._searchDestination);
     }
 
     //コンポーネントセット
@@ -78,10 +85,12 @@ public abstract class EnemyCoreBase:MonoBehaviour
     private void CreateJudgePosStream(){
         _judgePos.Pairwise()
         .Subscribe((x) => {
-            //今のマップへ格納
-            SetOnAStarMap(x.Current);
-            //前のマップから削除
-            SetOffAStarMap(x.Previous);
+            if(!AStarMap.IsOutOfReference(x.Current)){
+                //今のマップへ格納
+                SetOnAStarMap(x.Current);
+                //前のマップから削除
+                SetOffAStarMap(x.Previous);
+            }
         }).AddTo(this);
     }
 
@@ -90,8 +99,8 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
         //移動経路の更新
-        _enemyMove.SetTrackPos(x, _enemyStatus._searchDestination);
-         
+        if(!AStarMap.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._searchDestination);
+        
         }).AddTo(this);
     }
 
@@ -110,12 +119,12 @@ public abstract class EnemyCoreBase:MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    //移動用座標をセット
+    //移動用座標をセット(位置がマスの中心の時に呼び出すこと)
     public void SetEnemyPos(){
-        _enemyPos.Value = _enemyMove.GetCurrentPosition();
+        _enemyPos.SetValueAndForceNotify(_enemyMove.GetCurrentPosition());
     }
     //判定用座標をセット
-    public void SetJudgePos(){
+    public void SetJudgePos(){if(_enemyMove.TrackPos[0].x < 0) Debug.Log("track:"+_enemyMove.TrackPos[0] + " judge:"+_judgePos.Value + " enemyPos:"+ _enemyPos.Value +"NNN");
         _judgePos.Value = _enemyMove.GetCurrentPosition();
     }
 

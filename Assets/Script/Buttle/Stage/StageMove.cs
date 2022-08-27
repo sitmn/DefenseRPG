@@ -40,40 +40,40 @@ public class StageMove : MonoBehaviour
     private EnemyParamAsset _enemyParamData;
     private CrystalParamAsset _crystalParamData;
 
-    void Awake(){
+    public void AwakeManager(){
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
 
         _stageParentTr = this.gameObject.GetComponent<Transform>();
 
+        SetParam();
+        SetStageRow();
+    }
+    //変数の初期値セット
+    private void SetParam(){
         //カウントの初期化
         _moveRowCount = 0;
-
         _stageMoveMaxCountStatic = _stageMoveMaxCount;
     }
 
-    void Start(){
-        SetStageRowObject();
-    }
-
     //ステージ列をセット
-    private void SetStageRowObject(){
+    private void SetStageRow(){
         _stageRowObjList = new List<GameObject>();
         for(int i = 0 ; i < AStarMap.max_pos_x_static ; i++){
             _stageRowObjList.Add(_stageParentTr.GetChild(i).gameObject);
         }
     }
 
-    // Update is called once per frame
+    //Update処理
     public void UpdateManager()
     {
         //時間経過でステージを移動
-        if(!StageMoveCount()) return;
-        StageMoveExecute();
+        if(!CountStageMove()) return;
+        DoStageMove();
     }
 
     //ステージ移動タイマー用カウント
-    private bool StageMoveCount(){
+    private bool CountStageMove(){
         bool _stageMoveCountFlag = false;
         _stageMoveCount ++;
 
@@ -86,45 +86,30 @@ public class StageMove : MonoBehaviour
     }
     
     //ステージ移動を実行
-    private void StageMoveExecute(){
+    private void DoStageMove(){
         //プレイヤーがステージ最後列にいる場合、ゲームオーバー表示し、全ての入力を無効に
         if(AStarMap.GetPlayerPos().x == 0) GameManager.GameOver();
 
         //ステージ最後列にあるオブジェクトを全て削除
-        StageRowDestroy();
-        //列の情報を全て1つ隣に移動させる（要素をマイナス1する）
-        // 　・エネミーのTrackPos
-        // 　・判定座標:AStarMap利用時にStageMove.UndoElementで変換するので移動不要
-        // 　　・敵
-        // 　　・水晶
-        // 　　・プレイヤー
-        // 　・移動用座標:AStarMap利用時にStageMove.UndoElementで変換するので移動不要
-        // 　　・敵
-        // 　　・プレイヤー
-
-        //ステージ列移動前の水晶情報を全て消す
-        CrystalInfomationInMapDelete();
-        //ステージ列移動前の敵情報を全て消す
-        EnemyInfomationInMapDelete();
-
-        //最後列の床オブジェクト削除
-        //最前列のリスト生成
-        //最前列の床オブジェクト生成
-        StageRowCreateAndDelete();
+        DeleteObjInLastRow();
+        //ステージ列移動前のクリスタル情報を全て消す
+        DeleteCrystalInMap();
+        //ステージ列移動前のエネミー情報を全て消す
+        DeleteEnemyInMap();
+        //最後列の床オブジェクト削除、最前列の床オブジェクト生成
+        CreateAndDeleteStageRow();
         //元々のリストが何列スライドしているか変数に格納（ワールド座標をリストの要素に変換するために使用）
         _moveRowCount ++;
-
-        //ステージ列移動後の水晶情報を全て入れる
-        CrystalInfomationInMapCreate();
+        //ステージ列移動後のクリスタル情報を全て入れる
+        CreateCrystalInMap();
         //ステージ列移動後の敵位置を全て更新。情報も全て入れる
         SlideAllPos();
-
-        //最前列に新規でエネミーと黒水晶を生成
+        //最前列に新規でエネミーと黒クリスタルを生成
         InstantiateStageObj(_crystalInstantiateAmount,_enemyInstantiateAmount);
     }
 
     //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
-    private void StageRowDestroy(){
+    private void DeleteObjInLastRow(){
         List<CrystalCore> _crystalCoreList = new List<CrystalCore>();
         List<EnemyCoreBase> _enemyCoreList = new List<EnemyCoreBase>();
 
@@ -142,7 +127,6 @@ public class StageMove : MonoBehaviour
                 _enemyCoreList.Add(EnemyListCore._enemiesList[i]);
             }
         }
-
         //ステージ外になるオブジェクトを全て削除
         foreach(CrystalCore __crystalCoreObj in _crystalCoreList){
             __crystalCoreObj.ObjectDestroy();
@@ -152,8 +136,29 @@ public class StageMove : MonoBehaviour
         }
     }
 
-    //ステージ最後列削除し、ステージ最前列生成
-    private void StageRowCreateAndDelete(){
+    //クリスタル情報をMapから全て削除
+    private void DeleteCrystalInMap(){
+        for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
+            //リフト中の水晶は対象外
+            if(CrystalListCore._crystalList[i] != PlayerCore.GetLiftCrystalCore()) CrystalListCore._crystalList[i].SetOffAStarMap();
+        }
+    }
+    //エネミー情報をMapから全て削除
+    private void DeleteEnemyInMap(){
+        for(int i = 0; i < EnemyListCore._enemiesList.Count ; i++){
+            EnemyListCore._enemiesList[i].SetOffAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
+        }
+    }
+    //クリスタル情報をMapに全て生成
+    private void CreateCrystalInMap(){
+        for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
+            //リフト中の水晶は対象外
+            if(CrystalListCore._crystalList[i] != PlayerCore.GetLiftCrystalCore()) CrystalListCore._crystalList[i].SetOnAStarMap();
+        }
+    }
+
+    //ステージ最後列の床を削除し、ステージ最前列の床を生成
+    private void CreateAndDeleteStageRow(){
         //ステージ最後列オブジェクトを削除
         Destroy(_stageRowObjList[0]);
         //リストの参照先を１列分スライド
@@ -161,79 +166,31 @@ public class StageMove : MonoBehaviour
             _stageRowObjList[i] = _stageRowObjList[i + 1];
         }
         //最前列のオブジェクトを生成
-        GameObject obj = Instantiate(_stageRowObj, new Vector3(AStarMap.max_pos_x_static + _moveRowCount, -0.5f , AStarMap.max_pos_z_static / 2), Quaternion.identity);
-        obj.transform.parent = _stageParentTr;
+        GameObject _obj = Instantiate(_stageRowObj, new Vector3(AStarMap.max_pos_x_static + _moveRowCount, -0.5f , AStarMap.max_pos_z_static / 2), Quaternion.identity);
+        _obj.transform.parent = _stageParentTr;
 
         //生成したステージ列をリストへ格納
-        _stageRowObjList[_stageRowObjList.Count - 1] = obj;
-    }
-
-    //水晶情報をMapから全て削除
-    private void CrystalInfomationInMapDelete(){
-        for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
-            //リフト中の水晶は対象外
-            if(CrystalListCore._crystalList[i] != PlayerCore.GetLiftCrystalCore()) CrystalListCore._crystalList[i].SetOffAStarMap();
-        }
-    }
-
-    //水晶情報をMapに全て生成
-    private void CrystalInfomationInMapCreate(){
-        for(int i = 0; i < CrystalListCore._crystalList.Count ; i++){
-            //リフト中の水晶は対象外
-            if(CrystalListCore._crystalList[i] != PlayerCore.GetLiftCrystalCore()) CrystalListCore._crystalList[i].SetOnAStarMap();
-        }
-    }
-
-    //敵情報をMapから全て削除
-    private void EnemyInfomationInMapDelete(){
-        for(int i = 0; i < EnemyListCore._enemiesList.Count ; i++){
-            EnemyListCore._enemiesList[i].SetOffAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
-        }
+        _stageRowObjList[_stageRowObjList.Count - 1] = _obj;
     }
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
     private void SlideAllPos(){
         //エネミー位置のスライド
         for(int i = 0; i < EnemyListCore._enemiesList.Count ; i++){
-            //現在位置のスライド
-            //EnemyListController._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListController._enemiesList[i].EnemyPos.Value.x + 1, EnemyListController._enemiesList[i].EnemyPos.Value.y);
-
-            //TrackPosが１つのものはEnemyPosが0の時、StageMoveのUndoElementすると最前列になってしまうため、_trackChangeFlagをTrueにしてEnemyListControllerのMove処理を変える
-            // if(EnemyListController._enemiesList[i].TrackPos.Count == 1){
-            //     EnemyListController._enemiesList[i].TrackPos[0] = new Vector2Int(EnemyListController._enemiesList[i].TrackPos[0].x - 1, EnemyListController._enemiesList[i].TrackPos[0].y);
-            //     EnemyListController._enemiesList[i]._trackChangeFlag = true;
-            // }else{
-            //ステージ移動分、座標をスライド
+            //移動経路のスライド
             for(int j = 0; j < EnemyListCore._enemiesList[i]._enemyMove.TrackPos.Count ; j++){
-                // if(EnemyListController._enemiesList[i].TrackPos[j].x == 0){
-                //     EnemyListController._enemiesList[i]._trackChangeFlag = true;
-
-                //     //☆ここでTrackPosする？
-                //     break;
-                // }
-                //ステージ外が移動経路になっていなければ、ステージ移動に合わせて移動経路をスライド
                 EnemyListCore._enemiesList[i]._enemyMove.TrackPos[j] = new Vector2Int(EnemyListCore._enemiesList[i]._enemyMove.TrackPos[j].x - 1, EnemyListCore._enemiesList[i]._enemyMove.TrackPos[j].y);
-                
             }
+            //移動用位置のスライド
             EnemyListCore._enemiesList[i].EnemyPos.Value = new Vector2Int(EnemyListCore._enemiesList[i].EnemyPos.Value.x - 1, EnemyListCore._enemiesList[i].EnemyPos.Value.y);
-            //EnemyListController._enemiesList[i].SetJudgePos();
+            //判定用位置のスライド
             EnemyListCore._enemiesList[i].JudgePos.Value = new Vector2Int(EnemyListCore._enemiesList[i].JudgePos.Value.x - 1, EnemyListCore._enemiesList[i].JudgePos.Value.y);
-            
-            EnemyListCore._enemiesList[i].SetOnAStarMap(EnemyListCore._enemiesList[i].JudgePos.Value);
-            //Debug.Log("Track:" + EnemyListController._enemiesList[i]._enemyMove.TrackPos[0] + " Enemy:" + EnemyListController._enemiesList[i].EnemyPos + " Judge:" + EnemyListController._enemiesList[i].JudgePos + "AAA");
         }
         //プレイヤー位置のスライド
         AStarMap.SetPlayerPos(new Vector2Int(AStarMap.GetPlayerPos().x - 1, AStarMap.GetPlayerPos().y));
     }
 
-
-    //ゲームオーバー表示とプレイヤー入力を無効化
-    private void GameOver(){
-        Debug.Log("がめおべら"); //☆プレイヤーのHPを0にする
-        
-        
-    }
-
+    //最前列に新規でエネミーと黒クリスタルを生成
     private void InstantiateStageObj(int _crystalAmount, int _enemyAmount){
         //黒水晶を最前列に配置
         List<int> _listNumberList = new List<int>();
