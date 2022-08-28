@@ -15,7 +15,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     
 
     //クラスの初期化
-    public void AwakeManager(){
+    public void AwakeManager(PlayerParam _playerParam){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _activeFlag = false;
@@ -64,6 +64,14 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
         List<EnemyCoreBase> _crystalCoreList = TargetCore.GetAroundCore<EnemyCoreBase>(MapManager.GetPlayerPos() + _fowardDir, _fowardDir, 1);
         return _crystalCoreList.Count != 0;
+    }
+
+    //アクションコストが足りているか
+    public bool EnoughActionCost(ActionCost _actionCost){
+        return true;
+    }
+    public void ShortageActionCost(){
+        return;
     }
 
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行

@@ -14,22 +14,25 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private int _repairCount;
     private int _repairMaxCount;
     private int _repairPoint;
+    //修復にかかるコスト
+    private int _repairActionCost;
 
-    public void AwakeManager(){
+    public void AwakeManager(PlayerParam _playerParam){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
 
-        SetParam();
+        SetParam(_playerParam);
     }
 
     //初期パラメータのセット
-    private void SetParam(){
+    private void SetParam(PlayerParam _playerParam){
         _activeFlag = false;
         _actionFlag = false;
 
         _repairCount = 0;
-        _repairMaxCount = 30;
-        _repairPoint = 1;
+        _repairMaxCount = _playerParam._repairMaxCount;
+        _repairPoint = _playerParam._repairPoint;
+        _repairActionCost = _playerParam._repairActionCost;
     }
 
     //入力中、徐々に正面のクリスタルを修復
@@ -76,6 +79,16 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
         List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
+    }
+
+    //アクションコストが足りているか
+    public bool EnoughActionCost(ActionCost _actionCost){
+        return _actionCost.EnoughCrystalCost(_repairActionCost);
+    }
+    //コスト不足時処理
+    public void ShortageActionCost(){
+        //コスト不足UI表示
+        return;
     }
 
     //回復用カウント,Maxカウントまで長押しすれば回復

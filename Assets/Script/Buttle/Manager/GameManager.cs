@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PlayerCore _playerCore;
     private List<IPlayerAction> _playerActionList;
+    private ActionCost _actionCost;
     [SerializeField]
     private CrystalListCore _crystalListCore;
     [SerializeField]
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         _systemParamData = Resources.Load("Data/SystemParamData") as SystemParamAsset;
     }
     private void InitializeComponent(){
+        _actionCost = _playerCore.GetComponent<ActionCost>();
         _playerActionList = new List<IPlayerAction>();
         _playerActionList.Add(_playerCore.GetComponent<UseCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<LiftUpCrystal>());
@@ -59,9 +61,9 @@ public class GameManager : MonoBehaviour
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
         _stageMove.AwakeManager(_systemParamData.SystemParamList[0]);
-        
+        _actionCost.AwakeManager(_systemParamData.SystemParamList[0]);
         foreach(var _playerAction in _playerActionList){
-            _playerAction.AwakeManager();
+            _playerAction.AwakeManager(_playerParamData.PlayerParamList[0]);
         }
     }
     

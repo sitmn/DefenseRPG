@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerParamList:
   - _maxHp: 0
-    _healMaxCount: 5
+    _repairPoint: 1
+    _repairMaxCount: 30
+    _repairActionCost: 1
     _moveSpeed: 5

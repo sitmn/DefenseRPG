@@ -17,4 +17,13 @@ public class SystemParam{
     //ステージ移動速度
     [SerializeField]
     public int _stageMoveMaxCount;
+    //プレイヤーアクションの初期コスト
+    [SerializeField]
+    public int _initialActionCost;
+    //プレイヤーアクションの回復コスト
+    [SerializeField]
+    public int _increaseActionCost;
+    //プレイヤーアクション回復までの時間
+    [SerializeField]
+    public float _increaseActionCostTime;
 }

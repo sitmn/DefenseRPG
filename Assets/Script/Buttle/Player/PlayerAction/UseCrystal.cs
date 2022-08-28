@@ -17,7 +17,7 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
     private CrystalParamAsset _crystalParamData;
 
     //クラスの初期化
-    public void AwakeManager(){
+    public void AwakeManager(PlayerParam _playerParam){
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
 
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
@@ -33,19 +33,21 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
 
     //アクションの入力を有効に切り替え
     public void InputEnable(){
+        string a = "nch";
         //InputSystemのコールバックをセット
-        _playerInput.actions["Launch"].started += OnInputStart;
-        _playerInput.actions["Launch"].performed += OnInputComplete;
-        _playerInput.actions["Launch"].canceled += OnInputEnd;
+        _playerInput.actions["Lau"+ a].started += OnInputStart;
+        _playerInput.actions["Lau"+ a].performed += OnInputComplete;
+        _playerInput.actions["Lau"+ a].canceled += OnInputEnd;
         _activeFlag = true;
     }
 
     //アクションの入力を無効に切り替え
     public void InputDisable(){
+        string a = "nch";
         //InputSystemのコールバックをセット
-        _playerInput.actions["Launch"].started -= OnInputStart;
-        _playerInput.actions["Launch"].performed -= OnInputComplete;
-        _playerInput.actions["Launch"].canceled -= OnInputEnd;
+        _playerInput.actions["Lau"+ a].started -= OnInputStart;
+        _playerInput.actions["Lau"+ a].performed -= OnInputComplete;
+        _playerInput.actions["Lau"+ a].canceled -= OnInputEnd;
         _activeFlag = false;
     }
 
@@ -53,6 +55,18 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
     public bool CanAction(){
         //正面に黒クリスタルがあるか
         return BlackCrystalCheck();
+    }
+    //アクションコストが足りているか
+    public bool EnoughActionCost(ActionCost _actionCost){
+        Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        if(_crystalCoreList.Count != 0) return _actionCost.EnoughCrystalCost(_crystalCoreList[0]._crystalStatus._launchCost);
+        return false;
+    }
+    //コスト不足時処理
+    public void ShortageActionCost(){
+        //コスト不足UI表示
+        return;
     }
 
     //正面に黒クリスタルがあるか

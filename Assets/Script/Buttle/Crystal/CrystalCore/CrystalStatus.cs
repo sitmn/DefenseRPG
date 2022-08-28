@@ -6,7 +6,7 @@ public class CrystalStatus
         this._attackStatus = new AttackStatus(_crystalParam._attack, _crystalParam._attackRange, _crystalParam._effectRate, _crystalParam._effectTime);
         //クリスタル名
         this._name = _crystalParam._crystalCoreName;
-        //水晶の攻撃間隔
+        //クリスタルの攻撃間隔
         this._attackMaxCount = _crystalParam._attackMaxCount;
         //効果間隔用のカウント
         this._attackCount = 0;
@@ -18,8 +18,10 @@ public class CrystalStatus
         this._effectRate = _crystalParam._effectRate;
         //特殊効果時間
         this._effectTime = _crystalParam._effectTime;
-        //水晶の移動コスト(エネミーの移動経路探索用)
+        //クリスタルの移動コスト(エネミーの移動経路探索用)
         this._moveCost = _crystalParam._moveCost;
+        //クリスタル起動コスト
+        this._launchCost = _crystalParam._launchCost;
         this._attackCount = 0;
     }
 
@@ -41,6 +43,8 @@ public class CrystalStatus
     public int _effectTime;
     //水晶の移動コスト(エネミーの移動経路探索用)
     public int _moveCost;
+    //クリスタル起動時コスト
+    public int _launchCost;
 
     //効果カウントのカウントと初期化
     public bool CountAttack(){

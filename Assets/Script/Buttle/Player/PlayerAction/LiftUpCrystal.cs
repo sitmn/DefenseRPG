@@ -14,7 +14,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     private bool _actionFlag;
     
     //クラスの初期化
-    public void AwakeManager(){
+    public void AwakeManager(PlayerParam _playerParam){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _activeFlag = false;
@@ -48,7 +48,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //アクションが実行可能な状態か
     public bool CanAction(){
         //リフト中のクリスタルがなく、正面に黒以外のクリスタルがあるか
-        return PlayerCore.GetLiftCrystalTr() == null && ExistCrystal() && !ExistBlackCrystal();
+        return PlayerCore.GetLiftCrystalTr() == null && ExistCrystal();
     }
 
     //正面にクリスタルがあるか
@@ -58,11 +58,12 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         return _crystalCoreList.Count != 0 && _crystalCoreList[0] != null;
     }
 
-    //正面に黒クリスタルがあるか
-    private bool ExistBlackCrystal(){
-        Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
-        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
+    //アクションコストが足りているか
+    public bool EnoughActionCost(ActionCost _actionCost){
+        return true;
+    }
+    public void ShortageActionCost(){
+        return;
     }
 
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行

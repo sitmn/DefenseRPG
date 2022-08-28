@@ -35,6 +35,9 @@ public class CrystalParam{
     //移動コスト（エネミーの移動探索用）
     [SerializeField]
     public int _moveCost;
+    //クリスタル起動時コスト
+    [SerializeField]
+    public int _launchCost;
     //クリスタルのマテリアル
     [SerializeField]
     public Material _material;

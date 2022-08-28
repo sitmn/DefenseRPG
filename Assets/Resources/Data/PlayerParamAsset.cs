@@ -11,9 +11,15 @@ public class PlayerParam{
     //最大HP
     [SerializeField]
     public int _maxHp;
-    //水晶回復間隔
+    //クリスタル修復回復量
     [SerializeField]
-    public int _healMaxCount;
+    public int _repairPoint;
+    //クリスタル回復間隔
+    [SerializeField]
+    public int _repairMaxCount;
+    //クリスタル修復コスト
+    [SerializeField]
+    public int _repairActionCost;
     //移動速度
     [SerializeField]
     public float _moveSpeed;

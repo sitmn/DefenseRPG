@@ -7,6 +7,7 @@ public class PlayerCore : MonoBehaviour
     [System.NonSerialized]
     public PlayerStatus _playerStatus;
     private IPlayerAction[] _playerActionArr = new IPlayerAction[4];
+    private ActionCost _actionCost;
     [System.NonSerialized]
     public GameObject _speedBuff;
     [System.NonSerialized]
@@ -45,6 +46,7 @@ public class PlayerCore : MonoBehaviour
         _speedDebuff = transform.GetChild(1).gameObject;
 
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
+        _actionCost = this.gameObject.GetComponent<ActionCost>();
         _playerActionArr[0] = this.gameObject.GetComponent<UseCrystal>();
         _playerActionArr[1] = this.gameObject.GetComponent<LiftUpCrystal>();
         _playerActionArr[2] = this.gameObject.GetComponent<LiftDownCrystal>();
@@ -74,7 +76,12 @@ public class PlayerCore : MonoBehaviour
             //行動していないとき、アクション可能であれば入力を有効化
             foreach(var _playerAction in _playerActionArr){
                 if(!_playerAction.ActiveFlag && _playerAction.CanAction()){
-                    _playerAction.InputEnable();
+                    if(_playerAction.EnoughActionCost(_actionCost)){
+                        _playerAction.InputEnable();
+                    }else{
+                        _playerAction.ShortageActionCost();
+                    }
+                    
                 }
             }
             //移動場所を設定
