@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
     private void InitializeComponent(){
         _actionCost = _playerCore.GetComponent<ActionCost>();
         _playerActionList = new List<IPlayerAction>();
-        _playerActionList.Add(_playerCore.GetComponent<UseCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<LiftUpCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<LiftDownCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<RepairCrystal>());
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
     //各クラスのAwakeをコール
     private void DoAwakeManager(){
         MapManager.AwakeManager(_systemParamData.SystemParamList[0]);
-        _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
+        _playerCore.AwakeManager(_playerParamData.PlayerParamList[0], _crystalParamData);
         _playerCore._playerMove.AwakeManager();
         EnemyMoveRoute.AwakeManager();
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);

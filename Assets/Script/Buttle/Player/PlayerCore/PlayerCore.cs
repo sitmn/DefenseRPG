@@ -6,8 +6,10 @@ public class PlayerCore : MonoBehaviour
     public PlayerMove _playerMove;
     [System.NonSerialized]
     public PlayerStatus _playerStatus;
-    private IPlayerAction[] _playerActionArr = new IPlayerAction[4];
-    private ActionCost _actionCost;
+    //プレイヤーアクション配列
+    private IPlayerAction[] _playerActionArr = new IPlayerAction[3];
+    //UseCrystalクラスのみのプレイヤーアクション配列
+    private IPlayerAction[] _useCrystalArr = new IPlayerAction[5];
     [System.NonSerialized]
     public GameObject _speedBuff;
     [System.NonSerialized]
@@ -33,24 +35,27 @@ public class PlayerCore : MonoBehaviour
     }
     
     //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam){
-        InitializeComponent();
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamData){
         _playerStatus = new PlayerStatus(_playerParam);
         MapManager.SetPlayerCore(this);
+        InitializeComponent(_crystalParamData);
     }
 
     //コンポーネントの初期化
-    private void InitializeComponent(){
+    private void InitializeComponent(CrystalParamAsset _crystalParamData){
         //バフオブジェクトの取得
         _speedBuff = transform.GetChild(0).gameObject;
         _speedDebuff = transform.GetChild(1).gameObject;
 
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
-        _actionCost = this.gameObject.GetComponent<ActionCost>();
-        _playerActionArr[0] = this.gameObject.GetComponent<UseCrystal>();
-        _playerActionArr[1] = this.gameObject.GetComponent<LiftUpCrystal>();
-        _playerActionArr[2] = this.gameObject.GetComponent<LiftDownCrystal>();
-        _playerActionArr[3] = this.gameObject.GetComponent<RepairCrystal>();
+        //UseCrystalをインスタンス化し、各クリスタルステータスをセット（0は黒クリスタルのため+1）
+        for(int i = 0; i < _useCrystalArr.Length; i++){
+            _useCrystalArr[i] = new UseCrystal(_crystalParamData.CrystalParamList[i + 1], i + 1);
+        }
+
+        _playerActionArr[0] = this.gameObject.GetComponent<LiftUpCrystal>();
+        _playerActionArr[1] = this.gameObject.GetComponent<LiftDownCrystal>();
+        _playerActionArr[2] = this.gameObject.GetComponent<RepairCrystal>();
     }
 
     //Update処理
@@ -63,6 +68,13 @@ public class PlayerCore : MonoBehaviour
                 _playerAction.InputDisable();
             }
         }
+        //有効になっているプレイヤーアクション（UseCrystal）が実行できない状態の場合、無効化
+        foreach(var _useCrystal in _useCrystalArr){
+            if(_useCrystal.ActiveFlag && (!_useCrystal.CanAction() || !_useCrystal.EnoughActionCost())){
+                _useCrystal.InputDisable();
+            }
+        }
+        
         //水晶起動、修理、持ち上げアクション中か？
         //移動中か？
         if(_playerMove.IsMove()){
@@ -76,10 +88,21 @@ public class PlayerCore : MonoBehaviour
             //行動していないとき、アクション可能であれば入力を有効化
             foreach(var _playerAction in _playerActionArr){
                 if(!_playerAction.ActiveFlag && _playerAction.CanAction()){
-                    if(_playerAction.EnoughActionCost(_actionCost)){
+                    if(_playerAction.EnoughActionCost()){
                         _playerAction.InputEnable();
                     }else{
                         _playerAction.ShortageActionCost();
+                    }
+                    
+                }
+            }
+            //UseCrystalの有効化
+            foreach(var _useCrystal in _useCrystalArr){
+                if(!_useCrystal.ActiveFlag && _useCrystal.CanAction()){
+                    if(_useCrystal.EnoughActionCost()){
+                        _useCrystal.InputEnable();
+                    }else{
+                        _useCrystal.ShortageActionCost();
                     }
                     
                 }

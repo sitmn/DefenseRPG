@@ -16,12 +16,18 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private int _repairPoint;
     //修復にかかるコスト
     private int _repairActionCost;
+    //アクションコスト
+    private ActionCost _actionCost;
 
     public void AwakeManager(PlayerParam _playerParam){
+        SetComponent();
+        SetParam(_playerParam);
+    }
+    //コンポーネントをセット
+    private void SetComponent(){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
-
-        SetParam(_playerParam);
+        _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
     }
 
     //初期パラメータのセット
@@ -40,7 +46,11 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     {
         if(!_actionFlag) return;
 
-        if(RepairCount()) RepairCrystalAction();
+        if(RepairCount()){
+            RepairCrystalAction();
+            //修復コスト消費
+            _actionCost.ConsumeCrystalCost(_repairActionCost);    
+        }
     }
 
     //回復アクションの有効化
@@ -82,7 +92,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     }
 
     //アクションコストが足りているか
-    public bool EnoughActionCost(ActionCost _actionCost){
+    public bool EnoughActionCost(){
         return _actionCost.EnoughCrystalCost(_repairActionCost);
     }
     //コスト不足時処理

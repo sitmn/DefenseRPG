@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class UseCrystal : MonoBehaviour, IPlayerAction
+public class UseCrystal : IPlayerAction
 {
     private PlayerInput _playerInput;
     private Transform _playerTr;
@@ -14,16 +14,26 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
     private bool _actionFlag;
     //起動水晶色変え用マテリアル
     private CrystalStatus[] _setCrystalStatus = new CrystalStatus[3];
-    private CrystalParamAsset _crystalParamData;
+    //起動するクリスタルのパラメータ
+    private CrystalParam _useCrystalParam;
+    //装備しているクリスタルの番号
+    private int _useCrystalNo;
+    //アクションコスト
+    private ActionCost _actionCost;
+
+    public UseCrystal(CrystalParam _crystalParam, int _useCrystalNo){
+        _playerInput = MapManager._playerCore.gameObject.GetComponent<PlayerInput>();
+        _playerTr = MapManager._playerCore.gameObject.GetComponent<Transform>();
+        _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
+        this._useCrystalParam = _crystalParam;
+        this._useCrystalNo = _useCrystalNo;
+        _activeFlag = false;
+        _actionFlag = false;
+    }
 
     //クラスの初期化
     public void AwakeManager(PlayerParam _playerParam){
-        _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
-
-        _playerInput = this.gameObject.GetComponent<PlayerInput>();
-        _playerTr = this.gameObject.GetComponent<Transform>();
-        _activeFlag = false;
-        _actionFlag = false;
+        
     }
 
     //本クラスはUpdate処理なし
@@ -33,21 +43,21 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
 
     //アクションの入力を有効に切り替え
     public void InputEnable(){
-        string a = "nch";
+        string _useCrystalActionNo = "LaunchCrystal" + _useCrystalNo;
         //InputSystemのコールバックをセット
-        _playerInput.actions["Lau"+ a].started += OnInputStart;
-        _playerInput.actions["Lau"+ a].performed += OnInputComplete;
-        _playerInput.actions["Lau"+ a].canceled += OnInputEnd;
+        _playerInput.actions[_useCrystalActionNo].started += OnInputStart;
+        _playerInput.actions[_useCrystalActionNo].performed += OnInputComplete;
+        _playerInput.actions[_useCrystalActionNo].canceled += OnInputEnd;
         _activeFlag = true;
     }
 
     //アクションの入力を無効に切り替え
     public void InputDisable(){
-        string a = "nch";
+        string _useCrystalActionNo = "LaunchCrystal" + _useCrystalNo;
         //InputSystemのコールバックをセット
-        _playerInput.actions["Lau"+ a].started -= OnInputStart;
-        _playerInput.actions["Lau"+ a].performed -= OnInputComplete;
-        _playerInput.actions["Lau"+ a].canceled -= OnInputEnd;
+        _playerInput.actions[_useCrystalActionNo].started -= OnInputStart;
+        _playerInput.actions[_useCrystalActionNo].performed -= OnInputComplete;
+        _playerInput.actions[_useCrystalActionNo].canceled -= OnInputEnd;
         _activeFlag = false;
     }
 
@@ -57,11 +67,8 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
         return BlackCrystalCheck();
     }
     //アクションコストが足りているか
-    public bool EnoughActionCost(ActionCost _actionCost){
-        Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
-        if(_crystalCoreList.Count != 0) return _actionCost.EnoughCrystalCost(_crystalCoreList[0]._crystalStatus._launchCost);
-        return false;
+    public bool EnoughActionCost(){
+        return _actionCost.EnoughCrystalCost(_useCrystalParam._launchCost);
     }
     //コスト不足時処理
     public void ShortageActionCost(){
@@ -88,15 +95,17 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
 
     //クリスタル起動完了(長押し)
     private void OnInputComplete(InputAction.CallbackContext context){
-        float _colorNo = context.ReadValue<float>();
+        //float _colorNo = context.ReadValue<float>();
         Vector2Int _pos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
-        CrystalCore _crystalCore = MapManager.GetMap(_pos)._crystalCore as CrystalCore;
+        CrystalCore _crystalCore = MapManager.GetMap(_pos)._crystalCore;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
-        _crystalCore.SetCrystalStatus(_crystalParamData.CrystalParamList[(int)_colorNo]);
+        _crystalCore.SetCrystalStatus(_useCrystalParam);
         //マップ状況の更新
         _crystalCore.SetOffMap();
         _crystalCore.SetOnMap();
+        //クリスタルコストを消費
+        _actionCost.ConsumeCrystalCost(_useCrystalParam._launchCost);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し

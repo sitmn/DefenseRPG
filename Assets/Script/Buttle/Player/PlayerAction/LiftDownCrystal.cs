@@ -67,7 +67,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     }
 
     //アクションコストが足りているか
-    public bool EnoughActionCost(ActionCost _actionCost){
+    public bool EnoughActionCost(){
         return true;
     }
     public void ShortageActionCost(){

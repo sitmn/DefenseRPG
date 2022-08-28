@@ -49,6 +49,51 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LaunchCrystal1",
+                    "type": "Button",
+                    "id": "6591692c-f010-4413-a1f9-1dfcb4b8b9a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LaunchCrystal2",
+                    "type": "Button",
+                    "id": "c5d911d3-6481-4605-8cd5-d337d8e2222a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LaunchCrystal3",
+                    "type": "Button",
+                    "id": "53a5619f-6304-44b8-b1cf-da0a092b1f65",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LaunchCrystal4",
+                    "type": "Button",
+                    "id": "335d50be-4df0-433f-a9bb-1795cd6979b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LaunchCrystal5",
+                    "type": "Button",
+                    "id": "64b68263-84f7-4e66-bd02-c12e0a9928a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -181,6 +226,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Repair",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4110f288-f7e1-4584-bed3-6a5e06ee2819",
+                    "path": "<Keyboard>/1",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaunchCrystal1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f06fdcf-8d1d-4ca3-a779-99bb91c42934",
+                    "path": "<Keyboard>/2",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaunchCrystal2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba370e64-c050-4b3e-b6be-d4fabe531b74",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaunchCrystal3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42efbdd2-7372-4fe2-a511-b697dfaae132",
+                    "path": "<Keyboard>/4",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaunchCrystal4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b2ef21c-bf05-4075-9d0c-b3799bcff72c",
+                    "path": "<Keyboard>/5",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaunchCrystal5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

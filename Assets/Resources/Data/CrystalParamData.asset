@@ -22,7 +22,7 @@ MonoBehaviour:
     _effectRate: 0.1
     _effectTime: 2
     _moveCost: 20
-    _launchCost: 1
+    _launchCost: 0
     _material: {fileID: 2100000, guid: 710018ad1caede346a571afb336b0698, type: 2}
   - _crystalCoreName: RedCrystal
     _crystalAttackName: RedCrystalAttack
@@ -48,6 +48,28 @@ MonoBehaviour:
     _material: {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
   - _crystalCoreName: GreenCrystal
     _crystalAttackName: GreenCrystalAttack
+    _maxHp: 1
+    _attackMaxCount: 0
+    _attack: 0
+    _attackRange: 3
+    _effectRate: 0.6
+    _effectTime: 1
+    _moveCost: 2
+    _launchCost: 3
+    _material: {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
+  - _crystalCoreName: TestCrystal
+    _crystalAttackName: TestCrystalAttack
+    _maxHp: 1
+    _attackMaxCount: 0
+    _attack: 0
+    _attackRange: 3
+    _effectRate: 0.6
+    _effectTime: 1
+    _moveCost: 2
+    _launchCost: 3
+    _material: {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
+  - _crystalCoreName: TestCrystal
+    _crystalAttackName: TestCrystalAttack
     _maxHp: 1
     _attackMaxCount: 0
     _attack: 0

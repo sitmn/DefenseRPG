@@ -16,5 +16,5 @@ public interface IPlayerAction
     //アクション可能か
     public bool CanAction();
     //アクションコストが足りているか
-    public bool EnoughActionCost(ActionCost _actionCost);
+    public bool EnoughActionCost();
 }

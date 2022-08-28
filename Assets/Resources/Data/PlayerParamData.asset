@@ -16,5 +16,5 @@ MonoBehaviour:
   - _maxHp: 0
     _repairPoint: 1
     _repairMaxCount: 30
-    _repairActionCost: 1
+    _repairActionCost: 5
     _moveSpeed: 5
