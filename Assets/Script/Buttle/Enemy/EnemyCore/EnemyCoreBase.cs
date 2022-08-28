@@ -58,9 +58,9 @@ public abstract class EnemyCoreBase:MonoBehaviour
     //コンポーネントセット
     private void SetComponent(){
         _enemyTr = this.gameObject.GetComponent<Transform>();
-        _enemyPos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
+        _enemyPos.Value = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_enemyTr.position).x),MapManager.CastMapPos(_enemyTr.position).y);
         _enemyMove = this.gameObject.GetComponent<EnemyMove>();
-        _judgePos.Value = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
+        _judgePos.Value = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_enemyTr.position).x),MapManager.CastMapPos(_enemyTr.position).y);
     }
 
     //値の初期化
@@ -89,11 +89,11 @@ public abstract class EnemyCoreBase:MonoBehaviour
     private void CreateJudgePosStream(){
         _judgePos.Pairwise()
         .Subscribe((x) => {
-            if(!AStarMap.IsOutOfReference(x.Current)){
+            if(!MapManager.IsOutOfReference(x.Current)){
                 //今のマップへ格納
-                SetOnAStarMap(x.Current);
+                SetOnMap(x.Current);
                 //前のマップから削除
-                SetOffAStarMap(x.Previous);
+                SetOffMap(x.Previous);
             }
         }).AddTo(this);
     }
@@ -103,23 +103,23 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
         //移動経路の更新
-        if(!AStarMap.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._searchDestination);
+        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._searchDestination);
         
         }).AddTo(this);
     }
 
     //Map上にエネミー情報作成
-    public void SetOnAStarMap(Vector2Int _pos){
-        AStarMap.astarMas[_pos.x,_pos.y]._enemyCoreList.Add(this);
+    public void SetOnMap(Vector2Int _pos){
+        MapManager.GetMap(_pos)._enemyCoreList.Add(this);
     }
     //Map上からエネミー情報削除
-    public void SetOffAStarMap(Vector2Int _pos){
-        AStarMap.astarMas[_pos.x, _pos.y]._enemyCoreList.Remove(this);
+    public void SetOffMap(Vector2Int _pos){
+        MapManager.GetMap(_pos)._enemyCoreList.Remove(this);
     }
 
     //エネミーを削除
     public void ObjectDestroy(){
-        SetOffAStarMap(_judgePos.Value);
+        SetOffMap(_judgePos.Value);
         EnemyListCore.RemoveEnemyCoreInList(this);
         Destroy(this.gameObject);
     }

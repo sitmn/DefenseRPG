@@ -42,14 +42,14 @@ public class EnemyMove : MonoBehaviour
     //座標中心を通過した時、座標中心へ移動して位置を更新（移動経路を次のものに変更）
     public void UpdatePosition(){
         //位置をマス中心に
-        _enemyTr.position = new Vector3(AStarMap.CastMapPos(_enemyTr.position).x , 0.5f , AStarMap.CastMapPos(_enemyTr.position).y);
+        _enemyTr.position = new Vector3(MapManager.CastMapPos(_enemyTr.position).x , 0.5f , MapManager.CastMapPos(_enemyTr.position).y);
         //直近の移動経路を削除し、次の移動経路に変える
         _trackPos.RemoveAt(0);
     }
 
     //判定座標取得
     public Vector2Int GetCurrentPosition(){
-        return new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_enemyTr.position).x),AStarMap.CastMapPos(_enemyTr.position).y);
+        return new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_enemyTr.position).x),MapManager.CastMapPos(_enemyTr.position).y);
     }
 
     //中心座標を通過したか

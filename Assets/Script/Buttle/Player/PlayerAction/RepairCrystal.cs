@@ -67,14 +67,14 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0] != null;
     }
 
     //正面に黒クリスタルがあるか
     private bool ExistBlackCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
     }
 
@@ -94,10 +94,10 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //正面の水晶を回復
     private void RepairCrystalAction(){
         //判定座標
-        Vector2Int _judgePos = new Vector2Int(AStarMap.GetPlayerPos().x + (int)_playerTr.forward.x, AStarMap.GetPlayerPos().y + (int)_playerTr.forward.z);
+        Vector2Int _judgePos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
         //正面に黒以外の水晶があれば回復
-        if(AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore != null){
-            AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore.Hp += _repairPoint;
+        if(MapManager.GetMap(_judgePos)._crystalCore != null){
+            MapManager.GetMap(_judgePos)._crystalCore.Hp += _repairPoint;
         }
     }
 

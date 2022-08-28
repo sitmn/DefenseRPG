@@ -792,7 +792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7cead8011a94a6b8d17a7cda5c129f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageMoveMaxCount: 100
   _stageRowObj: {fileID: 8524238511596473551, guid: 62fc106677641464694830e90232996e, type: 3}
   _crystalPrefab: {fileID: 665705253876232636, guid: 256d14eb617004e0493c170182c73a1c, type: 3}
   _enemyPrefab: {fileID: 7166492535159129463, guid: bc0912e79b86d4008b91d9302c16baa2, type: 3}
@@ -1042,7 +1041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3aced07a80d403396debfd0673ab9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _starMap: {fileID: 1596255238}
   _stageMove: {fileID: 822468717}
   _playerCore: {fileID: 1656506528}
   _crystalListCore: {fileID: 1753639823}
@@ -1421,7 +1419,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1596255239}
-  - component: {fileID: 1596255238}
   - component: {fileID: 1596255240}
   m_Layer: 0
   m_Name: EnemyController
@@ -1430,20 +1427,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1596255238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596255236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909b79c8ae48841239bc42079ee8048e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max_pos_x: 14
-  max_pos_z: 9
 --- !u!4 &1596255239
 Transform:
   m_ObjectHideFlags: 0

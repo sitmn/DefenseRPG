@@ -6,13 +6,11 @@ public class GameManager : MonoBehaviour
     private PlayerParamAsset _playerParamData;
     private EnemyParamAsset _enemyParamData;
     private CrystalParamAsset _crystalParamData;
-    [SerializeField]
-    private AStarMap _starMap;
+    private SystemParamAsset _systemParamData;
     [SerializeField]
     private StageMove _stageMove;
     [SerializeField]
     private PlayerCore _playerCore;
-    public static PlayerCore _playerCoreStatic;
     private List<IPlayerAction> _playerActionList;
     [SerializeField]
     private CrystalListCore _crystalListCore;
@@ -30,7 +28,6 @@ public class GameManager : MonoBehaviour
         //CoreクラスのParamをセット
         SetParamData();
 
-        _playerCoreStatic = _playerCore;
         _isGameOver = false;
         
         //コンポーネントを取得
@@ -43,6 +40,7 @@ public class GameManager : MonoBehaviour
         _playerParamData = Resources.Load("Data/PlayerParamData") as PlayerParamAsset;
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
+        _systemParamData = Resources.Load("Data/SystemParamData") as SystemParamAsset;
     }
     private void InitializeComponent(){
         _playerActionList = new List<IPlayerAction>();
@@ -54,13 +52,13 @@ public class GameManager : MonoBehaviour
 
     //各クラスのAwakeをコール
     private void DoAwakeManager(){
-        _starMap.AwakeManager();
+        MapManager.AwakeManager(_systemParamData.SystemParamList[0]);
         _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
         _playerCore._playerMove.AwakeManager();
         EnemyMoveRoute.AwakeManager();
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
-        _stageMove.AwakeManager();
+        _stageMove.AwakeManager(_systemParamData.SystemParamList[0]);
         
         foreach(var _playerAction in _playerActionList){
             _playerAction.AwakeManager();
@@ -89,7 +87,7 @@ public class GameManager : MonoBehaviour
         _isGameOver = true;
 
         //プレイヤー操作を無効化
-        _playerCoreStatic.InputInvalid();
+        MapManager._playerCore.InputInvalid();
 
         Debug.Log("がめおべら");
     }

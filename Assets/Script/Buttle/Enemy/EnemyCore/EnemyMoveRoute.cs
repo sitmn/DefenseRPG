@@ -28,11 +28,11 @@ public static class EnemyMoveRoute
     //コストマップ初期化
     public static void InitializeCostMap(){
         //コスト格納配列(初回は全値を入れる)
-        Debug.Log("A");
-        _costMap = new CostMap[AStarMap.astarMas.GetLength(0),AStarMap.astarMas.GetLength(1)];
+        _costMap = new CostMap[MapManager._map.GetLength(0),MapManager._map.GetLength(1)];
         for(int i = 0 ; i < _costMap.GetLength(0) ; i++){
             for(int j = 0 ; j < _costMap.GetLength(1); j++){
-                if(AStarMap.astarMas[i,j]._moveCost != 0) 
+                Vector2Int _pos = new Vector2Int(i, j);
+                if(MapManager.GetMap(_pos)._moveCost != 0) 
                 _costMap[i,j] = new CostMap();
                 _costMap[i,j]._pos = new Vector2Int(i,j);
             }
@@ -44,7 +44,8 @@ public static class EnemyMoveRoute
         //コスト格納配列
         for(int i = 0 ; i < _costMap.GetLength(0) ; i++){
             for(int j = 0 ; j < _costMap.GetLength(1); j++){
-                if(AStarMap.astarMas[i,j]._moveCost != 0) 
+                Vector2Int _pos = new Vector2Int(i, j);
+                if(MapManager.GetMap(_pos)._moveCost != 0) 
                 _costMap[i,j]._estimateCost = CalculateEstimateCost(_costMap[i,j]._pos, _destination);
                 _costMap[i,j]._status = "none";
                 _costMap[i,j]._realCost = 999;
@@ -60,10 +61,10 @@ public static class EnemyMoveRoute
         List<Vector2Int> _trackPos;
         //索敵範囲にプレイヤーがいれば移動経路を作成
         if(IsSearchPlayer(_currentPos, _searchDestination)){
-            _trackPos = GenerateTrackRoute(_currentPos, AStarMap.GetPlayerPos());
+            _trackPos = GenerateTrackRoute(_currentPos, MapManager.GetPlayerPos());
         }else{
             //適当な位置を指定して移動経路を作成
-            _trackPos = GenerateTrackRoute(_currentPos, AStarMap.GetRandomPos(_currentPos));
+            _trackPos = GenerateTrackRoute(_currentPos, MapManager.GetRandomPos(_currentPos));
         }
 
         return _trackPos;
@@ -80,7 +81,7 @@ public static class EnemyMoveRoute
             ResetCostMap(_currentPos, _destination);
             
             CostMap _minCost = _costMap[_currentPos.x, _currentPos.y];
-            for(int i = 0; i < AStarMap.astarMas.GetLength(0) * AStarMap.astarMas.GetLength(1); i++){
+            for(int i = 0; i < MapManager._map.GetLength(0) * MapManager._map.GetLength(1); i++){
                 //次のOpen先を導出
                 CalculateRealCost(_minCost._pos, _minCost._realCost);
                 _minCost = FindMinCost();
@@ -96,7 +97,7 @@ public static class EnemyMoveRoute
 
     //目的地までの推定コスト計算
     public static int CalculateEstimateCost(Vector2Int _pos, Vector2Int _destination){
-        int _cost = Mathf.Abs(_pos.x - (int)_destination.x) + Mathf.Abs(_pos.y - _destination.y) + AStarMap.astarMas[_pos.x,_pos.y]._moveCost - 1;
+        int _cost = Mathf.Abs(_pos.x - (int)_destination.x) + Mathf.Abs(_pos.y - _destination.y) + MapManager.GetMap(_pos)._moveCost - 1;
         
         return _cost;
     }
@@ -106,10 +107,11 @@ public static class EnemyMoveRoute
         //隣接マスの実コストを計算し、オープンする
         for(int i = _openPos.x - 1 ; i < _openPos.x + 2; i++){
             for(int j = _openPos.y - 1; j < _openPos.y + 2; j++){
+                Vector2Int _pos = new Vector2Int(i ,j);
                 if(i >= 0 && j >= 0 && ((i == _openPos.x && j != _openPos.y)||(i != _openPos.x && j == _openPos.y))
-                && (i < AStarMap.astarMas.GetLength(0) && j < AStarMap.astarMas.GetLength(1))){
-                    if(_costMap[i,j]._status == "none" && AStarMap.astarMas[i,j]._moveCost != 0){
-                        _costMap[i,j]._realCost = _cost + AStarMap.astarMas[i,j]._moveCost;
+                && (i < MapManager._map.GetLength(0) && j < MapManager._map.GetLength(1))){
+                    if(_costMap[i,j]._status == "none" && MapManager.GetMap(_pos)._moveCost != 0){
+                        _costMap[i,j]._realCost = _cost + MapManager.GetMap(_pos)._moveCost;
                         _costMap[i,j]._status = "closed";
                     }
                 }
@@ -170,9 +172,9 @@ public static class EnemyMoveRoute
             for(int i = _trackPos._pos.x - 1; i < _trackPos._pos.x + 2; i++){
                 for(int j = _trackPos._pos.y - 1; j < _trackPos._pos.y + 2; j++){
                     if(i >= 0 && j >= 0 && ((i == _trackPos._pos.x && j != _trackPos._pos.y)||(i != _trackPos._pos.x && j == _trackPos._pos.y))
-                    && (i < AStarMap.astarMas.GetLength(0) && j < AStarMap.astarMas.GetLength(1))){
+                    && (i < MapManager._map.GetLength(0) && j < MapManager._map.GetLength(1))){
                         //移動経路実コストと移動コストが一致するもの（openしてきた経路）を移動経路候補として格納
-                        if(_costMap[i,j]._realCost + AStarMap.astarMas[_trackPos._pos.x,_trackPos._pos.y]._moveCost == _trackPos._realCost){
+                        if(_costMap[i,j]._realCost + MapManager.GetMap(_trackPos._pos)._moveCost == _trackPos._realCost){
                             _keepTrackPosList.Add(_costMap[i,j]);
                         }
                     }
@@ -193,9 +195,9 @@ public static class EnemyMoveRoute
     public static Vector2Int GetOneTrack(Vector2Int _destination){
         List<Vector2Int> _trackPosList = new List<Vector2Int>();
         if(_destination.x != 0) _trackPosList.Add(new Vector2Int(_destination.x - 1, _destination.y));
-        if(_destination.x != AStarMap.max_pos_x_static - 1) _trackPosList.Add(new Vector2Int(_destination.x + 1, _destination.y));
+        if(_destination.x != MapManager.max_pos_x - 1) _trackPosList.Add(new Vector2Int(_destination.x + 1, _destination.y));
         if(_destination.y != 0) _trackPosList.Add(new Vector2Int(_destination.x, _destination.y - 1));
-        if(_destination.y != AStarMap.max_pos_z_static - 1) _trackPosList.Add(new Vector2Int(_destination.x, _destination.y + 1));
+        if(_destination.y != MapManager.max_pos_z - 1) _trackPosList.Add(new Vector2Int(_destination.x, _destination.y + 1));
 
         return _trackPosList[UnityEngine.Random.Range(0, _trackPosList.Count - 1)];
     }
@@ -204,7 +206,7 @@ public static class EnemyMoveRoute
     public static bool IsSearchPlayer(Vector2Int _currentPos, int _searchDestination){
         bool _isSearch = false;
 
-        Vector2Int _destination = _currentPos - AStarMap.GetPlayerPos();
+        Vector2Int _destination = _currentPos - MapManager.GetPlayerPos();
         if((Mathf.Abs(_destination.x) + Mathf.Abs(_destination.y)) < _searchDestination){
             _isSearch = true;
         }

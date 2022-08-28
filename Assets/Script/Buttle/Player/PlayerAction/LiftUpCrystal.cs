@@ -54,14 +54,14 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1); 
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1); 
         return _crystalCoreList.Count != 0 && _crystalCoreList[0] != null;
     }
 
     //正面に黒クリスタルがあるか
     private bool ExistBlackCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
     }
 
@@ -78,14 +78,14 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
 
     //クリスタルリフトアップ完了(長押し)
     private void OnInputComplete(InputAction.CallbackContext context){
-        Vector2Int _judgePos = new Vector2Int(AStarMap.GetPlayerPos().x + (int)_playerTr.forward.x, AStarMap.GetPlayerPos().y + (int)_playerTr.forward.z);
-        CrystalCore _crystalCore = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore as CrystalCore;
-        Transform _crystalTr = AStarMap.astarMas[_judgePos.x, _judgePos.y]._crystalCore.gameObject.GetComponent<Transform>();
+        Vector2Int _judgePos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
+        CrystalCore _crystalCore = MapManager.GetMap(_judgePos)._crystalCore as CrystalCore;
+        Transform _crystalTr = MapManager.GetMap(_judgePos)._crystalCore.gameObject.GetComponent<Transform>();
         //Lift中Objを格納
         PlayerCore.SetLiftCrystal(_crystalCore, _crystalTr);
         
         //マップ情報から水晶を削除
-        _crystalCore.SetOffAStarMap();
+        _crystalCore.SetOffMap();
         //オブジェクトを頭上へ移動
         _crystalTr.position = _playerTr.position + new Vector3(0, 2, 0);
         //起動時間UI非表示

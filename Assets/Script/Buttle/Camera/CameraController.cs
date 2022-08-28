@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     {
         //前フレームとのカウントの差をとり、その差分分移動。1回のステージ移動毎に、1マスカメラも合わせて移動
         if(_beforeStageMoveCount < StageMove._stageMoveCount){
-            float _move = ((float)(StageMove._stageMoveCount - _beforeStageMoveCount)) / (float)StageMove._stageMoveMaxCountStatic;
+            float _move = ((float)(StageMove._stageMoveCount - _beforeStageMoveCount)) / (float)StageMove._stageMoveMaxCount;
             _cameraTr.position = new Vector3(_cameraTr.position.x + _move , _cameraTr.position.y, _cameraTr.position.z);
         }
         _beforeStageMoveCount = StageMove._stageMoveCount;

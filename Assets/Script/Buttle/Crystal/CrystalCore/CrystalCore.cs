@@ -34,7 +34,7 @@ public class CrystalCore:MonoBehaviour
         //HPストリームの生成
         CreateHPStream();
         //マップ上に情報セット
-        SetOnAStarMap();
+        SetOnMap();
     }
     //HPのストリーム生成
     private void CreateHPStream(){
@@ -47,23 +47,23 @@ public class CrystalCore:MonoBehaviour
         //水晶行動指示用リストから削除
         CrystalListCore.RemoveCrystalCoreInList(this);
         //マップ上から削除
-        SetOffAStarMap();
+        SetOffMap();
         //オブジェクト削除
         Destroy(this.gameObject);
     }
 
     //配置時、マップ上に情報をセット
-    public void SetOnAStarMap(){
-        _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_crystalTr.position).x), AStarMap.CastMapPos(_crystalTr.position).y);
-        if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore == null){
-            AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._moveCost = _crystalStatus._moveCost;
-            AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = this;
+    public void SetOnMap(){
+        _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_crystalTr.position).x), MapManager.CastMapPos(_crystalTr.position).y);
+        if(MapManager._map != null && MapManager.GetMap(_crystalPos)._crystalCore == null){
+            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._moveCost;
+            MapManager.GetMap(_crystalPos)._crystalCore = this;
         }
     }
     //破壊または持ち上げ時、マップ上から情報を削除
-    public void SetOffAStarMap(){
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._moveCost = 1;
-        AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = null;
+    public void SetOffMap(){
+        MapManager.GetMap(_crystalPos)._moveCost = 1;
+        MapManager.GetMap(_crystalPos)._crystalCore = null;
     }
 
     //クリスタル起動時のクリスタルステータスをセット

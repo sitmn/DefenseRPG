@@ -55,14 +55,14 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
-        return AStarMap.IsOutOfReference(AStarMap.GetPlayerPos() + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null);
+        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        return MapManager.IsOutOfReference(MapManager.GetPlayerPos() + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null);
     }
 
     //正面のマスの周囲に敵がいるか
     private bool ExistAroundEnemy(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<EnemyCoreBase> _crystalCoreList = TargetCore.GetAroundCore<EnemyCoreBase>(AStarMap.GetPlayerPos() + _fowardDir, _fowardDir, 1);
+        List<EnemyCoreBase> _crystalCoreList = TargetCore.GetAroundCore<EnemyCoreBase>(MapManager.GetPlayerPos() + _fowardDir, _fowardDir, 1);
         return _crystalCoreList.Count != 0;
     }
 
@@ -83,7 +83,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0.5f, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
         //マップ情報に水晶を追加
-        PlayerCore.GetLiftCrystalCore().SetOnAStarMap();
+        PlayerCore.GetLiftCrystalCore().SetOnMap();
         //リフト中情報をnullに
         PlayerCore.SetOffLiftCrystal();
 

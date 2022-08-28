@@ -15,22 +15,22 @@ public class TargetCore
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x - j, _centerPos.y + i - j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!MapManager.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x - i + j, _centerPos.y - j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!MapManager.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x + j, _centerPos.y - i + j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!MapManager.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             for(int j = 0; j < i; j++){
                 _judgePos = new Vector2Int(_centerPos.x + i - j, _centerPos.y + j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!MapManager.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
             if(_coreList.Count > 0) break;
         }
@@ -47,7 +47,7 @@ public class TargetCore
             for(int j = _centerPos.y -_range;j <= _centerPos.y + _range; j++){
                 _judgePos = new Vector2Int(i, j);
                 //ステージリストの範囲外でないなら、Coreを取得
-                if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+                if(!MapManager.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
             }
         }
 
@@ -61,7 +61,7 @@ public class TargetCore
         for(int i = 1;i < _range + 1; i++){
             Vector2Int _judgePos = new Vector2Int(_centerPos.x + i * _forwardDir.x, _centerPos.y + i * _forwardDir.y);
             //ステージリストの範囲外でないなら、Coreを取得
-            if(!AStarMap.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
+            if(!MapManager.IsOutOfReference(_judgePos)) _coreList.AddRange(GetCore<T>(_judgePos));
         }
 
         return _coreList;
@@ -73,22 +73,22 @@ public class TargetCore
 
         //対象がエネミーの場合,エネミーを取得
         if(typeof(T) == typeof(EnemyCoreBase)){
-            if(AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList.Count > 0/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
-                for(int k = 0 ; k < AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList.Count ; k++){
-                    var _enemyCore = (T)(object)AStarMap.astarMas[_judgePos.x , _judgePos.y]._enemyCoreList[k];
+            if(MapManager.GetMap(_judgePos)._enemyCoreList.Count > 0/* && MapManager._map[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
+                for(int k = 0 ; k < MapManager.GetMap(_judgePos)._enemyCoreList.Count ; k++){
+                    var _enemyCore = (T)(object)MapManager.GetMap(_judgePos)._enemyCoreList[k];
                     _coreList.Add(_enemyCore);
                 }
             }
         }//対象がクリスタルの場合,クリスタルを取得
         else if(typeof(T) == typeof(CrystalCore)){
-            if(AStarMap.astarMas[_judgePos.x , _judgePos.y]._crystalCore != null/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
-                var _crystalCore = (T)(object)AStarMap.astarMas[_judgePos.x , _judgePos.y]._crystalCore;
+            if(MapManager.GetMap(_judgePos)._crystalCore != null/* && MapManager._map[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
+                var _crystalCore = (T)(object)MapManager.GetMap(_judgePos)._crystalCore;
                 _coreList.Add(_crystalCore);
             }
         }//対象がプレイヤーの場合,プレイヤーを取得
         else if(typeof(T) == typeof(PlayerCore)){
-            if(AStarMap.GetPlayerPos() == _judgePos/* && AStarMap.astarMas[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
-                var _playerCoreVar = (T)(object)AStarMap.GetPlayerCore();
+            if(MapManager.GetPlayerPos() == _judgePos/* && MapManager._map[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
+                var _playerCoreVar = (T)(object)MapManager.GetPlayerCore();
                 _coreList.Add(_playerCoreVar);
             }
         }

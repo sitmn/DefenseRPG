@@ -29,10 +29,10 @@ public class PlayerMove : MonoBehaviour
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
 
-        //AStarMapの自キャラポジション格納（判定用）
-        AStarMap.SetPlayerPos(AStarMap.CastMapPos(_playerTr.position));
+        //MapManagerの自キャラポジション格納（判定用）
+        MapManager.SetPlayerPos(MapManager.CastMapPos(_playerTr.position));
         //自キャラポジション格納（移動用）
-        _playerPos = AStarMap.GetPlayerPos();
+        _playerPos = MapManager.GetPlayerPos();
         //次の移動場所（移動用）
         _nextPlayerPos = _playerPos;
     }
@@ -59,10 +59,10 @@ public class PlayerMove : MonoBehaviour
         //マス中心まで移動した時、位置確定
         if(Mathf.Abs(_playerTr.position.x - _nextPlayerPos.x + _playerTr.position.z - _nextPlayerPos.y) < _moveSpeed * Time.deltaTime + 0.1f){
             _playerTr.position = new Vector3(_nextPlayerPos.x, 0 , _nextPlayerPos.y);
-            _playerPos = AStarMap.CastMapPos(_playerTr.position);
+            _playerPos = MapManager.CastMapPos(_playerTr.position);
         }
 
-        AStarMap.SetPlayerPos(new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_playerTr.position).x),AStarMap.CastMapPos(_playerTr.position).y));
+        MapManager.SetPlayerPos(new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_playerTr.position).x),MapManager.CastMapPos(_playerTr.position).y));
         return;
     }
 
@@ -78,15 +78,15 @@ public class PlayerMove : MonoBehaviour
         bool _isMoveCheck = false;
         /*以下の条件を一つでも満たさなければ移動不可*/
         //移動後のワールド座標
-        Vector2Int _movePos = AStarMap.GetPlayerPos() + _moveDir;
+        Vector2Int _movePos = MapManager.GetPlayerPos() + _moveDir;
         //ステージ範囲外判定
-        if(AStarMap.IsOutOfReference(_movePos)) return _isMoveCheck;
+        if(MapManager.IsOutOfReference(_movePos)) return _isMoveCheck;
         //移動先にエネミーが存在しないか
-        if(!(AStarMap.astarMas[_movePos.x, _movePos.y]._enemyCoreList.Count == 0)) return _isMoveCheck;
+        if(!(MapManager.GetMap(_movePos)._enemyCoreList.Count == 0)) return _isMoveCheck;
         //移動先にクリスタルが存在しないか
-        if(!(AStarMap.astarMas[_movePos.x, _movePos.y]._crystalCore == null)) return _isMoveCheck;
+        if(!(MapManager.GetMap(_movePos)._crystalCore == null)) return _isMoveCheck;
         //ステージ移動直前に最後列に移動していないか
-        if((AStarMap.GetPlayerPos().x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCountStatic * 9 / 10)) return _isMoveCheck;
+        if((MapManager.GetPlayerPos().x == 1 && _moveDir.x == -1 && StageMove._stageMoveCount > StageMove._stageMoveMaxCount * 9 / 10)) return _isMoveCheck;
 
         _isMoveCheck = true;
         return _isMoveCheck; 

@@ -29,7 +29,7 @@ public class EnemyCore : EnemyCoreBase
 
     //移動先にクリスタルがあり、攻撃可能か？
     protected override bool CanAttack(){
-        return AStarMap.astarMas[_enemyMove.TrackPos[0].x,_enemyMove.TrackPos[0].y]._crystalCore != null;
+        return MapManager.GetMap(_enemyMove.TrackPos[0])._crystalCore != null;
     }
 
     //敵が水晶を攻撃

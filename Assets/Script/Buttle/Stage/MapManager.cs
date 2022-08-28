@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AStarMap : MonoBehaviour
+//座標管理クラス
+public static class MapManager
 {
     //プレイヤー情報
     public static Vector2Int _playerPos;
@@ -10,34 +11,33 @@ public class AStarMap : MonoBehaviour
     public static PlayerCore _playerCore;
     public static PlayerCore GetPlayerCore(){ return _playerCore;}
     public static void SetPlayerCore(PlayerCore _core){ _playerCore = _core;}
-    public static AStarMas[,] astarMas;
-    [SerializeField]
-    private int max_pos_x = 15;
-    [SerializeField]
-    private int max_pos_z = 20;
+    public static Map[,] _map;
+    public static Map GetMap(Vector2Int _pos){
+        return _map[_pos.x, _pos.y];
+    }
 
-    public static int max_pos_x_static;
-    public static int max_pos_z_static;
+    public static int max_pos_x;
+    public static int max_pos_z;
 
-    public void AwakeManager(){
+    public static void AwakeManager(SystemParam _systemParam){
         //ステージの最大座標をセット
-        SetMaxPos();
+        SetParam(_systemParam);
         //クラスの初期化
-        astarMas = new AStarMas[max_pos_x_static, max_pos_z_static];
+        _map = new Map[max_pos_x, max_pos_z];
         
-        for(int i = 0;i < astarMas.GetLength(0); i++){
-            for(int j = 0;j < astarMas.GetLength(1); j++){
-                astarMas[i,j] = new AStarMas();
-                astarMas[i,j]._enemyCoreList = new List<EnemyCoreBase>();
-                astarMas[i,j]._moveCost = 1;
+        for(int i = 0;i < _map.GetLength(0); i++){
+            for(int j = 0;j < _map.GetLength(1); j++){
+                _map[i,j] = new Map();
+                _map[i,j]._enemyCoreList = new List<EnemyCoreBase>();
+                _map[i,j]._moveCost = 1;
             }
         }
     }
 
     //ステージの最大座標をセット
-    private void SetMaxPos(){
-        max_pos_x_static = max_pos_x;
-        max_pos_z_static = max_pos_z;
+    public static void SetParam(SystemParam _systemParam){
+        max_pos_x = _systemParam.max_pos_x;
+        max_pos_z = _systemParam.max_pos_z;
     }
 
     //オブジェクトのポジションをAStarMapの座標に変換
@@ -51,7 +51,7 @@ public class AStarMap : MonoBehaviour
     public static Vector2Int GetRandomPos(Vector2Int _pos){
         Vector2Int randomPos = _pos;
         while(randomPos == _pos){
-            randomPos = new Vector2Int(Random.Range(1,astarMas.GetLength(0)),Random.Range(0,astarMas.GetLength(1)));
+            randomPos = new Vector2Int(Random.Range(1,_map.GetLength(0)),Random.Range(0,_map.GetLength(1)));
         }
         
         return  randomPos;
@@ -60,16 +60,16 @@ public class AStarMap : MonoBehaviour
     //ステージ範囲外かの判定
     public static bool IsOutOfReference(Vector2Int _judgePos){
         //x軸方向の判定（ステージの移動も加味）
-        bool _judgeFlag_x = _judgePos.x < 0 || _judgePos.x >= AStarMap.max_pos_x_static;
+        bool _judgeFlag_x = _judgePos.x < 0 || _judgePos.x >= max_pos_x;
         //z軸方向の判定
-        bool _judgeFlag_z = _judgePos.y < 0 || _judgePos.y >= AStarMap.max_pos_z_static;
+        bool _judgeFlag_z = _judgePos.y < 0 || _judgePos.y >= max_pos_z;
 
         return _judgeFlag_x || _judgeFlag_z;
     }
 }
 
 //AStar利用用構造体
-public class AStarMas{
+public class Map{
     //移動コスト 0は行き止まり
     public int _moveCost;
     //マスに何があるか（エネミー、水晶）

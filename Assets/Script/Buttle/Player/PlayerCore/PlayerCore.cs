@@ -35,7 +35,7 @@ public class PlayerCore : MonoBehaviour
     public void AwakeManager(PlayerParam _playerParam){
         InitializeComponent();
         _playerStatus = new PlayerStatus(_playerParam);
-        AStarMap.SetPlayerCore(this);
+        MapManager.SetPlayerCore(this);
     }
 
     //コンポーネントの初期化
