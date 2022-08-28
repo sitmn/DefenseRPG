@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AStarMap : MonoBehaviour
 {
-    //今の場所（判定用）
+    //プレイヤー情報
     public static Vector2Int _playerPos;
     public static Vector2Int GetPlayerPos(){ return _playerPos;}
     public static void SetPlayerPos(Vector2Int _pos){  _playerPos = _pos;}

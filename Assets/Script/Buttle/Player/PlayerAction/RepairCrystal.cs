@@ -75,7 +75,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private bool ExistBlackCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
         List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
-        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._moveCost == 100;
+        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
     }
 
     //回復用カウント,Maxカウントまで長押しすれば回復

@@ -6,7 +6,9 @@ public class EnemyStatus
     //攻撃用ステータス
     public AttackStatus _attackStatus;
     /***ステータス***/
-    //Hpと最大HpはAEnemyCoreが保持
+    //Hpと最大HpはEnemyCoreBaseが保持
+    //名前
+    public string _name;
     //攻撃間隔用カウント
     public int _attackMaxCount;
     public int _attackCount;
@@ -20,8 +22,6 @@ public class EnemyStatus
     public int _effectTime;
     //索敵範囲
     public int _searchDestination;
-    //移動速度
-    public float _moveSpeedOrigin;
     //ステータス変動用
     private float _moveSpeed;
     public float GetMoveSpeed
@@ -40,6 +40,8 @@ public class EnemyStatus
     public EnemyStatus(EnemyParam _enemyParam){
         /***ステータス***/
         //Hpと最大HpはAEnemyCoreが保持
+        //エネミー名
+        this._name = _enemyParam._enemyName;
         //攻撃間隔用カウント
         this._attackMaxCount = _enemyParam._attackMaxCount;
         //攻撃力
@@ -52,8 +54,6 @@ public class EnemyStatus
         this._effectTime = _enemyParam._effectTime;
         //索敵範囲
         this._searchDestination = _enemyParam._searchDestination;
-        //元移動速度
-        this._moveSpeedOrigin = _enemyParam._moveSpeed;
         //移動速度
         this._moveSpeed = _enemyParam._moveSpeed;
         //攻撃用ステータス

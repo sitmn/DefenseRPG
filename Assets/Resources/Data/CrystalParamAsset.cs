@@ -8,7 +8,7 @@ public class CrystalParamAsset : ScriptableObject{
 
 [System.Serializable]
 public class CrystalParam{
-    //ACrystalStatuクラスを継承したクラス名
+    //CrystalStatuクラスを継承したクラス名
     [SerializeField]
     public string _crystalCoreName;
     //攻撃用クラス名
@@ -35,6 +35,7 @@ public class CrystalParam{
     //移動コスト（エネミーの移動探索用）
     [SerializeField]
     public int _moveCost;
+    //クリスタルのマテリアル
     [SerializeField]
     public Material _material;
 }

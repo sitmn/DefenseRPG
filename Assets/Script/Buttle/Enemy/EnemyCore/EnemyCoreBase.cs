@@ -3,7 +3,7 @@ using UniRx;
 
 public abstract class EnemyCoreBase:MonoBehaviour
 {
-    public ReactiveProperty<int> _hp;
+    private ReactiveProperty<int> _hp;
     public int Hp{
         get{
             return _hp.Value;
@@ -17,12 +17,17 @@ public abstract class EnemyCoreBase:MonoBehaviour
         }
     }
 
-    public int _maxHp;
+    private int _maxHp;
+    [System.NonSerialized]
     public EnemyStatus _enemyStatus;
     //スピードデバフエフェクト
+    [System.NonSerialized]
     public GameObject _speedDebuff;
     //スピードバフエフェクト
+    [System.NonSerialized]
     public GameObject _speedBuff;
+    //移動用クラス
+    [System.NonSerialized]
     public EnemyMove _enemyMove;
     protected Transform _enemyTr;
     //どのマスにいるかの判断用位置、マス内に入ったら場所が変わる
@@ -66,6 +71,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //攻撃方法のセット
         _attack = new EnemyAttack();
         //エネミーステータスのセット
+        _hp = new ReactiveProperty<int>();
         _enemyStatus = new EnemyStatus(_enemyParamData);
         _maxHp = _enemyParamData._maxHp;
 
@@ -102,10 +108,11 @@ public abstract class EnemyCoreBase:MonoBehaviour
         }).AddTo(this);
     }
 
-    //Map上でクラス管理（Mapへ追加したり、取り除いたり）
+    //Map上にエネミー情報作成
     public void SetOnAStarMap(Vector2Int _pos){
         AStarMap.astarMas[_pos.x,_pos.y]._enemyCoreList.Add(this);
     }
+    //Map上からエネミー情報削除
     public void SetOffAStarMap(Vector2Int _pos){
         AStarMap.astarMas[_pos.x, _pos.y]._enemyCoreList.Remove(this);
     }
@@ -119,13 +126,14 @@ public abstract class EnemyCoreBase:MonoBehaviour
 
     //移動用座標をセット(位置がマスの中心の時に呼び出すこと)
     public void SetEnemyPos(){
-        _enemyPos.SetValueAndForceNotify(_enemyMove.GetCurrentPosition());
+        _enemyPos.Value = _enemyMove.GetCurrentPosition();
     }
     //判定用座標をセット
-    public void SetJudgePos(){if(_enemyMove.TrackPos[0].x < 0) Debug.Log("track:"+_enemyMove.TrackPos[0] + " judge:"+_judgePos.Value + " enemyPos:"+ _enemyPos.Value +"NNN");
+    public void SetJudgePos(){
         _judgePos.Value = _enemyMove.GetCurrentPosition();
     }
 
+    //削除時、バフ用の非同期トークン削除
     void OnDestroy(){
         _enemyStatus._cancelSpeedBuffToken.Cancel();
         _enemyStatus._cancelSpeedDebuffToken.Cancel();

@@ -8,9 +8,10 @@ public class CrystalCore:MonoBehaviour
 {
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
-    public AttackBase _attack;
+    private AttackBase _attack;
+    [System.NonSerialized]
     public CrystalStatus _crystalStatus;
-    public ReactiveProperty<int> _hp;
+    private ReactiveProperty<int> _hp;
     public int Hp{
         get{
             return _hp.Value;
@@ -24,30 +25,34 @@ public class CrystalCore:MonoBehaviour
         }
     }
 
-    public int _maxHp;
-    //Statusやストリームのセット
+    private int _maxHp;
+    //Statusやストリームの生成
     public void InitializeCore(CrystalParam _crystalParam){
         _crystalTr = this.gameObject.GetComponent<Transform>();
-        
+        //クリスタルステータスのセット
         SetCrystalStatus(_crystalParam);
-        SetHPStream();
+        //HPストリームの生成
+        CreateHPStream();
+        //マップ上に情報セット
         SetOnAStarMap();
     }
-    
-    private void SetHPStream(){
+    //HPのストリーム生成
+    private void CreateHPStream(){
         _hp.Subscribe((x) => {
             if(x <= 0) ObjectDestroy();
         }).AddTo(this);
     }
-
+    //クリスタルの削除
     public void ObjectDestroy(){
         //水晶行動指示用リストから削除
         CrystalListCore.RemoveCrystalCoreInList(this);
+        //マップ上から削除
         SetOffAStarMap();
+        //オブジェクト削除
         Destroy(this.gameObject);
     }
 
-    //配置時、マップに移動不可情報とクラスを入れる
+    //配置時、マップ上に情報をセット
     public void SetOnAStarMap(){
         _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(AStarMap.CastMapPos(_crystalTr.position).x), AStarMap.CastMapPos(_crystalTr.position).y);
         if(AStarMap.astarMas != null && AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore == null){
@@ -55,7 +60,7 @@ public class CrystalCore:MonoBehaviour
             AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = this;
         }
     }
-    //破壊または持ち上げ時、移動不可解除
+    //破壊または持ち上げ時、マップ上から情報を削除
     public void SetOffAStarMap(){
         AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._moveCost = 1;
         AStarMap.astarMas[_crystalPos.x,_crystalPos.y]._crystalCore = null;
@@ -65,6 +70,7 @@ public class CrystalCore:MonoBehaviour
     public void SetCrystalStatus(CrystalParam _crystalParam){
         _crystalStatus = new CrystalStatus(_crystalParam);
         this.gameObject.GetComponent<Renderer>().material = _crystalParam._material;
+        _hp = new ReactiveProperty<int>();
         //HPの最大値と現在のHPをセット
         this._maxHp = _crystalParam._maxHp;
         this.Hp = this._maxHp;

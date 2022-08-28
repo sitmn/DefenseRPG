@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         _starMap.AwakeManager();
         _playerCore.AwakeManager(_playerParamData.PlayerParamList[0]);
         _playerCore._playerMove.AwakeManager();
+        EnemyMoveRoute.AwakeManager();
         _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
         _stageMove.AwakeManager();
@@ -70,8 +71,7 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         if(_isGameOver) return;
-        // if(StageMove._stageMoveCount == StageMove._stageMoveMaxCount-1) Debug.Log(AStarMap.astarMas[CrystalListCore._crystalList[0]._crystalPos.x, CrystalListCore._crystalList[0]._crystalPos.y]._crystalCore + "RRR");
-        // if(StageMove._stageMoveCount == 0) Debug.Log(AStarMap.astarMas[CrystalListCore._crystalList[0]._crystalPos.x, CrystalListCore._crystalList[0]._crystalPos.y]._crystalCore + "TTT");
+        
         _playerCore.UpdateManager();
         
         foreach(var _playerAction in _playerActionList){

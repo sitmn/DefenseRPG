@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: CrystalParamData
   m_EditorClassIdentifier: 
   CrystalParamList:
-  - _crystalCoreName: BlackCrystalStatus
+  - _crystalCoreName: BlackCrystal
     _crystalAttackName: BlackCrystalAttack
-    _maxHp: 999
+    _maxHp: 1
     _attackMaxCount: 0
     _attack: 0
     _attackRange: 2
     _effectRate: 0.1
     _effectTime: 2
-    _moveCost: 100
+    _moveCost: 20
     _material: {fileID: 2100000, guid: 710018ad1caede346a571afb336b0698, type: 2}
-  - _crystalCoreName: RedCrystalStatus
+  - _crystalCoreName: RedCrystal
     _crystalAttackName: RedCrystalAttack
     _maxHp: 5
     _attackMaxCount: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     _effectTime: 0
     _moveCost: 4
     _material: {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
-  - _crystalCoreName: BlueCrystalStatus
+  - _crystalCoreName: BlueCrystal
     _crystalAttackName: BlueCrystalAttack
     _maxHp: 3
     _attackMaxCount: 40
@@ -43,9 +43,9 @@ MonoBehaviour:
     _effectTime: 2
     _moveCost: 6
     _material: {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
-  - _crystalCoreName: GreenCrystalStatus
+  - _crystalCoreName: GreenCrystal
     _crystalAttackName: GreenCrystalAttack
-    _maxHp: 10
+    _maxHp: 1
     _attackMaxCount: 0
     _attack: 0
     _attackRange: 3

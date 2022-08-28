@@ -20,5 +20,5 @@ MonoBehaviour:
     _attackRange: 1
     _effectRate: 0
     _effectTime: 0
-    _moveSpeed: 2
+    _moveSpeed: 1
     _searchDestination: 10

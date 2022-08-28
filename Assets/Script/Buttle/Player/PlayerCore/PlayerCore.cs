@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class PlayerCore : MonoBehaviour
 {
+    [System.NonSerialized]
     public PlayerMove _playerMove;
+    [System.NonSerialized]
     public PlayerStatus _playerStatus;
-    public CrystalStatus[] EqueipmentCrystal{get;set;}
-    [SerializeField]
-    private CrystalStatus[] _equipmentCrystal = new CrystalStatus[3];
-
     private IPlayerAction[] _playerActionArr = new IPlayerAction[4];
-    private Transform _playerTr;
     [System.NonSerialized]
     public GameObject _speedBuff;
     [System.NonSerialized]
@@ -52,7 +49,6 @@ public class PlayerCore : MonoBehaviour
         _playerActionArr[1] = this.gameObject.GetComponent<LiftUpCrystal>();
         _playerActionArr[2] = this.gameObject.GetComponent<LiftDownCrystal>();
         _playerActionArr[3] = this.gameObject.GetComponent<RepairCrystal>();
-        _playerTr = this. gameObject.GetComponent<Transform>();
     }
 
     //Update処理

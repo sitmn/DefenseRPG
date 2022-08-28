@@ -13,10 +13,6 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     public bool ActionFlag => _actionFlag;
     private bool _actionFlag;
     
-    /*//起動水晶色変え用マテリアル
-    private ACrystalStatus[] _setCrystalStatus = new ACrystalStatus[3];
-    private CrystalParamAsset _crystalParamData;*/
-
     //クラスの初期化
     public void AwakeManager(){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
@@ -66,7 +62,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     private bool ExistBlackCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
         List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(AStarMap.GetPlayerPos(), _fowardDir, 1);
-        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._moveCost == 100;
+        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
     }
 
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行

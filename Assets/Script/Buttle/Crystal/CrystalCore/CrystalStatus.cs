@@ -1,8 +1,11 @@
 public class CrystalStatus
 {
+    //コンストラクタで新しいステータスをセット
     public CrystalStatus(CrystalParam _crystalParam){
         //攻撃用ステータス
         this._attackStatus = new AttackStatus(_crystalParam._attack, _crystalParam._attackRange, _crystalParam._effectRate, _crystalParam._effectTime);
+        //クリスタル名
+        this._name = _crystalParam._crystalCoreName;
         //水晶の攻撃間隔
         this._attackMaxCount = _crystalParam._attackMaxCount;
         //効果間隔用のカウント
@@ -22,8 +25,8 @@ public class CrystalStatus
 
     //攻撃用ステータス
     public AttackStatus _attackStatus;
-    // //水晶の最大HP
-    // public int _maxHp;
+    //名前
+    public string _name;
     //水晶の攻撃間隔
     public int _attackMaxCount;
     //効果間隔用のカウント
