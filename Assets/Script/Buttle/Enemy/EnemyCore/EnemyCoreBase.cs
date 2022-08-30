@@ -9,15 +9,14 @@ public abstract class EnemyCoreBase:MonoBehaviour
             return _hp.Value;
         }
         set{
-            if(value > _maxHp){
-                _hp.Value = _maxHp;
+            if(value > _enemyStatus._enemyParam._maxHp){
+                _hp.Value = _enemyStatus._enemyParam._maxHp;
             }else{
                 _hp.Value = value;
             }
         }
     }
 
-    private int _maxHp;
     [System.NonSerialized]
     public EnemyStatus _enemyStatus;
     //スピードデバフエフェクト
@@ -52,7 +51,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         CreateEnemyPosStream();
         CreateHPStream();
         //移動経路をセット
-        _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._searchDestination);
+        _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._enemyParam._searchDestination);
     }
 
     //コンポーネントセット
@@ -71,17 +70,17 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //攻撃方法のセット
         _attack = new EnemyAttack();
         //エネミーステータスのセット
-        _hp = new ReactiveProperty<int>();
+        _hp = new ReactiveProperty<int>(_enemyParamData._maxHp);
         _enemyStatus = new EnemyStatus(_enemyParamData);
-        _maxHp = _enemyParamData._maxHp;
-
-        Hp = _maxHp;
+        // _maxHp = _enemyParamData._maxHp;
     }
 
     //Hp用ストリーム
     private void CreateHPStream(){
         _hp.Subscribe((x) => {
-            if(x <= 0) ObjectDestroy();
+            if(x <= 0) {
+                Debug.Log(x + "A");
+                ObjectDestroy();}
         }).AddTo(this);
     }
 
@@ -103,7 +102,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
         //移動経路の更新
-        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._searchDestination);
+        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._enemyParam._searchDestination);
         
         }).AddTo(this);
     }

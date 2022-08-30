@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class RepairCrystal : MonoBehaviour, IPlayerAction
 {
+    //プレイヤーのパラメータ
+    private PlayerParam _playerParam;
     private PlayerInput _playerInput;
     private Transform _playerTr;
     //クリスタル修復アクション有効フラグ
@@ -14,10 +16,10 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private bool _isAction;
 
     private int _repairCount;
-    private int _repairMaxCount;
-    private int _repairPoint;
-    //修復にかかるコスト
-    private int _repairActionCost;
+    // private int _repairMaxCount;
+    // private int _repairPoint;
+    // //修復にかかるコスト
+    // private int _repairActionCost;
     //アクションコスト
     private ActionCost _actionCost;
 
@@ -36,11 +38,11 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private void SetParam(PlayerParam _playerParam){
         _isActive = false;
         _isAction = false;
-
+        this._playerParam = _playerParam;
         _repairCount = 0;
-        _repairMaxCount = _playerParam._repairMaxCount;
-        _repairPoint = _playerParam._repairPoint;
-        _repairActionCost = _playerParam._repairActionCost;
+        // _repairMaxCount = _playerParam._repairMaxCount;
+        // _repairPoint = _playerParam._repairPoint;
+        // _repairActionCost = _playerParam._repairActionCost;
     }
 
     //入力中、徐々に正面のクリスタルを修復
@@ -51,7 +53,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         if(RepairCount()){
             RepairCrystalAction();
             //修復コスト消費
-            _actionCost.ConsumeCrystalCost(_repairActionCost);
+            _actionCost.ConsumeCrystalCost(_playerParam._repairActionCost);
             //次回回復分のコストが不足していれば修復アクションを終了
             //_isAction = EnoughActionCost();
         }
@@ -92,12 +94,12 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private bool ExistBlackCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
         List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
-        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._name == "BlackCrystal";
+        return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._crystalParam._crystalCoreName == "BlackCrystal";
     }
 
     //アクションコストが足りているか
     public bool EnoughActionCost(){
-        return _actionCost.EnoughCrystalCost(_repairActionCost);
+        return _actionCost.EnoughCrystalCost(_playerParam._repairActionCost);
     }
     //コスト不足時処理
     public void ShortageActionCost(){
@@ -110,7 +112,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         bool _repairCountFlag = false;
         _repairCount++;
 
-        if(_repairCount >= _repairMaxCount){
+        if(_repairCount >= _playerParam._repairMaxCount){
             _repairCount = 0;
             _repairCountFlag = true;
         }
@@ -124,7 +126,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         Vector2Int _judgePos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
         //正面に黒以外の水晶があれば回復
         if(MapManager.GetMap(_judgePos)._crystalCore != null){
-            MapManager.GetMap(_judgePos)._crystalCore.Hp += _repairPoint;
+            MapManager.GetMap(_judgePos)._crystalCore.Hp += _playerParam._repairPoint;
         }
     }
 

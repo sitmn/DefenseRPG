@@ -12,6 +12,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトダウン中フラグ
     public bool IsAction => _isAction;
     private bool _isAction;
+    //
     
 
     //クラスの初期化

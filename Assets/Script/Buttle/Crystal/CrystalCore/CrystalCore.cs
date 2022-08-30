@@ -17,15 +17,15 @@ public class CrystalCore:MonoBehaviour
             return _hp.Value;
         }
         set{
-            if(value > _maxHp){
-                _hp.Value = _maxHp;
+            if(value > _crystalStatus._crystalParam._maxHp){
+                _hp.Value = _crystalStatus._crystalParam._maxHp;
             }else{
                 _hp.Value = value;
             }
         }
     }
 
-    private int _maxHp;
+    //private int _maxHp;
     //Statusやストリームの生成
     public void InitializeCore(CrystalParam _crystalParam){
         _crystalTr = this.gameObject.GetComponent<Transform>();
@@ -56,7 +56,7 @@ public class CrystalCore:MonoBehaviour
     public void SetOnMap(){
         _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_crystalTr.position).x), MapManager.CastMapPos(_crystalTr.position).y);
         if(MapManager._map != null && MapManager.GetMap(_crystalPos)._crystalCore == null){
-            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._moveCost;
+            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._crystalParam._moveCost;
             MapManager.GetMap(_crystalPos)._crystalCore = this;
         }
     }
@@ -72,12 +72,12 @@ public class CrystalCore:MonoBehaviour
         this.gameObject.GetComponent<Renderer>().material = _crystalParam._material;
         _hp = new ReactiveProperty<int>();
         //HPの最大値と現在のHPをセット
-        this._maxHp = _crystalParam._maxHp;
-        this.Hp = this._maxHp;
-        //攻撃間隔のステータスをセット
-        _crystalStatus._attackMaxCount = _crystalParam._attackMaxCount;
-        //移動コスト
-        _crystalStatus._moveCost = _crystalParam._moveCost;
+        //this._maxHp = _crystalParam._maxHp;
+        this.Hp = _crystalParam._maxHp;
+        // //攻撃間隔のステータスをセット
+        // _crystalStatus._attackMaxCount = _crystalParam._attackMaxCount;
+        // //移動コスト
+        // _crystalStatus._moveCost = _crystalParam._moveCost;
         
         //攻撃方法をセット
         Type classObj = Type.GetType(_crystalParam._crystalAttackName);
