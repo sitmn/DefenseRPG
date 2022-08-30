@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
-    //private CharacterController _characterController;
-
     private Transform _playerTr;
     private IPlayerMotion _playerMotion;
     private PlayerInput _playerInput;

@@ -14,30 +14,30 @@ public class CrystalParam{
     //攻撃用クラス名
     [SerializeField]
     public string _crystalAttackName;
-    //最大HP
+    //最大HP(Rank毎の値を格納)
     [SerializeField]
-    public int _maxHp;
-    //攻撃間隔
+    public List<int> _maxHp;
+    //攻撃間隔(Rank毎の値を格納)
     [SerializeField]
-    public int _attackMaxCount;
-    //攻撃力
+    public List<int> _attackMaxCount;
+    //攻撃力(Rank毎の値を格納)
     [SerializeField]
-    public int _attack;
-    //攻撃範囲
+    public List<int> _attack;
+    //攻撃範囲(Rank毎の値を格納)
     [SerializeField]
-    public int _attackRange;
-    //効果倍率
+    public List<int> _attackRange;
+    //効果倍率(Rank毎の値を格納)
     [SerializeField]
-    public float _effectRate;
-    //効果時間
+    public List<float> _effectRate;
+    //効果時間(Rank毎の値を格納)
     [SerializeField]
-    public int _effectTime;
-    //移動コスト（エネミーの移動探索用）
+    public List<int> _effectTime;
+    //移動コスト（エネミーの移動探索用,Rank毎の値を格納）
     [SerializeField]
-    public int _moveCost;
-    //クリスタル起動時コスト
+    public List<int> _moveCost;
+    //クリスタル起動時コスト(Rank毎の値を格納,要素0は起動コスト、以降はRankUpコスト)
     [SerializeField]
-    public int _launchCost;
+    public List<int> _cost;
     //クリスタルのマテリアル
     [SerializeField]
     public Material _material;

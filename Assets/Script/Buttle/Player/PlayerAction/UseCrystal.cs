@@ -68,7 +68,7 @@ public class UseCrystal : IPlayerAction
     }
     //アクションコストが足りているか
     public bool EnoughActionCost(){
-        return _actionCost.EnoughCrystalCost(_useCrystalParam._launchCost);
+        return _actionCost.EnoughCrystalCost(_useCrystalParam._cost[0]);
     }
     //コスト不足時処理
     public void ShortageActionCost(){
@@ -105,7 +105,7 @@ public class UseCrystal : IPlayerAction
         _crystalCore.SetOffMap();
         _crystalCore.SetOnMap();
         //クリスタルコストを消費
-        _actionCost.ConsumeCrystalCost(_useCrystalParam._launchCost);
+        _actionCost.ConsumeCrystalCost(_useCrystalParam._cost[0]);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し

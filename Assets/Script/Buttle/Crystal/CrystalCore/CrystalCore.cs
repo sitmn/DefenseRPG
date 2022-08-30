@@ -6,6 +6,8 @@ using UniRx;
 //水晶の動作クラス
 public class CrystalCore:MonoBehaviour
 {
+    //クリスタルランク
+    private int _crystalRank;
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
     private AttackBase _attack;
@@ -17,8 +19,8 @@ public class CrystalCore:MonoBehaviour
             return _hp.Value;
         }
         set{
-            if(value > _crystalStatus._crystalParam._maxHp){
-                _hp.Value = _crystalStatus._crystalParam._maxHp;
+            if(value > _crystalStatus._crystalParam._maxHp[_crystalRank]){
+                _hp.Value = _crystalStatus._crystalParam._maxHp[_crystalRank];
             }else{
                 _hp.Value = value;
             }
@@ -56,7 +58,7 @@ public class CrystalCore:MonoBehaviour
     public void SetOnMap(){
         _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_crystalTr.position).x), MapManager.CastMapPos(_crystalTr.position).y);
         if(MapManager._map != null && MapManager.GetMap(_crystalPos)._crystalCore == null){
-            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._crystalParam._moveCost;
+            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._crystalParam._moveCost[_crystalRank];
             MapManager.GetMap(_crystalPos)._crystalCore = this;
         }
     }
@@ -68,17 +70,11 @@ public class CrystalCore:MonoBehaviour
 
     //クリスタル起動時のクリスタルステータスをセット
     public void SetCrystalStatus(CrystalParam _crystalParam){
+        this._crystalRank = 0;
         _crystalStatus = new CrystalStatus(_crystalParam);
         this.gameObject.GetComponent<Renderer>().material = _crystalParam._material;
-        _hp = new ReactiveProperty<int>();
-        //HPの最大値と現在のHPをセット
-        //this._maxHp = _crystalParam._maxHp;
-        this.Hp = _crystalParam._maxHp;
-        // //攻撃間隔のステータスをセット
-        // _crystalStatus._attackMaxCount = _crystalParam._attackMaxCount;
-        // //移動コスト
-        // _crystalStatus._moveCost = _crystalParam._moveCost;
-        
+        //現在のHPをセット
+        _hp = new ReactiveProperty<int>(_crystalParam._maxHp[_crystalRank]);
         //攻撃方法をセット
         Type classObj = Type.GetType(_crystalParam._crystalAttackName);
         _attack = (AttackBase)Activator.CreateInstance(classObj);

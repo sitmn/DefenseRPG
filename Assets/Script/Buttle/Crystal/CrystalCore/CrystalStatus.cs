@@ -2,28 +2,12 @@ public class CrystalStatus
 {
     //コンストラクタで新しいステータスをセット
     public CrystalStatus(CrystalParam _crystalParam){
+        this._crystalRank = 0;
         //攻撃用ステータス
-        this._attackStatus = new AttackStatus(_crystalParam._attack, _crystalParam._attackRange, _crystalParam._effectRate, _crystalParam._effectTime);
+        this._attackStatus = new AttackStatus(_crystalParam._attack[_crystalRank], _crystalParam._attackRange[_crystalRank], _crystalParam._effectRate[_crystalRank], _crystalParam._effectTime[_crystalRank]);
         //クリスタルパラメータのセット
         this._crystalParam = _crystalParam;
-        // //クリスタル名
-        // this._name = _crystalParam._crystalCoreName;
-        // //クリスタルの攻撃間隔
-        // this._attackMaxCount = _crystalParam._attackMaxCount;
         //効果間隔用のカウント
-        this._attackCount = 0;
-        // //攻撃力
-        // this._attack = _crystalParam._attack;
-        // //攻撃範囲
-        // this._attackRange = _crystalParam._attackRange;
-        // //特殊効果倍率
-        // this._effectRate = _crystalParam._effectRate;
-        // //特殊効果時間
-        // this._effectTime = _crystalParam._effectTime;
-        // //クリスタルの移動コスト(エネミーの移動経路探索用)
-        // this._moveCost = _crystalParam._moveCost;
-        // //クリスタル起動コスト
-        // this._launchCost = _crystalParam._launchCost;
         this._attackCount = 0;
     }
 
@@ -31,30 +15,21 @@ public class CrystalStatus
     public CrystalParam _crystalParam;
     //攻撃用ステータス
     public AttackStatus _attackStatus;
-    // //名前
-    // public string _name;
-    // //水晶の攻撃間隔
-    // public int _attackMaxCount;
-    // //攻撃力
-    // public int _attack;
-    // //攻撃範囲
-    // public int _attackRange;
-    // //特殊効果倍率
-    // public float _effectRate;
-    // //特殊効果時間
-    // public int _effectTime;
-    // //水晶の移動コスト(エネミーの移動経路探索用)
-    // public int _moveCost;
-    // //クリスタル起動時コスト
-    // public int _launchCost;
     //効果間隔用のカウント
     public int _attackCount;
+    //クリスタルのランク
+    public int _crystalRank;
+
+    //クリスタルランクのセット
+    public void SetCrystalRank(){
+        _crystalRank ++;
+    }
 
     //効果カウントのカウントと初期化
     public bool CountAttack(){
         _attackCount++;
         bool _attackLaunch = false;
-        if(_attackCount >= _crystalParam._attackMaxCount){
+        if(_attackCount >= _crystalParam._attackMaxCount[_crystalRank]){
             _attackCount = 0;
             _attackLaunch = true;
         }

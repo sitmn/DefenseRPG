@@ -15,67 +15,79 @@ MonoBehaviour:
   CrystalParamList:
   - _crystalCoreName: BlackCrystal
     _crystalAttackName: BlackCrystalAttack
-    _maxHp: 1
-    _attackMaxCount: 0
-    _attack: 0
-    _attackRange: 2
-    _effectRate: 0.1
-    _effectTime: 2
-    _moveCost: 20
-    _launchCost: 0
+    _maxHp: 05000000
+    _attackMaxCount: 1e000000
+    _attack: 00000000
+    _attackRange: 03000000
+    _effectRate:
+    - 0.2
+    _effectTime: 1e000000
+    _moveCost: 1e000000
+    _cost: 00000000
     _material: {fileID: 2100000, guid: 710018ad1caede346a571afb336b0698, type: 2}
   - _crystalCoreName: RedCrystal
     _crystalAttackName: RedCrystalAttack
-    _maxHp: 5
-    _attackMaxCount: 0
-    _attack: 5
-    _attackRange: 4
-    _effectRate: 0
-    _effectTime: 0
-    _moveCost: 4
-    _launchCost: 5
+    _maxHp: 0a0000001900000032000000
+    _attackMaxCount: 32000000280000001e000000
+    _attack: 050000000a0000000f000000
+    _attackRange: 040000000400000005000000
+    _effectRate:
+    - 0
+    - 0
+    - 0
+    _effectTime: 000000000000000000000000
+    _moveCost: 050000000500000005000000
+    _cost: 0a0000001e00000046000000
     _material: {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
   - _crystalCoreName: BlueCrystal
     _crystalAttackName: BlueCrystalAttack
-    _maxHp: 3
-    _attackMaxCount: 40
-    _attack: 1
-    _attackRange: 5
-    _effectRate: 0.5
-    _effectTime: 2
-    _moveCost: 6
-    _launchCost: 50
+    _maxHp: 050000000a0000000f000000
+    _attackMaxCount: 320000003200000032000000
+    _attack: 02000000050000000a000000
+    _attackRange: 030000000300000003000000
+    _effectRate:
+    - 0.3
+    - 0.5
+    - 0.7
+    _effectTime: 320000003200000032000000
+    _moveCost: 0a0000000a0000000a000000
+    _cost: 0a000000140000001e000000
     _material: {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
   - _crystalCoreName: GreenCrystal
     _crystalAttackName: GreenCrystalAttack
-    _maxHp: 1
-    _attackMaxCount: 0
-    _attack: 0
-    _attackRange: 3
-    _effectRate: 0.6
-    _effectTime: 1
-    _moveCost: 2
-    _launchCost: 3
+    _maxHp: 1e0000003200000064000000
+    _attackMaxCount: 1e0000001e0000001e000000
+    _attack: 000000000000000000000000
+    _attackRange: 030000000500000007000000
+    _effectRate:
+    - 0.3
+    - 0.4
+    - 0.5
+    _effectTime: 1e0000001e0000001e000000
+    _moveCost: 050000000400000003000000
+    _cost: 140000001e00000028000000
     _material: {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
   - _crystalCoreName: TestCrystal
     _crystalAttackName: TestCrystalAttack
-    _maxHp: 1
-    _attackMaxCount: 0
-    _attack: 0
-    _attackRange: 3
-    _effectRate: 0.6
-    _effectTime: 1
-    _moveCost: 2
-    _launchCost: 3
+    _maxHp: 00000000
+    _attackMaxCount: 00000000
+    _attack: 00000000
+    _attackRange: 00000000
+    _effectRate:
+    - 0
+    _effectTime: 00000000
+    _moveCost: 00000000
+    _cost: 00000000
     _material: {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
   - _crystalCoreName: TestCrystal
     _crystalAttackName: TestCrystalAttack
-    _maxHp: 1
-    _attackMaxCount: 0
-    _attack: 0
-    _attackRange: 3
-    _effectRate: 0.6
-    _effectTime: 1
-    _moveCost: 2
-    _launchCost: 3
+    _maxHp: 00000000
+    _attackMaxCount: 00000000
+    _attack: 00000000
+    _attackRange: 00000000
+    _effectRate:
+    - 0
+    _effectTime: 00000000
+    _moveCost: 00000000
+    _cost: 00000000
     _material: {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}

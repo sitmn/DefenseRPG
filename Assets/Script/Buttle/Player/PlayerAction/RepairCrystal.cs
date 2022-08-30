@@ -16,10 +16,6 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private bool _isAction;
 
     private int _repairCount;
-    // private int _repairMaxCount;
-    // private int _repairPoint;
-    // //修復にかかるコスト
-    // private int _repairActionCost;
     //アクションコスト
     private ActionCost _actionCost;
 
@@ -40,9 +36,6 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         _isAction = false;
         this._playerParam = _playerParam;
         _repairCount = 0;
-        // _repairMaxCount = _playerParam._repairMaxCount;
-        // _repairPoint = _playerParam._repairPoint;
-        // _repairActionCost = _playerParam._repairActionCost;
     }
 
     //入力中、徐々に正面のクリスタルを修復
@@ -54,8 +47,6 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
             RepairCrystalAction();
             //修復コスト消費
             _actionCost.ConsumeCrystalCost(_playerParam._repairActionCost);
-            //次回回復分のコストが不足していれば修復アクションを終了
-            //_isAction = EnoughActionCost();
         }
     }
 
