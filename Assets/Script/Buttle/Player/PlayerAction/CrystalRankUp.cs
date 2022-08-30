@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
-public class RepairCrystal : MonoBehaviour, IPlayerAction
+public class CrystalRankUp : MonoBehaviour, IPlayerAction
 {
     private PlayerInput _playerInput;
     private Transform _playerTr;
@@ -12,12 +12,6 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //クリスタル修復アクション中フラグ
     public bool IsAction => _isAction;
     private bool _isAction;
-
-    private int _repairCount;
-    private int _repairMaxCount;
-    private int _repairPoint;
-    //修復にかかるコスト
-    private int _repairActionCost;
     //アクションコスト
     private ActionCost _actionCost;
 
@@ -34,42 +28,33 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
 
     //初期パラメータのセット
     private void SetParam(PlayerParam _playerParam){
-        _isActive = false;
-        _isAction = false;
+        // _isActive = false;
+        // _isAction = false;
 
-        _repairCount = 0;
-        _repairMaxCount = _playerParam._repairMaxCount;
-        _repairPoint = _playerParam._repairPoint;
-        _repairActionCost = _playerParam._repairActionCost;
+        // _repairCount = 0;
+        // _repairMaxCount = _playerParam._repairMaxCount;
+        // _repairPoint = _playerParam._repairPoint;
+        // _repairActionCost = _playerParam._repairActionCost;
     }
 
-    //入力中、徐々に正面のクリスタルを修復
-    public void UpdateManager()
-    {
-        if(!_isAction) return;
+    public void UpdateManager(){
 
-        if(RepairCount()){
-            RepairCrystalAction();
-            //修復コスト消費
-            _actionCost.ConsumeCrystalCost(_repairActionCost);
-            //次回回復分のコストが不足していれば修復アクションを終了
-            //_isAction = EnoughActionCost();
-        }
+        //RankUp();
     }
 
     //回復アクションの有効化
     public void InputEnable(){
-        _playerInput.actions["Repair"].started += OnInputStart;
-        //_playerInput.actions["Repair"].performed += OnInputCompleted;
-        _playerInput.actions["Repair"].canceled += OnInputCanceled;
+        _playerInput.actions["RankUp"].started += OnInputStart;
+        _playerInput.actions["RankUp"].performed += OnInputCompleted;
+        _playerInput.actions["RankUp"].canceled += OnInputCanceled;
 
         _isActive = true;
     }
     //回復アクションの無効化
     public void InputDisable(){
-        _playerInput.actions["Repair"].started -= OnInputStart;
-        //_playerInput.actions["Repair"].performed -= OnInputCompleted;
-        _playerInput.actions["Repair"].canceled -= OnInputCanceled;
+        _playerInput.actions["RankUp"].started -= OnInputStart;
+        _playerInput.actions["RankUp"].performed -= OnInputCompleted;
+        _playerInput.actions["RankUp"].canceled -= OnInputCanceled;
 
         _isActive = false;
         _isAction = false;
@@ -97,7 +82,8 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
 
     //アクションコストが足りているか
     public bool EnoughActionCost(){
-        return _actionCost.EnoughCrystalCost(_repairActionCost);
+        //_actionCost.EnoughCrystalCost(_repairActionCost);
+        return true;
     }
     //コスト不足時処理
     public void ShortageActionCost(){
@@ -105,35 +91,43 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         return;
     }
 
-    //回復用カウント,Maxカウントまで長押しすれば回復
-    private bool RepairCount(){
-        bool _repairCountFlag = false;
-        _repairCount++;
-
-        if(_repairCount >= _repairMaxCount){
-            _repairCount = 0;
-            _repairCountFlag = true;
-        }
-
-        return _repairCountFlag;
+    //水晶の
+    private int RankUp(int _nowRank){
+        return 1;
     }
 
-    //正面の水晶を回復
-    private void RepairCrystalAction(){
-        //判定座標
-        Vector2Int _judgePos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
-        //正面に黒以外の水晶があれば回復
-        if(MapManager.GetMap(_judgePos)._crystalCore != null){
-            MapManager.GetMap(_judgePos)._crystalCore.Hp += _repairPoint;
-        }
-    }
-
-    //回復モーションスタート、回復フラグTrue、その間移動不可
+    //クリスタルrankUp開始
     private void OnInputStart(InputAction.CallbackContext context){
+        //起動中フラグ（移動不可）
         _isAction = true;
+        //起動モーション開始
+
+        //起動時間UI表示
+        
     }
-    //回復モーション終了、回復フラグFalse
-    private void OnInputCanceled(InputAction.CallbackContext context){
+
+    //クリスタルRankUp完了(長押し)
+    private void OnInputCompleted(InputAction.CallbackContext context){
+        //float _colorNo = context.ReadValue<float>();
+        Vector2Int _pos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
+        CrystalCore _crystalCore = MapManager.GetMap(_pos)._crystalCore;
+        //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
+        //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
+        //_crystalCore.SetCrystalStatus(_useCrystalParam);
+        
+        //クリスタルコストを消費
+        //_actionCost.ConsumeCrystalCost(_useCrystalParam._launchCost);
+        //起動時間UI非表示
+
+        //起動モーション終了、起動中フラグ取り消し
         _isAction = false;
+    }
+
+    //クリスタルRankUpキャンセル
+    private void OnInputCanceled(InputAction.CallbackContext context){
+        //起動モーション終了、起動中フラグ取り消し
+        _isAction = false;
+
+        //起動時間UI非表示
     }
 }

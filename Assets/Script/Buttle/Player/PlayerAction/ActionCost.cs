@@ -8,7 +8,7 @@ public class ActionCost : MonoBehaviour
 {
     //現在のコスト
     [System.NonSerialized]
-    public int _actionCost;
+    public int _cost;
     //増えていくコスト量
     private int _increaseActionCost;
     //コストが増える時間
@@ -21,7 +21,7 @@ public class ActionCost : MonoBehaviour
 
     //値の初期化
     private void SetParam(SystemParam _systemParam){
-        this._actionCost = _systemParam._initialActionCost;
+        this._cost = _systemParam._initialActionCost;
         this._increaseActionCost = _systemParam._increaseActionCost;
         this._increaseActionCostTime = _systemParam._increaseActionCostTime;
     }
@@ -30,17 +30,18 @@ public class ActionCost : MonoBehaviour
     private void CreateIncreaseCostStream(){
         Observable.Timer(System.TimeSpan.Zero, System.TimeSpan.FromSeconds(_increaseActionCostTime))
             .Subscribe((_) => {
-                _actionCost += _increaseActionCost;
+                _cost += _increaseActionCost;
             }).AddTo(this);
     }
 
     //コストが足りているか
     public bool EnoughCrystalCost(int _consumeActionCost){
-        Debug.Log(_actionCost + "-" + _consumeActionCost);
-        return _actionCost - _consumeActionCost >= 0;
+        Debug.Log(_cost + "-" + _consumeActionCost);
+        return _cost - _consumeActionCost >= 0;
     }
     //アクションによるコストの消費
     public void ConsumeCrystalCost(int _consumeActionCost){
-        _actionCost -= _consumeActionCost;
+        Debug.Log(_cost + "-" + _consumeActionCost);
+        _cost -= _consumeActionCost;
     }
 }

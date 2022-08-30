@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerCore : MonoBehaviour
 {
@@ -7,9 +8,7 @@ public class PlayerCore : MonoBehaviour
     [System.NonSerialized]
     public PlayerStatus _playerStatus;
     //プレイヤーアクション配列
-    private IPlayerAction[] _playerActionArr = new IPlayerAction[3];
-    //UseCrystalクラスのみのプレイヤーアクション配列
-    private IPlayerAction[] _useCrystalArr = new IPlayerAction[5];
+    private List<IPlayerAction> _playerActionList = new List<IPlayerAction>();
     [System.NonSerialized]
     public GameObject _speedBuff;
     [System.NonSerialized]
@@ -48,14 +47,14 @@ public class PlayerCore : MonoBehaviour
         _speedDebuff = transform.GetChild(1).gameObject;
 
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
-        //UseCrystalをインスタンス化し、各クリスタルステータスをセット（0は黒クリスタルのため+1）
-        for(int i = 0; i < _useCrystalArr.Length; i++){
-            _useCrystalArr[i] = new UseCrystal(_crystalParamData.CrystalParamList[i + 1], i + 1);
+        //UseCrystalをインスタンス化し、各クリスタルステータスをセット（0の黒クリスタルは含めないため1からスタート）
+        for(int i = 1; i < _crystalParamData.CrystalParamList.Count; i++){
+            _playerActionList.Add(new UseCrystal(_crystalParamData.CrystalParamList[i], i));
         }
-
-        _playerActionArr[0] = this.gameObject.GetComponent<LiftUpCrystal>();
-        _playerActionArr[1] = this.gameObject.GetComponent<LiftDownCrystal>();
-        _playerActionArr[2] = this.gameObject.GetComponent<RepairCrystal>();
+        //UseCrystal以外のPlayerActionをリストへ追加
+        _playerActionList.Add(this.gameObject.GetComponent<LiftUpCrystal>());
+        _playerActionList.Add(this.gameObject.GetComponent<LiftDownCrystal>());
+        _playerActionList.Add(this.gameObject.GetComponent<RepairCrystal>());
     }
 
     //Update処理
@@ -63,15 +62,9 @@ public class PlayerCore : MonoBehaviour
     {
         if(GameManager.GetIsGameOver()) return;
         //有効になっているプレイヤーアクションが実行できない状態の場合、無効化
-        foreach(var _playerAction in _playerActionArr){
-            if(_playerAction.ActiveFlag && !_playerAction.CanAction()){
+        foreach(var _playerAction in _playerActionList){
+            if(_playerAction.IsActive && (!_playerAction.CanAction() || !_playerAction.EnoughActionCost())){
                 _playerAction.InputDisable();
-            }
-        }
-        //有効になっているプレイヤーアクション（UseCrystal）が実行できない状態の場合、無効化
-        foreach(var _useCrystal in _useCrystalArr){
-            if(_useCrystal.ActiveFlag && (!_useCrystal.CanAction() || !_useCrystal.EnoughActionCost())){
-                _useCrystal.InputDisable();
             }
         }
         
@@ -82,27 +75,16 @@ public class PlayerCore : MonoBehaviour
             return;
         }else{
             //アクション中なら以降の処理をスキップ
-            foreach(var _playerAction in _playerActionArr){
-                if(_playerAction.ActionFlag) return;
+            foreach(var _playerAction in _playerActionList){
+                if(_playerAction.IsAction) return;
             }
             //行動していないとき、アクション可能であれば入力を有効化
-            foreach(var _playerAction in _playerActionArr){
-                if(!_playerAction.ActiveFlag && _playerAction.CanAction()){
+            foreach(var _playerAction in _playerActionList){
+                if(!_playerAction.IsActive && _playerAction.CanAction()){
                     if(_playerAction.EnoughActionCost()){
                         _playerAction.InputEnable();
                     }else{
                         _playerAction.ShortageActionCost();
-                    }
-                    
-                }
-            }
-            //UseCrystalの有効化
-            foreach(var _useCrystal in _useCrystalArr){
-                if(!_useCrystal.ActiveFlag && _useCrystal.CanAction()){
-                    if(_useCrystal.EnoughActionCost()){
-                        _useCrystal.InputEnable();
-                    }else{
-                        _useCrystal.ShortageActionCost();
                     }
                     
                 }
@@ -120,8 +102,8 @@ public class PlayerCore : MonoBehaviour
 
     //プレイヤーアクションを無効化
     public void InputInvalid(){
-        foreach(var _playerAction in _playerActionArr){
-            if(_playerAction.ActiveFlag) _playerAction.InputDisable();
+        foreach(var _playerAction in _playerActionList){
+            if(_playerAction.IsActive) _playerAction.InputDisable();
         }
     }
 }

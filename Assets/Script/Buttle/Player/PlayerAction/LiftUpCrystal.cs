@@ -6,19 +6,19 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
 {
     private PlayerInput _playerInput;
     private Transform _playerTr;
-    //水晶リフトアップアクションの有効無効状態
-    public bool ActiveFlag => _activeFlag;
-    private bool _activeFlag;
-    //水晶リフトアップ中フラグ
-    public bool ActionFlag => _actionFlag;
-    private bool _actionFlag;
+    //クリスタルリフトアップアクションの有効無効状態
+    public bool IsActive => _isActive;
+    private bool _isActive;
+    //クリスタルリフトアップ中フラグ
+    public bool IsAction => _isAction;
+    private bool _isAction;
     
     //クラスの初期化
     public void AwakeManager(PlayerParam _playerParam){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
-        _activeFlag = false;
-        _actionFlag = false;
+        _isActive = false;
+        _isAction = false;
     }
 
     //リフトアップ中のクリスタルをプレイヤー移動に合わせて移動
@@ -33,7 +33,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         _playerInput.actions["LiftUp"].started += OnInputStart;
         _playerInput.actions["LiftUp"].performed += OnInputComplete;
         _playerInput.actions["LiftUp"].canceled += OnInputEnd;
-        _activeFlag = true;
+        _isActive = true;
     }
 
     //リフトアップアクション入力の無効化
@@ -42,7 +42,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         _playerInput.actions["LiftUp"].started -= OnInputStart;
         _playerInput.actions["LiftUp"].performed -= OnInputComplete;
         _playerInput.actions["LiftUp"].canceled -= OnInputEnd;
-        _activeFlag = false;
+        _isActive = false;
     }
 
     //アクションが実行可能な状態か
@@ -70,7 +70,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトアップ開始
     private void OnInputStart(InputAction.CallbackContext context){
         //リフトアップ中フラグ（移動不可）
-        _actionFlag = true;
+        _isAction = true;
         //リフトアップモーション開始
 
         //起動時間UI表示
@@ -92,13 +92,13 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         //起動時間UI非表示
 
         //リフトアップモーション終了、リフトアップ中フラグ取り消し
-        _actionFlag = false;
+        _isAction = false;
     }
 
     //クリスタルリフトアップキャンセル
     private void OnInputEnd(InputAction.CallbackContext context){
         //リフトアップモーション終了、リフトアップ中フラグ取り消し
-        _actionFlag = false;
+        _isAction = false;
 
         //起動時間UI非表示
     }

@@ -6,13 +6,13 @@ public class UseCrystal : IPlayerAction
 {
     private PlayerInput _playerInput;
     private Transform _playerTr;
-    //水晶起動アクションの有効無効状態
-    public bool ActiveFlag => _activeFlag;
-    private bool _activeFlag;
-    //水晶起動中フラグ
-    public bool ActionFlag => _actionFlag;
-    private bool _actionFlag;
-    //起動水晶色変え用マテリアル
+    //クリスタル起動アクションの有効無効状態
+    public bool IsActive => _isActive;
+    private bool _isActive;
+    //クリスタル起動中フラグ
+    public bool IsAction => _isAction;
+    private bool _isAction;
+    //起動クリスタル色変え用マテリアル
     private CrystalStatus[] _setCrystalStatus = new CrystalStatus[3];
     //起動するクリスタルのパラメータ
     private CrystalParam _useCrystalParam;
@@ -27,8 +27,8 @@ public class UseCrystal : IPlayerAction
         _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
         this._useCrystalParam = _crystalParam;
         this._useCrystalNo = _useCrystalNo;
-        _activeFlag = false;
-        _actionFlag = false;
+        _isActive = false;
+        _isAction = false;
     }
 
     //クラスの初期化
@@ -48,7 +48,7 @@ public class UseCrystal : IPlayerAction
         _playerInput.actions[_useCrystalActionNo].started += OnInputStart;
         _playerInput.actions[_useCrystalActionNo].performed += OnInputComplete;
         _playerInput.actions[_useCrystalActionNo].canceled += OnInputEnd;
-        _activeFlag = true;
+        _isActive = true;
     }
 
     //アクションの入力を無効に切り替え
@@ -58,7 +58,7 @@ public class UseCrystal : IPlayerAction
         _playerInput.actions[_useCrystalActionNo].started -= OnInputStart;
         _playerInput.actions[_useCrystalActionNo].performed -= OnInputComplete;
         _playerInput.actions[_useCrystalActionNo].canceled -= OnInputEnd;
-        _activeFlag = false;
+        _isActive = false;
     }
 
     //アクションが実行可能な状態か
@@ -86,7 +86,7 @@ public class UseCrystal : IPlayerAction
     //クリスタル起動開始
     private void OnInputStart(InputAction.CallbackContext context){
         //起動中フラグ（移動不可）
-        _actionFlag = true;
+        _isAction = true;
         //起動モーション開始
 
         //起動時間UI表示
@@ -109,13 +109,13 @@ public class UseCrystal : IPlayerAction
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し
-        _actionFlag = false;
+        _isAction = false;
     }
 
     //クリスタル起動キャンセル
     private void OnInputEnd(InputAction.CallbackContext context){
         //起動モーション終了、起動中フラグ取り消し
-        _actionFlag = false;
+        _isAction = false;
 
         //起動時間UI非表示
     }

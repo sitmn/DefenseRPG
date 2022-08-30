@@ -1,9 +1,9 @@
 public interface IPlayerAction
 {
     //アクション中フラグ
-    public bool ActionFlag{get;}
+    public bool IsAction{get;}
     //アクション有効化フラグ
-    public bool ActiveFlag{get;}
+    public bool IsActive{get;}
     //クラスの初期化
     public void AwakeManager(PlayerParam _playerParam);
     public void UpdateManager();
