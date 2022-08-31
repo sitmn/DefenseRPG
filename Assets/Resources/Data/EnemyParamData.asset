@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyParamList:
   - _enemyName: Enemy1
-    _maxHp: 20
-    _attackMaxCount: 30
-    _attack: 1
-    _attackRange: 1
-    _effectRate: 0
-    _effectTime: 0
-    _moveSpeed: 1
-    _searchDestination: 10
+    _maxHp: e8030000
+    _attackMaxCount: 1e000000
+    _attack: 02000000
+    _attackRange: 01000000
+    _effectRate:
+    - 0
+    _effectTime: 00000000
+    _moveSpeed:
+    - 1
+    _searchDestination: 0a000000

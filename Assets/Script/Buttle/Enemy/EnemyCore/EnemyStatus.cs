@@ -1,17 +1,15 @@
 using UnityEngine;
 using System.Threading;
 
-public class EnemyStatus
+public class EnemyStatus : StatusBase
 {
     //エネミーパラメータ
     public EnemyParam _enemyParam;
-    //攻撃用ステータス
-    public AttackStatus _attackStatus;
     public int _attackCount;
     public float GetMoveSpeed
     {
         get{
-            return _enemyParam._moveSpeed * (1 + _moveSpeedUp - _moveSpeedDown);
+            return _enemyParam._moveSpeed[_level] * (1 + _moveSpeedUp - _moveSpeedDown);
         }
     }
     //バフ用変数
@@ -22,10 +20,13 @@ public class EnemyStatus
     public CancellationTokenSource _cancelSpeedDebuffToken = new CancellationTokenSource();
 
     public EnemyStatus(EnemyParam _enemyParam){
+        //レベルセット
+        this._level = 0;
         //エネミーパラメータのセット
         this._enemyParam = _enemyParam;
+        //Debug.Log(_enemyParam._attackStatus._attack[0] + "AAA");
         //攻撃用ステータス
-        this._attackStatus = new AttackStatus(_enemyParam._attack, _enemyParam._attackRange, _enemyParam._effectRate, _enemyParam._effectTime);
+        this._attackStatus = _enemyParam._attackStatus;
         this._attackCount = 0;
     }
 
@@ -33,7 +34,7 @@ public class EnemyStatus
     public bool CountAttack(){
         _attackCount++;
         bool _attackLaunch = false;
-        if(_attackCount >= _enemyParam._attackMaxCount){
+        if(_attackCount >= _enemyParam._attackMaxCount[_level]){
             _attackCount = 0;
             _attackLaunch = true;
         }

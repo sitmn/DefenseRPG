@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class GreenCrystalAttack : AttackBase
 {
-    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus)
+    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, StatusBase _status)
     {
-        DoAttack<PlayerCore>(_centerPos, _fowardDir, _attackStatus);
+        DoAttack<PlayerCore>(_centerPos, _fowardDir, _status);
     }
     // 攻撃対象をreturn
     protected override List<PlayerCore> DecideAttackTarget<PlayerCore>(Vector2Int _centerPos, Vector2Int _forwardDir, int _attackRange){
@@ -22,7 +22,7 @@ public class GreenCrystalAttack : AttackBase
 
     }
     //効果適用
-    protected override void ApplyEffect<T>(T _applyCore, AttackStatus _attackStatus){
-        if(typeof(T) == typeof(PlayerCore)) StatusUpDown.ApplySpeedBuff<T>(_applyCore, _attackStatus);
+    protected override void ApplyEffect<T>(T _applyCore, StatusBase _status){
+        if(typeof(T) == typeof(PlayerCore)) StatusUpDown.ApplySpeedBuff<T>(_applyCore, _status);
     }
 }

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class BlueCrystalAttack : AttackBase
 {
-    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus)
+    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, StatusBase _status)
     {
-        DoAttack<EnemyCoreBase>(_centerPos, _fowardDir, _attackStatus);
+        DoAttack<EnemyCoreBase>(_centerPos, _fowardDir, _status);
     }
 
     // 攻撃対象をreturn
@@ -25,7 +25,7 @@ public class BlueCrystalAttack : AttackBase
         if(typeof(T) == typeof(CrystalCore)) ((CrystalCore)(object)_applyCore).Hp -= _damage;
     }
     //効果適用
-    protected override void ApplyEffect<T>(T _applyCore, AttackStatus _attackStatus){
-        if(typeof(T) == typeof(EnemyCoreBase)) StatusUpDown.ApplySpeedDebuff<T>(_applyCore, _attackStatus);
+    protected override void ApplyEffect<T>(T _applyCore, StatusBase _status){
+        if(typeof(T) == typeof(EnemyCoreBase)) StatusUpDown.ApplySpeedDebuff<T>(_applyCore, _status);
     }
 }

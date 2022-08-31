@@ -9,8 +9,8 @@ public abstract class EnemyCoreBase:MonoBehaviour
             return _hp.Value;
         }
         set{
-            if(value > _enemyStatus._enemyParam._maxHp){
-                _hp.Value = _enemyStatus._enemyParam._maxHp;
+            if(value > _enemyStatus._enemyParam._maxHp[_enemyStatus._level]){
+                _hp.Value = _enemyStatus._enemyParam._maxHp[_enemyStatus._level];
             }else{
                 _hp.Value = value;
             }
@@ -51,7 +51,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         CreateEnemyPosStream();
         CreateHPStream();
         //移動経路をセット
-        _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._enemyParam._searchDestination);
+        _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._enemyParam._searchDestination[_enemyStatus._level]);
     }
 
     //コンポーネントセット
@@ -64,22 +64,21 @@ public abstract class EnemyCoreBase:MonoBehaviour
 
     //値の初期化
     private void SetParam(EnemyParam _enemyParamData){
+        //エネミーステータスのセット
+        _enemyStatus = new EnemyStatus(_enemyParamData);
         //バフオブジェクトの取得
         _speedDebuff = transform.GetChild(0).gameObject;
         _speedBuff = transform.GetChild(1).gameObject;
         //攻撃方法のセット
         _attack = new EnemyAttack();
-        //エネミーステータスのセット
-        _hp = new ReactiveProperty<int>(_enemyParamData._maxHp);
-        _enemyStatus = new EnemyStatus(_enemyParamData);
-        // _maxHp = _enemyParamData._maxHp;
+        //HPをセット
+        _hp = new ReactiveProperty<int>(_enemyParamData._maxHp[_enemyStatus._level]);
     }
 
     //Hp用ストリーム
     private void CreateHPStream(){
         _hp.Subscribe((x) => {
             if(x <= 0) {
-                Debug.Log(x + "A");
                 ObjectDestroy();}
         }).AddTo(this);
     }
@@ -102,7 +101,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
         //移動経路の更新
-        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._enemyParam._searchDestination);
+        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._enemyParam._searchDestination[_enemyStatus._level]);
         
         }).AddTo(this);
     }

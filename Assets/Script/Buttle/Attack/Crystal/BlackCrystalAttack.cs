@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class BlackCrystalAttack : AttackBase
 {
-    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus)
+    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, StatusBase _status)
     {
-        DoAttack<EnemyCoreBase>(_centerPos, _fowardDir, _attackStatus);
+        DoAttack<EnemyCoreBase>(_centerPos, _fowardDir, _status);
     }
 
     // 攻撃対象をreturn
@@ -24,7 +24,7 @@ public class BlackCrystalAttack : AttackBase
 
     }
     //効果適用
-    protected override void ApplyEffect<T>(T _applyCore, AttackStatus _attackStatus){
-        if(typeof(T) == typeof(EnemyCoreBase)) StatusUpDown.ApplySpeedBuff<T>(_applyCore, _attackStatus);
+    protected override void ApplyEffect<T>(T _applyCore, StatusBase _status){
+        if(typeof(T) == typeof(EnemyCoreBase)) StatusUpDown.ApplySpeedBuff<T>(_applyCore, _status);
     }
 }

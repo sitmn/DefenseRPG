@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
         _systemParamData = Resources.Load("Data/SystemParamData") as SystemParamAsset;
+        //上記とは別にアタックステータスクラスをインスタンス化
+        _enemyParamData.SetAttackStatus();
+        _crystalParamData.SetAttackStatus();
     }
     private void InitializeComponent(){
         _actionCost = _playerCore.GetComponent<ActionCost>();
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
         _playerActionList.Add(_playerCore.GetComponent<LiftUpCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<LiftDownCrystal>());
         _playerActionList.Add(_playerCore.GetComponent<RepairCrystal>());
+        _playerActionList.Add(_playerCore.GetComponent<CrystalRankUp>());
     }
 
     //各クラスのAwakeをコール
@@ -78,7 +82,7 @@ public class GameManager : MonoBehaviour
         }
         _crystalListCore.UpdateManager();
         _enemyListCore.UpdateManager();
-        _stageMove.UpdateManager(); 
+        //_stageMove.UpdateManager(); 
         _cameraController.UpdateManager();
     }
 

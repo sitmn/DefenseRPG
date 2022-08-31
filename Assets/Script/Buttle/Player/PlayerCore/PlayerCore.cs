@@ -55,6 +55,7 @@ public class PlayerCore : MonoBehaviour
         _playerActionList.Add(this.gameObject.GetComponent<LiftUpCrystal>());
         _playerActionList.Add(this.gameObject.GetComponent<LiftDownCrystal>());
         _playerActionList.Add(this.gameObject.GetComponent<RepairCrystal>());
+        _playerActionList.Add(this.gameObject.GetComponent<CrystalRankUp>());
     }
 
     //Update処理

@@ -10,7 +10,7 @@ public class EnemyCore : EnemyCoreBase
         if(CanAttack()){ //移動先にクリスタルがある場合攻撃
             Attack();
             //攻撃カウントが0の時（攻撃したとき、再度経路探索実施）
-            if(_enemyStatus._attackCount == 0) _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._enemyParam._searchDestination);
+            if(_enemyStatus._attackCount == 0) _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._enemyParam._searchDestination[_enemyStatus._level]);
         }else{
             //移動先にクリスタルがない場合。エネミーの移動
             _enemyMove.Move(_enemyPos.Value, _enemyStatus.GetMoveSpeed);
@@ -34,6 +34,6 @@ public class EnemyCore : EnemyCoreBase
 
     //敵が水晶を攻撃
     protected override void Attack(){
-        if(_enemyStatus.CountAttack()) _attack.Attack(_enemyPos.Value, new Vector2Int((int)_enemyTr.forward.x, (int)_enemyTr.forward.z), _enemyStatus._attackStatus);
+        if(_enemyStatus.CountAttack()) _attack.Attack(_enemyPos.Value, new Vector2Int((int)_enemyTr.forward.x, (int)_enemyTr.forward.z), _enemyStatus);
     }
 }

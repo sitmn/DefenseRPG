@@ -4,6 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CrystalParamData", menuName = "ScriptableObjects/CreateCrystalParamAsset")]
 public class CrystalParamAsset : ScriptableObject{
     public List<CrystalParam> CrystalParamList = new List<CrystalParam>();
+    //AttackStatusをインスタンス化
+    public void SetAttackStatus(){
+        for(int i = 0; i < CrystalParamList.Count; i++){
+            CrystalParamList[i]._attackStatus = new AttackStatus(CrystalParamList[i]._attack, CrystalParamList[i]._attackRange, CrystalParamList[i]._effectRate, CrystalParamList[i]._effectTime);
+        }
+    }
 }
 
 [System.Serializable]
@@ -41,4 +47,6 @@ public class CrystalParam{
     //クリスタルのマテリアル
     [SerializeField]
     public Material _material;
+    //攻撃関連のステータス
+    public AttackStatus _attackStatus;
 }

@@ -41,7 +41,6 @@ public class ActionCost : MonoBehaviour
     }
     //アクションによるコストの消費
     public void ConsumeCrystalCost(int _consumeActionCost){
-        Debug.Log(_cost + "-" + _consumeActionCost);
         _cost -= _consumeActionCost;
     }
 }

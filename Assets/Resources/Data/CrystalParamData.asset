@@ -37,7 +37,7 @@ MonoBehaviour:
     - 0
     _effectTime: 000000000000000000000000
     _moveCost: 050000000500000005000000
-    _cost: 0a0000001e00000046000000
+    _cost: 0a0000000500000014000000
     _material: {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
   - _crystalCoreName: BlueCrystal
     _crystalAttackName: BlueCrystalAttack

@@ -4,6 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyParamData", menuName = "ScriptableObjects/CreateEnemyParamAsset")]
 public class EnemyParamAsset : ScriptableObject{
     public List<EnemyParam> EnemyParamList = new List<EnemyParam>();
+
+    //AttackStatusをインスタンス化
+    public void SetAttackStatus(){
+        for(int i = 0; i < EnemyParamList.Count; i++){
+            EnemyParamList[i]._attackStatus = new AttackStatus(EnemyParamList[i]._attack, EnemyParamList[i]._attackRange, EnemyParamList[i]._effectRate, EnemyParamList[i]._effectTime);
+        }
+    }
 }
 
 [System.Serializable]
@@ -13,26 +20,28 @@ public class EnemyParam{
     public string _enemyName;
     //最大HP
     [SerializeField]
-    public int _maxHp;
+    public List<int> _maxHp;
     //攻撃間隔
     [SerializeField]
-    public int _attackMaxCount;
+    public List<int> _attackMaxCount;
     //攻撃力
     [SerializeField]
-    public int _attack;
+    public List<int> _attack;
     //攻撃範囲
     [SerializeField]
-    public int _attackRange;
+    public List<int> _attackRange;
     //効果倍率
     [SerializeField]
-    public float _effectRate;
+    public List<float> _effectRate;
     //効果時間
     [SerializeField]
-    public int _effectTime;
+    public List<int> _effectTime;
     //移動速度
     [SerializeField]
-    public float _moveSpeed;
+    public List<float> _moveSpeed;
     //索敵範囲
     [SerializeField]
-    public int _searchDestination;
+    public List<int> _searchDestination;
+    //攻撃関連のステータス
+    public AttackStatus _attackStatus;
 }

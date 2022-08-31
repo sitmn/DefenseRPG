@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Launch",
+                    "name": "RankUp",
                     "type": "Button",
                     "id": "b095c378-3601-4e6a-9a8e-921105da62d0",
                     "expectedControlType": "Button",
@@ -166,33 +166,11 @@
                 {
                     "name": "",
                     "id": "19443d8e-6037-4de9-807d-b25c12e8e577",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/v",
                     "interactions": "Hold(duration=1)",
                     "processors": "Scale",
                     "groups": "",
-                    "action": "Launch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fab31d72-7438-46cd-8500-f56ba8d51065",
-                    "path": "<Keyboard>/2",
-                    "interactions": "Hold(duration=1)",
-                    "processors": "Scale(factor=2)",
-                    "groups": "",
-                    "action": "Launch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f0e804ea-3b9c-4966-be87-ca3ebd9f5404",
-                    "path": "<Keyboard>/3",
-                    "interactions": "Hold(duration=1)",
-                    "processors": "Scale(factor=3)",
-                    "groups": "",
-                    "action": "Launch",
+                    "action": "RankUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

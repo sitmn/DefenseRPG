@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class EnemyAttack : AttackBase
 {
-    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, AttackStatus _attackStatus)
+    public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, StatusBase _status)
     {
-        DoAttack<CrystalCore>(_centerPos, _fowardDir, _attackStatus);
+        DoAttack<CrystalCore>(_centerPos, _fowardDir, _status);
     }
     // 攻撃対象をreturn
     protected override List<T> DecideAttackTarget<T>(Vector2Int _centerPos, Vector2Int _forwardDir, int _attackRange){
@@ -23,7 +23,7 @@ public class EnemyAttack : AttackBase
         if(typeof(T) == typeof(CrystalCore)) ((CrystalCore)(object)_applyCore).Hp -= _damage;
     }
     //効果適用
-    protected override void ApplyEffect<T>(T _applyCore, AttackStatus _attackStatus){
+    protected override void ApplyEffect<T>(T _applyCore, StatusBase _status){
 
     }
 }
