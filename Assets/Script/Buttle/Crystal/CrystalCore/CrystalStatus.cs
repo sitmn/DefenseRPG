@@ -1,3 +1,5 @@
+using System;
+using UnityEngine;
 public class CrystalStatus : StatusBase
 {
     //コンストラクタで新しいステータスをセット

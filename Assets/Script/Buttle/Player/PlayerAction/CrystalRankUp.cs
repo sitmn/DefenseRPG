@@ -45,7 +45,6 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         _playerInput.actions["RankUp"].performed += OnInputCompleted;
         _playerInput.actions["RankUp"].canceled += OnInputCanceled;
 
-    Debug.Log("EEE");
         _isActive = true;
     }
     //回復アクションの無効化
@@ -86,6 +85,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
 
         if(_crystalStatus != null && _crystalStatus._level < _max_level - 1){
             //RankUpのコストが足りているか
+            Debug.Log(_crystalStatus._crystalParam._cost.Count);
             _isEnouughCost = _actionCost.EnoughCrystalCost(_crystalStatus._crystalParam._cost[_crystalStatus._level + 1]);
         }
         return _isEnouughCost;
@@ -95,7 +95,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     private CrystalStatus GetFowardCrystalStatus(){
         CrystalStatus _crystalStatus = null;
         //正面のクリスタルに対して
-        Vector2Int _crystalPos = MapManager.CastMapPos(_playerTr.position) + new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z); 
+        Vector2Int _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_playerTr.position).x), MapManager.CastMapPos(_playerTr.position).y) + new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z); 
         if(MapManager.GetMap(_crystalPos)._crystalCore != null) _crystalStatus = MapManager.GetMap(_crystalPos)._crystalCore._crystalStatus;
 
         return _crystalStatus;

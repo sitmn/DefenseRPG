@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         }
         _crystalListCore.UpdateManager();
         _enemyListCore.UpdateManager();
-        //_stageMove.UpdateManager(); 
+        _stageMove.UpdateManager(); 
         _cameraController.UpdateManager();
     }
 
