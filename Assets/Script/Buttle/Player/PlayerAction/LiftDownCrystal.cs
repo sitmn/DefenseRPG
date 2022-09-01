@@ -56,7 +56,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCoreBase> _crystalCoreList = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return MapManager.IsOutOfReference(MapManager.GetPlayerPos() + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null);
     }
 

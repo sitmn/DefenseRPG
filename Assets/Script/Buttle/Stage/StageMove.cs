@@ -107,7 +107,7 @@ public class StageMove : MonoBehaviour
 
     //ステージ最後列のオブジェクト（エネミーとクリスタル）を全て削除 削除列へ移動しようとしているエネミーも削除
     private void DeleteObjInLastRow(){
-        List<CrystalCore> _crystalCoreList = new List<CrystalCore>();
+        List<CrystalCoreBase> _crystalCoreList = new List<CrystalCoreBase>();
         List<EnemyCoreBase> _enemyCoreList = new List<EnemyCoreBase>();
 
         //削除前に別のリストに入れる（削除時、リストをRemoveするため）
@@ -127,8 +127,8 @@ public class StageMove : MonoBehaviour
             }
         }
         //ステージ外になるオブジェクトを全て削除
-        foreach(CrystalCore __crystalCoreObj in _crystalCoreList){
-            __crystalCoreObj.ObjectDestroy();
+        foreach(CrystalCoreBase _crystalCoreObj in _crystalCoreList){
+            _crystalCoreObj.ObjectDestroy();
         }
         foreach(EnemyCoreBase _enemyCoreObj in _enemyCoreList){
             _enemyCoreObj.ObjectDestroy();
@@ -212,7 +212,7 @@ public class StageMove : MonoBehaviour
             GameObject _crystal = Instantiate(_crystalPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
             _crystal.transform.parent = _crystalParent.transform;
             //生成したクリスタルを管理しているリストにセット
-            CrystalListCore.SetCrystalCoreInList(_crystal.GetComponent<CrystalCore>(), _crystalParamData.CrystalParamList[0]);
+            CrystalListCore.SetCrystalCoreInList(_crystal.GetComponent<CrystalCoreBase>(), _crystalParamData.CrystalParamList[0]);
         }
         
         //ランダムな数字を敵生成数分取得(生成に位置の重複がないよう使用したリストは削除)

@@ -7,9 +7,10 @@ using UniRx;
 //アクションを実行するためのコスト
 public class ActionCost : MonoBehaviour
 {
-    /**画面表示テスト**/
+    /**☆画面表示テスト**/
     [SerializeField]
     private Text _text;
+    /*****************/
 
     //現在のコスト
     [System.NonSerialized]
@@ -43,7 +44,7 @@ public class ActionCost : MonoBehaviour
     private void CreateIncreaseCostStream(){
         Observable.Timer(System.TimeSpan.Zero, System.TimeSpan.FromSeconds(_increaseActionCostTime))
             .Subscribe((_) => {
-                IncreaseActionCost();
+                IncreaseCrystalCost(_increaseActionCost);
             }).AddTo(this);
     }
 
@@ -56,10 +57,10 @@ public class ActionCost : MonoBehaviour
         _cost.Value -= _consumeActionCost;
     }
 
-    //コストを自動回復
-    private void IncreaseActionCost(){
+    //コストを回復
+    private void IncreaseCrystalCost(int _increaseCost){
         //コストの自動回復
-        _cost.Value += _increaseActionCost;
+        _cost.Value += _increaseCost;
     }
 
     //コスト画面表示

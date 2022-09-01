@@ -54,7 +54,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1); 
+        List<CrystalCoreBase> _crystalCoreList = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1); 
         return _crystalCoreList.Count != 0 && _crystalCoreList[0] != null;
     }
 
@@ -80,7 +80,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトアップ完了(長押し)
     private void OnInputComplete(InputAction.CallbackContext context){
         Vector2Int _judgePos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
-        CrystalCore _crystalCore = MapManager.GetMap(_judgePos)._crystalCore as CrystalCore;
+        CrystalCoreBase _crystalCore = MapManager.GetMap(_judgePos)._crystalCore as CrystalCoreBase;
         Transform _crystalTr = MapManager.GetMap(_judgePos)._crystalCore.gameObject.GetComponent<Transform>();
         //Lift中Objを格納
         PlayerCore.SetLiftCrystal(_crystalCore, _crystalTr);

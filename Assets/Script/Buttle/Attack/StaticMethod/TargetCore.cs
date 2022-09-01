@@ -80,7 +80,7 @@ public class TargetCore
                 }
             }
         }//対象がクリスタルの場合,クリスタルを取得
-        else if(typeof(T) == typeof(CrystalCore)){
+        else if(typeof(T) == typeof(CrystalCoreBase)){
             if(MapManager.GetMap(_judgePos)._crystalCore != null/* && MapManager._map[StageMove.UndoElementStageMove(_judgePos.x) , _judgePos.y].obj[0].GetType().Name == "EnemyController"*/){
                 var _crystalCore = (T)(object)MapManager.GetMap(_judgePos)._crystalCore;
                 _coreList.Add(_crystalCore);

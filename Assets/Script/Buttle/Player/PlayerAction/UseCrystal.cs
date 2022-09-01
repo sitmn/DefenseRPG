@@ -79,7 +79,7 @@ public class UseCrystal : IPlayerAction
     //正面に黒クリスタルがあるか
     private bool BlackCrystalCheck(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCoreBase> _crystalCoreList = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._crystalParam._crystalCoreName == "BlackCrystal";
     }
 
@@ -97,7 +97,7 @@ public class UseCrystal : IPlayerAction
     private void OnInputComplete(InputAction.CallbackContext context){
         //float _colorNo = context.ReadValue<float>();
         Vector2Int _pos = new Vector2Int(MapManager.GetPlayerPos().x + (int)_playerTr.forward.x, MapManager.GetPlayerPos().y + (int)_playerTr.forward.z);
-        CrystalCore _crystalCore = MapManager.GetMap(_pos)._crystalCore;
+        CrystalCoreBase _crystalCore = MapManager.GetMap(_pos)._crystalCore;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
         _crystalCore.SetCrystalStatus(_useCrystalParam);

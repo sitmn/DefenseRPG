@@ -74,5 +74,5 @@ public class Map{
     public int _moveCost;
     //マスに何があるか（エネミー、水晶）
     public List<EnemyCoreBase> _enemyCoreList;
-    public CrystalCore _crystalCore;
+    public CrystalCoreBase _crystalCore;
 }

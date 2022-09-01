@@ -21,7 +21,7 @@ public class RedCrystalAttack : AttackBase
     //ダメージ適用
     protected override void ApplyDamage<T>(T _applyCore, int _damage){
         if(typeof(T) == typeof(EnemyCoreBase)) ((EnemyCoreBase)(object)_applyCore).Hp -= _damage;
-        if(typeof(T) == typeof(CrystalCore)) ((CrystalCore)(object)_applyCore).Hp -= _damage;
+        if(typeof(T) == typeof(CrystalCoreBase)) ((CrystalCoreBase)(object)_applyCore).Hp -= _damage;
     }
     //効果適用
     protected override void ApplyEffect<T>(T _applyCore, StatusBase _status){

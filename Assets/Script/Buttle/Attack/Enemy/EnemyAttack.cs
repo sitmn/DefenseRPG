@@ -5,7 +5,7 @@ public class EnemyAttack : AttackBase
 {
     public override void Attack(Vector2Int _centerPos, Vector2Int _fowardDir, StatusBase _status)
     {
-        DoAttack<CrystalCore>(_centerPos, _fowardDir, _status);
+        DoAttack<CrystalCoreBase>(_centerPos, _fowardDir, _status);
     }
     // 攻撃対象をreturn
     protected override List<T> DecideAttackTarget<T>(Vector2Int _centerPos, Vector2Int _forwardDir, int _attackRange){
@@ -20,9 +20,9 @@ public class EnemyAttack : AttackBase
     }
     //ダメージ適用
     protected override void ApplyDamage<T>(T _applyCore, int _damage){
-        if(typeof(T) == typeof(CrystalCore)){
-            Debug.Log(((CrystalCore)(object)_applyCore).Hp - _damage);
-            ((CrystalCore)(object)_applyCore).Hp -= _damage;
+        if(typeof(T) == typeof(CrystalCoreBase)){
+            Debug.Log(((CrystalCoreBase)(object)_applyCore).Hp - _damage);
+            ((CrystalCoreBase)(object)_applyCore).Hp -= _damage;
         }
     }
     //効果適用

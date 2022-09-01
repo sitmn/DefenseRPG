@@ -14,8 +14,8 @@ public class PlayerCore : MonoBehaviour
     [System.NonSerialized]
     public GameObject _speedDebuff;
     //リフト中のクリスタルオブジェクト
-    public static CrystalCore _liftCrystalCore;
-    public static CrystalCore GetLiftCrystalCore(){
+    public static CrystalCoreBase _liftCrystalCore;
+    public static CrystalCoreBase GetLiftCrystalCore(){
         return _liftCrystalCore;
     }
     
@@ -24,7 +24,7 @@ public class PlayerCore : MonoBehaviour
         return _liftCrystalTr;
     }
     //リフト中のクリスタル情報をセット
-    public static void SetLiftCrystal(CrystalCore _crystalCore, Transform _crystalTr){
+    public static void SetLiftCrystal(CrystalCoreBase _crystalCore, Transform _crystalTr){
         _liftCrystalCore = _crystalCore;
         _liftCrystalTr = _crystalTr;
     }

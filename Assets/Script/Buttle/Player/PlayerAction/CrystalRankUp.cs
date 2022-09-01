@@ -66,14 +66,14 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     //正面にクリスタルがあるか
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCoreBase> _crystalCoreList = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0] != null;
     }
 
     //正面に黒クリスタルがあるか
     private bool ExistBlackCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
-        List<CrystalCore> _crystalCoreList = TargetCore.GetFowardCore<CrystalCore>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        List<CrystalCoreBase> _crystalCoreList = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1);
         return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._crystalParam._crystalCoreName == "BlackCrystal";
     }
 
@@ -81,7 +81,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     public bool EnoughActionCost(){
         bool _isEnouughCost = false;
         //プレイヤー正面のクリスタルのステータスを取得
-        CrystalStatus _crystalStatus = TargetCore.GetFowardCore<CrystalCore>(MapManager._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1)[0]._crystalStatus;
+        CrystalStatus _crystalStatus = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1)[0]._crystalStatus;
 
         if(_crystalStatus != null && _crystalStatus._level < _max_level - 1){
             //RankUpのコストが足りているか
@@ -107,7 +107,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     }
 
     //正面のクリスタルをランクアップ
-    private void RankUpCrystal(CrystalCore _crystalCore){
+    private void RankUpCrystal(CrystalCoreBase _crystalCore){
         //Rank変数の上限アップ
         _crystalCore._crystalStatus._level ++;
         //マテリアル変更
@@ -126,7 +126,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
 
     //クリスタルRankUp完了(長押し)
     private void OnInputCompleted(InputAction.CallbackContext context){
-        CrystalCore _crystalCore = TargetCore.GetFowardCore<CrystalCore>(MapManager._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1)[0];
+        CrystalCoreBase _crystalCore = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1)[0];
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
         //_crystalCore.SetCrystalStatus(_useCrystalParam);
