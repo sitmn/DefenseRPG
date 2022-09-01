@@ -7,7 +7,6 @@ using UniRx;
 public class CrystalCore:MonoBehaviour
 {
     //クリスタルランク
-    private int _crystalRank;
     private Transform _crystalTr;
     private Vector2Int _crystalPos;
     private AttackBase _attack;
@@ -19,8 +18,8 @@ public class CrystalCore:MonoBehaviour
             return _hp.Value;
         }
         set{
-            if(value > _crystalStatus._crystalParam._maxHp[_crystalRank]){
-                _hp.Value = _crystalStatus._crystalParam._maxHp[_crystalRank];
+            if(value > _crystalStatus._crystalParam._maxHp[_crystalStatus._level]){
+                _hp.Value = _crystalStatus._crystalParam._maxHp[_crystalStatus._level];
             }else{
                 _hp.Value = value;
             }
@@ -58,7 +57,7 @@ public class CrystalCore:MonoBehaviour
     public void SetOnMap(){
         _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_crystalTr.position).x), MapManager.CastMapPos(_crystalTr.position).y);
         if(MapManager._map != null && MapManager.GetMap(_crystalPos)._crystalCore == null){
-            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._crystalParam._moveCost[_crystalRank];
+            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._crystalParam._moveCost[_crystalStatus._level];
             MapManager.GetMap(_crystalPos)._crystalCore = this;
         }
     }
@@ -70,11 +69,10 @@ public class CrystalCore:MonoBehaviour
 
     //クリスタル起動時のクリスタルステータスをセット
     public void SetCrystalStatus(CrystalParam _crystalParam){
-        this._crystalRank = 0;
         _crystalStatus = new CrystalStatus(_crystalParam);
-        this.gameObject.GetComponent<Renderer>().material = _crystalParam._material;
+        this.gameObject.GetComponent<Renderer>().material = _crystalParam._material[_crystalStatus._level];
         //現在のHPをセット
-        _hp = new ReactiveProperty<int>(_crystalParam._maxHp[_crystalRank]);
+        _hp = new ReactiveProperty<int>(_crystalParam._maxHp[_crystalStatus._level]);
         //攻撃方法をセット
         Type classObj = Type.GetType(_crystalParam._crystalAttackName);
         _attack = (AttackBase)Activator.CreateInstance(classObj);

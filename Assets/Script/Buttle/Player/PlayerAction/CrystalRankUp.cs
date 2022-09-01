@@ -81,7 +81,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     public bool EnoughActionCost(){
         bool _isEnouughCost = false;
         //プレイヤー正面のクリスタルのステータスを取得
-        CrystalStatus _crystalStatus = GetFowardCrystalStatus();
+        CrystalStatus _crystalStatus = TargetCore.GetFowardCore<CrystalCore>(MapManager._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1)[0]._crystalStatus;
 
         if(_crystalStatus != null && _crystalStatus._level < _max_level - 1){
             //RankUpのコストが足りているか
@@ -91,15 +91,15 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         return _isEnouughCost;
     }
 
-    //プレイヤー正面のクリスタルのステータスを取得
-    private CrystalStatus GetFowardCrystalStatus(){
-        CrystalStatus _crystalStatus = null;
-        //正面のクリスタルに対して
-        Vector2Int _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_playerTr.position).x), MapManager.CastMapPos(_playerTr.position).y) + new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z); 
-        if(MapManager.GetMap(_crystalPos)._crystalCore != null) _crystalStatus = MapManager.GetMap(_crystalPos)._crystalCore._crystalStatus;
+    // //プレイヤー正面のクリスタルのステータスを取得
+    // private CrystalStatus GetFowardCrystalStatus(){
+    //     CrystalStatus _crystalStatus = null;
+    //     //正面のクリスタルに対して
+    //     Vector2Int _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_playerTr.position).x), MapManager.CastMapPos(_playerTr.position).y) + new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z); 
+    //     if(MapManager.GetMap(_crystalPos)._crystalCore != null) _crystalStatus = MapManager.GetMap(_crystalPos)._crystalCore._crystalStatus;
 
-        return _crystalStatus;
-    }
+    //     return _crystalStatus;
+    // }
 
     //コスト不足時処理
     public void ShortageActionCost(){
@@ -108,9 +108,11 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     }
 
     //正面のクリスタルをランクアップ
-    private void RankUpCrystal(CrystalStatus _crystalStatus){
+    private void RankUpCrystal(CrystalCore _crystalCore){
         //Rank変数の上限アップ
-        _crystalStatus._level ++;
+        _crystalCore._crystalStatus._level ++;
+        //マテリアル変更
+       _crystalCore.gameObject.GetComponent<Renderer>().material = _crystalCore._crystalStatus._crystalParam._material[_crystalCore._crystalStatus._level];
     }
 
     //クリスタルrankUp開始
@@ -125,14 +127,14 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
 
     //クリスタルRankUp完了(長押し)
     private void OnInputCompleted(InputAction.CallbackContext context){
-        CrystalStatus _crystalStatus = GetFowardCrystalStatus();
+        CrystalCore _crystalCore = TargetCore.GetFowardCore<CrystalCore>(MapManager._playerPos, new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z), 1)[0];
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
         //_crystalCore.SetCrystalStatus(_useCrystalParam);
         //正面クリスタルのRankUp
-        RankUpCrystal(_crystalStatus);
+        RankUpCrystal(_crystalCore);
         //クリスタルコストを消費
-        _actionCost.ConsumeCrystalCost(_crystalStatus._crystalParam._cost[_crystalStatus._level]);
+        _actionCost.ConsumeCrystalCost(_crystalCore._crystalStatus._crystalParam._cost[_crystalCore._crystalStatus._level]);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し

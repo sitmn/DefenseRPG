@@ -46,7 +46,7 @@ public class CrystalParam{
     public List<int> _cost;
     //クリスタルのマテリアル
     [SerializeField]
-    public Material _material;
+    public List<Material> _material;
     //攻撃関連のステータス
     public AttackStatus _attackStatus;
 }
