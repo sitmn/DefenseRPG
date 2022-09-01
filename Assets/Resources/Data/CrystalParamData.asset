@@ -41,8 +41,8 @@ MonoBehaviour:
     _cost: 0a0000000500000014000000
     _material:
     - {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 2100000, guid: 8e08bc5c616b541439a8f6bb2c7d9f1c, type: 2}
+    - {fileID: 2100000, guid: be3a6e7fdc3c94a9a8bb2ad1d9751c89, type: 2}
   - _crystalCoreName: BlueCrystal
     _crystalAttackName: BlueCrystalAttack
     _maxHp: 050000000a0000000f000000
@@ -62,7 +62,7 @@ MonoBehaviour:
     - {fileID: 0}
   - _crystalCoreName: GreenCrystal
     _crystalAttackName: GreenCrystalAttack
-    _maxHp: 1e0000003200000064000000
+    _maxHp: 050000003200000064000000
     _attackMaxCount: 1e0000001e0000001e000000
     _attack: 000000000000000000000000
     _attackRange: 030000000500000007000000
@@ -71,8 +71,8 @@ MonoBehaviour:
     - 0.4
     - 0.5
     _effectTime: 1e0000001e0000001e000000
-    _moveCost: 050000000400000003000000
-    _cost: 140000001e00000028000000
+    _moveCost: 030000000400000003000000
+    _cost: 050000001e00000028000000
     _material:
     - {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
     - {fileID: 0}
