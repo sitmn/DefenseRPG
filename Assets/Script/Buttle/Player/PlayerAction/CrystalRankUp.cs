@@ -85,7 +85,6 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
 
         if(_crystalStatus != null && _crystalStatus._level < _max_level - 1){
             //RankUpのコストが足りているか
-            Debug.Log(_crystalStatus._crystalParam._cost.Count);
             _isEnouughCost = _actionCost.EnoughCrystalCost(_crystalStatus._crystalParam._cost[_crystalStatus._level + 1]);
         }
         return _isEnouughCost;

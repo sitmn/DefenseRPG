@@ -12,7 +12,7 @@ public class CrystalCore:MonoBehaviour
     private AttackBase _attack;
     [System.NonSerialized]
     public CrystalStatus _crystalStatus;
-    private ReactiveProperty<int> _hp;
+    private ReactiveProperty<int> _hp = new ReactiveProperty<int>();
     public int Hp{
         get{
             return _hp.Value;
@@ -72,7 +72,7 @@ public class CrystalCore:MonoBehaviour
         _crystalStatus = new CrystalStatus(_crystalParam);
         this.gameObject.GetComponent<Renderer>().material = _crystalParam._material[_crystalStatus._level];
         //現在のHPをセット
-        _hp = new ReactiveProperty<int>(_crystalParam._maxHp[_crystalStatus._level]);
+        _hp.Value = _crystalParam._maxHp[_crystalStatus._level];
         //攻撃方法をセット
         Type classObj = Type.GetType(_crystalParam._crystalAttackName);
         _attack = (AttackBase)Activator.CreateInstance(classObj);

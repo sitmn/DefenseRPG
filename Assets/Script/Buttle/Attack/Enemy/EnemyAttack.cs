@@ -20,7 +20,10 @@ public class EnemyAttack : AttackBase
     }
     //ダメージ適用
     protected override void ApplyDamage<T>(T _applyCore, int _damage){
-        if(typeof(T) == typeof(CrystalCore)) ((CrystalCore)(object)_applyCore).Hp -= _damage;
+        if(typeof(T) == typeof(CrystalCore)){
+            Debug.Log(((CrystalCore)(object)_applyCore).Hp - _damage);
+            ((CrystalCore)(object)_applyCore).Hp -= _damage;
+        }
     }
     //効果適用
     protected override void ApplyEffect<T>(T _applyCore, StatusBase _status){

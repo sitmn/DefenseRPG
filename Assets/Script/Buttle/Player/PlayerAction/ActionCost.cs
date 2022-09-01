@@ -49,7 +49,6 @@ public class ActionCost : MonoBehaviour
 
     //コストが足りているか
     public bool EnoughCrystalCost(int _consumeActionCost){
-        Debug.Log(_cost.Value + "-" + _consumeActionCost);
         return _cost.Value - _consumeActionCost >= 0;
     }
     //アクションによるコストの消費
