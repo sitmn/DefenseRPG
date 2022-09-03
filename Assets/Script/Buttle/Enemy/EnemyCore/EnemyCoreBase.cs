@@ -51,7 +51,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         CreateEnemyPosStream();
         CreateHPStream();
         //移動経路をセット
-        _enemyMove.SetTrackPos(_enemyPos.Value, _enemyStatus._enemyParam._searchDestination[_enemyStatus._level]);
+        _enemyMove.SetTrackPos(_enemyPos.Value);
     }
 
     //コンポーネントセット
@@ -101,7 +101,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
         //移動経路の更新
-        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x, _enemyStatus._enemyParam._searchDestination[_enemyStatus._level]);
+        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x);
         
         }).AddTo(this);
     }

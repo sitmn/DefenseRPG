@@ -11,6 +11,10 @@ public static class MapManager
     public static PlayerCore _playerCore;
     public static PlayerCore GetPlayerCore(){ return _playerCore;}
     public static void SetPlayerCore(PlayerCore _core){ _playerCore = _core;}
+    //輸送クリスタル情報
+    public static Vector2Int _shippingCrystalPos;
+    public static Vector2Int GetShippingCrystalPos(){ return _shippingCrystalPos;}
+    public static void SetShippingCrystalPos(Vector2Int _pos){  _shippingCrystalPos = _pos;}
     public static Map[,] _map;
     public static Map GetMap(Vector2Int _pos){
         return _map[_pos.x, _pos.y];
@@ -65,6 +69,15 @@ public static class MapManager
         bool _judgeFlag_z = _judgePos.y < 0 || _judgePos.y >= max_pos_z;
 
         return _judgeFlag_x || _judgeFlag_z;
+    }
+
+    //プレイヤーが輸送クリスタルをリフト中か
+    public static bool IsShippingCrystalLiftUp(){
+        bool _isShippingLift = false;
+        //クリスタルをリフト中でない
+        if(PlayerCore.GetLiftCrystalCore() == null) return _isShippingLift;
+        //リフト中のクリスタルが輸送クリスタルか
+        return PlayerCore.GetLiftCrystalCore().GetType().Name == "ShippingCrystalCore";
     }
 }
 

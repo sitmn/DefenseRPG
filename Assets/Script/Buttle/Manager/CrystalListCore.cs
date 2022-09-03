@@ -10,12 +10,20 @@ public class CrystalListCore : MonoBehaviour
     [SerializeField]
     private Transform _crystalListTr;
 
-    public void AwakeManager(CrystalParam _crystalParam){
+    public void AwakeManager(CrystalParamAsset _crystalParamAsset){
         //全てのエネミーを取得
         _crystalList = new List<CrystalCoreBase>();
         
         for(int i = 0 ; i < _crystalListTr.childCount ; i++){
-            SetCrystalCoreInList(_crystalListTr.GetChild(i).gameObject.GetComponent<CrystalCoreBase>(), _crystalParam);
+            CrystalCoreBase _crystalCore = _crystalListTr.GetChild(i).gameObject.GetComponent<CrystalCoreBase>();
+            if(i == 0){
+                //ShippingCrystalの初期化
+                SetCrystalCoreInList(_crystalCore, _crystalParamAsset.CrystalParamList[_crystalParamAsset.CrystalParamList.Count - 1]);
+            }else{
+                //BlackCrystalの初期化
+                SetCrystalCoreInList(_crystalCore, _crystalParamAsset.CrystalParamList[0]);
+            }
+            
         }
     }
 

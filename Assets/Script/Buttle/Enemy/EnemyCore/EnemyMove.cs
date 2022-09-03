@@ -15,10 +15,10 @@ public class EnemyMove : MonoBehaviour
     }
     
     //移動経路をセット
-    public void SetTrackPos(Vector2Int _currentPos,int _searchDestination){
-        if(!IsUpdateTrack(_currentPos, _searchDestination)) return;
+    public void SetTrackPos(Vector2Int _currentPos){
+        if(!IsUpdateTrack(_currentPos)) return;
 
-        _trackPos = EnemyMoveRoute.GetTrackPos(_currentPos, _searchDestination);
+        _trackPos = EnemyMoveRoute.GetTrackPos(_currentPos);
     }
 
     //エネミーの回転
@@ -58,15 +58,15 @@ public class EnemyMove : MonoBehaviour
     }
 
     //移動経路を更新するか
-    private bool IsUpdateTrack(Vector2Int _currentPos, int _searchDestination){
+    private bool IsUpdateTrack(Vector2Int _currentPos){
         bool _isUpdate = true;
 
         //目的地にいるか
         if(_trackPos.Count == 0){
             return _isUpdate;
-        } 
-        //プレイヤーが索敵範囲かつエネミーがマス中心か
-        if(EnemyMoveRoute.IsSearchPlayer(_currentPos, _searchDestination) && _enemyTr.position.x % 1 == 0 && _enemyTr.position.z % 1 == 0){
+        }
+        //プレイヤーが輸送クリスタルをリフトアップ中かつエネミーがマス中心か
+        if(MapManager.IsShippingCrystalLiftUp() && _enemyTr.position.x % 1 == 0 && _enemyTr.position.z % 1 == 0){
             return _isUpdate;
         } 
         //ステージ移動が原因で

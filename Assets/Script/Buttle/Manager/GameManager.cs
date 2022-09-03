@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         _playerCore.AwakeManager(_playerParamData.PlayerParamList[0], _crystalParamData);
         _playerCore._playerMove.AwakeManager();
         EnemyMoveRoute.AwakeManager();
-        _crystalListCore.AwakeManager(_crystalParamData.CrystalParamList[0]);
+        _crystalListCore.AwakeManager(_crystalParamData);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
         _stageMove.AwakeManager(_systemParamData.SystemParamList[0]);
         _actionCost.AwakeManager(_systemParamData.SystemParamList[0]);

@@ -57,14 +57,14 @@ public static class EnemyMoveRoute
     }
 
     //移動経路を取得
-    public static List<Vector2Int> GetTrackPos(Vector2Int _currentPos, int _searchDestination){
+    public static List<Vector2Int> GetTrackPos(Vector2Int _currentPos){
         List<Vector2Int> _trackPos;
-        //索敵範囲にプレイヤーがいれば移動経路を作成
-        if(IsSearchPlayer(_currentPos, _searchDestination)){
+        //プレイヤーが輸送クリスタルをリフト中でないなら、輸送クリスタルを追跡
+        if(!MapManager.IsShippingCrystalLiftUp()){
+            _trackPos = GenerateTrackRoute(_currentPos, (Vector2Int)MapManager.GetShippingCrystalPos());
+        }//プレイヤーが輸送クリスタルをリフト中なら、プレイヤーを追跡
+        else{
             _trackPos = GenerateTrackRoute(_currentPos, MapManager.GetPlayerPos());
-        }else{
-            //適当な位置を指定して移動経路を作成
-            _trackPos = GenerateTrackRoute(_currentPos, MapManager.GetRandomPos(_currentPos));
         }
 
         return _trackPos;
@@ -200,16 +200,5 @@ public static class EnemyMoveRoute
         if(_destination.y != MapManager.max_pos_z - 1) _trackPosList.Add(new Vector2Int(_destination.x, _destination.y + 1));
 
         return _trackPosList[UnityEngine.Random.Range(0, _trackPosList.Count - 1)];
-    }
-
-    //プレイヤーが索敵範囲内か
-    public static bool IsSearchPlayer(Vector2Int _currentPos, int _searchDestination){
-        bool _isSearch = false;
-
-        Vector2Int _destination = _currentPos - MapManager.GetPlayerPos();
-        if((Mathf.Abs(_destination.x) + Mathf.Abs(_destination.y)) < _searchDestination){
-            _isSearch = true;
-        }
-        return _isSearch;
     }
 }

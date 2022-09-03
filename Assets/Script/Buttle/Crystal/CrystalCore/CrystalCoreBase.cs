@@ -24,18 +24,15 @@ public abstract class CrystalCoreBase:MonoBehaviour
         }
     }
 
-    //配置時、マップ上に情報をセット
-    public void SetOnMap(){
-        _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_crystalTr.position).x), MapManager.CastMapPos(_crystalTr.position).y);
-        if(MapManager._map != null && MapManager.GetMap(_crystalPos)._crystalCore == null){
-            MapManager.GetMap(_crystalPos)._moveCost = _crystalStatus._crystalParam._moveCost[_crystalStatus._level];
-            MapManager.GetMap(_crystalPos)._crystalCore = this;
-        }
-    }
-    //破壊または持ち上げ時、マップ上から情報を削除
-    public void SetOffMap(){
-        MapManager.GetMap(_crystalPos)._moveCost = 1;
-        MapManager.GetMap(_crystalPos)._crystalCore = null;
+    //Statusやストリームの生成
+    public void InitializeCore(CrystalParam _crystalParam){
+        _crystalTr = this.gameObject.GetComponent<Transform>();
+        //クリスタルステータスのセット
+        SetCrystalStatus(_crystalParam);
+        //HPストリームの生成
+        CreateHPStream();
+        //マップ上に情報セット
+        SetOnMap();
     }
 
     //クリスタル起動時のクリスタルステータスをセット
@@ -49,8 +46,17 @@ public abstract class CrystalCoreBase:MonoBehaviour
         _attack = (AttackBase)Activator.CreateInstance(classObj);
     }
 
-    //クリスタルの初期化
-    public abstract void InitializeCore(CrystalParam _crystalParam);
+    //HPのストリーム生成
+    protected void CreateHPStream(){
+        _hp.Subscribe((x) => {
+            if(x <= 0) ObjectDestroy();
+        }).AddTo(this);
+    }
+
+    //配置時、マップ上に情報をセット
+    public abstract void SetOnMap();
+    //破壊または持ち上げ時、マップ上から情報を削除
+    public abstract void SetOffMap();
     //Hpが0になったときの処理
     public abstract void ObjectDestroy();
     //フレーム毎のクリスタルの行動

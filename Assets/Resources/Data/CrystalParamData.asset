@@ -92,18 +92,20 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-  - _crystalCoreName: TestCrystal
-    _crystalAttackName: TestCrystalAttack
-    _maxHp: 00000000
-    _attackMaxCount: 00000000
-    _attack: 00000000
-    _attackRange: 00000000
+  - _crystalCoreName: ShippingCrystal
+    _crystalAttackName: ShippingCrystalAttack
+    _maxHp: 010000000100000001000000
+    _attackMaxCount: 000000000000000000000000
+    _attack: 000000000000000000000000
+    _attackRange: 000000000000000000000000
     _effectRate:
     - 0
-    _effectTime: 00000000
-    _moveCost: 00000000
-    _cost: 00000000
+    - 0
+    - 0
+    _effectTime: 000000000000000000000000
+    _moveCost: 010000000100000001000000
+    _cost: 00000000050000000a000000
     _material:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 2100000, guid: 61acdec9ae329d74f96ef14c8842e6a1, type: 2}
+    - {fileID: 2100000, guid: 0c627064564fe664f85228880f12aa0f, type: 2}
+    - {fileID: 2100000, guid: f7fd067a8df55294c96363b4d9457bd0, type: 2}
