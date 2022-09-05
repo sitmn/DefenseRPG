@@ -52,17 +52,17 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
 
     //回復アクションの有効化
     public void InputEnable(){
-        _playerInput.actions["Repair"].started += OnInputStart;
-        //_playerInput.actions["Repair"].performed += OnInputCompleted;
-        _playerInput.actions["Repair"].canceled += OnInputCanceled;
+        _playerInput.actions[ConstManager._repairInput].started += OnInputStart;
+        //_playerInput.actions[ConstManager._repairInput].performed += OnInputCompleted;
+        _playerInput.actions[ConstManager._repairInput].canceled += OnInputCanceled;
 
         _isActive = true;
     }
     //回復アクションの無効化
     public void InputDisable(){
-        _playerInput.actions["Repair"].started -= OnInputStart;
-        //_playerInput.actions["Repair"].performed -= OnInputCompleted;
-        _playerInput.actions["Repair"].canceled -= OnInputCanceled;
+        _playerInput.actions[ConstManager._repairInput].started -= OnInputStart;
+        //_playerInput.actions[ConstManager._repairInput].performed -= OnInputCompleted;
+        _playerInput.actions[ConstManager._repairInput].canceled -= OnInputCanceled;
 
         _isActive = false;
         _isAction = false;

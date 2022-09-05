@@ -74,15 +74,14 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         if(_isGameOver) return;
-        
+
         _playerCore.UpdateManager();
-        
         foreach(var _playerAction in _playerActionList){
             _playerAction.UpdateManager();
         }
         _crystalListCore.UpdateManager();
         _enemyListCore.UpdateManager();
-        _stageMove.UpdateManager(); 
+        //_stageMove.UpdateManager(); 
         _cameraController.UpdateManager();
     }
 

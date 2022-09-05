@@ -12,10 +12,10 @@ public class PlayerMotion : MonoBehaviour, IPlayerMotion
 
     //移動モーション
     public void MoveMotion(){
-        _playerAnimator.SetBool("_move", true);        
+        _playerAnimator.SetBool(ConstManager._moveAction, true);        
     }
 
     public void MoveMotionCancel(){
-        _playerAnimator.SetBool("_move", false);
+        _playerAnimator.SetBool(ConstManager._moveAction, false);
     }
 }

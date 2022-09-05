@@ -84,9 +84,6 @@ public class StageMove : MonoBehaviour
     
     //ステージ移動を実行
     private void DoStageMove(){
-        //プレイヤーがステージ最後列にいる場合、ゲームオーバー表示し、全ての入力を無効に
-        if(MapManager.GetPlayerPos().x == 0) GameManager.GameOver();
-
         //ステージ最後列にあるオブジェクトを全て削除
         DeleteObjInLastRow();
         //ステージ列移動前のクリスタル情報を全て消す
@@ -95,6 +92,13 @@ public class StageMove : MonoBehaviour
         DeleteEnemyInMap();
         //最後列の床オブジェクト削除、最前列の床オブジェクト生成
         CreateAndDeleteStageRow();
+        
+        //プレイヤーがステージ最後列にいる場合または、輸送クリスタルが最後列かつリフトされていない場合、ゲームオーバー表示し、全ての入力を無効に
+        if(MapManager.GetPlayerPos().x == 0 || MapManager.GetShippingCrystalPos().x == 0 && !MapManager.IsShippingCrystalLiftUp()){
+            GameManager.GameOver();
+            return;
+        }
+        
         //元々のリストが何列スライドしているか変数に格納（ワールド座標をリストの要素に変換するために使用）
         _moveRowCount ++;
         //ステージ列移動後のクリスタル情報を全て入れる

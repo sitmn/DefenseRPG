@@ -37,15 +37,15 @@ public class PlayerMove : MonoBehaviour
 
     //InputSystemのアクションにコールバックをセット
     void OnEnable(){
-        _playerInput.actions["Move"].started += OnMoveStart;
-        _playerInput.actions["Move"].performed += OnMoveComplete;
-        _playerInput.actions["Move"].canceled += OnMoveStop;
+        _playerInput.actions[ConstManager._moveInput].started += OnMoveStart;
+        _playerInput.actions[ConstManager._moveInput].performed += OnMoveComplete;
+        _playerInput.actions[ConstManager._moveInput].canceled += OnMoveStop;
     }
 
     void OnDisable(){
-        _playerInput.actions["Move"].started -= OnMoveStart;
-        _playerInput.actions["Move"].performed -= OnMoveComplete;
-        _playerInput.actions["Move"].canceled -= OnMoveStop;
+        _playerInput.actions[ConstManager._moveInput].started -= OnMoveStart;
+        _playerInput.actions[ConstManager._moveInput].performed -= OnMoveComplete;
+        _playerInput.actions[ConstManager._moveInput].canceled -= OnMoveStop;
     }
 
     //隣のマス中心まで移動

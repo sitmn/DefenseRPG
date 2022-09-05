@@ -43,21 +43,21 @@ public class UseCrystal : IPlayerAction
 
     //アクションの入力を有効に切り替え
     public void InputEnable(){
-        string _useCrystalActionNo = "LaunchCrystal" + _useCrystalNo;
+        string _useCrystalActionInput = ConstManager._launchInput + _useCrystalNo;
         //InputSystemのコールバックをセット
-        _playerInput.actions[_useCrystalActionNo].started += OnInputStart;
-        _playerInput.actions[_useCrystalActionNo].performed += OnInputComplete;
-        _playerInput.actions[_useCrystalActionNo].canceled += OnInputEnd;
+        _playerInput.actions[_useCrystalActionInput].started += OnInputStart;
+        _playerInput.actions[_useCrystalActionInput].performed += OnInputComplete;
+        _playerInput.actions[_useCrystalActionInput].canceled += OnInputEnd;
         _isActive = true;
     }
 
     //アクションの入力を無効に切り替え
     public void InputDisable(){
-        string _useCrystalActionNo = "LaunchCrystal" + _useCrystalNo;
+        string _useCrystalActionInput = ConstManager._launchInput + _useCrystalNo;
         //InputSystemのコールバックをセット
-        _playerInput.actions[_useCrystalActionNo].started -= OnInputStart;
-        _playerInput.actions[_useCrystalActionNo].performed -= OnInputComplete;
-        _playerInput.actions[_useCrystalActionNo].canceled -= OnInputEnd;
+        _playerInput.actions[_useCrystalActionInput].started -= OnInputStart;
+        _playerInput.actions[_useCrystalActionInput].performed -= OnInputComplete;
+        _playerInput.actions[_useCrystalActionInput].canceled -= OnInputEnd;
         _isActive = false;
     }
 

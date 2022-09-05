@@ -65,6 +65,6 @@ public class ActionCost : MonoBehaviour
 
     //コスト画面表示
     private void DisplayCost(){
-        _text.text = "Cost:" + _cost.Value;
+        _text.text = ConstManager._costLabel + _cost.Value;
     }
 }

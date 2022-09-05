@@ -101,7 +101,9 @@ public abstract class EnemyCoreBase:MonoBehaviour
         //１マス移動後、移動経路を再検索
         _enemyPos.Subscribe((x) => {
         //移動経路の更新
-        if(!MapManager.IsOutOfReference(x)) _enemyMove.SetTrackPos(x);
+        if(!MapManager.IsOutOfReference(x)){
+            _enemyMove.SetTrackPos(x);
+        }
         
         }).AddTo(this);
     }

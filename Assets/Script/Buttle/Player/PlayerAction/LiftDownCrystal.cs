@@ -32,18 +32,18 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //リフトアップアクション入力の有効化
     public void InputEnable(){
         //InputSystemのコールバックをセット
-        _playerInput.actions["LiftDown"].started += OnInputStart;
-        _playerInput.actions["LiftDown"].performed += OnInputComplete;
-        _playerInput.actions["LiftDown"].canceled += OnInputEnd;
+        _playerInput.actions[ConstManager._liftDownInput].started += OnInputStart;
+        _playerInput.actions[ConstManager._liftDownInput].performed += OnInputComplete;
+        _playerInput.actions[ConstManager._liftDownInput].canceled += OnInputEnd;
         _isActive = true;
     }
 
     //リフトアップアクション入力の無効化
     public void InputDisable(){
         //InputSystemのコールバックをセット
-        _playerInput.actions["LiftDown"].started -= OnInputStart;
-        _playerInput.actions["LiftDown"].performed -= OnInputComplete;
-        _playerInput.actions["LiftDown"].canceled -= OnInputEnd;
+        _playerInput.actions[ConstManager._liftDownInput].started -= OnInputStart;
+        _playerInput.actions[ConstManager._liftDownInput].performed -= OnInputComplete;
+        _playerInput.actions[ConstManager._liftDownInput].canceled -= OnInputEnd;
         _isActive = false;
     }
 
@@ -57,7 +57,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     private bool ExistCrystal(){
         Vector2Int _fowardDir = new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z);
         List<CrystalCoreBase> _crystalCoreList = TargetCore.GetFowardCore<CrystalCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1);
-        return MapManager.IsOutOfReference(MapManager.GetPlayerPos() + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null);
+        List<EnemyCoreBase> _enemyCoreList = TargetCore.GetFowardCore<EnemyCoreBase>(MapManager.GetPlayerPos(), _fowardDir, 1);
+        return MapManager.IsOutOfReference(MapManager.GetPlayerPos() + _fowardDir) || (_crystalCoreList.Count != 0 && _crystalCoreList[0] != null) || (_enemyCoreList.Count != 0 && _enemyCoreList[0] != null);
     }
 
     //正面のマスの周囲に敵がいるか

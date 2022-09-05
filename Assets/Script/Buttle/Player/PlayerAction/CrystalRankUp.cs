@@ -41,17 +41,17 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
 
     //回復アクションの有効化
     public void InputEnable(){
-        _playerInput.actions["RankUp"].started += OnInputStart;
-        _playerInput.actions["RankUp"].performed += OnInputCompleted;
-        _playerInput.actions["RankUp"].canceled += OnInputCanceled;
+        _playerInput.actions[ConstManager._rankUpInput].started += OnInputStart;
+        _playerInput.actions[ConstManager._rankUpInput].performed += OnInputCompleted;
+        _playerInput.actions[ConstManager._rankUpInput].canceled += OnInputCanceled;
 
         _isActive = true;
     }
     //回復アクションの無効化
     public void InputDisable(){
-        _playerInput.actions["RankUp"].started -= OnInputStart;
-        _playerInput.actions["RankUp"].performed -= OnInputCompleted;
-        _playerInput.actions["RankUp"].canceled -= OnInputCanceled;
+        _playerInput.actions[ConstManager._rankUpInput].started -= OnInputStart;
+        _playerInput.actions[ConstManager._rankUpInput].performed -= OnInputCompleted;
+        _playerInput.actions[ConstManager._rankUpInput].canceled -= OnInputCanceled;
 
         _isActive = false;
         _isAction = false;

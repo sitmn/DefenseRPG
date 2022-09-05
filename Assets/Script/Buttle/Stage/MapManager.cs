@@ -77,7 +77,7 @@ public static class MapManager
         //クリスタルをリフト中でない
         if(PlayerCore.GetLiftCrystalCore() == null) return _isShippingLift;
         //リフト中のクリスタルが輸送クリスタルか
-        return PlayerCore.GetLiftCrystalCore().GetType().Name == "ShippingCrystalCore";
+        return PlayerCore.GetLiftCrystalCore().GetType().Name == ConstManager._shippingCrystalName;
     }
 }
 

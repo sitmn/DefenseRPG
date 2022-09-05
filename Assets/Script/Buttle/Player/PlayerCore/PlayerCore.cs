@@ -61,6 +61,10 @@ public class PlayerCore : MonoBehaviour
     //Update処理
     public void UpdateManager()
     {
+        // foreach(var _playerAction in _playerActionList){
+        //     Debug.Log(_playerAction.IsAction + "_"+ _playerAction.IsActive);
+        // }
+        
         if(GameManager.GetIsGameOver()) return;
         //有効になっているプレイヤーアクションが実行できない状態の場合、無効化
         foreach(var _playerAction in _playerActionList){

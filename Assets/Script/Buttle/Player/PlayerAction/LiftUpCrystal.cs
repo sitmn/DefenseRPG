@@ -30,18 +30,18 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //リフトアップアクション入力の有効化
     public void InputEnable(){
         //InputSystemのコールバックをセット
-        _playerInput.actions["LiftUp"].started += OnInputStart;
-        _playerInput.actions["LiftUp"].performed += OnInputComplete;
-        _playerInput.actions["LiftUp"].canceled += OnInputEnd;
+        _playerInput.actions[ConstManager._liftUpInput].started += OnInputStart;
+        _playerInput.actions[ConstManager._liftUpInput].performed += OnInputComplete;
+        _playerInput.actions[ConstManager._liftUpInput].canceled += OnInputEnd;
         _isActive = true;
     }
 
     //リフトアップアクション入力の無効化
     public void InputDisable(){
         //InputSystemのコールバックをセット
-        _playerInput.actions["LiftUp"].started -= OnInputStart;
-        _playerInput.actions["LiftUp"].performed -= OnInputComplete;
-        _playerInput.actions["LiftUp"].canceled -= OnInputEnd;
+        _playerInput.actions[ConstManager._liftUpInput].started -= OnInputStart;
+        _playerInput.actions[ConstManager._liftUpInput].performed -= OnInputComplete;
+        _playerInput.actions[ConstManager._liftUpInput].canceled -= OnInputEnd;
         _isActive = false;
     }
 

@@ -21,7 +21,6 @@ public class EnemyAttack : AttackBase
     //ダメージ適用
     protected override void ApplyDamage<T>(T _applyCore, int _damage){
         if(typeof(T) == typeof(CrystalCoreBase)){
-            Debug.Log(((CrystalCoreBase)(object)_applyCore).Hp - _damage);
             ((CrystalCoreBase)(object)_applyCore).Hp -= _damage;
         }
     }

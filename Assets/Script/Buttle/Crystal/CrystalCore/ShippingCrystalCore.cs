@@ -43,7 +43,6 @@ public class ShippingCrystalCore:CrystalCoreBase
         }else{
             //攻撃カウントになったときにエネミーに攻撃
             //if(_crystalStatus.CountAttack()) _attack.Attack(_crystalPos, new Vector2Int((int)_crystalTr.forward.x, (int)_crystalTr.forward.z), _crystalStatus);
-            Debug.Log("Attack");
         }
     }
 }

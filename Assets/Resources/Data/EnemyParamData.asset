@@ -22,5 +22,5 @@ MonoBehaviour:
     - 0
     _effectTime: 00000000
     _moveSpeed:
-    - 1
+    - 0.3
     _searchDestination: 0a000000

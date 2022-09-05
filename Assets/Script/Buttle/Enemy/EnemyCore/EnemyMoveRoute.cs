@@ -47,7 +47,7 @@ public static class EnemyMoveRoute
                 Vector2Int _pos = new Vector2Int(i, j);
                 if(MapManager.GetMap(_pos)._moveCost != 0) 
                 _costMap[i,j]._estimateCost = CalculateEstimateCost(_costMap[i,j]._pos, _destination);
-                _costMap[i,j]._status = "none";
+                _costMap[i,j]._status = ConstManager._costMapNoneStr;
                 _costMap[i,j]._realCost = 999;
             }
         }
@@ -104,22 +104,22 @@ public static class EnemyMoveRoute
 
     //実コスト計算
     public static void CalculateRealCost(Vector2Int _openPos, int _cost){
-        //隣接マスの実コストを計算し、オープンする
+        //隣接マス(十字で1マス)の実コストを計算し、オープンする
         for(int i = _openPos.x - 1 ; i < _openPos.x + 2; i++){
             for(int j = _openPos.y - 1; j < _openPos.y + 2; j++){
                 Vector2Int _pos = new Vector2Int(i ,j);
                 if(i >= 0 && j >= 0 && ((i == _openPos.x && j != _openPos.y)||(i != _openPos.x && j == _openPos.y))
                 && (i < MapManager._map.GetLength(0) && j < MapManager._map.GetLength(1))){
-                    if(_costMap[i,j]._status == "none" && MapManager.GetMap(_pos)._moveCost != 0){
+                    if(_costMap[i,j]._status == ConstManager._costMapNoneStr && MapManager.GetMap(_pos)._moveCost != 0){
                         _costMap[i,j]._realCost = _cost + MapManager.GetMap(_pos)._moveCost;
-                        _costMap[i,j]._status = "closed";
+                        _costMap[i,j]._status = ConstManager._costMapClosedStr;
                     }
                 }
             }
         }
 
         //マス計算終了フラグ
-        _costMap[_openPos.x,_openPos.y]._status = "open";
+        _costMap[_openPos.x,_openPos.y]._status = ConstManager._costMapOpenStr;
     }
 
     //実コスト+推定コストが最小なものを取得
@@ -142,7 +142,7 @@ public static class EnemyMoveRoute
         //オープンされていないマスで、最小の実コスト＋推定コストをランダムに選択
         for(int i = 0 ; i < _costMap.GetLength(0) ; i ++){
                 for(int j = 0 ; j < _costMap.GetLength(1) ; j ++){
-                    if(_costMap[_randomList_i[i],_randomList_j[j]]._realCost != 999 && _costMap[_randomList_i[i],_randomList_j[j]]._status != "open"){
+                    if(_costMap[_randomList_i[i],_randomList_j[j]]._realCost != 999 && _costMap[_randomList_i[i],_randomList_j[j]]._status != ConstManager._costMapOpenStr){
                         //最小コスト更新
                         if(_min > _costMap[_randomList_i[i],_randomList_j[j]]._realCost + _costMap[_randomList_i[i],_randomList_j[j]]._estimateCost){
                             _min = _costMap[_randomList_i[i],_randomList_j[j]]._realCost + _costMap[_randomList_i[i],_randomList_j[j]]._estimateCost;
