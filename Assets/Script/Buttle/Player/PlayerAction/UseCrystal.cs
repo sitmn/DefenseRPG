@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class UseCrystal : IPlayerAction
+public class UseCrystal : MonoBehaviour, IPlayerAction
 {
     private PlayerInput _playerInput;
     private Transform _playerTr;
@@ -15,26 +15,29 @@ public class UseCrystal : IPlayerAction
     //起動クリスタル色変え用マテリアル
     private CrystalStatus[] _setCrystalStatus = new CrystalStatus[3];
     //起動するクリスタルのパラメータ
-    private CrystalParam _useCrystalParam;
-    //装備しているクリスタルの番号
-    private int _useCrystalNo;
+    //private CrystalParam _useCrystalParam;
+    private CrystalParamAsset _useCrystalParamAsset;
     //アクションコスト
     private ActionCost _actionCost;
     private UIManager _UIManager;
 
-    public UseCrystal(CrystalParam _crystalParam, int _useCrystalNo, UIManager _UIManager){
+    //クラスの初期化
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
+        InitializeComponent();
+        InitializeParam(_crystalParamAsset, _UIManager);
+    }
+
+    private void InitializeComponent(){
         _playerInput = MapManager._playerCore.gameObject.GetComponent<PlayerInput>();
         _playerTr = MapManager._playerCore.gameObject.GetComponent<Transform>();
         _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
-        this._useCrystalParam = _crystalParam;
-        this._useCrystalNo = _useCrystalNo;
+    }
+
+    private void InitializeParam(CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
+        this._useCrystalParamAsset = _crystalParamAsset;
         _isActive = false;
         _isAction = false;
         this._UIManager = _UIManager;
-    }
-
-    //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
     }
 
     //本クラスはUpdate処理なし
@@ -44,22 +47,24 @@ public class UseCrystal : IPlayerAction
 
     //アクションの入力を有効に切り替え
     public void InputEnable(){
-        string _useCrystalActionInput = ConstManager._launchInput + _useCrystalNo;
         //InputSystemのコールバックをセット
-        _playerInput.actions[_useCrystalActionInput].started += OnInputStart;
-        _playerInput.actions[_useCrystalActionInput].performed += OnInputComplete;
-        _playerInput.actions[_useCrystalActionInput].canceled += OnInputEnd;
+        _playerInput.actions[ConstManager._launchInput].started += OnInputStart;
+        _playerInput.actions[ConstManager._launchInput].performed += OnInputComplete;
+        _playerInput.actions[ConstManager._launchInput].canceled += OnInputEnd;
         _isActive = true;
+        //起動ボタンを非透明に
+        _UIManager._launchButton.SetOpacityButton();
     }
 
     //アクションの入力を無効に切り替え
     public void InputDisable(){
-        string _useCrystalActionInput = ConstManager._launchInput + _useCrystalNo;
         //InputSystemのコールバックをセット
-        _playerInput.actions[_useCrystalActionInput].started -= OnInputStart;
-        _playerInput.actions[_useCrystalActionInput].performed -= OnInputComplete;
-        _playerInput.actions[_useCrystalActionInput].canceled -= OnInputEnd;
+        _playerInput.actions[ConstManager._launchInput].started -= OnInputStart;
+        _playerInput.actions[ConstManager._launchInput].performed -= OnInputComplete;
+        _playerInput.actions[ConstManager._launchInput].canceled -= OnInputEnd;
         _isActive = false;
+        //起動ボタンを透明に
+        _UIManager._launchButton.SetTransparentButton();
     }
 
     //アクションが実行可能な状態か
@@ -69,7 +74,7 @@ public class UseCrystal : IPlayerAction
     }
     //アクションコストが足りているか
     public bool EnoughActionCost(){
-        return _actionCost.EnoughCrystalCost(_useCrystalParam._cost[0]);
+        return _actionCost.EnoughCrystalCost(_useCrystalParamAsset.CrystalParamList[_UIManager._selectLaunchButtonList._selectButtonNo.Value]._cost[0]);
     }
     //コスト不足時処理
     public void ShortageActionCost(){
@@ -101,12 +106,12 @@ public class UseCrystal : IPlayerAction
         CrystalCoreBase _crystalCore = MapManager.GetMap(_pos)._crystalCore;
         //コールバック値に対応するプレイヤー装備クリスタルを正面のクリスタルへ格納
         //☆正面のクリスタルに、色毎にステータスをセットし、オブジェクトの色をMaterialで変える　⇨ ScriptableObjectを使用しているが、間にPlayerStatusを挟んで、装備状況に応じて内容を変更させる予定
-        _crystalCore.SetCrystalStatus(_useCrystalParam);
+        _crystalCore.SetCrystalStatus(_useCrystalParamAsset.CrystalParamList[_UIManager._selectLaunchButtonList._selectButtonNo.Value]);
         //マップ状況の更新
         _crystalCore.SetOffMap();
         _crystalCore.SetOnMap();
         //クリスタルコストを消費
-        _actionCost.ConsumeCrystalCost(_useCrystalParam._cost[0]);
+        _actionCost.ConsumeCrystalCost(_useCrystalParamAsset.CrystalParamList[_UIManager._selectLaunchButtonList._selectButtonNo.Value]._cost[0]);
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し

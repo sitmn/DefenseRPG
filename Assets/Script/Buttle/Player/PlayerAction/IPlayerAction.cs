@@ -5,7 +5,7 @@ public interface IPlayerAction
     //アクション有効化フラグ
     public bool IsActive{get;}
     //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager);
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager);
     public void UpdateManager();
     //アクションを有効に
     public void InputEnable();

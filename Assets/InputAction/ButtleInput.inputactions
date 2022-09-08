@@ -51,45 +51,54 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LaunchCrystal1",
+                    "name": "SelectCrystal1",
                     "type": "Button",
                     "id": "6591692c-f010-4413-a1f9-1dfcb4b8b9a3",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold(duration=1,pressPoint=1)",
-                    "initialStateCheck": false
+                    "processors": "Scale",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "LaunchCrystal2",
+                    "name": "SelectCrystal2",
                     "type": "Button",
                     "id": "c5d911d3-6481-4605-8cd5-d337d8e2222a",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold(duration=1,pressPoint=1)",
-                    "initialStateCheck": false
+                    "processors": "Scale(factor=2)",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "LaunchCrystal3",
+                    "name": "SelectCrystal3",
                     "type": "Button",
                     "id": "53a5619f-6304-44b8-b1cf-da0a092b1f65",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold(duration=1,pressPoint=1)",
-                    "initialStateCheck": false
+                    "processors": "Scale(factor=3)",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "LaunchCrystal4",
+                    "name": "SelectCrystal4",
                     "type": "Button",
                     "id": "335d50be-4df0-433f-a9bb-1795cd6979b9",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold(duration=1,pressPoint=1)",
-                    "initialStateCheck": false
+                    "processors": "Scale(factor=4)",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "LaunchCrystal5",
+                    "name": "SelectCrystal5",
                     "type": "Button",
                     "id": "64b68263-84f7-4e66-bd02-c12e0a9928a3",
+                    "expectedControlType": "Button",
+                    "processors": "Scale(factor=5)",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LaunchCrystal",
+                    "type": "Button",
+                    "id": "7d4c6758-0ef7-4c90-9c6a-45f39e529584",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=1,pressPoint=1)",
@@ -236,7 +245,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LaunchCrystal1",
+                    "action": "SelectCrystal1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -247,7 +256,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LaunchCrystal2",
+                    "action": "SelectCrystal2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -258,7 +267,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LaunchCrystal3",
+                    "action": "SelectCrystal3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -269,7 +278,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LaunchCrystal4",
+                    "action": "SelectCrystal4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -280,7 +289,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LaunchCrystal5",
+                    "action": "SelectCrystal5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51c84aa4-64e1-49b8-b029-a17d13ed99af",
+                    "path": "<Keyboard>/b",
+                    "interactions": "Hold(duration=1,pressPoint=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaunchCrystal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

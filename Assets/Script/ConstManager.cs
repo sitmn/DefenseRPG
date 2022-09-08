@@ -14,10 +14,15 @@ public static class ConstManager
     public const string _repairInput = "Repair";
     //InputSystemのActionMap - 起動アクション
     public const string _launchInput = "LaunchCrystal";
+    //InputSystemのActionMap - 選択アクション
+    public const string _selectInput = "SelectCrystal";
     //InputSystemのActionMap - ランクアップアクション
     public const string _rankUpInput = "RankUp";
     //InputSystemのActionMap - 移動
     public const string _moveInput = "Move";
+
+    //プレイヤーが使用できるクリスタル種類の数
+    public const int _possettionCrystalAmount = 5;
     
     //コストの画面表示用ラベル
     public const string _costLabel = "Cost:";

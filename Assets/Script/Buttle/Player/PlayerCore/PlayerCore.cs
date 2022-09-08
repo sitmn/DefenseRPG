@@ -48,14 +48,15 @@ public class PlayerCore : MonoBehaviour
 
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
         //UseCrystalをインスタンス化し、各クリスタルステータスをセット（0の黒クリスタルは含めないため1からスタート）
-        for(int i = 1; i < _crystalParamData.CrystalParamList.Count; i++){
-            _playerActionList.Add(new UseCrystal(_crystalParamData.CrystalParamList[i], i, _UIManager));
-        }
+        // for(int i = 1; i < _crystalParamData.CrystalParamList.Count; i++){
+        //     _playerActionList.Add(new UseCrystal(_crystalParamData.CrystalParamList[i], i, _UIManager));
+        // }
         //UseCrystal以外のPlayerActionをリストへ追加
         _playerActionList.Add(this.gameObject.GetComponent<LiftUpCrystal>());
         _playerActionList.Add(this.gameObject.GetComponent<LiftDownCrystal>());
         _playerActionList.Add(this.gameObject.GetComponent<RepairCrystal>());
         _playerActionList.Add(this.gameObject.GetComponent<CrystalRankUp>());
+        _playerActionList.Add(this.gameObject.GetComponent<UseCrystal>());
     }
 
     //Update処理

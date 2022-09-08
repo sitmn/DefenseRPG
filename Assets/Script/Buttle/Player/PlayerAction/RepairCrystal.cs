@@ -20,7 +20,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private ActionCost _actionCost;
     private UIManager _UIManager;
 
-    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
         SetComponent();
         SetParam(_playerParam);
         this._UIManager = _UIManager;

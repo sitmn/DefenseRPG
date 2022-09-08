@@ -19,7 +19,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     private ActionCost _actionCost;
     private UIManager _UIManager;
 
-    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
         SetComponent();
         SetParam();
         this._UIManager = _UIManager;
@@ -48,6 +48,8 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         _playerInput.actions[ConstManager._rankUpInput].canceled += OnInputCanceled;
 
         _isActive = true;
+        //ランクアップボタンを非透明に
+        _UIManager._rankUpButton.SetOpacityButton();
     }
     //回復アクションの無効化
     public void InputDisable(){
@@ -57,6 +59,8 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
 
         _isActive = false;
         _isAction = false;
+        //ランクアップボタンを透明に
+        _UIManager._rankUpButton.SetTransparentButton();
     }
 
     //アクションが実行可能な状態か
@@ -92,16 +96,6 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         return _isEnouughCost;
     }
 
-    // //プレイヤー正面のクリスタルのステータスを取得
-    // private CrystalStatus GetFowardCrystalStatus(){
-    //     CrystalStatus _crystalStatus = null;
-    //     //正面のクリスタルに対して
-    //     Vector2Int _crystalPos = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_playerTr.position).x), MapManager.CastMapPos(_playerTr.position).y) + new Vector2Int((int)_playerTr.forward.x, (int)_playerTr.forward.z); 
-    //     if(MapManager.GetMap(_crystalPos)._crystalCore != null) _crystalStatus = MapManager.GetMap(_crystalPos)._crystalCore._crystalStatus;
-
-    //     return _crystalStatus;
-    // }
-
     //コスト不足時処理
     public void ShortageActionCost(){
         //コスト不足UI表示
@@ -123,6 +117,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         //起動モーション開始
 
         //起動時間UI表示
+        _UIManager._actionGauge.SetTween(ConstManager._rankUpCount);
         
     }
 
@@ -148,5 +143,6 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         _isAction = false;
 
         //起動時間UI非表示
+        _UIManager._actionGauge.CancelTween();
     }
 }

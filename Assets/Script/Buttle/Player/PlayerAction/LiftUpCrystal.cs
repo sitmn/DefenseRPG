@@ -21,7 +21,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     private UIManager _UIManager;
     
     //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _isActive = false;

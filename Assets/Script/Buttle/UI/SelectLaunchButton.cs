@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UnityEngine.InputSystem;
 
-public class LaunchButton : UIButtonBase
-{
+public class SelectLaunchButton : UIButtonBase{
     void Awake(){
         _canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
     }

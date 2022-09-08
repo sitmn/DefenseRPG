@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public abstract class UIButtonBase : MonoBehaviour
 {
-    [SerializeField]
     protected CanvasGroup _canvasGroup;
     //UIを非透明状態に変更
     public void SetOpacityButton(){
