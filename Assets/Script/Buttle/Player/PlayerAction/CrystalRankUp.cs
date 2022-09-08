@@ -17,10 +17,12 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     private bool _isAction;
     //アクションコスト
     private ActionCost _actionCost;
+    private UIManager _UIManager;
 
-    public void AwakeManager(PlayerParam _playerParam){
+    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
         SetComponent();
         SetParam();
+        this._UIManager = _UIManager;
     }
     //コンポーネントをセット
     private void SetComponent(){

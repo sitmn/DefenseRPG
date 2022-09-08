@@ -20,8 +20,9 @@ public class UseCrystal : IPlayerAction
     private int _useCrystalNo;
     //アクションコスト
     private ActionCost _actionCost;
+    private UIManager _UIManager;
 
-    public UseCrystal(CrystalParam _crystalParam, int _useCrystalNo){
+    public UseCrystal(CrystalParam _crystalParam, int _useCrystalNo, UIManager _UIManager){
         _playerInput = MapManager._playerCore.gameObject.GetComponent<PlayerInput>();
         _playerTr = MapManager._playerCore.gameObject.GetComponent<Transform>();
         _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
@@ -29,11 +30,11 @@ public class UseCrystal : IPlayerAction
         this._useCrystalNo = _useCrystalNo;
         _isActive = false;
         _isAction = false;
+        this._UIManager = _UIManager;
     }
 
     //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam){
-        
+    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
     }
 
     //本クラスはUpdate処理なし
@@ -90,7 +91,7 @@ public class UseCrystal : IPlayerAction
         //起動モーション開始
 
         //起動時間UI表示
-        
+        _UIManager._actionGauge.SetTween(ConstManager._launchCount);
     }
 
     //クリスタル起動完了(長押し)
@@ -118,6 +119,7 @@ public class UseCrystal : IPlayerAction
         _isAction = false;
 
         //起動時間UI非表示
+        _UIManager._actionGauge.CancelTween();
     }
 
 }

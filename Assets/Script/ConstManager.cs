@@ -32,4 +32,11 @@ public static class ConstManager
     public const string _costMapOpenStr = "open";
     public const string _costMapClosedStr = "closed";
     public const string _costMapNoneStr = "none";
+
+    //PlayerActionのゲージ時間用
+    public const float _liftUpCount = 0.4f;
+    public const float _liftDownCount = 0.1f;
+    public const float _rankUpCount = 0.4f;
+    public const float _repairCount = 0.4f;
+    public const float _launchCount = 1.0f;
 }

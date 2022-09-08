@@ -18,10 +18,12 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private int _repairCount;
     //アクションコスト
     private ActionCost _actionCost;
+    private UIManager _UIManager;
 
-    public void AwakeManager(PlayerParam _playerParam){
+    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
         SetComponent();
         SetParam(_playerParam);
+        this._UIManager = _UIManager;
     }
     //コンポーネントをセット
     private void SetComponent(){

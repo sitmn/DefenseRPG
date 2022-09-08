@@ -34,14 +34,14 @@ public class PlayerCore : MonoBehaviour
     }
     
     //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamData){
+    public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamData, UIManager _UIManager){
         _playerStatus = new PlayerStatus(_playerParam);
         MapManager.SetPlayerCore(this);
-        InitializeComponent(_crystalParamData);
+        InitializeComponent(_crystalParamData, _UIManager);
     }
 
     //コンポーネントの初期化
-    private void InitializeComponent(CrystalParamAsset _crystalParamData){
+    private void InitializeComponent(CrystalParamAsset _crystalParamData, UIManager _UIManager){
         //バフオブジェクトの取得
         _speedBuff = transform.GetChild(0).gameObject;
         _speedDebuff = transform.GetChild(1).gameObject;
@@ -49,7 +49,7 @@ public class PlayerCore : MonoBehaviour
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
         //UseCrystalをインスタンス化し、各クリスタルステータスをセット（0の黒クリスタルは含めないため1からスタート）
         for(int i = 1; i < _crystalParamData.CrystalParamList.Count; i++){
-            _playerActionList.Add(new UseCrystal(_crystalParamData.CrystalParamList[i], i));
+            _playerActionList.Add(new UseCrystal(_crystalParamData.CrystalParamList[i], i, _UIManager));
         }
         //UseCrystal以外のPlayerActionをリストへ追加
         _playerActionList.Add(this.gameObject.GetComponent<LiftUpCrystal>());

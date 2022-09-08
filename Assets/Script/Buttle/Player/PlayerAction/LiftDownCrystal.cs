@@ -4,6 +4,12 @@ using UnityEngine.InputSystem;
 
 public class LiftDownCrystal : MonoBehaviour, IPlayerAction
 {
+    //リフトアップボタン
+    [SerializeField]
+    private GameObject _liftUpButton;
+    //リフトダウンボタン
+    [SerializeField]
+    private GameObject _liftDownButton;
     private PlayerInput _playerInput;
     private Transform _playerTr;
     //クリスタルリフトダウンアクションの有効無効状態
@@ -12,15 +18,16 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトダウン中フラグ
     public bool IsAction => _isAction;
     private bool _isAction;
-    //
+    private UIManager _UIManager;
     
 
     //クラスの初期化
-    public void AwakeManager(PlayerParam _playerParam){
+    public void AwakeManager(PlayerParam _playerParam, UIManager _UIManager){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _isActive = false;
         _isAction = false;
+        this._UIManager = _UIManager;
     }
 
     //リフトアップ中のクリスタルをプレイヤー移動に合わせて移動
@@ -36,6 +43,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         _playerInput.actions[ConstManager._liftDownInput].performed += OnInputComplete;
         _playerInput.actions[ConstManager._liftDownInput].canceled += OnInputEnd;
         _isActive = true;
+        //リフトダウンボタンを非透明に
+        _UIManager._liftDownButton.SetOpacityButton();
     }
 
     //リフトアップアクション入力の無効化
@@ -45,6 +54,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         _playerInput.actions[ConstManager._liftDownInput].performed -= OnInputComplete;
         _playerInput.actions[ConstManager._liftDownInput].canceled -= OnInputEnd;
         _isActive = false;
+        //リフトダウンボタンを透明に
+        _UIManager._liftDownButton.SetTransparentButton();
     }
 
     //アクションが実行可能な状態か
@@ -76,6 +87,12 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         return;
     }
 
+    //リフトアップ、ダウンボタンの切り替え
+    private void ChangeLiftButton(){
+        _liftDownButton.SetActive(false);
+        _liftUpButton.SetActive(true);
+    }
+
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行
     //クリスタルリフトダウン開始
     private void OnInputStart(InputAction.CallbackContext context){
@@ -84,7 +101,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         //リフトダウンモーション開始
 
         //起動時間UI表示
-        
+        _UIManager._actionGauge.SetTween(ConstManager._liftDownCount);
     }
 
     //クリスタルリフトダウン完了(長押し)
@@ -103,6 +120,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
 
         //リフトダウンモーション終了、リフトダウン中フラグ取り消し
         _isAction = false;
+        //リフトアップ、ダウンボタンの有効無効切り替え
+        ChangeLiftButton();
     }
 
     //クリスタルリフトダウンキャンセル
@@ -111,5 +130,6 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         _isAction = false;
 
         //起動時間UI非表示
+        _UIManager._actionGauge.CancelTween();
     }
 }

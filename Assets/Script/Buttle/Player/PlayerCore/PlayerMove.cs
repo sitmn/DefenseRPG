@@ -8,8 +8,6 @@ public class PlayerMove : MonoBehaviour
     private PlayerInput _playerInput;
     //移動方向（移動用）
     private Vector2Int _moveDir;
-    //直前の移動方向（移動用）
-    private Vector2Int _movePreviousDir;
     //今の場所（移動用）
     private Vector2Int _playerPos;
     //次の移動場所（移動用）
@@ -107,23 +105,16 @@ public class PlayerMove : MonoBehaviour
 
     //移動コールバック用
     private void OnMoveComplete(InputAction.CallbackContext context){
-
-        _moveDir = new Vector2Int ((int)context.ReadValue<Vector2>().x, (int)context.ReadValue<Vector2>().y);
-        
-        //移動キー同時押し
-        if(_moveDir.x != 0 && _moveDir.y != 0){
-            if(_movePreviousDir == Vector2Int.zero){
-                _moveDir.y = 0;
-            }else{
-                _moveDir -= _movePreviousDir;
-            }
+        //移動用スティックの入力をVector2Intに変換
+        if(Mathf.Abs(context.ReadValue<Vector2>().x) > Mathf.Abs(context.ReadValue<Vector2>().y)){
+            _moveDir = new Vector2Int((int)Mathf.Sign(context.ReadValue<Vector2>().x), 0);
+        }else{
+            _moveDir = new Vector2Int(0, (int)Mathf.Sign(context.ReadValue<Vector2>().y));
         }
-        _movePreviousDir = _moveDir;
     }
     //移動解除コールバック用
     private void OnMoveStop(InputAction.CallbackContext context){
         _playerMotion.MoveMotionCancel();
         _moveDir = Vector2Int.zero;
-        _movePreviousDir = Vector2Int.zero;
     }
 }

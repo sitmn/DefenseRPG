@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private EnemyListCore _enemyListCore;
     [SerializeField]
     private CameraController _cameraController;
+    [SerializeField]
+    private UIManager _UIManager;
 
     public static bool _isGameOver;
     public static bool GetIsGameOver(){
@@ -58,15 +60,16 @@ public class GameManager : MonoBehaviour
     //各クラスのAwakeをコール
     private void DoAwakeManager(){
         MapManager.AwakeManager(_systemParamData.SystemParamList[0]);
-        _playerCore.AwakeManager(_playerParamData.PlayerParamList[0], _crystalParamData);
+        _playerCore.AwakeManager(_playerParamData.PlayerParamList[0], _crystalParamData, _UIManager);
         _playerCore._playerMove.AwakeManager();
         EnemyMoveRoute.AwakeManager();
         _crystalListCore.AwakeManager(_crystalParamData);
         _enemyListCore.AwakeManager(_enemyParamData.EnemyParamList[0]);
         _stageMove.AwakeManager(_systemParamData.SystemParamList[0]);
+        _UIManager.AwakeManager();
         _actionCost.AwakeManager(_systemParamData.SystemParamList[0]);
         foreach(var _playerAction in _playerActionList){
-            _playerAction.AwakeManager(_playerParamData.PlayerParamList[0]);
+            _playerAction.AwakeManager(_playerParamData.PlayerParamList[0], _UIManager);
         }
     }
     
