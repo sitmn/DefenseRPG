@@ -62,7 +62,7 @@ MonoBehaviour:
     - {fileID: 0}
   - _crystalCoreName: GreenCrystal
     _crystalAttackName: GreenCrystalAttack
-    _maxHp: 050000003200000064000000
+    _maxHp: 140000003200000064000000
     _attackMaxCount: 1e0000001e0000001e000000
     _attack: 000000000000000000000000
     _attackRange: 030000000500000007000000
@@ -94,7 +94,7 @@ MonoBehaviour:
     - {fileID: 0}
   - _crystalCoreName: ShippingCrystal
     _crystalAttackName: ShippingCrystalAttack
-    _maxHp: 010000000100000001000000
+    _maxHp: 0a000000140000001e000000
     _attackMaxCount: 000000000000000000000000
     _attack: 000000000000000000000000
     _attackRange: 000000000000000000000000

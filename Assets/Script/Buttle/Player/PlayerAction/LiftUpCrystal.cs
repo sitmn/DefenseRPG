@@ -106,7 +106,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         //マップ情報から水晶を削除
         _crystalCore.SetOffMap();
         //オブジェクトを頭上へ移動
-        _crystalTr.position = _playerTr.position + new Vector3(0, 2, 0);
+        _crystalTr.position = _playerTr.position + new Vector3(0, _crystalTr.localScale.y / 2, 0);
         //起動時間UI非表示
 
         //リフトアップモーション終了、リフトアップ中フラグ取り消し

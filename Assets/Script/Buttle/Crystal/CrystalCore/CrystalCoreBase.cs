@@ -23,10 +23,13 @@ public abstract class CrystalCoreBase:MonoBehaviour
             }
         }
     }
+    //HPバー
+    public HPBar _hpBar;
 
     //Statusやストリームの生成
     public void InitializeCore(CrystalParam _crystalParam){
         _crystalTr = this.gameObject.GetComponent<Transform>();
+        _hpBar.AwakeManager();
         //クリスタルステータスのセット
         SetCrystalStatus(_crystalParam);
         //HPストリームの生成
@@ -49,6 +52,9 @@ public abstract class CrystalCoreBase:MonoBehaviour
     //HPのストリーム生成
     protected void CreateHPStream(){
         _hp.Subscribe((x) => {
+            //HPバーの更新
+            _hpBar.SetHPBarValue((float)x / (float)_crystalStatus._crystalParam._maxHp[_crystalStatus._level]);
+            //HPがなくなったとき破壊
             if(x <= 0) ObjectDestroy();
         }).AddTo(this);
     }

@@ -26,6 +26,7 @@ public static class ConstManager
     
     //コストの画面表示用ラベル
     public const string _costLabel = "Cost:";
+    public const string _countLabel = "StageMoveCount:";
 
     //モーション用名称
     public const string _moveAction = "_move";
@@ -44,4 +45,11 @@ public static class ConstManager
     public const float _rankUpCount = 0.4f;
     public const float _repairCount = 0.4f;
     public const float _launchCount = 1.0f;
+
+    //HPゲージのオフセット（対象の少し下にセット）
+    public const float _hpBarPosOffsetY = -0.4f;
+    public const float _hpBarPosOffsetZ = -0.4f;
+
+    //リフトアップ時のY座標
+    public const float _liftUpPosY = 2f;
 }

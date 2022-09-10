@@ -5,7 +5,7 @@ public class EnemyCore : EnemyCoreBase
     //エネミーの行動
     public override void EnemyAction(){
         //エネミーの回転
-        _enemyMove.DoRotate();
+        _enemyMove.DoRotate(_enemyPos.Value);
         
         if(CanAttack()){ //移動先にクリスタルがある場合攻撃
             Attack();

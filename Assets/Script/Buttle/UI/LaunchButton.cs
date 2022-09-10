@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaunchButton : UIButtonBase
 {
-    void Awake(){
+    public void AwakeManager(){
         _canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
     }
 }

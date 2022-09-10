@@ -22,9 +22,11 @@ public class EnemyMove : MonoBehaviour
     }
 
     //エネミーの回転
-    public void DoRotate(){
-        if(TrackPos.Count != 0)
-        _enemyTr.LookAt(new Vector3(TrackPos[0].x, 0.5f, TrackPos[0].y));
+    public void DoRotate(Vector2Int _currentPos){
+        if(TrackPos.Count != 0){
+            Vector3 _lookDir = new Vector3(_enemyTr.position.x + TrackPos[0].x - _currentPos.x, _enemyTr.localScale.y / 2, _enemyTr.position.z + TrackPos[0].y - _currentPos.y);
+            _enemyTr.LookAt(_lookDir);
+        }
     }
 
     //エネミーの移動
@@ -42,7 +44,7 @@ public class EnemyMove : MonoBehaviour
     //座標中心を通過した時、座標中心へ移動して位置を更新（移動経路を次のものに変更）
     public void UpdatePosition(){
         //位置をマス中心に
-        _enemyTr.position = new Vector3(MapManager.CastMapPos(_enemyTr.position).x , 0.5f , MapManager.CastMapPos(_enemyTr.position).y);
+        _enemyTr.position = new Vector3(MapManager.CastMapPos(_enemyTr.position).x , _enemyTr.localScale.y / 2, MapManager.CastMapPos(_enemyTr.position).y);
         //直近の移動経路を削除し、次の移動経路に変える
         _trackPos.RemoveAt(0);
     }
@@ -61,17 +63,24 @@ public class EnemyMove : MonoBehaviour
     private bool IsUpdateTrack(Vector2Int _currentPos){
         bool _isUpdate = true;
 
-        //目的地にいるか
-        if(_trackPos.Count == 0){
-            return _isUpdate;
-        }
-        //プレイヤーが輸送クリスタルをリフトアップ中かつエネミーがマス中心か
-        if(MapManager.IsShippingCrystalLiftUp() && _enemyTr.position.x % 1 == 0 && _enemyTr.position.z % 1 == 0){
-            return _isUpdate;
-        } 
-        //ステージ移動が原因で
-        if(_trackPos[0].x < 0){
-            return _isUpdate;
+        //エネミーがマス中心か
+        if(_enemyTr.position.x % 1 == 0 && _enemyTr.position.z % 1 == 0){
+            //目的地にいるか
+            if(_trackPos.Count == 0){
+                return _isUpdate;
+            }
+            //プレイヤーが輸送クリスタルをリフトアップ中か
+            if(MapManager.IsShippingCrystalLiftUp()){
+                return _isUpdate;
+            }
+            //TrackPosの最終地点と輸送クリスタルの位置が異なる
+            if(MapManager.GetShippingCrystalPos() != _trackPos[_trackPos.Count - 1]){
+                return _isUpdate;
+            }
+            //ステージ移動が原因で
+            if(_trackPos[0].x < 0){
+                return _isUpdate;
+            }
         }
 
         //どの条件も満たさない場合、falseを返す

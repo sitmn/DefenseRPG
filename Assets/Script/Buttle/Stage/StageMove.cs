@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageMove : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class StageMove : MonoBehaviour
     private int _crystalInstantiateAmount;
     private EnemyParamAsset _enemyParamData;
     private CrystalParamAsset _crystalParamData;
+    [SerializeField]
+    private Text _stageMoveCountText;
 
     public void AwakeManager(SystemParam _systemParam){
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
@@ -64,15 +67,32 @@ public class StageMove : MonoBehaviour
     //Update処理
     public void UpdateManager()
     {
+        //HPBarの移動
+        MoveHPBar();
         //時間経過でステージを移動
         if(!CountStageMove()) return;
         DoStageMove();
     }
 
+    //画面移動に合わせてHPBarの移動
+    private void MoveHPBar(){
+        //エネミーのHPBar
+        for(int i = 0;i < EnemyListCore._enemiesList.Count ; i++){
+            EnemyListCore._enemiesList[i]._hpBar.SetPosition();
+        }
+        //クリスタルのHPBar
+        for(int i = 0;i < CrystalListCore._crystalList.Count ; i++){
+            CrystalListCore._crystalList[i]._hpBar.SetPosition();
+        }
+    }
+    
+
     //ステージ移動タイマー用カウント
     private bool CountStageMove(){
         bool _stageMoveCountFlag = false;
         _stageMoveCount ++;
+        //ステージ移動のカウントを表示
+        DisplayStageMoveCount();
 
         if(_stageMoveCount >= _stageMoveMaxCount){
             _stageMoveCount = 0;
@@ -80,6 +100,12 @@ public class StageMove : MonoBehaviour
         }
 
         return _stageMoveCountFlag;
+    }
+
+    //StageMoveカウント表示
+    private void DisplayStageMoveCount(){
+        int _countText = _stageMoveMaxCount - _stageMoveCount; 
+        _stageMoveCountText.text = ConstManager._countLabel + _countText;
     }
     
     //ステージ移動を実行

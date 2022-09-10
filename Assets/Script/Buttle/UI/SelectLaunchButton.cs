@@ -5,7 +5,7 @@ using UniRx;
 using UnityEngine.InputSystem;
 
 public class SelectLaunchButton : UIButtonBase{
-    void Awake(){
+    public void AwakeManager(){
         _canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
     }
 }

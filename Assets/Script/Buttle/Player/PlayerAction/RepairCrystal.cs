@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UniRx;
+using System;
 
 public class RepairCrystal : MonoBehaviour, IPlayerAction
 {
@@ -19,6 +21,8 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //アクションコスト
     private ActionCost _actionCost;
     private UIManager _UIManager;
+    //修復ストリームのキャンセル用
+    private IDisposable _disposable;
 
     public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
         SetComponent();
@@ -43,13 +47,13 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //入力中、徐々に正面のクリスタルを修復
     public void UpdateManager()
     {
-        if(!_isAction) return;
+        // if(!_isAction) return;
 
-        if(RepairCount()){
-            RepairCrystalAction();
-            //修復コスト消費
-            _actionCost.ConsumeCrystalCost(_playerParam._repairActionCost);
-        }
+        // if(RepairCount()){
+        //     RepairCrystalAction();
+        //     //修復コスト消費
+        //     _actionCost.ConsumeCrystalCost(_playerParam._repairActionCost);
+        // }
     }
 
     //回復アクションの有効化
@@ -59,6 +63,8 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         _playerInput.actions[ConstManager._repairInput].canceled += OnInputCanceled;
 
         _isActive = true;
+        //修復ボタンを非透明に
+        _UIManager._repairButton.SetOpacityButton();
     }
     //回復アクションの無効化
     public void InputDisable(){
@@ -68,6 +74,8 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
 
         _isActive = false;
         _isAction = false;
+        //修復ボタンを非透明に
+        _UIManager._repairButton.SetTransparentButton();
     }
 
     //アクションが実行可能な状態か
@@ -100,17 +108,29 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         return;
     }
 
-    //回復用カウント,Maxカウントまで長押しすれば回復
-    private bool RepairCount(){
-        bool _repairCountFlag = false;
-        _repairCount++;
+    // //回復用カウント,Maxカウントまで長押しすれば回復
+    // private bool RepairCount(){
+    //     bool _repairCountFlag = false;
+    //     _repairCount++;
 
-        if(_repairCount >= _playerParam._repairMaxCount){
-            _repairCount = 0;
-            _repairCountFlag = true;
-        }
+    //     if(_repairCount >= _playerParam._repairMaxCount){
+    //         _repairCount = 0;
+    //         _repairCountFlag = true;
+    //     }
 
-        return _repairCountFlag;
+    //     return _repairCountFlag;
+    // }
+
+    //修復用ストリームの生成
+    private void CreateRepairStream(){
+        //一定時間毎に修復
+        _disposable = Observable.Interval(System.TimeSpan.FromSeconds(_playerParam._repairMaxCount)).Subscribe((_) => {
+            RepairCrystalAction();
+            //クリスタルコストを消費
+            _actionCost.ConsumeCrystalCost(_playerParam._repairActionCost);
+            //アクションゲージを再度セット
+            _UIManager._actionGauge.SetTween(_playerParam._repairMaxCount);
+        }).AddTo(this);
     }
 
     //正面の水晶を回復
@@ -126,9 +146,17 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     //回復モーションスタート、回復フラグTrue、その間移動不可
     private void OnInputStart(InputAction.CallbackContext context){
         _isAction = true;
+        //修復ストリームの生成
+        CreateRepairStream();
+        //アクションゲージをセット
+        _UIManager._actionGauge.SetTween(_playerParam._repairMaxCount);
     }
     //回復モーション終了、回復フラグFalse
     private void OnInputCanceled(InputAction.CallbackContext context){
         _isAction = false;
+        //修復ストリームのキャンセル
+        _disposable.Dispose();
+        //アクションゲージをキャンセル
+        _UIManager._actionGauge.CancelTween();
     }
 }

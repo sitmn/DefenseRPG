@@ -20,10 +20,8 @@ public abstract class EnemyCoreBase:MonoBehaviour
     [System.NonSerialized]
     public EnemyStatus _enemyStatus;
     //スピードデバフエフェクト
-    [System.NonSerialized]
     public GameObject _speedDebuff;
     //スピードバフエフェクト
-    [System.NonSerialized]
     public GameObject _speedBuff;
     //移動用クラス
     [System.NonSerialized]
@@ -37,6 +35,8 @@ public abstract class EnemyCoreBase:MonoBehaviour
     protected ReactiveProperty<Vector2Int> _enemyPos = new ReactiveProperty<Vector2Int>();
     //攻撃用インターフェース
     protected AttackBase _attack;
+    //HPバー
+    public HPBar _hpBar;
 
     //クラスの初期化
     public void InitializeCore(EnemyParam _enemyParamData){
@@ -66,9 +66,8 @@ public abstract class EnemyCoreBase:MonoBehaviour
     private void SetParam(EnemyParam _enemyParamData){
         //エネミーステータスのセット
         _enemyStatus = new EnemyStatus(_enemyParamData);
-        //バフオブジェクトの取得
-        _speedDebuff = transform.GetChild(0).gameObject;
-        _speedBuff = transform.GetChild(1).gameObject;
+        //HPバーの初期化
+        _hpBar.AwakeManager();
         //攻撃方法のセット
         _attack = new EnemyAttack();
         //HPをセット
@@ -78,6 +77,9 @@ public abstract class EnemyCoreBase:MonoBehaviour
     //Hp用ストリーム
     private void CreateHPStream(){
         _hp.Subscribe((x) => {
+            //HPバーの更新
+            _hpBar.SetHPBarValue((float)x / (float)_enemyStatus._enemyParam._maxHp[_enemyStatus._level]);
+            //HPが0のとき、破壊
             if(x <= 0) {
                 ObjectDestroy();}
         }).AddTo(this);

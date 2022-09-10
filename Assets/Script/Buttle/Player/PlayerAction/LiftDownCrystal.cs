@@ -33,7 +33,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //リフトアップ中のクリスタルをプレイヤー移動に合わせて移動
     public void UpdateManager(){
         if(PlayerCore.GetLiftCrystalTr() == null) return;
-        PlayerCore.GetLiftCrystalTr().position = _playerTr.position + new Vector3(0, 2, 0);
+        PlayerCore.GetLiftCrystalTr().position = _playerTr.position + new Vector3(0, ConstManager._liftUpPosY, 0);
     }
 
     //リフトアップアクション入力の有効化
@@ -107,7 +107,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトダウン完了(長押し)
     private void OnInputComplete(InputAction.CallbackContext context){
         //オブジェクトをマスへ配置
-        PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0.5f, _playerTr.position.z + (int)_playerTr.forward.z);
+        PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, PlayerCore.GetLiftCrystalTr().localScale.y / 2, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
         //マップ情報に水晶を追加
         PlayerCore.GetLiftCrystalCore().SetOnMap();

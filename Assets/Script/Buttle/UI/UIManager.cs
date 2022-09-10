@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     public LaunchButton _launchButton;
     //クリスタルランクアップボタン
     public RankUpButton _rankUpButton;
+    //修復ボタン
+    public RepairButton _repairButton;
     [SerializeField]
     private Transform _playerTr;
     [SerializeField]
@@ -26,6 +28,11 @@ public class UIManager : MonoBehaviour
     public void AwakeManager(){
         _actionGauge.AwakeManager(_playerTr);
         _selectLaunchButtonList.AwakeManager(_playerInput);
+        _liftUpButton.AwakeManager();
+        _liftDownButton.AwakeManager();
+        _launchButton.AwakeManager();
+        _rankUpButton.AwakeManager();
+        _repairButton.AwakeManager();
     }
 
 }

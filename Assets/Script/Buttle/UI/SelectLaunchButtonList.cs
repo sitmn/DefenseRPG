@@ -9,25 +9,22 @@ public class SelectLaunchButtonList : UIButtonBase
     private PlayerInput _playerInput;
     //選択中のボタンNo
     public ReactiveProperty<int> _selectButtonNo;
+    [SerializeField]
     private SelectLaunchButton[] _selectLaunchButtonArr = new SelectLaunchButton[5];
 
     public void AwakeManager(PlayerInput _playerInput){
         this._playerInput = _playerInput;
         _selectButtonNo = new ReactiveProperty<int>(1);
-        SetSelectButton();
+        //各選択ボタンを初期化
+        for(int i = 0; i < _selectLaunchButtonArr.Length ;i++){
+            _selectLaunchButtonArr[i].AwakeManager();
+        }
         //選択ボタンのactionMapをすべてセット
         for(int i = 1; i < ConstManager._possettionCrystalAmount + 1 ; i++){
             SetPlayerAction(i);
         }
         CreateSelectButtonStream();
         SetButtonListActive(0);
-    }
-
-    //選択ボタンをセット
-    private void SetSelectButton(){
-        for(int i = 0; i < _selectLaunchButtonArr.Length ;i++){
-            _selectLaunchButtonArr[i] = transform.GetChild(i).GetComponent<SelectLaunchButton>();
-        }
     }
 
     //選択ボタンの入力をセット
