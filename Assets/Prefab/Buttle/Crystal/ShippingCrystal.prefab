@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3383384561157671332}
   - component: {fileID: 7899741376476956465}
-  - component: {fileID: 7869116440026777246}
   m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
@@ -91,19 +90,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7869116440026777246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 508361411992851797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd36eaefb8f85c54c9bd26d27e4d529b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetTr: {fileID: 3032393149715444463}
 --- !u!1 &2341506338429265347
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +102,7 @@ GameObject:
   - component: {fileID: 8823860802507115734}
   - component: {fileID: 4757703932651116192}
   - component: {fileID: 3114484423411170841}
+  - component: {fileID: 1737594100516874587}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -205,6 +192,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1737594100516874587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341506338429265347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd36eaefb8f85c54c9bd26d27e4d529b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpSlider: {fileID: 7899741376476956465}
+  _targetTr: {fileID: 3032393149715444463}
+  _rect: {fileID: 3383384561157671332}
+  _hpBar: {fileID: 508361411992851797}
 --- !u!1 &2381527914314066296
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,4 +508,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b5ad17650c5984cb5ce839c3064a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpBar: {fileID: 7869116440026777246}
+  _hpBar: {fileID: 1737594100516874587}

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7951928847247192461}
   - component: {fileID: 1769727877335051474}
-  - component: {fileID: 1983385838207541838}
   m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
@@ -91,19 +90,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1983385838207541838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664242503004379825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd36eaefb8f85c54c9bd26d27e4d529b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetTr: {fileID: 7166492535159129459}
 --- !u!1 &3111626783629041556
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +139,7 @@ GameObject:
   - component: {fileID: 288942798585202771}
   - component: {fileID: 7899797946005692862}
   - component: {fileID: 1272974295032285078}
+  - component: {fileID: 6379363429737841923}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -242,6 +229,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6379363429737841923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4460052314514490345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd36eaefb8f85c54c9bd26d27e4d529b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpSlider: {fileID: 1769727877335051474}
+  _targetTr: {fileID: 7166492535159129459}
+  _rect: {fileID: 7951928847247192461}
+  _hpBar: {fileID: 1664242503004379825}
 --- !u!1 &5233298387408859096
 GameObject:
   m_ObjectHideFlags: 0
@@ -5265,7 +5268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speedDebuff: {fileID: 6501060204909765031}
   _speedBuff: {fileID: 8794704540801291454}
-  _hpBar: {fileID: 1983385838207541838}
+  _hpBar: {fileID: 6379363429737841923}
 --- !u!114 &3291794603260357070
 MonoBehaviour:
   m_ObjectHideFlags: 0

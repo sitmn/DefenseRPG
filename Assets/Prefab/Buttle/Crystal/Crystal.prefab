@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51a9d54412354a29937999532b8e67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpBar: {fileID: 2391443993690915026}
+  _hpBar: {fileID: 3109353225251106632}
 --- !u!1 &1273678827913991435
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 352567176311705237}
   - component: {fileID: 7957926977725709092}
-  - component: {fileID: 2391443993690915026}
   m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
@@ -203,19 +202,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2391443993690915026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273678827913991435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd36eaefb8f85c54c9bd26d27e4d529b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetTr: {fileID: 5396741963456149889}
 --- !u!1 &2583326212536740267
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +251,7 @@ GameObject:
   - component: {fileID: 5410370606883594069}
   - component: {fileID: 6910127789063585668}
   - component: {fileID: 4304884735779147150}
+  - component: {fileID: 3109353225251106632}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -354,6 +341,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3109353225251106632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068918103245974506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd36eaefb8f85c54c9bd26d27e4d529b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpSlider: {fileID: 7957926977725709092}
+  _targetTr: {fileID: 5396741963456149889}
+  _rect: {fileID: 352567176311705237}
+  _hpBar: {fileID: 1273678827913991435}
 --- !u!1 &7193359303315023756
 GameObject:
   m_ObjectHideFlags: 0
