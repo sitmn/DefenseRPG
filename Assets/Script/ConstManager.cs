@@ -42,13 +42,13 @@ public static class ConstManager
     //PlayerActionのゲージ時間用
     public const float _liftUpCount = 0.4f;
     public const float _liftDownCount = 0.1f;
-    public const float _rankUpCount = 0.4f;
+    public const float _rankUpCount = 1.4f;
     public const float _repairCount = 0.4f;
     public const float _launchCount = 1.0f;
 
     //HPゲージのオフセット（対象の少し下にセット）
-    public const float _hpBarPosOffsetY = -0.4f;
-    public const float _hpBarPosOffsetZ = -0.4f;
+    public const float _hpBarPosOffsetY = 0.4f;
+    public const float _hpBarPosOffsetZ = 0.4f;
 
     //リフトアップ時のY座標
     public const float _liftUpPosY = 2f;

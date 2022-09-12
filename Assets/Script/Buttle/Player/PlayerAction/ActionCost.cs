@@ -7,30 +7,24 @@ using UniRx;
 //アクションを実行するためのコスト
 public class ActionCost : MonoBehaviour
 {
-    /**☆画面表示テスト**/
-    [SerializeField]
-    private Text _text;
-    /*****************/
-
     //現在のコスト
     [System.NonSerialized]
     public ReactiveProperty<int> _cost;
-    //増えていくコスト量
-    private int _increaseActionCost;
-    //コストが増える時間
-    private float _increaseActionCostTime;
-
-    public void AwakeManager(SystemParam _systemParam){
-        SetParam(_systemParam);
+    private UIManager _UIManager;
+    private SystemParam _systemParam;
+    
+    //クラスの初期化
+    public void AwakeManager(SystemParam _systemParam, UIManager _UIManager){
+        SetParam(_systemParam, _UIManager);
         CreateCostStream();
         CreateIncreaseCostStream();
     }
 
     //値の初期化
-    private void SetParam(SystemParam _systemParam){
+    private void SetParam(SystemParam _systemParam, UIManager _UIManager){
         this._cost = new ReactiveProperty<int>(_systemParam._initialActionCost);
-        this._increaseActionCost = _systemParam._increaseActionCost;
-        this._increaseActionCostTime = _systemParam._increaseActionCostTime;
+        this._systemParam = _systemParam;
+        this._UIManager = _UIManager;
     }
 
     //コストストリーム生成
@@ -42,9 +36,9 @@ public class ActionCost : MonoBehaviour
 
     //コスト回復ストリーム生成
     private void CreateIncreaseCostStream(){
-        Observable.Timer(System.TimeSpan.Zero, System.TimeSpan.FromSeconds(_increaseActionCostTime))
+        Observable.Timer(System.TimeSpan.Zero, System.TimeSpan.FromSeconds(_systemParam._increaseActionCostTime))
             .Subscribe((_) => {
-                IncreaseCrystalCost(_increaseActionCost);
+                IncreaseCrystalCost(_systemParam._increaseActionCost);
             }).AddTo(this);
     }
 
@@ -61,10 +55,11 @@ public class ActionCost : MonoBehaviour
     private void IncreaseCrystalCost(int _increaseCost){
         //コストの自動回復
         _cost.Value += _increaseCost;
+        if(_cost.Value > _systemParam._maxCost) _cost.Value = _systemParam._maxCost;
     }
 
     //コスト画面表示
     private void DisplayCost(){
-        _text.text = ConstManager._costLabel + _cost.Value;
+        _UIManager._costGauge.SetCostGaugeValue((float)_cost.Value / (float)_systemParam._maxCost);
     }
 }

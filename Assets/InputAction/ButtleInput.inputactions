@@ -176,7 +176,7 @@
                     "name": "",
                     "id": "19443d8e-6037-4de9-807d-b25c12e8e577",
                     "path": "<Keyboard>/v",
-                    "interactions": "Hold(duration=1)",
+                    "interactions": "Hold(duration=1.4)",
                     "processors": "Scale",
                     "groups": "",
                     "action": "RankUp",

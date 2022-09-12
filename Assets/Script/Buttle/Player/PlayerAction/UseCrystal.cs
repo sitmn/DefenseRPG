@@ -96,7 +96,7 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
         //起動モーション開始
 
         //起動時間UI表示
-        _UIManager._actionGauge.SetTween(ConstManager._launchCount);
+        _UIManager._actionGauge.SetTween(ConstManager._rankUpCount);
     }
 
     //クリスタル起動完了(長押し)

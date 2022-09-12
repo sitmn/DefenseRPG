@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using UniRx.Triggers;
 
 public class HPBar : MonoBehaviour
 {
@@ -16,16 +18,26 @@ public class HPBar : MonoBehaviour
         this._rect = this.gameObject.GetComponent<RectTransform>();
         _hpSlider = this.gameObject.GetComponent<Slider>();
         SetHPBarValue(1);
-        SetPosition();
+        CreateMoveHPBarStream();
     }
 
-    //HPバーを対象の下部にセット
+    //画面移動に合わせてHPBarの移動
+    private void CreateMoveHPBarStream(){
+        this.UpdateAsObservable().Subscribe((_) => {
+            SetPosition();
+        }).AddTo(this);
+    }
+
+    //HPバーを対象の上部にセット
     public void SetPosition(){
+        //if(MapManager.IsOutOfReference(MapManager.CastMapPos(this._targetTr.position))) return;
+
         Vector2 _pos = Camera.main.WorldToScreenPoint(this._targetTr.position + new Vector3(0, ConstManager._hpBarPosOffsetY, ConstManager._hpBarPosOffsetZ));
-        //　カメラと同じ向きに設定
-        //transform.rotation = Camera.main.transform.rotation;
-        //_pos.y -= Screen.height / 10;
         this._rect.position = _pos;
+        if(_rect.position.x < 100){
+Debug.Log(_rect.position + "A");
+        }
+        
     }
 
     //HPバーを更新

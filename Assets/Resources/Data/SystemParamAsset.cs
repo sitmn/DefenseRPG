@@ -26,4 +26,7 @@ public class SystemParam{
     //プレイヤーアクション回復までの時間
     [SerializeField]
     public float _increaseActionCostTime;
+    //コストの最大上限
+    [SerializeField]
+    public int _maxCost;
 }

@@ -21,14 +21,14 @@ MonoBehaviour:
     _attackRange: 03000000
     _effectRate:
     - 0.2
-    _effectTime: 1e000000
+    _effectTime: 03000000
     _moveCost: 1e000000
     _cost: 00000000
     _material:
     - {fileID: 2100000, guid: 710018ad1caede346a571afb336b0698, type: 2}
   - _crystalCoreName: RedCrystal
     _crystalAttackName: RedCrystalAttack
-    _maxHp: 0a0000001900000032000000
+    _maxHp: 050000000f0000001e000000
     _attackMaxCount: 32000000280000001e000000
     _attack: 050000000a0000000f000000
     _attackRange: 040000000400000005000000
@@ -37,15 +37,15 @@ MonoBehaviour:
     - 0
     - 0
     _effectTime: 000000000000000000000000
-    _moveCost: 050000000500000005000000
-    _cost: 0a0000000500000014000000
+    _moveCost: 030000000300000003000000
+    _cost: 0a000000140000001e000000
     _material:
     - {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
     - {fileID: 2100000, guid: 8e08bc5c616b541439a8f6bb2c7d9f1c, type: 2}
     - {fileID: 2100000, guid: be3a6e7fdc3c94a9a8bb2ad1d9751c89, type: 2}
   - _crystalCoreName: BlueCrystal
     _crystalAttackName: BlueCrystalAttack
-    _maxHp: 050000000a0000000f000000
+    _maxHp: 030000000800000014000000
     _attackMaxCount: 320000003200000032000000
     _attack: 02000000050000000a000000
     _attackRange: 030000000300000003000000
@@ -53,8 +53,8 @@ MonoBehaviour:
     - 0.3
     - 0.5
     - 0.7
-    _effectTime: 320000003200000032000000
-    _moveCost: 0a0000000a0000000a000000
+    _effectTime: 030000000300000003000000
+    _moveCost: 050000000500000005000000
     _cost: 0a000000140000001e000000
     _material:
     - {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
@@ -67,12 +67,12 @@ MonoBehaviour:
     _attack: 000000000000000000000000
     _attackRange: 030000000500000007000000
     _effectRate:
-    - 0.3
+    - 0.8
     - 0.4
     - 0.5
-    _effectTime: 1e0000001e0000001e000000
-    _moveCost: 030000000400000003000000
-    _cost: 050000001e00000028000000
+    _effectTime: 030000000300000003000000
+    _moveCost: 030000000300000002000000
+    _cost: 0a000000140000001e000000
     _material:
     - {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
     - {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
     - {fileID: 0}
   - _crystalCoreName: ShippingCrystal
     _crystalAttackName: ShippingCrystalAttack
-    _maxHp: 0a000000140000001e000000
+    _maxHp: 14000000280000003c000000
     _attackMaxCount: 000000000000000000000000
     _attack: 000000000000000000000000
     _attackRange: 000000000000000000000000
