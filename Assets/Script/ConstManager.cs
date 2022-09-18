@@ -52,4 +52,7 @@ public static class ConstManager
 
     //リフトアップ時のY座標
     public const float _liftUpPosY = 2f;
+    
+    //Action無効時のButton透明度
+    public const float _disableButtonAlpha = 0.25f;
 }

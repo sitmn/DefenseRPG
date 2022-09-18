@@ -6,5 +6,6 @@ public class LiftUpButton : UIButtonBase
 {
     public void AwakeManager(){
         _canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
+        SetTransparentButton();
     }
 }

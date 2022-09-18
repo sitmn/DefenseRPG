@@ -12,6 +12,6 @@ public abstract class UIButtonBase : MonoBehaviour
     }
     //UIを透明状態に変更
     public void SetTransparentButton(){
-        this._canvasGroup.alpha = 0.5f;
+        this._canvasGroup.alpha = ConstManager._disableButtonAlpha;
     }
 }

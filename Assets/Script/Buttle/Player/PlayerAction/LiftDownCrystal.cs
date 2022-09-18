@@ -106,6 +106,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
 
     //クリスタルリフトダウン完了(長押し)
     private void OnInputComplete(InputAction.CallbackContext context){
+        //OnStartが実行されていない場合、処理をしない
+        if(_isAction == false) return;
         //オブジェクトをマスへ配置
         PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, PlayerCore.GetLiftCrystalTr().localScale.y / 2, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
@@ -126,6 +128,8 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
 
     //クリスタルリフトダウンキャンセル
     private void OnInputEnd(InputAction.CallbackContext context){
+        //OnStartが実行されていない場合、処理をしない
+        if(_isAction == false) return;
         //リフトダウンモーション終了、リフトダウン中フラグ取り消し
         _isAction = false;
 
