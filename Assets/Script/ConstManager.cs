@@ -55,4 +55,8 @@ public static class ConstManager
     
     //Action無効時のButton透明度
     public const float _disableButtonAlpha = 0.25f;
+    //Button押下時の縮小率
+    public const float _buttonShrinkRate = 0.8f;
+    //Button押下時または押下終了時の拡大縮小にかかる時間
+    public const float _buttonscalingTime = 0.25f;
 }

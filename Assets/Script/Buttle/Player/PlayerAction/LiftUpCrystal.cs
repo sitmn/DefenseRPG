@@ -82,6 +82,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     private void ChangeLiftButton(){
         _liftUpButton.SetActive(false);
         _liftDownButton.SetActive(true);
+        _liftDownButton.GetComponent<UIButtonBase>().ChangeButtonScale(1, ConstManager._buttonscalingTime);
     }
 
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行

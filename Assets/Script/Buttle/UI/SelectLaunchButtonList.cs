@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.InputSystem;
 
-public class SelectLaunchButtonList : UIButtonBase
+public class SelectLaunchButtonList : MonoBehaviour
 {
     private PlayerInput _playerInput;
     //選択中のボタンNo
