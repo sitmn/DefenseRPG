@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 一定時間毎にステージをX方向に1マス移動させるためのクラス
+/// オブジェクト位置や移動のためのマス情報を併せてX方向に移動させる
+/// </summary>
 public class StageMove : MonoBehaviour
 {
     
@@ -37,11 +41,16 @@ public class StageMove : MonoBehaviour
     private int _crystalInstantiateAmount;
     private EnemyParamAsset _enemyParamData;
     private CrystalParamAsset _crystalParamData;
+    //エリア区画エフェクト移動用スクリプト
+    [SerializeField]
+    private FieldWall _fieldWallScript;
 
     public void AwakeManager(SystemParam _systemParam){
+        _fieldWallScript.AwakeManager();
+
         _enemyParamData = Resources.Load("Data/EnemyParamData") as EnemyParamAsset;
         _crystalParamData = Resources.Load("Data/CrystalParamData") as CrystalParamAsset;
-
+        
         _stageParentTr = this.gameObject.GetComponent<Transform>();
 
         SetParam(_systemParam);
@@ -74,9 +83,13 @@ public class StageMove : MonoBehaviour
     private bool CountStageMove(){
         bool _stageMoveCountFlag = false;
         _stageMoveCount ++;
+
+        _fieldWallScript.FlashFieldWall((float)_stageMoveCount / (float)_stageMoveMaxCount);
+
         if(_stageMoveCount >= _stageMoveMaxCount){
             _stageMoveCount = 0;
             _stageMoveCountFlag = true;
+            _fieldWallScript.FlashFieldWall((float)_stageMoveCount / (float)_stageMoveMaxCount);
         }
 
         return _stageMoveCountFlag;
@@ -92,6 +105,8 @@ public class StageMove : MonoBehaviour
         DeleteEnemyInMap();
         //最後列の床オブジェクト削除、最前列の床オブジェクト生成
         CreateAndDeleteStageRow();
+        //エリア区画用のエフェクトを移動
+        _fieldWallScript.MoveFieldWall();
         
         //プレイヤーがステージ最後列にいる場合または、輸送クリスタルが最後列かつリフトされていない場合、ゲームオーバー表示し、全ての入力を無効に
         if(MapManager.GetPlayerPos().x == 0 || MapManager.GetShippingCrystalPos().x == 0 && !MapManager.IsShippingCrystalLiftUp()){

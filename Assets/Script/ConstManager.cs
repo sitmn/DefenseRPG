@@ -59,4 +59,16 @@ public static class ConstManager
     public const float _buttonShrinkRate = 0.8f;
     //Button押下時または押下終了時の拡大縮小にかかる時間
     public const float _buttonscalingTime = 0.25f;
+
+    //エリア区画用エフェクトのstartLifetimeの最大値
+    public const float _fieldWallMaxStartLifeTime = 2f;
+
+    //エリア区画用エフェクトのstartLifetimeの最小値
+    public const float _fieldWallMinStartLifeTime = 0.5f;
+
+    //エリア区画用エフェクトのrateOverTimeの最大値
+    public const float _fieldWallMaxRateOverTime = 5f;
+
+    //エリア区画用エフェクトのrateOverTimeの最小値
+    public const float _fieldWallMinRateOverTime = 1f;
 }
