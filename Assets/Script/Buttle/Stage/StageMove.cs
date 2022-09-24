@@ -22,7 +22,7 @@ public class StageMove : MonoBehaviour
     [SerializeField]
     private GameObject _stageRowObj;
     //ステージ列オブジェクト
-    private List<GameObject> _stageRowObjList;
+    //private List<GameObject> _stageRowObjList;
 
     //敵、水晶の自動生成用プレハブ
     [SerializeField]
@@ -54,7 +54,7 @@ public class StageMove : MonoBehaviour
         _stageParentTr = this.gameObject.GetComponent<Transform>();
 
         SetParam(_systemParam);
-        SetStageRow();
+        //SetStageRow();
     }
     //変数の初期値セット
     private void SetParam(SystemParam _systemParam){
@@ -64,12 +64,12 @@ public class StageMove : MonoBehaviour
     }
 
     //ステージ列をセット
-    private void SetStageRow(){
-        _stageRowObjList = new List<GameObject>();
-        for(int i = 0 ; i < MapManager.max_pos_x ; i++){
-            _stageRowObjList.Add(_stageParentTr.GetChild(i).gameObject);
-        }
-    }
+    // private void SetStageRow(){
+    //     _stageRowObjList = new List<GameObject>();
+    //     for(int i = 0 ; i < MapManager.max_pos_x ; i++){
+    //         _stageRowObjList.Add(_stageParentTr.GetChild(i).gameObject);
+    //     }
+    // }
 
     //Update処理
     public void UpdateManager()
@@ -104,7 +104,7 @@ public class StageMove : MonoBehaviour
         //ステージ列移動前のエネミー情報を全て消す
         DeleteEnemyInMap();
         //最後列の床オブジェクト削除、最前列の床オブジェクト生成
-        CreateAndDeleteStageRow();
+        //CreateAndDeleteStageRow();
         //エリア区画用のエフェクトを移動
         _fieldWallScript.MoveFieldWall();
         
@@ -176,20 +176,20 @@ public class StageMove : MonoBehaviour
     }
 
     //ステージ最後列の床を削除し、ステージ最前列の床を生成
-    private void CreateAndDeleteStageRow(){
-        //ステージ最後列オブジェクトを削除
-        Destroy(_stageRowObjList[0]);
-        //リストの参照先を１列分スライド
-        for(int i = 0 ; i < _stageRowObjList.Count - 1 ; i++){
-            _stageRowObjList[i] = _stageRowObjList[i + 1];
-        }
-        //最前列のオブジェクトを生成
-        GameObject _obj = Instantiate(_stageRowObj, new Vector3(MapManager.max_pos_x + _moveRowCount, -0.5f , MapManager.max_pos_z / 2), Quaternion.identity);
-        _obj.transform.parent = _stageParentTr;
+    // private void CreateAndDeleteStageRow(){
+    //     //ステージ最後列オブジェクトを削除
+    //     Destroy(_stageRowObjList[0]);
+    //     //リストの参照先を１列分スライド
+    //     for(int i = 0 ; i < _stageRowObjList.Count - 1 ; i++){
+    //         _stageRowObjList[i] = _stageRowObjList[i + 1];
+    //     }
+    //     //最前列のオブジェクトを生成
+    //     GameObject _obj = Instantiate(_stageRowObj, new Vector3(MapManager.max_pos_x + _moveRowCount, -0.5f , MapManager.max_pos_z / 2), Quaternion.identity);
+    //     _obj.transform.parent = _stageParentTr;
 
-        //生成したステージ列をリストへ格納
-        _stageRowObjList[_stageRowObjList.Count - 1] = _obj;
-    }
+    //     //生成したステージ列をリストへ格納
+    //     _stageRowObjList[_stageRowObjList.Count - 1] = _obj;
+    // }
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
     private void SlideAllPos(){
