@@ -25,7 +25,7 @@ MonoBehaviour:
     _moveCost: 1e000000
     _cost: 00000000
     _material:
-    - {fileID: 2100000, guid: 710018ad1caede346a571afb336b0698, type: 2}
+    - {fileID: 2100000, guid: 5ec48d1362889c94f80a0b8d7e9090d8, type: 2}
   - _crystalCoreName: RedCrystal
     _crystalAttackName: RedCrystalAttack
     _maxHp: 050000000f0000001e000000

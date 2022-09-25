@@ -59,7 +59,7 @@ Shader "Unlit/StageGridShader"
                 //stまたは1.0-stのどちらかが0であれば、0となる
                 st = step(st, size) * step(1.0 - st, size);
                 float magnification = st.x * st.y;
-                magnification = (magnification == 0)? 0.7 : magnification;
+                magnification = (magnification == 0)? 0.8 : magnification;
                 return magnification;
             }
 
@@ -88,10 +88,10 @@ Shader "Unlit/StageGridShader"
                             + i.binormal * normalMap.y
                             + i.normal * normalMap.z;
                 //法線マップの拡散反射光
-                float3 lig = max(0.0f, dot(normalMap, -_WorldSpaceLightPos0)) * _LightColor0;
+                float3 lig = max(0.0f, dot(normalMap, - normalize(float3(0,100,0)))) * 2 * _LightColor0;
                 //鏡面反射光
-                lig += 0.7;
-                lig = lig * lig;
+                lig += 0.8;
+                //lig = lig * lig;
 
                 fixed4 color1 = tex2D(_MainTex, i.uv);
                 fixed4 color2 = tex2D(_SubTex, i.uv);
@@ -102,7 +102,7 @@ Shader "Unlit/StageGridShader"
                 //縦横を分割
                 float2 st = frac(i.uv * float2(8,5));
                 //Grid部を作成
-                sv = sv * box(st, 0.05);
+                sv = sv * box(st, 0.035);
                 return sv;
             }
             ENDCG

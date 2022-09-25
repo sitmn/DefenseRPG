@@ -20,7 +20,7 @@ public class StageMove : MonoBehaviour
     private Transform _stageParentTr;
     //ステージ列プレハブ
     [SerializeField]
-    private GameObject _stageRowObj;
+    private GameObject _stageObj;
     //ステージ列オブジェクト
     //private List<GameObject> _stageRowObjList;
 
@@ -103,8 +103,8 @@ public class StageMove : MonoBehaviour
         DeleteCrystalInMap();
         //ステージ列移動前のエネミー情報を全て消す
         DeleteEnemyInMap();
-        //最後列の床オブジェクト削除、最前列の床オブジェクト生成
-        //CreateAndDeleteStageRow();
+        //カメラに映らなくなった後列床オブジェクト削除、前方床オブジェクト生成
+        CreateAndDeleteStage();
         //エリア区画用のエフェクトを移動
         _fieldWallScript.MoveFieldWall();
         
@@ -176,20 +176,17 @@ public class StageMove : MonoBehaviour
     }
 
     //ステージ最後列の床を削除し、ステージ最前列の床を生成
-    // private void CreateAndDeleteStageRow(){
-    //     //ステージ最後列オブジェクトを削除
-    //     Destroy(_stageRowObjList[0]);
-    //     //リストの参照先を１列分スライド
-    //     for(int i = 0 ; i < _stageRowObjList.Count - 1 ; i++){
-    //         _stageRowObjList[i] = _stageRowObjList[i + 1];
-    //     }
-    //     //最前列のオブジェクトを生成
-    //     GameObject _obj = Instantiate(_stageRowObj, new Vector3(MapManager.max_pos_x + _moveRowCount, -0.5f , MapManager.max_pos_z / 2), Quaternion.identity);
-    //     _obj.transform.parent = _stageParentTr;
-
-    //     //生成したステージ列をリストへ格納
-    //     _stageRowObjList[_stageRowObjList.Count - 1] = _obj;
-    // }
+    private void CreateAndDeleteStage(){
+        GameObject _deleteObj = _stageParentTr.GetChild(0).gameObject;
+        //ステージ床1個分移動したときに実行
+        if((_moveRowCount + 1) % _deleteObj.transform.localScale.x != 0) return;
+        
+        //最前列のオブジェクトを生成
+        GameObject _obj = Instantiate(_stageObj, new Vector3(_deleteObj.transform.localScale.x * 2 + _deleteObj.transform.position.x, -0.5f , MapManager.max_pos_z / 2), Quaternion.identity);
+        _obj.transform.parent = _stageParentTr;
+        //ステージ最後列オブジェクトを削除
+        Destroy(_deleteObj);
+    }
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
     private void SlideAllPos(){
@@ -220,7 +217,7 @@ public class StageMove : MonoBehaviour
         //ランダムな数字を水晶生成数分取得(生成に位置の重複がないよう使用したリストは削除)
         List<int> _randomNumberList = new List<int>();
         for(int i = 0;i < _crystalAmount; i++){
-            int _randomNumber = Random.Range(0,_listNumberList.Count - 1);
+            int _randomNumber = Random.Range(0,_listNumberList.Count);
             _randomNumberList.Add(_listNumberList[_randomNumber]);
             
             _listNumberList.RemoveAt(_randomNumber);

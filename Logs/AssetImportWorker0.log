@@ -15,7 +15,7 @@ C:/Users/shotj/Desktop/Unity data/DefenseRPG
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-53085
+61110
 Successfully changed project path to: C:/Users/shotj/Desktop/Unity data/DefenseRPG
 C:/Users/shotj/Desktop/Unity data/DefenseRPG
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ C:/Users/shotj/Desktop/Unity data/DefenseRPG
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 153.22 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 257.63 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.2.7f1 (6bd9e232123f)
 [Subsystems] Discovering subsystems at path C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/Resources/UnitySubsystems
@@ -63,92 +63,92 @@ Initialize mono
 Mono path[0] = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56628
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56924
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.012193 seconds.
+Registered in 0.022952 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 138.30 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 257.55 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.097 seconds
+- Completed reload, in  1.810 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1098ms)
-		BeginReloadAssembly (119ms)
+	ReloadAssembly (1810ms)
+		BeginReloadAssembly (433ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (2ms)
-		EndReloadAssembly (857ms)
-			LoadAssemblies (116ms)
+			CreateAndSetChildDomain (13ms)
+		EndReloadAssembly (1135ms)
+			LoadAssemblies (413ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (267ms)
+			SetupTypeCache (242ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (55ms)
-			SetupLoadedEditorAssemblies (426ms)
+			RebuildScriptCaches (62ms)
+			SetupLoadedEditorAssemblies (702ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (42ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (138ms)
-				BeforeProcessingInitializeOnLoad (2ms)
-				ProcessInitializeOnLoadAttributes (180ms)
-				ProcessInitializeOnLoadMethodAttributes (64ms)
+				InitializePlatformSupportModulesInManaged (38ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (258ms)
+				BeforeProcessingInitializeOnLoad (4ms)
+				ProcessInitializeOnLoadAttributes (287ms)
+				ProcessInitializeOnLoadMethodAttributes (115ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.012747 seconds.
+Registered in 0.018987 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 207.05 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 233.22 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.041 seconds
+- Completed reload, in  3.620 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2043ms)
-		BeginReloadAssembly (164ms)
+	ReloadAssembly (3621ms)
+		BeginReloadAssembly (272ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
+			DisableScriptedObjects (12ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (27ms)
-		EndReloadAssembly (1737ms)
-			LoadAssemblies (136ms)
+			CreateAndSetChildDomain (48ms)
+		EndReloadAssembly (3093ms)
+			LoadAssemblies (222ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (483ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (94ms)
-			SetupLoadedEditorAssemblies (960ms)
+			SetupTypeCache (827ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (173ms)
+			SetupLoadedEditorAssemblies (1736ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (18ms)
+				InitializePlatformSupportModulesInManaged (28ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (207ms)
-				BeforeProcessingInitializeOnLoad (207ms)
-				ProcessInitializeOnLoadAttributes (461ms)
-				ProcessInitializeOnLoadMethodAttributes (52ms)
-				AfterProcessingInitializeOnLoad (14ms)
-				EditorAssembliesLoaded (0ms)
+				RefreshPlugins (233ms)
+				BeforeProcessingInitializeOnLoad (278ms)
+				ProcessInitializeOnLoadAttributes (955ms)
+				ProcessInitializeOnLoadMethodAttributes (219ms)
+				AfterProcessingInitializeOnLoad (21ms)
+				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (8ms)
+			AwakeInstancesAfterBackupRestoration (17ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 0.88 ms, found 6 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.13 seconds
+Refreshing native plugins compatible for Editor in 2.15 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 4538 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 116 unused Assets / (10.7 MB). Loaded Objects now: 4949.
-Memory consumption went from 269.3 MB to 258.7 MB.
-Total: 10.460200 ms (FindLiveObjects: 0.411700 ms CreateObjectMapping: 0.367700 ms MarkObjects: 3.347300 ms  DeleteObjects: 6.331900 ms)
+Unloading 5496 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 118 unused Assets / (10.8 MB). Loaded Objects now: 5906.
+Memory consumption went from 300.3 MB to 289.5 MB.
+Total: 22.087200 ms (FindLiveObjects: 1.841600 ms CreateObjectMapping: 2.490500 ms MarkObjects: 8.915700 ms  DeleteObjects: 8.838200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -162,19 +162,55 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 92137.637708 seconds.
-  path: Assets/Shader/StageGridShader.shader
-  artifactKey: Guid(cb3d153030063422bb02e2d94aac9966) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Shader/StageGridShader.shader using Guid(cb3d153030063422bb02e2d94aac9966) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1f6c308b80d3122a9bd3a436412da03') in 0.055647 seconds 
+  Time since last request: 183915.304199 seconds.
+  path: Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Tess/UCTS_DoubleShadeWithFeather_tess.cginc
+  artifactKey: Guid(6d04fc34e9717d34d9589f39decf8333) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Tess/UCTS_DoubleShadeWithFeather_tess.cginc using Guid(6d04fc34e9717d34d9589f39decf8333) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ff1ea052cc9ef34df072809f8cdbc49') in 0.147672 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 135.513990 seconds.
-  path: Assets/Shader/CrystalShader.shader
-  artifactKey: Guid(8e7a8e8bc5ce3ef47b3a129005799853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Shader/CrystalShader.shader using Guid(8e7a8e8bc5ce3ef47b3a129005799853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14b5e95801f7a50c5fdd4e2f362af6ae') in 0.010423 seconds 
+  Time since last request: 0.000023 seconds.
+  path: Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Tess/UCTS_ShadingGradeMap_tess.cginc
+  artifactKey: Guid(ad7807131760d5544843d7424e535b75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Tess/UCTS_ShadingGradeMap_tess.cginc using Guid(ad7807131760d5544843d7424e535b75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '000ef36ee3ee44c50bd3f1aff3144e37') in 0.051062 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 18.866565 seconds.
-  path: Assets/Shader/CrystalShader.shader
-  artifactKey: Guid(8e7a8e8bc5ce3ef47b3a129005799853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Shader/CrystalShader.shader using Guid(8e7a8e8bc5ce3ef47b3a129005799853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2ad29b6a13c93a6554c3918e0260a33') in 0.004484 seconds 
+  Time since last request: 0.000493 seconds.
+  path: Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Tess/UCTS_ShadowCaster_Tess.cginc
+  artifactKey: Guid(6261ac20c5dfa024a98d6ce3921bab70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Tess/UCTS_ShadowCaster_Tess.cginc using Guid(6261ac20c5dfa024a98d6ce3921bab70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2edbe8322eb41fea91e2ba4fe20887e7') in 0.198816 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/UCTS_ShadowCaster.cginc
+  artifactKey: Guid(ae8d06deb98501947846000ba6cd3ab2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/UCTS_ShadowCaster.cginc using Guid(ae8d06deb98501947846000ba6cd3ab2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcc6605efe1adce37eb89d425dfd318c') in 0.065718 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/UCTS_DoubleShadeWithFeather.cginc
+  artifactKey: Guid(80bd7ce6cad775a4e9de24e18eb5e61e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/UCTS_DoubleShadeWithFeather.cginc using Guid(80bd7ce6cad775a4e9de24e18eb5e61e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fab99377412aedd48a5b9a525501c00a') in 0.014089 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 34.063587 seconds.
+  path: Assets/Includes/ShaderGraphLight.hlsl
+  artifactKey: Guid(3fb6f17132095b0489c65692dc37ea9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Includes/ShaderGraphLight.hlsl using Guid(3fb6f17132095b0489c65692dc37ea9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c6ae0c365162db9c9e67472db567abb') in 0.012949 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 100.660009 seconds.
+  path: Assets/Includes/ShaderGraphLight.hlsl
+  artifactKey: Guid(3fb6f17132095b0489c65692dc37ea9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Includes/ShaderGraphLight.hlsl using Guid(3fb6f17132095b0489c65692dc37ea9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5a3836153312e2ba5f4747e561ed8a9') in 0.006623 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2233.501887 seconds.
+  path: Assets/Includes/ShaderGraphLight.hlsl
+  artifactKey: Guid(3fb6f17132095b0489c65692dc37ea9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Includes/ShaderGraphLight.hlsl using Guid(3fb6f17132095b0489c65692dc37ea9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a391b11208e117e1250d13e30a648fc9') in 0.008127 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.515163 seconds.
+  path: Assets/Shader/CrystalShaderGraph.shadergraph
+  artifactKey: Guid(e497966ea15dcb44cb5bdb6a0e8952d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shader/CrystalShaderGraph.shadergraph using Guid(e497966ea15dcb44cb5bdb6a0e8952d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7158a375f2c1cc6e35be93c605d60212') in 0.028768 seconds 

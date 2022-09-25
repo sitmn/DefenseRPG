@@ -1,77 +1,70 @@
-Shader "Unlit/StageShader"
+Shader "Unlit/CrystalShader"
 {
-    Properties{
-        _BaseColor("BaseColor", color)=(1,1,1,1)
-
-
+    Properties
+    {
+        //_MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1,1,1,1)
     }
+    SubShader
+    {
+        Tags { "RenderType"="Transparent" "Queue" = "Transparent"}
+        //透過用のタグ
+        LOD 100
 
-    Subshader{
-        Pass{
-            Tags{
-                "RenderType"="Transparent"
-                "Queue"="Transparent"
-            }
-            Blend SrcAlpha OneMinusSrcAlpha 
-            LOD 100
+        Blend SrcAlpha OneMinusSrcAlpha 
 
-            HLSLPROGRAM
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            // make fog work
+            #pragma multi_compile_fog
 
-            #pragma vertex vert;
-            #pragma fragment frag;
             #include "UnityCG.cginc"
-            #include "Lighting.cginc"
 
-            struct appdata{
+            struct appdata
+            {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
-                
+                float2 uv : TEXCOORD0;
             };
 
-            struct v2f{
-                float4 vertex: SV_POSITION;
-                float3 viewDir: TEXCOORD0;
-                float3 lightDir: TEXCOORD1;
-                float3 worldNormal: TEXCOORD2; 
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                float3 normal : TEXCOORD1;
+                float3 viewDir : TEXCOORD2;
+                UNITY_FOG_COORDS(1)
+                float4 vertex : SV_POSITION;
             };
 
-            fixed4 _BaseColor;
+            sampler2D _MainTex;
+            fixed4 _Color;
+            float4 _MainTex_ST;
 
-            v2f vert(appdata i){
+            v2f vert (appdata v)
+            {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(i.vertex);
-                
-                //ワールド座標変換
-                fixed4x4 mtr = unity_ObjectToWorld;
-
-                //ワールド頂点
-                float3 worldDir = mul(mtr, i.vertex).xyz;
-
-                //法線ベクトル
-                o.worldNormal = normalize(UnityObjectToWorldNormal(i.normal).xyz);
-
-                //object ⇨ light vec
-                o.lightDir = normalize(_WorldSpaceLightPos0.xyz - worldDir);
-
-                //camera ⇨ object vec
-                o.viewDir = normalize(_WorldSpaceCameraPos.xyz - worldDir);
-
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                UNITY_TRANSFER_FOG(o,o.vertex);
+                fixed3x3 worldMatrix = unity_ObjectToWorld;
+                o.normal = normalize(UnityObjectToWorldNormal(v.normal));
+                o.viewDir = normalize(_WorldSpaceCameraPos - mul(worldMatrix, v.vertex.xyz));
                 return o;
             }
 
-            fixed4 frag(v2f v):SV_Target{
-                //水晶用アルファ値
-                fixed alpha = saturate(1 - abs(dot(v.viewDir, v.worldNormal)) + 0.2);
+            fixed4 frag (v2f i) : SV_Target
+            {
+                fixed alpha = 1 - abs(dot(i.normal, i.viewDir));
 
-                //DiffuseLight
-                fixed diffuse = saturate(dot(v.lightDir, v.worldNormal) + 0.2);
-
-                fixed4 color = fixed4(diffuse * _BaseColor.xyz, alpha);
-
-                return color;
+                // sample the texture
+                fixed4 col = fixed4(_Color.xyz, alpha);
+                
+                return col;
             }
-
-            ENDHLSL
+            ENDCG
         }
     }
 }
