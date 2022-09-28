@@ -110,7 +110,7 @@ public class LiftDownCrystal : MonoBehaviour, IPlayerAction
         //OnStartが実行されていない場合、処理をしない
         if(_isAction == false) return;
         //オブジェクトをマスへ配置
-        PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, PlayerCore.GetLiftCrystalTr().localScale.y / 2, _playerTr.position.z + (int)_playerTr.forward.z);
+        PlayerCore.GetLiftCrystalTr().position = new Vector3(_playerTr.position.x + (int)_playerTr.forward.x, 0, _playerTr.position.z + (int)_playerTr.forward.z);
         //プレイヤーの次の移動先が重複している場合、移動をキャンセル
         //マップ情報に水晶を追加
         PlayerCore.GetLiftCrystalCore().SetOnMap();
