@@ -16,7 +16,7 @@ MonoBehaviour:
   - max_pos_x: 14
     max_pos_z: 9
     _stageMoveMaxCount: 500
-    _initialActionCost: 10
+    _initialActionCost: 80
     _increaseActionCost: 1
     _increaseActionCostTime: 1
     _maxCost: 100

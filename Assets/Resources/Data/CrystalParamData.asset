@@ -25,7 +25,7 @@ MonoBehaviour:
     _moveCost: 1e000000
     _cost: 00000000
     _material:
-    - {fileID: 2100000, guid: 5ec48d1362889c94f80a0b8d7e9090d8, type: 2}
+    - {fileID: 2100000, guid: bd2083b88d7180e40b6607bd49d75ac7, type: 2}
   - _crystalCoreName: RedCrystal
     _crystalAttackName: RedCrystalAttack
     _maxHp: 050000000f0000001e000000
@@ -40,9 +40,9 @@ MonoBehaviour:
     _moveCost: 030000000300000003000000
     _cost: 0a000000140000001e000000
     _material:
-    - {fileID: 2100000, guid: 4cb6cf9be5cc74ff8b40bd8ca01c2a65, type: 2}
-    - {fileID: 2100000, guid: 8e08bc5c616b541439a8f6bb2c7d9f1c, type: 2}
-    - {fileID: 2100000, guid: be3a6e7fdc3c94a9a8bb2ad1d9751c89, type: 2}
+    - {fileID: 2100000, guid: 0d6943f3242ca6f41a575babe67f4ba0, type: 2}
+    - {fileID: 2100000, guid: c888dfeb51eb3b948aed9cf5a3b973fc, type: 2}
+    - {fileID: 2100000, guid: 73f500e9405aeb343bfa414dad25de44, type: 2}
   - _crystalCoreName: BlueCrystal
     _crystalAttackName: BlueCrystalAttack
     _maxHp: 030000000800000014000000
@@ -57,9 +57,9 @@ MonoBehaviour:
     _moveCost: 050000000500000005000000
     _cost: 0a000000140000001e000000
     _material:
-    - {fileID: 2100000, guid: 824a0280716204539af0956807c99fa9, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 2100000, guid: 4cc73a8d71f4dca4e9db2c0af06c3b7f, type: 2}
+    - {fileID: 2100000, guid: ff51254e2b27df441911147dfdd7e438, type: 2}
+    - {fileID: 2100000, guid: 57cab5845892f4549a95d338769210a0, type: 2}
   - _crystalCoreName: GreenCrystal
     _crystalAttackName: GreenCrystalAttack
     _maxHp: 140000003200000064000000
@@ -74,9 +74,9 @@ MonoBehaviour:
     _moveCost: 030000000300000002000000
     _cost: 0a000000140000001e000000
     _material:
-    - {fileID: 2100000, guid: 2d38756d923f7414bb0c816eda010bc4, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 2100000, guid: fbdce5742045fa743a5cbf9c249a0303, type: 2}
+    - {fileID: 2100000, guid: 11f1c25b319698e4f8e2be5e202d08ba, type: 2}
+    - {fileID: 2100000, guid: 4c153a9a7a0ba134485c5c0023b3e25d, type: 2}
   - _crystalCoreName: TestCrystal
     _crystalAttackName: TestCrystalAttack
     _maxHp: 00000000
@@ -106,6 +106,6 @@ MonoBehaviour:
     _moveCost: 010000000100000001000000
     _cost: 00000000050000000a000000
     _material:
-    - {fileID: 2100000, guid: 61acdec9ae329d74f96ef14c8842e6a1, type: 2}
-    - {fileID: 2100000, guid: 0c627064564fe664f85228880f12aa0f, type: 2}
-    - {fileID: 2100000, guid: f7fd067a8df55294c96363b4d9457bd0, type: 2}
+    - {fileID: 2100000, guid: 1585afb00f5a5d045a7afb1c616b53f0, type: 2}
+    - {fileID: 2100000, guid: cf26538e37f8c1b4b9bc9946b89e64ee, type: 2}
+    - {fileID: 2100000, guid: 4667cab71479d664db1bf509b648b443, type: 2}

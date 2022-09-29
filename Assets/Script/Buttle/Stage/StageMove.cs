@@ -182,7 +182,7 @@ public class StageMove : MonoBehaviour
         if((_moveRowCount + 1) % _deleteObj.transform.localScale.x != 0) return;
         
         //最前列のオブジェクトを生成
-        GameObject _obj = Instantiate(_stageObj, new Vector3(_deleteObj.transform.localScale.x * 2 + _deleteObj.transform.position.x, -0.5f , MapManager.max_pos_z / 2), Quaternion.identity);
+        GameObject _obj = Instantiate(_stageObj, new Vector3(_deleteObj.transform.localScale.x * 2 + _deleteObj.transform.position.x, 0 , MapManager.max_pos_z / 2), Quaternion.identity);
         _obj.transform.parent = _stageParentTr;
         //ステージ最後列オブジェクトを削除
         Destroy(_deleteObj);
@@ -225,7 +225,7 @@ public class StageMove : MonoBehaviour
 
         //最前列に水晶を生成
         for(int i = 0 ; i < _randomNumberList.Count; i++){
-            GameObject _crystal = Instantiate(_crystalPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
+            GameObject _crystal = Instantiate(_crystalPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, 0 , _randomNumberList[i]), Quaternion.identity);
             _crystal.transform.parent = _crystalParent.transform;
             //生成したクリスタルを管理しているリストにセット
             CrystalListCore.SetCrystalCoreInList(_crystal.GetComponent<CrystalCoreBase>(), _crystalParamData.CrystalParamList[0]);
@@ -242,7 +242,7 @@ public class StageMove : MonoBehaviour
 
         //最前列に水晶を生成
         for(int i = 0 ; i < _randomNumberList.Count; i++){
-            GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, 0.5f , _randomNumberList[i]), Quaternion.identity);
+            GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, 0 , _randomNumberList[i]), Quaternion.identity);
             _enemy.transform.parent = _enemyParent.transform;
             EnemyListCore.SetEnemyCoreInList(_enemy.GetComponent<EnemyCore>(), _enemyParamData.EnemyParamList[0]);
         }
