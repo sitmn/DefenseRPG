@@ -18,11 +18,21 @@ public class StageMove : MonoBehaviour
 
     //ステージ親オブジェクト
     private Transform _stageParentTr;
-    //ステージ列プレハブ
+    //ステージ床プレハブ
     [SerializeField]
     private GameObject _stageObj;
-    //ステージ列オブジェクト
-    //private List<GameObject> _stageRowObjList;
+    //ステージ下床プレハブ
+    [SerializeField]
+    private GameObject _stageSupportObj;
+    //ステージ下床親オブジェクト
+    [SerializeField]
+    private Transform _stageSupportParentTr;
+    //ポイントライトプレハブ
+    [SerializeField]
+    private GameObject _lightObj;
+    //ポイントライト親オブジェクト
+    [SerializeField]
+    private Transform _lightParentTr;
 
     //敵、水晶の自動生成用プレハブ
     [SerializeField]
@@ -44,6 +54,7 @@ public class StageMove : MonoBehaviour
     //エリア区画エフェクト移動用スクリプト
     [SerializeField]
     private FieldWall _fieldWallScript;
+    
 
     public void AwakeManager(SystemParam _systemParam){
         _fieldWallScript.AwakeManager();
@@ -63,13 +74,6 @@ public class StageMove : MonoBehaviour
         _stageMoveMaxCount = _systemParam._stageMoveMaxCount;
     }
 
-    //ステージ列をセット
-    // private void SetStageRow(){
-    //     _stageRowObjList = new List<GameObject>();
-    //     for(int i = 0 ; i < MapManager.max_pos_x ; i++){
-    //         _stageRowObjList.Add(_stageParentTr.GetChild(i).gameObject);
-    //     }
-    // }
 
     //Update処理
     public void UpdateManager()
@@ -103,7 +107,7 @@ public class StageMove : MonoBehaviour
         DeleteCrystalInMap();
         //ステージ列移動前のエネミー情報を全て消す
         DeleteEnemyInMap();
-        //カメラに映らなくなった後列床オブジェクト削除、前方床オブジェクト生成
+        //カメラに映らなくなった後列床/下床/ライトオブジェクト削除、前方に新規で生成
         CreateAndDeleteStage();
         //エリア区画用のエフェクトを移動
         _fieldWallScript.MoveFieldWall();
@@ -177,15 +181,33 @@ public class StageMove : MonoBehaviour
 
     //ステージ最後列の床を削除し、ステージ最前列の床を生成
     private void CreateAndDeleteStage(){
-        GameObject _deleteObj = _stageParentTr.GetChild(0).gameObject;
+        GameObject _deleteFloor = _stageParentTr.GetChild(0).gameObject;
         //ステージ床1個分移動したときに実行
-        if((_moveRowCount + 1) % _deleteObj.transform.localScale.x != 0) return;
+        if((_moveRowCount + 1) % _deleteFloor.transform.localScale.x != 0) return;
         
-        //最前列のオブジェクトを生成
-        GameObject _obj = Instantiate(_stageObj, new Vector3(_deleteObj.transform.localScale.x * 2 + _deleteObj.transform.position.x, 0 , MapManager.max_pos_z / 2), Quaternion.identity);
-        _obj.transform.parent = _stageParentTr;
+        //最前列の床オブジェクトを生成
+        GameObject _floorObj = Instantiate(_stageObj, new Vector3(_deleteFloor.transform.localScale.x * 2 + _deleteFloor.transform.position.x, -0.5f , MapManager.max_pos_z / 2), Quaternion.identity);
+        _floorObj.transform.parent = _stageParentTr;
+        //最前列の下床オブジェクトを生成
+        GameObject _floorSupportObj = Instantiate(_stageSupportObj, new Vector3(_deleteFloor.transform.localScale.x * 2 + _deleteFloor.transform.position.x, -0.6f , MapManager.max_pos_z / 2), Quaternion.identity);
+        _floorSupportObj.transform.parent = _stageSupportParentTr;
+        //最後列のポイントライト削除
+        Destroy(_lightParentTr.GetChild(0).gameObject);
+        //最前列のライトオブジェクトを生成
+        GameObject _lightSetObj = Instantiate(_lightObj, new Vector3(_deleteFloor.transform.localScale.x * 2 + _deleteFloor.transform.position.x, 3 , 0), Quaternion.identity);
+        _lightSetObj.transform.parent = _lightParentTr;
+        Transform _lightSetTr = _lightSetObj.GetComponent<Transform>();
+        //ライトオブジェクトの各ライトの位置と光をランダムに変更
+        for(int i = 0; i < _lightSetTr.childCount; i ++){
+            Debug.Log(_lightSetTr.GetChild(i).position + "AAA");
+            _lightSetTr.GetChild(i).position = new Vector3(Random.Range(0, _deleteFloor.transform.localScale.x), 0 , Random.Range(0, _deleteFloor.transform.localScale.z)) + _lightSetTr.position;
+            Debug.Log(_lightSetTr.GetChild(i).position + "BBB");
+        }
+        
         //ステージ最後列オブジェクトを削除
-        Destroy(_deleteObj);
+        Destroy(_deleteFloor);
+        Destroy(_stageSupportParentTr.GetChild(0).gameObject);
+        
     }
 
     //ステージ移動により１マスズレるTrackPos,EnemyPos,JudgePosを修正。JudgePos更新により、敵情報も作成される。
@@ -240,9 +262,9 @@ public class StageMove : MonoBehaviour
             _listNumberList.RemoveAt(_randomNumber);
         }
 
-        //最前列に水晶を生成
+        //最前列にエネミーを生成
         for(int i = 0 ; i < _randomNumberList.Count; i++){
-            GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, 0 , _randomNumberList[i]), Quaternion.identity);
+            GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, _enemyPrefab.transform.localScale.y / 2 , _randomNumberList[i]), Quaternion.identity);
             _enemy.transform.parent = _enemyParent.transform;
             EnemyListCore.SetEnemyCoreInList(_enemy.GetComponent<EnemyCore>(), _enemyParamData.EnemyParamList[0]);
         }

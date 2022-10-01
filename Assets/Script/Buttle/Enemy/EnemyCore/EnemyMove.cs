@@ -38,7 +38,7 @@ public class EnemyMove : MonoBehaviour
     //オブジェクトの移動
     private void DoMove(Vector2Int _moveDir, float _moveSpeed){
         //位置の移動
-        _enemyTr.position += new Vector3((float)_moveDir.x,0, (float)_moveDir.y) * Time.deltaTime * _moveSpeed;
+        _enemyTr.position += new Vector3((float)_moveDir.x, 0, (float)_moveDir.y) * Time.deltaTime * _moveSpeed;
     }
 
     //座標中心を通過した時、座標中心へ移動して位置を更新（移動経路を次のものに変更）
