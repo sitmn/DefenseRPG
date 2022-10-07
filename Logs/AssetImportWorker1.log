@@ -1,0 +1,432 @@
+Using pre-set license
+Built from '2021.2/staging' branch; Version is '2021.2.7f1 (6bd9e232123f) revision 7068130'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19044) 64bit Core' Language: 'ja' Physical Memory: 16330 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+COMMAND LINE ARGUMENTS:
+C:\Users\shotj\Desktop\UnityEdit\2021.2.7f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+C:/Users/shotj/Desktop/Unity data/DefenseRPG
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+51170
+Successfully changed project path to: C:/Users/shotj/Desktop/Unity data/DefenseRPG
+C:/Users/shotj/Desktop/Unity data/DefenseRPG
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 177.94 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.2.7f1 (6bd9e232123f)
+[Subsystems] Discovering subsystems at path C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/shotj/Desktop/Unity data/DefenseRPG/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GT 1030 (ID=0x1d01)
+    Vendor:   NVIDIA
+    VRAM:     1982 MB
+    Driver:   30.0.15.1215
+Initialize mono
+Mono path[0] = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56800
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.017122 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 175.36 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.217 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1218ms)
+		BeginReloadAssembly (127ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (945ms)
+			LoadAssemblies (123ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (270ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (69ms)
+			SetupLoadedEditorAssemblies (495ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (30ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (176ms)
+				BeforeProcessingInitializeOnLoad (2ms)
+				ProcessInitializeOnLoadAttributes (206ms)
+				ProcessInitializeOnLoadMethodAttributes (80ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.013331 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 168.70 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.409 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2410ms)
+		BeginReloadAssembly (201ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (30ms)
+		EndReloadAssembly (2049ms)
+			LoadAssemblies (179ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (565ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (117ms)
+			SetupLoadedEditorAssemblies (1129ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (19ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (169ms)
+				BeforeProcessingInitializeOnLoad (222ms)
+				ProcessInitializeOnLoadAttributes (576ms)
+				ProcessInitializeOnLoadMethodAttributes (127ms)
+				AfterProcessingInitializeOnLoad (16ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (12ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 1.04 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5539 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 68 unused Assets / (1.6 MB). Loaded Objects now: 6007.
+Memory consumption went from 283.1 MB to 281.5 MB.
+Total: 6.001700 ms (FindLiveObjects: 0.531000 ms CreateObjectMapping: 1.763500 ms MarkObjects: 3.443900 ms  DeleteObjects: 0.261700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 734104.403583 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/misaki_head_normal.tga
+  artifactKey: Guid(0fb69fcd03d37964898b0a61f369f1ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/misaki_head_normal.tga using Guid(0fb69fcd03d37964898b0a61f369f1ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed561ae410af719562c4d8fa9fc2da02') in 0.158765 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000064 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/SB_skin_mat.mat
+  artifactKey: Guid(ab5bd7d52fa2e4147ab36b32c341ed8b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/SB_skin_mat.mat using Guid(ab5bd7d52fa2e4147ab36b32c341ed8b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0e4dc995539acbbb4db4e41fd7833ce3') in 0.139102 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/FO_SKIN2.tga
+  artifactKey: Guid(944ceaff068181e4ab31f8a528ae3152) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/FO_SKIN2.tga using Guid(944ceaff068181e4ab31f8a528ae3152) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '341d831a2b55bc8a3c03916e6a448b20') in 0.016277 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/body_sum.tga
+  artifactKey: Guid(89bd732c13b3731468c727187758e231) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/body_sum.tga using Guid(89bd732c13b3731468c727187758e231) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3e8912073cd4f77c6283bd8d9301bdd') in 0.025073 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/mouth_mat.mat
+  artifactKey: Guid(8fc30f9e7ca475f40a22b8aad87b93c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/mouth_mat.mat using Guid(8fc30f9e7ca475f40a22b8aad87b93c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b55119278277849a51fd46b525764048') in 0.044983 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/WB_def_mat.mat
+  artifactKey: Guid(d75690358ced552458dbbbaef845469c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/WB_def_mat.mat using Guid(d75690358ced552458dbbbaef845469c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d5511e0e8670f8b97025faee30a7326') in 0.127490 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/Target.mat
+  artifactKey: Guid(b31a96faf9f25a941908823bcec3f7f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/Target.mat using Guid(b31a96faf9f25a941908823bcec3f7f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72e61e6a0f4ffce43a3fd94988f90289') in 0.046716 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/DEFAULT_NORMAL.tga
+  artifactKey: Guid(ccfa6271abcc8664ea8ff39c7f02c34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/DEFAULT_NORMAL.tga using Guid(ccfa6271abcc8664ea8ff39c7f02c34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3ab77013dae7e4b1aced3457595eb6c') in 0.026030 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/misaki_head_spec.tga
+  artifactKey: Guid(5f9ccddcf9679df44a51c405f1aaedf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/misaki_head_spec.tga using Guid(5f9ccddcf9679df44a51c405f1aaedf6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dee088b1cb6da86539a6d279d5956708') in 0.029781 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000263 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/utc_nomal.tga
+  artifactKey: Guid(80ccd3875f07b1a4eaa3c66a539449c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/utc_nomal.tga using Guid(80ccd3875f07b1a4eaa3c66a539449c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4dd442bacb2dfc559f3c074f67c07a0') in 0.040241 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/yuko_head.tga
+  artifactKey: Guid(2535aa0bc45cbf846bd997637498e593) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/yuko_head.tga using Guid(2535aa0bc45cbf846bd997637498e593) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67b369feed1ad64aade70e4d4831140a') in 0.033935 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000086 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/yuko_head_normal.tga
+  artifactKey: Guid(7397b12649fad0745adaaccbf94c4eb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/yuko_head_normal.tga using Guid(7397b12649fad0745adaaccbf94c4eb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e103589a869f55ae8fca94b1fddfd43') in 0.027129 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/FO_SKIN1.tga
+  artifactKey: Guid(a7d6f8ac3ede6a14d832a7561e64d001) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/FO_SKIN1.tga using Guid(a7d6f8ac3ede6a14d832a7561e64d001) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09a5b83d464e11ead6d5e69a53293bb7') in 0.026416 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/Mi_mouth_mat.mat
+  artifactKey: Guid(6b3a28c5bedd47542b4e8019c03dc3e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/Mi_mouth_mat.mat using Guid(6b3a28c5bedd47542b4e8019c03dc3e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09b47dc50a10fc4bb70d8c5f923c395e') in 0.022259 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/Yu_mouth_mat.mat
+  artifactKey: Guid(6ff0a3d29dcbd59488e63db48fd85b7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/Yu_mouth_mat.mat using Guid(6ff0a3d29dcbd59488e63db48fd85b7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a90b3426b3d4a9724edef5a1d3aca61') in 0.034878 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/skin_mat.mat
+  artifactKey: Guid(d1d52b8e84ba17148a56aec41ed4b6b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/skin_mat.mat using Guid(d1d52b8e84ba17148a56aec41ed4b6b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a9fc7cc47e38eae6a037489e7036eff') in 0.021212 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/def_mat.mat
+  artifactKey: Guid(4f8e29302cd0ab840b6c8eb49cdd7500) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/def_mat.mat using Guid(4f8e29302cd0ab840b6c8eb49cdd7500) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9e5064e9e87fae754d9843ac5bd05d4') in 0.034848 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/FO_CLOTH1.tga
+  artifactKey: Guid(a8ca4cfbcc8a84746b2b4671154e6be8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/FO_CLOTH1.tga using Guid(a8ca4cfbcc8a84746b2b4671154e6be8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'decaf85244ec5cb07604bc7b43e12264') in 0.019916 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/utc_all2.tga
+  artifactKey: Guid(f2b3aafc05f0f354c9ee4893cf8a24ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/utc_all2.tga using Guid(f2b3aafc05f0f354c9ee4893cf8a24ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd1dfe1aa2ea458675c09255a91a9b6c2') in 0.042554 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/nol_mat.mat
+  artifactKey: Guid(34049ab374ed46a4ea4f90eac50c83c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/nol_mat.mat using Guid(34049ab374ed46a4ea4f90eac50c83c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '580af49996fd837582b3a1b3a9c1417c') in 0.021391 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/unitychan_tile_alpha.tga
+  artifactKey: Guid(3d1fac570c82df745a7f0a358ec55b0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/unitychan_tile_alpha.tga using Guid(3d1fac570c82df745a7f0a358ec55b0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e71add2d5571cebdc7a6dcbf06c1457a') in 0.020052 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/yuko_head_spec.tga
+  artifactKey: Guid(ac0afa8249b095940bd76b0fc76bdb91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/yuko_head_spec.tga using Guid(ac0afa8249b095940bd76b0fc76bdb91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ec0a487eb63c7ad474309cd0c2c48e3') in 0.021889 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/body_win.tga
+  artifactKey: Guid(cdb2547825154324aa9b333563cdee4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/body_win.tga using Guid(cdb2547825154324aa9b333563cdee4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15440e20e82308c320139333c8e9edda') in 0.018408 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Materials/Yu_skin_mat.mat
+  artifactKey: Guid(105cd36ef675a80479d5305c494302b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Materials/Yu_skin_mat.mat using Guid(105cd36ef675a80479d5305c494302b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4cc1d50cca5069d0ef449606993637e4') in 0.024412 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000063 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/Models/Textures/utc_spec.tga
+  artifactKey: Guid(5053af7dc13f8454dadb987223f410cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/Models/Textures/utc_spec.tga using Guid(5053af7dc13f8454dadb987223f410cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '637fc5d64889511bf0bb204a8ac2002a') in 0.024024 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 17.604202 seconds.
+  path: Assets/Download/SD_Kohaku_chanz/UnityChan/Models/UnityChanShader/Shader/CharaOutline.cg
+  artifactKey: Guid(98e9eccf54dd0e34c9cb77865555483f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/Models/UnityChanShader/Shader/CharaOutline.cg using Guid(98e9eccf54dd0e34c9cb77865555483f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a20d6ed32db62fc4d655499b9c95b93') in 0.005059 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.011005 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.14 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.048 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2049ms)
+		BeginReloadAssembly (236ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (64ms)
+		EndReloadAssembly (1657ms)
+			LoadAssemblies (145ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (509ms)
+			ReleaseScriptCaches (4ms)
+			RebuildScriptCaches (83ms)
+			SetupLoadedEditorAssemblies (792ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (21ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (158ms)
+				ProcessInitializeOnLoadAttributes (477ms)
+				ProcessInitializeOnLoadMethodAttributes (122ms)
+				AfterProcessingInitializeOnLoad (13ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (20ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.40 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5477 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 59 unused Assets / (1.6 MB). Loaded Objects now: 6276.
+Memory consumption went from 321.6 MB to 320.0 MB.
+Total: 5.340700 ms (FindLiveObjects: 0.598500 ms CreateObjectMapping: 0.530000 ms MarkObjects: 3.911700 ms  DeleteObjects: 0.297000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.013869 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.137 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2138ms)
+		BeginReloadAssembly (249ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (12ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (78ms)
+		EndReloadAssembly (1723ms)
+			LoadAssemblies (154ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (550ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (88ms)
+			SetupLoadedEditorAssemblies (833ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (23ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (172ms)
+				ProcessInitializeOnLoadAttributes (497ms)
+				ProcessInitializeOnLoadMethodAttributes (124ms)
+				AfterProcessingInitializeOnLoad (15ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (23ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.28 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5461 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6290.
+Memory consumption went from 321.1 MB to 319.5 MB.
+Total: 4.239900 ms (FindLiveObjects: 0.501000 ms CreateObjectMapping: 0.431600 ms MarkObjects: 2.928400 ms  DeleteObjects: 0.377700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
