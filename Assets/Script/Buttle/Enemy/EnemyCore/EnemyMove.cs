@@ -24,7 +24,7 @@ public class EnemyMove : MonoBehaviour
     //エネミーの回転
     public void DoRotate(Vector2Int _currentPos){
         if(TrackPos.Count != 0){
-            Vector3 _lookDir = new Vector3(_enemyTr.position.x + TrackPos[0].x - _currentPos.x, _enemyTr.localScale.y / 2, _enemyTr.position.z + TrackPos[0].y - _currentPos.y);
+            Vector3 _lookDir = new Vector3(_enemyTr.position.x + TrackPos[0].x - _currentPos.x, _enemyTr.position.y, _enemyTr.position.z + TrackPos[0].y - _currentPos.y);
             _enemyTr.LookAt(_lookDir);
         }
     }
@@ -44,7 +44,7 @@ public class EnemyMove : MonoBehaviour
     //座標中心を通過した時、座標中心へ移動して位置を更新（移動経路を次のものに変更）
     public void UpdatePosition(){
         //位置をマス中心に
-        _enemyTr.position = new Vector3(MapManager.CastMapPos(_enemyTr.position).x , _enemyTr.localScale.y / 2, MapManager.CastMapPos(_enemyTr.position).y);
+        _enemyTr.position = new Vector3(MapManager.CastMapPos(_enemyTr.position).x , _enemyTr.position.y, MapManager.CastMapPos(_enemyTr.position).y);
         //直近の移動経路を削除し、次の移動経路に変える
         _trackPos.RemoveAt(0);
     }

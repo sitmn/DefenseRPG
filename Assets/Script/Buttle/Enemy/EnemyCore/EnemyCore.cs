@@ -8,10 +8,14 @@ public class EnemyCore : EnemyCoreBase
         _enemyMove.DoRotate(_enemyPos.Value);
         
         if(CanAttack()){ //移動先にクリスタルがある場合攻撃
+            //攻撃モーションスタート
+            if(_enemyMotion._animationController.GetBool("Attack") == false) _enemyMotion.StartAttackMotion();
             Attack();
             //攻撃カウントが0の時（攻撃したとき、再度経路探索実施）
             if(_enemyStatus._attackCount == 0) _enemyMove.SetTrackPos(_enemyPos.Value);
         }else{
+            //移動モーションスタート
+            if(_enemyMotion._animationController.GetBool("Move") == false) _enemyMotion.StartMoveMotion();
             //移動先にクリスタルがない場合。エネミーの移動
             _enemyMove.Move(_enemyPos.Value, _enemyStatus.GetMoveSpeed);
         }

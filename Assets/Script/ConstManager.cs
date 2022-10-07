@@ -50,6 +50,10 @@ public static class ConstManager
     public const float _hpBarPosOffsetY = 0.4f;
     public const float _hpBarPosOffsetZ = 0.4f;
 
+    //エネミーのY座標
+    public const float _enemy1PosY = 0.3f;
+    public const float _enemy2PosY = 0;
+
     //リフトアップ時のY座標
     public const float _liftUpPosY = 2f;
     

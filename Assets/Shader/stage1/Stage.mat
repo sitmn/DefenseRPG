@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Stage
-  m_Shader: {fileID: -6465566751694194690, guid: 612895b7703ad3546a0267c4b1bc86ea, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 556ff357dd90ad645b55ba7c73774295, type: 3}
   m_ShaderKeywords: _BUILTIN_SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,6 +60,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: b5161712cfc39c1458cd928c5c58f201, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_70a29f836546441a847a43ecbe7ecab2_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b5161712cfc39c1458cd928c5c58f201, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_72e3ad6def63472ca139c38f4231c2b2_Texture_1:
         m_Texture: {fileID: 2800000, guid: 8ee65f5a84b6b944baf63cf79adb0b4a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -70,6 +74,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_a5519c257aeb423da62ea50fe4a658cb_Texture_1:
         m_Texture: {fileID: 2800000, guid: 8ee65f5a84b6b944baf63cf79adb0b4a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b0db90bb719147a883ee22a1023f1967_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b5161712cfc39c1458cd928c5c58f201, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_d5349ce1806f4d158b37b62c6c5e05a5_Texture_1:

@@ -37,6 +37,8 @@ public abstract class EnemyCoreBase:MonoBehaviour
     protected AttackBase _attack;
     //HPバー
     public HPBar _hpBar;
+    //エネミーのモーション
+    protected EnemyMotion _enemyMotion;
 
     //クラスの初期化
     public void InitializeCore(EnemyParam _enemyParamData){
@@ -60,6 +62,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
         _enemyPos.Value = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_enemyTr.position).x),MapManager.CastMapPos(_enemyTr.position).y);
         _enemyMove = this.gameObject.GetComponent<EnemyMove>();
         _judgePos.Value = new Vector2Int(StageMove.UndoElementStageMove(MapManager.CastMapPos(_enemyTr.position).x),MapManager.CastMapPos(_enemyTr.position).y);
+        _enemyMotion = this.gameObject.GetComponent<EnemyMotion>();
     }
 
     //値の初期化

@@ -24,6 +24,7 @@ public class PlayerMove : MonoBehaviour
         _playerMotion = this.gameObject.GetComponent<IPlayerMotion>();
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
+        OnEnable();
 
         //MapManagerの自キャラポジション格納（判定用）
         MapManager.SetPlayerPos(MapManager.CastMapPos(_playerTr.position));
@@ -35,12 +36,14 @@ public class PlayerMove : MonoBehaviour
 
     //InputSystemのアクションにコールバックをセット
     void OnEnable(){
+        if(_playerInput == null) return;
         _playerInput.actions[ConstManager._moveInput].started += OnMoveStart;
         _playerInput.actions[ConstManager._moveInput].performed += OnMoveComplete;
         _playerInput.actions[ConstManager._moveInput].canceled += OnMoveStop;
     }
 
     void OnDisable(){
+        if(_playerInput == null) return;
         _playerInput.actions[ConstManager._moveInput].started -= OnMoveStart;
         _playerInput.actions[ConstManager._moveInput].performed -= OnMoveComplete;
         _playerInput.actions[ConstManager._moveInput].canceled -= OnMoveStop;

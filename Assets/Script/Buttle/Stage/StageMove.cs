@@ -38,7 +38,9 @@ public class StageMove : MonoBehaviour
     [SerializeField]
     private GameObject _crystalPrefab;
     [SerializeField]
-    private GameObject _enemyPrefab;
+    private GameObject _enemy1Prefab;
+    [SerializeField]
+    private GameObject _enemy2Prefab;
     //生成先親オブジェクト
     [SerializeField]
     private GameObject _crystalParent;
@@ -264,7 +266,14 @@ public class StageMove : MonoBehaviour
 
         //最前列にエネミーを生成
         for(int i = 0 ; i < _randomNumberList.Count; i++){
-            GameObject _enemy = Instantiate(_enemyPrefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, _enemyPrefab.transform.localScale.y / 2 , _randomNumberList[i]), Quaternion.identity);
+            GameObject _enemy;
+            //enemy1かenemy2のどちらかを生成
+            if(Random.Range(0, 2) == 0){
+                _enemy = Instantiate(_enemy1Prefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, ConstManager._enemy1PosY , _randomNumberList[i]), Quaternion.identity);
+            }else{
+                _enemy = Instantiate(_enemy2Prefab, new Vector3(StageMove._moveRowCount + MapManager.max_pos_x - 1, ConstManager._enemy2PosY , _randomNumberList[i]), Quaternion.identity);
+            }
+            
             _enemy.transform.parent = _enemyParent.transform;
             EnemyListCore.SetEnemyCoreInList(_enemy.GetComponent<EnemyCore>(), _enemyParamData.EnemyParamList[0]);
         }
