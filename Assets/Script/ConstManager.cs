@@ -55,7 +55,13 @@ public static class ConstManager
     public const float _enemy2PosY = 0;
 
     //リフトアップ時のY座標
-    public const float _liftUpPosY = 2f;
+    public const float _liftUpPosY = 0.8f;
+    //リフトアップ時のXまたはZ座標（プレイヤー角度で変わる）
+    public const float _liftUpPosXZ = 0.25f;
+    //リフトアップ時のクリスタルのスケール
+    public const float _liftUpScale = 0.6f;
+    //リフトダウン時のクリスタルのスケール
+    public const float _liftDownScale = 1f;
     
     //Action無効時のButton透明度
     public const float _disableButtonAlpha = 0.25f;

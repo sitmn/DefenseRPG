@@ -15,7 +15,7 @@ C:/Users/shotj/Desktop/Unity data/DefenseRPG
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-49422
+55604
 Successfully changed project path to: C:/Users/shotj/Desktop/Unity data/DefenseRPG
 C:/Users/shotj/Desktop/Unity data/DefenseRPG
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ C:/Users/shotj/Desktop/Unity data/DefenseRPG
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 187.31 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 221.43 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.2.7f1 (6bd9e232123f)
 [Subsystems] Discovering subsystems at path C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/Resources/UnitySubsystems
@@ -63,92 +63,92 @@ Initialize mono
 Mono path[0] = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56852
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56780
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Users/shotj/Desktop/UnityEdit/2021.2.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.020789 seconds.
+Registered in 0.032957 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 183.34 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 213.43 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.326 seconds
+- Completed reload, in  1.383 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1327ms)
-		BeginReloadAssembly (134ms)
+	ReloadAssembly (1384ms)
+		BeginReloadAssembly (250ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (940ms)
-			LoadAssemblies (131ms)
+		EndReloadAssembly (891ms)
+			LoadAssemblies (247ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (252ms)
+			SetupTypeCache (163ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (49ms)
-			SetupLoadedEditorAssemblies (527ms)
+			RebuildScriptCaches (51ms)
+			SetupLoadedEditorAssemblies (593ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (29ms)
+				InitializePlatformSupportModulesInManaged (31ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (184ms)
-				BeforeProcessingInitializeOnLoad (3ms)
-				ProcessInitializeOnLoadAttributes (230ms)
-				ProcessInitializeOnLoadMethodAttributes (81ms)
+				RefreshPlugins (215ms)
+				BeforeProcessingInitializeOnLoad (9ms)
+				ProcessInitializeOnLoadAttributes (247ms)
+				ProcessInitializeOnLoadMethodAttributes (92ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.017934 seconds.
+Registered in 0.013086 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 192.09 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 180.42 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.629 seconds
+- Completed reload, in  2.420 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2633ms)
-		BeginReloadAssembly (189ms)
+	ReloadAssembly (2421ms)
+		BeginReloadAssembly (188ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
+			DisableScriptedObjects (9ms)
 			BackupInstance (0ms)
-			ReleaseScriptingObjects (1ms)
-			CreateAndSetChildDomain (32ms)
-		EndReloadAssembly (2275ms)
-			LoadAssemblies (173ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (31ms)
+		EndReloadAssembly (2080ms)
+			LoadAssemblies (161ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (581ms)
+			SetupTypeCache (563ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (136ms)
-			SetupLoadedEditorAssemblies (1305ms)
+			RebuildScriptCaches (130ms)
+			SetupLoadedEditorAssemblies (1163ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (19ms)
+				InitializePlatformSupportModulesInManaged (21ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (192ms)
-				BeforeProcessingInitializeOnLoad (220ms)
-				ProcessInitializeOnLoadAttributes (605ms)
-				ProcessInitializeOnLoadMethodAttributes (253ms)
-				AfterProcessingInitializeOnLoad (16ms)
+				RefreshPlugins (181ms)
+				BeforeProcessingInitializeOnLoad (202ms)
+				ProcessInitializeOnLoadAttributes (617ms)
+				ProcessInitializeOnLoadMethodAttributes (126ms)
+				AfterProcessingInitializeOnLoad (15ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 1.11 ms, found 6 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 1.36 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5539 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 68 unused Assets / (1.6 MB). Loaded Objects now: 6007.
-Memory consumption went from 283.2 MB to 281.6 MB.
-Total: 5.932400 ms (FindLiveObjects: 0.469500 ms CreateObjectMapping: 0.399800 ms MarkObjects: 4.667600 ms  DeleteObjects: 0.394000 ms)
+Unloading 5655 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 130 unused Assets / (12.2 MB). Loaded Objects now: 6063.
+Memory consumption went from 319.7 MB to 307.5 MB.
+Total: 16.679600 ms (FindLiveObjects: 1.142300 ms CreateObjectMapping: 0.694300 ms MarkObjects: 4.532600 ms  DeleteObjects: 10.309100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -162,526 +162,55 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 733224.206698 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Animations/PlayerMotions.controller
-  artifactKey: Guid(0d64c286960145a458c1bb7e7e5e028a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Animations/PlayerMotions.controller using Guid(0d64c286960145a458c1bb7e7e5e028a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07e54a5b05e0910fac68f07d3485d042') in 0.065595 seconds 
+  Time since last request: 836780.938173 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Setting/_Humanoid And Add-Bone LS PropB.mask
+  artifactKey: Guid(cb72bbf3e3c68af4dab54beaace5f8f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Setting/_Humanoid And Add-Bone LS PropB.mask using Guid(cb72bbf3e3c68af4dab54beaace5f8f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0d694de8589211648aa5241b93f61f9') in 0.078612 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 2.878092 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Animations/_faceOnly.mask
-  artifactKey: Guid(5c9b81722eb189544a29818cc0fb5bbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Animations/_faceOnly.mask using Guid(5c9b81722eb189544a29818cc0fb5bbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cce44983c99510fa5a4535b0ce05ce25') in 0.005727 seconds 
+  Time since last request: 0.000060 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Setting/_Humanoid And Add-Bone.mask
+  artifactKey: Guid(457fa94621a1e6f469ad75beb836d5fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Setting/_Humanoid And Add-Bone.mask using Guid(457fa94621a1e6f469ad75beb836d5fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56b273838f1cb4e56c6107fbf4f2877a') in 0.040934 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.896016 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Animations/_faceOnly.mask
-  artifactKey: Guid(30db00f275523cc47870cebcbab9e981) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Animations/_faceOnly.mask using Guid(30db00f275523cc47870cebcbab9e981) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34a96f284019834df52c4f584f7c530e') in 0.008318 seconds 
+  Time since last request: 23.482210 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller
+  artifactKey: Guid(12abb0fa9374bf94bb1d0dbf65a52886) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller using Guid(12abb0fa9374bf94bb1d0dbf65a52886) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a5b6d673b68d483e832a8b2f6dc0815') in 0.005940 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 1.265277 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Animations/SD_Uniform_Yuko_humanoid.controller
-  artifactKey: Guid(ec8b7a890bc616648804b6f391e2077e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Animations/SD_Uniform_Yuko_humanoid.controller using Guid(ec8b7a890bc616648804b6f391e2077e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1043134dc7c1b97d6c136cb62d783f56') in 0.032330 seconds 
+  Time since last request: 2.257832 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller/_Bundle
+  artifactKey: Guid(0408d3136adde9b46bf1397f9388ce18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller/_Bundle using Guid(0408d3136adde9b46bf1397f9388ce18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8741edbfea98c9d80eba31cd582421b') in 0.003729 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 28.975699 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/Misaki_sum_humanoid.fbx
-  artifactKey: Guid(e573911750c6d1e48b6bbae65892d405) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/Misaki_sum_humanoid.fbx using Guid(e573911750c6d1e48b6bbae65892d405) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b369612ad5c2d14921bedf47d6078cb') in 0.722024 seconds 
+  Time since last request: 1.918829 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller/Adv
+  artifactKey: Guid(2cf8344d362fa5a428852ca5b54c146c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller/Adv using Guid(2cf8344d362fa5a428852ca5b54c146c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59208aed81a0d9a3f92a6623470e78d5') in 0.003662 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000115 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/Yuko_sum_humanoid.fbx
-  artifactKey: Guid(cade59ac9acb679408e62fd1645ef535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/Yuko_sum_humanoid.fbx using Guid(cade59ac9acb679408e62fd1645ef535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5dfe9652d30d9798f3258c31f7434c67') in 0.261149 seconds 
+  Time since last request: 1.311935 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller/LS
+  artifactKey: Guid(64b4be4cc7c4ad645a15974c4e1990f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animation Controller/LS using Guid(64b4be4cc7c4ad645a15974c4e1990f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a7c885afbec30af48a8dbfc19a9d334') in 0.004790 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000049 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/Utc_win_humanoid.fbx
-  artifactKey: Guid(b3f1ad701c95bec46bf76ec96845c1f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/Utc_win_humanoid.fbx using Guid(b3f1ad701c95bec46bf76ec96845c1f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '015776045983da1a9563147004089089') in 0.441779 seconds 
+  Time since last request: 6.745843 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animations/Common/RunA_Curve_FrontLeft.FBX
+  artifactKey: Guid(23416b2e958cfcd4b8947aec2f248a2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animations/Common/RunA_Curve_FrontLeft.FBX using Guid(23416b2e958cfcd4b8947aec2f248a2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea308a9dc1639ec5479cb2210f0bd89f') in 0.719638 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000034 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/yuko.fbx
-  artifactKey: Guid(0dec13d6344c8ef44ae0ecee29965646) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Models/yuko.fbx using Guid(0dec13d6344c8ef44ae0ecee29965646) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7417c350985c1ae2537e39fae6891c5') in 0.236645 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.012235 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.69 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.136 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2138ms)
-		BeginReloadAssembly (243ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (10ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (73ms)
-		EndReloadAssembly (1724ms)
-			LoadAssemblies (172ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (544ms)
-			ReleaseScriptCaches (3ms)
-			RebuildScriptCaches (89ms)
-			SetupLoadedEditorAssemblies (849ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (22ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (171ms)
-				ProcessInitializeOnLoadAttributes (510ms)
-				ProcessInitializeOnLoadMethodAttributes (127ms)
-				AfterProcessingInitializeOnLoad (16ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.25 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5475 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6033.
-Memory consumption went from 297.2 MB to 295.6 MB.
-Total: 6.574500 ms (FindLiveObjects: 0.539200 ms CreateObjectMapping: 0.530900 ms MarkObjects: 5.239000 ms  DeleteObjects: 0.264300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 0.000046 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animations/Common/WalkA_Front.FBX
+  artifactKey: Guid(b1ca9eb47697e8e4883ec4b3782d43bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animations/Common/WalkA_Front.FBX using Guid(b1ca9eb47697e8e4883ec4b3782d43bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c8e718b66c3469c65d5342303b8500b') in 0.473005 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 59.088912 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Animations/SD_Uniform_KohakuChanz_motion_humaoid.fbx
-  artifactKey: Guid(9070027612c0cf747979704baa36a713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Animations/SD_Uniform_KohakuChanz_motion_humaoid.fbx using Guid(9070027612c0cf747979704baa36a713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88d81c163af67d1ed66b227a9ce08de6') in 0.062349 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.011581 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.28 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.106 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2109ms)
-		BeginReloadAssembly (244ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (70ms)
-		EndReloadAssembly (1698ms)
-			LoadAssemblies (178ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (534ms)
-			ReleaseScriptCaches (3ms)
-			RebuildScriptCaches (90ms)
-			SetupLoadedEditorAssemblies (828ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (24ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (170ms)
-				ProcessInitializeOnLoadAttributes (493ms)
-				ProcessInitializeOnLoadMethodAttributes (123ms)
-				AfterProcessingInitializeOnLoad (16ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (12ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.49 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5474 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6047.
-Memory consumption went from 297.2 MB to 295.6 MB.
-Total: 8.208000 ms (FindLiveObjects: 0.781100 ms CreateObjectMapping: 0.492400 ms MarkObjects: 6.620900 ms  DeleteObjects: 0.311300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 54.321559 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Prefabs
-  artifactKey: Guid(ef6ecba623d470544b684217d114a685) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Prefabs using Guid(ef6ecba623d470544b684217d114a685) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01c286f82cf9c5729826de54382408f8') in 0.014949 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.048151 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Prefabs/Misaki_sum_humanoid.prefab
-  artifactKey: Guid(1b116d1d98225c449952c7fe4df59bcc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Prefabs/Misaki_sum_humanoid.prefab using Guid(1b116d1d98225c449952c7fe4df59bcc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '449e3d13391c9c18c7e796635e560ff8') in 0.222118 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Prefabs/Yuko_win_humanoid.prefab
-  artifactKey: Guid(2774cf9769544e141996fef21c3e26e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Prefabs/Yuko_win_humanoid.prefab using Guid(2774cf9769544e141996fef21c3e26e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45125a9666da6e01c22f8352f3600e2c') in 0.138497 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Prefabs/Utc_win_humanoid.prefab
-  artifactKey: Guid(7e0f7737a40453040a6beb5f9d8a599b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Prefabs/Utc_win_humanoid.prefab using Guid(7e0f7737a40453040a6beb5f9d8a599b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ae9ec2f7041d3f682241852dfc129e4') in 0.129855 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 20.609080 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Models/Yuko_win_humanoid.fbx
-  artifactKey: Guid(346b04ba3952add4f9b34ca9a0dbc322) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Models/Yuko_win_humanoid.fbx using Guid(346b04ba3952add4f9b34ca9a0dbc322) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2a7c3ecf5228d7f02a093a2316fa983') in 0.224841 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.587697 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Models/Utc_sum_humanoid.fbx
-  artifactKey: Guid(fa9a8f88311d9884698ea205e4b15297) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Models/Utc_sum_humanoid.fbx using Guid(fa9a8f88311d9884698ea205e4b15297) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00f6416ae6cd248ebc9da02a1153a2da') in 0.293217 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Models/yuko.fbx
-  artifactKey: Guid(b71e3115c34939841be716b057ccbe98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Models/yuko.fbx using Guid(b71e3115c34939841be716b057ccbe98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fdc20994c058244f53494933f28f714c') in 0.184308 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.680756 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/Models/Misaki_sum_humanoid.fbx
-  artifactKey: Guid(0ad9ae7f3d8792e4ab3bcb3f5d7175da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/Models/Misaki_sum_humanoid.fbx using Guid(0ad9ae7f3d8792e4ab3bcb3f5d7175da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31620562a509028ede2d9cb61fc40615') in 0.310063 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.021604 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.43 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.041 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2042ms)
-		BeginReloadAssembly (240ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (10ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (73ms)
-		EndReloadAssembly (1643ms)
-			LoadAssemblies (156ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (519ms)
-			ReleaseScriptCaches (5ms)
-			RebuildScriptCaches (90ms)
-			SetupLoadedEditorAssemblies (792ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (21ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (162ms)
-				ProcessInitializeOnLoadAttributes (477ms)
-				ProcessInitializeOnLoadMethodAttributes (115ms)
-				AfterProcessingInitializeOnLoad (16ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (14ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.22 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5461 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 59 unused Assets / (1.6 MB). Loaded Objects now: 6048.
-Memory consumption went from 297.0 MB to 295.4 MB.
-Total: 6.087800 ms (FindLiveObjects: 0.467000 ms CreateObjectMapping: 0.414500 ms MarkObjects: 4.899400 ms  DeleteObjects: 0.305600 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.012921 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.13 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.121 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2124ms)
-		BeginReloadAssembly (214ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (62ms)
-		EndReloadAssembly (1754ms)
-			LoadAssemblies (140ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (511ms)
-			ReleaseScriptCaches (3ms)
-			RebuildScriptCaches (93ms)
-			SetupLoadedEditorAssemblies (833ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (30ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (209ms)
-				ProcessInitializeOnLoadAttributes (460ms)
-				ProcessInitializeOnLoadMethodAttributes (117ms)
-				AfterProcessingInitializeOnLoad (15ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (9ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.14 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5474 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6075.
-Memory consumption went from 297.5 MB to 295.9 MB.
-Total: 10.464700 ms (FindLiveObjects: 0.505100 ms CreateObjectMapping: 0.469500 ms MarkObjects: 9.211500 ms  DeleteObjects: 0.277200 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.013962 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.22 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.023 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2024ms)
-		BeginReloadAssembly (232ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (12ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (65ms)
-		EndReloadAssembly (1634ms)
-			LoadAssemblies (177ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (502ms)
-			ReleaseScriptCaches (3ms)
-			RebuildScriptCaches (87ms)
-			SetupLoadedEditorAssemblies (793ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (20ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (161ms)
-				ProcessInitializeOnLoadAttributes (473ms)
-				ProcessInitializeOnLoadMethodAttributes (122ms)
-				AfterProcessingInitializeOnLoad (14ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.33 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5474 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6089.
-Memory consumption went from 297.5 MB to 295.9 MB.
-Total: 6.605000 ms (FindLiveObjects: 0.474600 ms CreateObjectMapping: 0.436000 ms MarkObjects: 5.367400 ms  DeleteObjects: 0.325700 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 348.024277 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Animations/SD_Uniform_KohakuChanz_motion_humaoid.fbx
-  artifactKey: Guid(9070027612c0cf747979704baa36a713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Animations/SD_Uniform_KohakuChanz_motion_humaoid.fbx using Guid(9070027612c0cf747979704baa36a713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70ad7278bcad74eac797518a9c42f63d') in 0.065174 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 85.014150 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Prefabs/Misaki_sum_humanoid.prefab
-  artifactKey: Guid(513f7415152e432459ad659d6e529544) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Prefabs/Misaki_sum_humanoid.prefab using Guid(513f7415152e432459ad659d6e529544) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f96ff9335bf3038bcebbb98ba11a33f') in 0.409830 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000035 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Prefabs/Utc_sum_humanoid.prefab
-  artifactKey: Guid(3e8b7a49445b07f4c8afc89b77a48546) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Prefabs/Utc_sum_humanoid.prefab using Guid(3e8b7a49445b07f4c8afc89b77a48546) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c977dd66aaf9727ec981529206ac834') in 0.179127 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Prefabs/Utc_win_humanoid.prefab
-  artifactKey: Guid(47b6e58bf0bffc34d960f85ff8c801f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Download/SD_Kohaku_chanz/UnityChan/SD_Kohaku_chanz/Prefabs/Utc_win_humanoid.prefab using Guid(47b6e58bf0bffc34d960f85ff8c801f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8236a24e087bc8e0804cbf89d633f65e') in 0.092455 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.013183 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.03 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.026 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2027ms)
-		BeginReloadAssembly (251ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (12ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (82ms)
-		EndReloadAssembly (1613ms)
-			LoadAssemblies (159ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (511ms)
-			ReleaseScriptCaches (3ms)
-			RebuildScriptCaches (84ms)
-			SetupLoadedEditorAssemblies (792ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (20ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (157ms)
-				ProcessInitializeOnLoadAttributes (481ms)
-				ProcessInitializeOnLoadMethodAttributes (117ms)
-				AfterProcessingInitializeOnLoad (15ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5474 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6103.
-Memory consumption went from 297.6 MB to 296.0 MB.
-Total: 5.292100 ms (FindLiveObjects: 0.846100 ms CreateObjectMapping: 0.759600 ms MarkObjects: 3.183900 ms  DeleteObjects: 0.501400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.013237 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\shotj\Desktop\Unity data\DefenseRPG\Library\PackageCache\com.unity.visualscripting@1.7.6\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.21 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  2.034 seconds
-Domain Reload Profiling:
-	ReloadAssembly (2035ms)
-		BeginReloadAssembly (247ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (12ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (77ms)
-		EndReloadAssembly (1631ms)
-			LoadAssemblies (167ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (516ms)
-			ReleaseScriptCaches (3ms)
-			RebuildScriptCaches (88ms)
-			SetupLoadedEditorAssemblies (797ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (20ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (167ms)
-				ProcessInitializeOnLoadAttributes (475ms)
-				ProcessInitializeOnLoadMethodAttributes (118ms)
-				AfterProcessingInitializeOnLoad (15ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5474 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 46 unused Assets / (1.6 MB). Loaded Objects now: 6117.
-Memory consumption went from 297.8 MB to 296.2 MB.
-Total: 9.664700 ms (FindLiveObjects: 0.520700 ms CreateObjectMapping: 1.371000 ms MarkObjects: 7.499300 ms  DeleteObjects: 0.272300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  Time since last request: 28.794960 seconds.
+  path: Assets/Download/Test/SD Unity-Chan Haon Custom/Animations/Common/RunA_Curve_FrontRight.FBX
+  artifactKey: Guid(dbac1b2ae755d464692119648275914a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Download/Test/SD Unity-Chan Haon Custom/Animations/Common/RunA_Curve_FrontRight.FBX using Guid(dbac1b2ae755d464692119648275914a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60b9b9a3455d6f6381981f1a5758bb0a') in 0.377492 seconds 

@@ -10,6 +10,8 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     private PlayerParam _playerParam;
     private PlayerInput _playerInput;
     private Transform _playerTr;
+    //プレイヤーモーション実行クラス
+    private PlayerMotion _playerMotion;
     //クリスタル修復アクション有効フラグ
     public bool IsActive => _isActive;
     private bool _isActive;
@@ -34,6 +36,7 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
+        _playerMotion = this.GetComponent<PlayerMotion>();
     }
 
     //初期パラメータのセット
@@ -143,8 +146,26 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
         }
     }
 
+    /// <summary>
+    /// モーション開始メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void StartMotion(){
+        _playerMotion.StartRepairMotion();
+    }
+
+    /// <summary>
+    /// モーション終了メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void EndMotion(){
+        _playerMotion.EndRepairMotion();
+    }
+
     //回復モーションスタート、回復フラグTrue、その間移動不可
     private void OnInputStart(InputAction.CallbackContext context){
+        //モーション開始、フラグを有効化
+        StartMotion();
         _isAction = true;
         //修復ストリームの生成
         CreateRepairStream();
@@ -153,6 +174,8 @@ public class RepairCrystal : MonoBehaviour, IPlayerAction
     }
     //回復モーション終了、回復フラグFalse
     private void OnInputCanceled(InputAction.CallbackContext context){
+        //モーション終了、フラグを無効化
+        EndMotion();
         _isAction = false;
         //修復ストリームのキャンセル
         _disposable.Dispose();

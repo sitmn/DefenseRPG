@@ -12,6 +12,8 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
     //クリスタル起動中フラグ
     public bool IsAction => _isAction;
     private bool _isAction;
+    //プレイヤーモーション実行クラス
+    private PlayerMotion _playerMotion;
     //起動クリスタル色変え用マテリアル
     private CrystalStatus[] _setCrystalStatus = new CrystalStatus[3];
     //起動するクリスタルのパラメータ
@@ -31,6 +33,7 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
         _playerInput = MapManager._playerCore.gameObject.GetComponent<PlayerInput>();
         _playerTr = MapManager._playerCore.gameObject.GetComponent<Transform>();
         _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
+        _playerMotion = this.GetComponent<PlayerMotion>();
     }
 
     private void InitializeParam(CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
@@ -89,12 +92,28 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
         return _crystalCoreList.Count != 0 && _crystalCoreList[0]._crystalStatus._crystalParam._crystalCoreName == "BlackCrystal";
     }
 
+    /// <summary>
+    /// モーション開始メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void StartMotion(){
+        _playerMotion.StartLaunchMotion();
+    }
+
+    /// <summary>
+    /// モーション終了メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void EndMotion(){
+        _playerMotion.EndLaunchMotion();
+    }
+
     //クリスタル起動開始
     private void OnInputStart(InputAction.CallbackContext context){
         //起動中フラグ（移動不可）
         _isAction = true;
         //起動モーション開始
-
+        StartMotion();
         //起動時間UI表示
         _UIManager._actionGauge.SetTween(ConstManager._rankUpCount);
     }
@@ -115,12 +134,14 @@ public class UseCrystal : MonoBehaviour, IPlayerAction
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し
+        EndMotion();
         _isAction = false;
     }
 
     //クリスタル起動キャンセル
     private void OnInputEnd(InputAction.CallbackContext context){
         //起動モーション終了、起動中フラグ取り消し
+        EndMotion();
         _isAction = false;
 
         //起動時間UI非表示

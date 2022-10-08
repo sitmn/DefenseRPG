@@ -9,6 +9,8 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
     private int _max_level;
     private PlayerInput _playerInput;
     private Transform _playerTr;
+    //プレイヤーモーション実行クラス
+    private PlayerMotion _playerMotion;
     //クリスタル修復アクション有効フラグ
     public bool IsActive => _isActive;
     private bool _isActive;
@@ -29,6 +31,7 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
         _actionCost = MapManager._playerCore.gameObject.GetComponent<ActionCost>();
+        _playerMotion = this.GetComponent<PlayerMotion>();
     }
 
     //初期パラメータのセット
@@ -110,12 +113,29 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
        _crystalCore.gameObject.GetComponent<Renderer>().material = _crystalCore._crystalStatus._crystalParam._material[_crystalCore._crystalStatus._level];
     }
 
+    /// <summary>
+    /// モーション開始メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    public void StartMotion(){
+        _playerMotion.StartRankUpMotion();
+    }
+
+    /// <summary>
+    /// モーション終了メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void EndMotion(){
+        _playerMotion.EndRankUpMotion();
+    }
+
     //クリスタルrankUp開始
     private void OnInputStart(InputAction.CallbackContext context){
         //起動中フラグ（移動不可）
+        
         _isAction = true;
         //起動モーション開始
-
+        StartMotion();
         //起動時間UI表示
         _UIManager._actionGauge.SetTween(ConstManager._rankUpCount);
         
@@ -134,12 +154,14 @@ public class CrystalRankUp : MonoBehaviour, IPlayerAction
         //起動時間UI非表示
 
         //起動モーション終了、起動中フラグ取り消し
+        EndMotion();
         _isAction = false;
     }
 
     //クリスタルRankUpキャンセル
     private void OnInputCanceled(InputAction.CallbackContext context){
         //起動モーション終了、起動中フラグ取り消し
+        EndMotion();
         _isAction = false;
 
         //起動時間UI非表示

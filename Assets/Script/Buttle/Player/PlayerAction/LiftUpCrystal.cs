@@ -12,6 +12,8 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     private GameObject _liftDownButton;
     private PlayerInput _playerInput;
     private Transform _playerTr;
+    //プレイヤーモーション実行クラス
+    private PlayerMotion _playerMotion;
     //クリスタルリフトアップアクションの有効無効状態
     public bool IsActive => _isActive;
     private bool _isActive;
@@ -24,6 +26,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     public void AwakeManager(PlayerParam _playerParam, CrystalParamAsset _crystalParamAsset, UIManager _UIManager){
         _playerInput = this.gameObject.GetComponent<PlayerInput>();
         _playerTr = this.gameObject.GetComponent<Transform>();
+        _playerMotion = this.GetComponent<PlayerMotion>();
         _isActive = false;
         _isAction = false;
         this._UIManager = _UIManager;
@@ -32,7 +35,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //リフトアップ中のクリスタルをプレイヤー移動に合わせて移動
     public void UpdateManager(){
         if(PlayerCore.GetLiftCrystalTr() == null) return;
-        PlayerCore.GetLiftCrystalTr().position = _playerTr.position + new Vector3(0, 2, 0);
+        PlayerCore.GetLiftCrystalTr().position = _playerTr.position + new Vector3(0, ConstManager._liftUpPosY, 0) + _playerTr.forward * ConstManager._liftUpPosXZ;
     }
 
     //リフトアップアクション入力の有効化
@@ -85,13 +88,37 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         _liftDownButton.GetComponent<UIButtonBase>().ChangeButtonScale(1, ConstManager._buttonscalingTime);
     }
 
+    /// <summary>
+    /// モーション開始メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void StartMotion(){
+        _playerMotion.StartLiftUpMotion();
+    }
+
+    /// <summary>
+    /// モーション終了メソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void EndMotion(){
+        _playerMotion.EndLiftUpMotion();
+    }
+
+    /// <summary>
+    /// モーションキャンセルメソッド
+    /// </summary>
+    /// <param name="_playerMotion">プレイヤーモーションのコンポーネント</param>
+    private void CancelMotion(){
+        _playerMotion.CancelLiftUpMotion();
+    }
+
     //InputSystem 正面に黒以外のクリスタルがある時のみ実行
     //クリスタルリフトアップ開始
     private void OnInputStart(InputAction.CallbackContext context){
         //リフトアップ中フラグ（移動不可）
         _isAction = true;
         //リフトアップモーション開始
-
+        StartMotion();
         //起動時間UI表示
         _UIManager._actionGauge.SetTween(ConstManager._liftUpCount);
     }
@@ -106,11 +133,13 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
         
         //マップ情報から水晶を削除
         _crystalCore.SetOffMap();
-        //オブジェクトを頭上へ移動
-        _crystalTr.position = _playerTr.position + new Vector3(0, _crystalTr.localScale.y / 2, 0);
+        //オブジェクトを頭上へ移動し、少しスケールを落とす
+        _crystalTr.position = _playerTr.position + new Vector3(0, ConstManager._liftUpPosY, 0) + _playerTr.forward * ConstManager._liftUpPosXZ;
+        _crystalTr.localScale *= ConstManager._liftUpScale;
         //起動時間UI非表示
 
         //リフトアップモーション終了、リフトアップ中フラグ取り消し
+        EndMotion();
         _isAction = false;
         //リフトアップボタンとリフトダウンボタンの有効無効切り替え
         ChangeLiftButton();
@@ -119,6 +148,7 @@ public class LiftUpCrystal : MonoBehaviour, IPlayerAction
     //クリスタルリフトアップキャンセル
     private void OnInputEnd(InputAction.CallbackContext context){
         //リフトアップモーション終了、リフトアップ中フラグ取り消し
+        CancelMotion();
         _isAction = false;
 
         //起動時間UI非表示
