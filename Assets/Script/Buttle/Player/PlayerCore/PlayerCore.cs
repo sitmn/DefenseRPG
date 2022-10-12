@@ -7,6 +7,8 @@ public class PlayerCore : MonoBehaviour
     public PlayerMove _playerMove;
     [System.NonSerialized]
     public PlayerStatus _playerStatus;
+    [System.NonSerialized]
+    public PlayerMotion _playerMotion;
     //プレイヤーアクション配列
     private List<IPlayerAction> _playerActionList = new List<IPlayerAction>();
     [System.NonSerialized]
@@ -47,6 +49,7 @@ public class PlayerCore : MonoBehaviour
         _speedDebuff = transform.GetChild(1).gameObject;
 
         _playerMove = this.gameObject.GetComponent<PlayerMove>();
+        _playerMotion = this.gameObject.GetComponent<PlayerMotion>();
         //UseCrystalをインスタンス化し、各クリスタルステータスをセット（0の黒クリスタルは含めないため1からスタート）
         // for(int i = 1; i < _crystalParamData.CrystalParamList.Count; i++){
         //     _playerActionList.Add(new UseCrystal(_crystalParamData.CrystalParamList[i], i, _UIManager));

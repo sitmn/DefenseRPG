@@ -88,4 +88,11 @@ public class PlayerMotion : MonoBehaviour, IPlayerMotion
     public void EndLaunchMotion(){
         _playerAnimator.SetBool("_launch", false);
     }
+
+    /// <summary>
+    /// ゲームオーバモーション開始メソッド
+    /// </summary>
+    public void StartGameOverMotion(){
+        _playerAnimator.SetBool("_gameOver", true);
+    }
 }

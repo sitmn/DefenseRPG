@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
 
         //プレイヤー操作を無効化
         MapManager._playerCore.InputInvalid();
+        MapManager._playerCore._playerMotion.StartGameOverMotion();
 
         Debug.Log("がめおべら");
     }

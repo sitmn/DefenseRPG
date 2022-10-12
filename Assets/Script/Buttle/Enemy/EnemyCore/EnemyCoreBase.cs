@@ -82,9 +82,9 @@ public abstract class EnemyCoreBase:MonoBehaviour
         _hp.Subscribe((x) => {
             //HPバーの更新
             _hpBar.SetHPBarValue((float)x / (float)_enemyStatus._enemyParam._maxHp[_enemyStatus._level]);
-            //HPが0のとき、破壊
+            //HPが0のとき、死亡モーション
             if(x <= 0) {
-                ObjectDestroy();}
+                _enemyMotion.StartDeathMotion();}
         }).AddTo(this);
     }
 
@@ -122,7 +122,9 @@ public abstract class EnemyCoreBase:MonoBehaviour
         MapManager.GetMap(_pos)._enemyCoreList.Remove(this);
     }
 
-    //エネミーを削除
+    /// <summary>
+    /// エネミーを削除。DeathMotion後に実行
+    /// </summary>
     public void ObjectDestroy(){
         SetOffMap(_judgePos.Value);
         EnemyListCore.RemoveEnemyCoreInList(this);

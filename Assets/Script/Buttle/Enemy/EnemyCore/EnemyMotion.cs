@@ -28,5 +28,8 @@ public class EnemyMotion : MonoBehaviour
         _animationController.SetBool("Move", false);
     }
 
-    //ダメージモーション（ダメージ中は移動停止 or ダメージモーションなし）
+    //死亡モーション
+    public void StartDeathMotion(){
+        _animationController.SetBool("Death", true);
+    }
 }
