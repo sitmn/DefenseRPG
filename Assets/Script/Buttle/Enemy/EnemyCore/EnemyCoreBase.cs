@@ -84,7 +84,7 @@ public abstract class EnemyCoreBase:MonoBehaviour
             _hpBar.SetHPBarValue((float)x / (float)_enemyStatus._enemyParam._maxHp[_enemyStatus._level]);
             //HPが0のとき、死亡モーション
             if(x <= 0) {
-                _enemyMotion.StartDeathMotion();}
+                ObjectDestroy();}
         }).AddTo(this);
     }
 
@@ -126,9 +126,10 @@ public abstract class EnemyCoreBase:MonoBehaviour
     /// エネミーを削除。DeathMotion後に実行
     /// </summary>
     public void ObjectDestroy(){
+        _enemyMotion.StartDeathMotion();
         SetOffMap(_judgePos.Value);
         EnemyListCore.RemoveEnemyCoreInList(this);
-        Destroy(this.gameObject);
+        //Destroy(this);
     }
 
     //移動用座標をセット(位置がマスの中心の時に呼び出すこと)
